@@ -2,44 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/7-driver/</loc>
+    
+    <lastmod>2021-01-22T02:58:45.096Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/6-software-stack-overview/</loc>
     
-    <lastmod>2021-01-21T01:50:28.170Z</lastmod>
+    <lastmod>2021-01-21T14:00:25.195Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/5-fpga-backend/</loc>
     
-    <lastmod>2021-01-21T01:50:24.601Z</lastmod>
+    <lastmod>2021-01-21T14:00:20.399Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/4-verification/</loc>
     
-    <lastmod>2021-01-21T01:50:20.688Z</lastmod>
+    <lastmod>2021-01-21T14:00:15.750Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/3-hardware-description-language/</loc>
     
-    <lastmod>2021-01-21T01:50:16.463Z</lastmod>
+    <lastmod>2021-01-21T14:00:12.303Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/2-instruction-set/</loc>
     
-    <lastmod>2021-01-21T01:50:11.984Z</lastmod>
+    <lastmod>2021-01-21T14:00:08.795Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/1-overview/</loc>
     
-    <lastmod>2021-01-21T01:50:08.695Z</lastmod>
+    <lastmod>2021-01-21T14:00:01.597Z</lastmod>
     
   </url>
   
