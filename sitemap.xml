@@ -2,114 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/9-compiler/</loc>
+    <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-01-27T01:09:53.561Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/8-runtime/</loc>
-    
-    <lastmod>2021-01-27T01:05:52.115Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/7-driver/</loc>
-    
-    <lastmod>2021-01-27T01:05:47.033Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/6-software-stack-overview/</loc>
-    
-    <lastmod>2021-01-21T14:00:25.195Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/5-fpga-backend/</loc>
-    
-    <lastmod>2021-01-21T14:00:20.399Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/4-verification/</loc>
-    
-    <lastmod>2021-01-21T14:00:15.750Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/3-hardware-description-language/</loc>
-    
-    <lastmod>2021-01-21T14:00:12.303Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/2-instruction-set/</loc>
-    
-    <lastmod>2021-01-21T14:00:08.795Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/1-overview/</loc>
-    
-    <lastmod>2021-01-21T14:00:01.597Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/ai/ml-system/0-overview/</loc>
-    
-    <lastmod>2021-01-21T01:49:56.713Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/think/something_new/</loc>
-    
-    <lastmod>2021-01-20T15:53:42.957Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/think/complexity/</loc>
-    
-    <lastmod>2021-01-20T15:53:42.934Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/about/index.html</loc>
-    
-    <lastmod>2020-12-03T01:45:32.379Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/categories/index.html</loc>
-    
-    <lastmod>2020-03-02T12:55:15.229Z</lastmod>
+    <lastmod>2021-01-27T06:04:25.183Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2018-12-13T14:53:35.843Z</lastmod>
+    <lastmod>2021-01-27T06:04:25.167Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/tags/index.html</loc>
+    <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2018-11-20T14:14:04.418Z</lastmod>
+    <lastmod>2021-01-27T06:04:25.167Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/categories/index.html</loc>
+    
+    <lastmod>2021-01-27T06:04:25.167Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/9-compiler/</loc>
+    
+    <lastmod>2021-01-26T14:25:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/8-runtime/</loc>
+    
+    <lastmod>2021-01-25T22:17:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/7-driver/</loc>
+    
+    <lastmod>2021-01-22T09:49:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/6-software-stack-overview/</loc>
+    
+    <lastmod>2021-01-21T08:47:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/5-fpga-backend/</loc>
+    
+    <lastmod>2021-01-18T20:28:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/4-verification/</loc>
+    
+    <lastmod>2021-01-15T16:12:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/3-hardware-description-language/</loc>
+    
+    <lastmod>2021-01-14T16:52:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/2-instruction-set/</loc>
+    
+    <lastmod>2021-01-13T15:14:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/1-overview/</loc>
+    
+    <lastmod>2021-01-12T12:58:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/0-overview/</loc>
+    
+    <lastmod>2021-01-11T09:08:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/think/complexity/</loc>
+    
+    <lastmod>2020-04-18T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/think/something_new/</loc>
+    
+    <lastmod>2020-03-02T22:08:35.000Z</lastmod>
     
   </url>
   

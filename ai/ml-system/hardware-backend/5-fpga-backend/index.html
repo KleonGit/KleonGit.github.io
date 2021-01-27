@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="KLEON">
 <meta property="og:description" content="这里说的性能优化不是计算性能优化，比如脉动阵列的优化，而是如何使硬件设计在FPGA后端流程中时序尽量不违例。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-21T14:00:20.399Z">
+<meta property="og:updated_time" content="2021-01-18T20:28:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系统 05 - 后端硬件后端流程优化">
 <meta name="twitter:description" content="这里说的性能优化不是计算性能优化，比如脉动阵列的优化，而是如何使硬件设计在FPGA后端流程中时序尽量不违例。">
@@ -172,9 +172,9 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-01-18T12:28:01.000Z" itemprop="datePublished">一月 18, 2021</time>
+	发布于 <time datetime="2021-01-18T20:28:01.000Z" itemprop="datePublished">一月 18, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-01-21T14:00:20.399Z" itemprop="datePublished">一月 21, 2021</time>
+	更新于 <time datetime="2021-01-18T20:28:01.000Z" itemprop="datePublished">一月 18, 2021</time>
 
       
     </div>
@@ -182,7 +182,7 @@ var themeMenus = {};
       
         <p>这里说的性能优化不是计算性能优化，比如脉动阵列的优化，而是如何使硬件设计在FPGA后端流程中时序尽量不违例。</p>
 <a id="more"></a>
-<p>FPGA的好处挺多的，可以芯片的价格也是美丽的。资源越多，价格越贵，而且还有不同资源配比，满足不同需要。 一般来说，FPGA中的关键资源包括：</p>
+<p>FPGA的好处挺多的，可以芯片的价格也是美丽的。资源越多，价格越贵，而且还有不同资源配比，满足不同需要。<br>一般来说，FPGA中的关键资源包括：</p>
 <ul>
 <li>DSP（乘加单元），代表了绝对算力，也是有一段短暂的时间FPGA可以和GPU叫板的主要支持因素。</li>
 <li>BRAM（片上存储），代表了Cache大小，大到可以把模型整个都放上来，不过实际上只需要放下提前prefetch的数据即可，通过pipeline屏蔽DDR读取latency。</li>
