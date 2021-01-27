@@ -81,12 +81,6 @@ var themeMenus = {};
 
   themeMenus["/archives"] = "归档"; 
 
-  themeMenus["/categories"] = "分类"; 
-
-  themeMenus["/tags"] = "标签"; 
-
-  themeMenus["/about"] = "关于"; 
-
 </script>
 
 
@@ -117,12 +111,6 @@ var themeMenus = {};
                       <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
                     
                       <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">分类</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">标签</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
                     
               </ul>
             </div>
@@ -194,18 +182,20 @@ var themeMenus = {};
       
         <p>定制计算硬件的一个重要任务是确定指令集<a href="#refer-1"><sup>1</sup></a>。对于深度学习模型，则要首先确定模型集，继而确定算子集，最后统计出指令集。</p>
 <a id="more"></a>
-<h1 id="划分"><a href="#划分" class="headerlink" title="划分"></a>划分</h1><p>总体上看，指令按计算密度分为计算密集型算子指令与长尾算子指令。</p>
+<h1 id="划分">划分</h1>
+<p>总体上看，指令按计算密度分为计算密集型算子指令与长尾算子指令。</p>
 <p>计算密集型算子指令通常就是指矩阵乘加计算，其他密集型算子（比如深度学习定义的卷积运算）可以通过变换转化为矩阵乘加。</p>
 <p>因此矩阵乘加是定制硬件的核心，也是模型优化的核心。</p>
 <p>换句话说，定制硬件（包括GPGPU）的主要设计工作在于如何在面积功耗约束下放下更多的矩阵乘加单元，同时提供匹配算力的存储访问带宽。</p>
 <p>模型优化的主要内容就是在于如何合理排布硬件的矩阵计算指令和存储访问指令，使矩阵计算模型的实际利用率（有效计算时间占总运行时间）尽可能接近硬件的理论算力上限。</p>
 <p>长尾算子指令则是针对出现在模型中但计算量不太大的算子设计的指令，但总体而言模型的复杂程度和改进速度都比硬件开发速度快，不可能浪费芯片面积支持所有的长尾算子，因此设计目标按优先级排序是：</p>
-<ol>
+<ol type="1">
 <li>如果长尾算子不在模型首尾，而出现在两个密集算子之间，并且CPU计算开销（通常指耗时）相比交换给CPU计算（内存交换以及中断/轮询）的开销小，就应该尽量使用硬件计算。</li>
 <li>归纳必须支持的算子，抽象出更通用的计算逻辑，尽量最小化占用的芯片面积。适配计算密集型指令算力和长尾指令算力，在多种目标场景中统计，长尾指令尽量不成为性能瓶颈。</li>
 <li>评估大型模型（不能完全放在芯片内存中，需要和CPU主存交换）在目标承载系统中的算力适配程度，如CPU算力是否能支持内存拷贝开销，中断开销，硬件不支持的长尾算子的计算开销，系统其他服务开销。</li>
 </ol>
-<h1 id="粒度"><a href="#粒度" class="headerlink" title="粒度"></a>粒度</h1><p>指令是硬件向软件开放的“操作接口”，指令的粒度则决定了软件对硬件控制深度。</p>
+<h1 id="粒度">粒度</h1>
+<p>指令是硬件向软件开放的“操作接口”，指令的粒度则决定了软件对硬件控制深度。</p>
 <p>定制硬件的早期，尤其是针对某个特定模型的特定设计，软件和硬件都是及其专用的。硬件基本包揽了模型端到端的所有计算，甚至连模型结构也以一种“硬编码”的方式写在了驱动中。</p>
 <p>硬件的整体架构只有两部分：一部分是寄存器，给软件配置来启动计算步骤，另一部分是一条巨大的流水线，归纳了整个模型最基本的计算结构，比如对于ResNet50，就是卷积-元素积-仿射变换-激活ReLU-池化。</p>
 <p>软件<strong>运行时</strong>（Runtime）部分几乎就是很薄的一层，甚至可以大部分写在驱动中。<strong>驱动</strong>主要负责启动DMA读写数据以及配置查询寄存器。运行时只需要从某个地址读入输入数据，配置一个寄存器，接收到中断信号后读回数据写到另一个地址。</p>
@@ -306,12 +296,6 @@ var themeMenus = {};
     <a href="/" class="mobile-nav-link">Home</a>
   
     <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/categories" class="mobile-nav-link">Categories</a>
-  
-    <a href="/tags" class="mobile-nav-link">Tags</a>
-  
-    <a href="/about" class="mobile-nav-link">About</a>
   
 </nav> -->
     

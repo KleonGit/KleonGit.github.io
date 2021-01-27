@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/9-compiler/</loc>
+    
+    <lastmod>2021-01-27T01:09:53.561Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/8-runtime/</loc>
+    
+    <lastmod>2021-01-27T01:05:52.115Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/ai/ml-system/hardware-backend/7-driver/</loc>
     
-    <lastmod>2021-01-22T03:29:07.632Z</lastmod>
+    <lastmod>2021-01-27T01:05:47.033Z</lastmod>
     
   </url>
   

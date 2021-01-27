@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>机器学习系统 03 - 后端硬件描述语言 | KLEON</title>
+  <title>机器学习系统 09 - 后端硬件编译器 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,18 +21,18 @@
   
   
   
-  <meta name="description" content="语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。">
+  <meta name="description" content="编译，广义上是将一种表达映射成另一种表达，维持功能不变。 深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。">
 <meta name="keywords" content="机器学习,FPGA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习系统 03 - 后端硬件描述语言">
-<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/3-hardware-description-language/index.html">
+<meta property="og:title" content="机器学习系统 09 - 后端硬件编译器">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/9-compiler/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。">
+<meta property="og:description" content="编译，广义上是将一种表达映射成另一种表达，维持功能不变。 深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-21T14:00:12.303Z">
+<meta property="og:updated_time" content="2021-01-27T01:09:53.561Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习系统 03 - 后端硬件描述语言">
-<meta name="twitter:description" content="语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。">
+<meta name="twitter:title" content="机器学习系统 09 - 后端硬件编译器">
+<meta name="twitter:description" content="编译，广义上是将一种表达映射成另一种表达，维持功能不变。 深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -156,7 +156,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/3-hardware-description-language" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/9-compiler" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      机器学习系统 03 - 后端硬件描述语言
+      机器学习系统 09 - 后端硬件编译器
     </h1>
   
 
@@ -172,44 +172,51 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-01-14T08:52:01.000Z" itemprop="datePublished">一月 14, 2021</time>
+	发布于 <time datetime="2021-01-26T06:25:01.000Z" itemprop="datePublished">一月 26, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-01-21T14:00:12.303Z" itemprop="datePublished">一月 21, 2021</time>
+	更新于 <time datetime="2021-01-27T01:09:53.561Z" itemprop="datePublished">一月 27, 2021</time>
 
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。</p>
+        <p>编译，广义上是将一种表达映射成另一种表达，维持功能不变。 深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。</p>
 <a id="more"></a>
-<p>软件编程语言定义了一系列面向人类可读性的字符语法。 人类使用软件编程语言编写描述机器如何处理信息的步骤的文本，简称为软件代码。 使用编译软件使用指定指令集翻译成机器具体处理信息的指令，简称为程序。🤓</p>
-<p>类似的，在硬件设计中，硬件的结构决定了功能，因此也需要借助一种文本描述硬件结构，得名硬件（结构）描述语言。</p>
-<p>软件代码可以直接编译成程序运行，也可以直接和测试框架一起编译运行，测试功能正确性。 而硬件描述语言（HDL，Hardware Description Language）——其中对应硬件结构（可综合）的合法语法——只是对硬件的结构描述，需要使用仿真器（Emulator）构造硬件结构。 通常高效的仿真器会将硬件代码等价映射成软件代码（比如C++）编译后运行，提高仿真效率。</p>
-<p>就可综合语法部分看，HDL乏像软件语言中的抽象模型，以用于代码复用。 但是HDL中的寄存器、线以及模型足以描述任何复杂的硬件。 可以利用软件工具管理生成代码，减少一部分coding的工作量。</p>
-<p>比如使用脚本（Perl或者Python）管理模块，辅助连线，或者借用软件的OOP（Object Oriented Programming)模型，套壳做DSL（Domain Specific Language）（比如Chisel套在Scala里），借助套壳语言的语法和抽象简化硬件编码工作。</p>
-<p>除了可综合语法，HDL中还引入了测试语法用来提供仿真激励。为了改进HDL的测试方面的短板，更多语法和抽象被引入进来，以至于可以被称为一门新的语言（比如System Verilog<a href="#refer-1"><sup>1</sup></a>)。</p>
-<p>有趣的是，System Verilog可以被看作天然的并行语言，引入不少并发机制，比如channel，GoLang的并发机制里也有channel。</p>
-<p>硬件开发的主要工作量并不在前端编码（主要包括编写Verilog并做功能仿真），占大头的是仿真测试和优化。 在一些非自主开发IP的流程中，前端的工作基本就是把买来的IP（比如ARM）集成连线，写一些胶水逻辑。 在一些自主IP定制的流程中，比如RISC-V，主要的功能还是在拓展指令集，然后接着大量测试和优化。</p>
-<p>我曾经试图发明一门新的语言，使用现代语言的语法来改进Verilog。写好了词法Parser，拿到了AST，做了一些类型推断以及代码优化工作，可以生成Verilog。然而如果要用于生产，开发工作量是不小的。最终只是作为一个toy项目，帮我熟悉了一些编译器的知识。</p>
-<p>现在回过头来看，如果考虑写一门HDL的话，需要考虑几点：</p>
-<ul>
-<li>是否可以适配已有工业流程？通常是生成Verilog和其他EDA流程对接。</li>
-<li>是否可以做到和Verilog可综合语法完全等价？需要形式化验证以及实际项目支持（比如Chisel傍上了RISC-V）。</li>
-<li>是否支持其他blackbox（加密IP网表，VHDL，Verilog，SystemVerilog仿真模型）联合仿真？</li>
-<li>是否能在保证仿真结果精度准确的情况下，提高仿真效率？只能粗粒度功能仿真就很鸡肋。</li>
-<li>是否可以引入稳定的自动优化？怀疑是否又必要，后期优化的时候基本会扣每个寄存器，后端流程也有大量优化。</li>
-<li>是否易学？过多的引入严格的抽象概念会大幅提高语言学习难度（用软件语言的角度类比，学go，可能3天上手写工程，学rust，学一个月可能还经常卡在工程编译上），HDL依赖惯性可能比软件语言要大的多。</li>
-</ul>
-<p>软件语言的迭代，引入了新的编程模型，新的内存管理机制，新的并行模型等等，实实在在地带来了极大的收益，大幅提高了并发性能，大幅减少了代码量，大幅降低了运行时排错的成本等等。 最终决定新语言是否会被大规模使用的核心还是：<strong>开发学习使用新语言引入的成本是否带来了足够的生产力收益</strong>。</p>
-<p>HDL的核心功能还是描述硬件结构。</p>
-<p>如果高层语言可以直接生成Verilog，要么是面向FPGA的HLS<a href="#refer-2"><sup>2</sup></a>（High Level Synthesis），面向软件工程师的硬件加速，根本不关心生成的代码，生成的代码也不可读。</p>
-<p>要么是面向芯片的设计流程，语言本身最好能和硬件资源一一对应，所见即所得，否则就要生成可读的代码，让工程师检查。不过工程师既然都要人肉检查生成的代码了，再套一层壳就比较鸡肋了。</p>
-<p>HDL已经深深嵌入到整个芯片设计流程中，前端和后端都能统一，EDA工具掌管着优化，VCS和Verdi已经是测试的标准工具。相比软件语言，HDL是一个非常细分且小众的DSL。</p>
-<p>也许，之后会有新的HDL成为事实的工业界标准，但应该会是一个漫长的过程。</p>
+<p>传统编译器直接解析文本，通过词法与语法分析，构建AST<a href="#refer-1"><sup>1</sup></a>。 之后在AST上执行一系列的优化，称为优化pipeline。 优化后的AST可以转换为IR（比如LLVM<a href="#refer-2"><sup>2</sup></a> IR），由LLVM进一步优化，并生成后端代码。如果是添加新后端并且复用LLVM，需要实现对应Codegen逻辑。 AST也可以不借助LLVM，直接编写codegen逻辑生成不同层级的code或指令。</p>
+<p>随着深度学习模型越来越复杂，在生产中广泛使用，对计算性能和成本的需求日趋强烈，深度学习编译器在这样的背景下逐步发展壮大。</p>
+<p>在深度学习编译器提出前，广泛使用的优化方法是手工fuse和手工codegen。 但这样的劣势显而易见，模型中可能存在的子图pattern千奇百怪，并且各种自定义长尾算子层出不求，如果一直依靠手工优化，开发时间和人力成本都不太能令人接受。 因此，借鉴传统编译器的思路，通过有限的基础表达符号表示任意计算图结构，由编译器的codegen层统一做后端代码生成。</p>
+<h1 id="分类">分类</h1>
+<p>编译器根据编译发生时间的不同可以分为AOT<a href="#refer-1"><sup>3</sup></a>（Ahead Of Time）和JIT<a href="#refer-1"><sup>4</sup></a>（Just In Time）。</p>
+<p>AOT编译通常用于standalone编译程序，由用户提前运行编译生成指令，并传输到运行设备上（非标设备/专用设备，比如ARM和定制NPU），通过runtime执行。 一次编译，到处运行，这允许AOT编译消耗更多的时间，探索更优结果，但也限制了灵活性。 每当模型发生改动就需要触发一次编译行为，通常编译设备和运行设备是分立的，指令文件和runtime版本的同步会更复杂。</p>
+<p>JIT在运行时条件触发编译，runtime和compiler捆绑，不存在版本不匹配的问题。JIT通常见于解释型程序，因为解释效率通常低于编译，通过运行前编译提高执行效率。 由于在运行时编译，编译时间相对运行时间必须要合理，这意味着不能引入过于复杂的优化逻辑，另外为了避免重复编译，可以加入cache（程序内/远程）提高效率。</p>
+<h1 id="前端">前端</h1>
+<p>编译器前端需要读取各个框架的模型文件，比如Tensorflow的SavedModel或者PyTorch的TorchScript。</p>
+<p>也有试图将模型表达统一的工作出现，比如ONNX，试图在Caffe、PyTorch、MXNet等框架间构建转换桥梁。 愿景很好，方便用户在不同框架迁移，不被框架锁死，但最终没有被大规模使用。</p>
+<p>首先，Tensorflow出自Google，并不买账，ONNX是其他大公司的联盟产物，然而框架上只有PyTorch不断发展，和Tensorflow二分天下。 统一模型表达，还是在统一社区，也就是统一算子集。</p>
+<p>Tensorflow曾凭借其绝对的垄断地位十分强势，后端软件栈都主动接入，接受Tensorflow的核心算子集为golden标准。 然而不同框架的算子集相差很多，基本上只有最主流的算子可以无缝转换，换个复杂的模型很有可能就挂了。 尤其是Tensorflow的计算图，控制结构十分复杂，连官方的优化工具都可能出现bug。 如果模型定制程度高，不如直接改脚本来的快。</p>
+<p>当然对大多数算法工程师来说，没有被框架锁定这件事，只有看哪个框架的生态的轮子能符合业务需求。</p>
+<h1 id="优化">优化</h1>
+<p>编译优化方法泛指一大类模型优化方法，比如Tensorflow自带的后端XLA，基于profiling搜索的TVM，基于整数线性规划的多面体方法等。</p>
+<p>Tensorflow自带的前端计算图优化Grappler也可以算作编译器的优化功能。 在图层面执行一般优化方法，比如CSE（公共子表达式消除），Constant Folding（常量折叠），去除无用节点（Dead Nodes）等。</p>
+<p>对于硬件后端编译器，主要优化步骤如下：</p>
+<ol start="0" type="1">
+<li>硬件无关优化。</li>
+<li>尽可能从子图中匹配更多符合硬件结构的pattern。</li>
+<li>匹配可以转换为符合硬件结构pattern的子图，并实现转换逻辑（硬件相关优化），注意功能正确性。</li>
+<li>尽量将匹配到的子图融合，使之最大化连通。</li>
+<li>设定不连通子图最小阈值，防止主存和硬件内存的context switch开销过高，可以通过算子数量或者算力评估确定阈值，标记所有符合阈值的子图算子。</li>
+<li>融合所有标记的子图，生成对应的模型IR或者硬件IR。</li>
+<li>可以通过自定义Op的形式，将生成的IR序列化（作为Op参数），使用统一的Op（调用runtime）。</li>
+<li>如果模型可以全量支持，则可以直接导出IR，使用runtime运行。</li>
+</ol>
+<p>进一步的，编译器可以独立为TensorRT的形式，允许用户使用API直接构建运行，并且可以通过JIT codegen dispatch手工优化的code。</p>
+<p>编译器相比于计算库更关注图层面优化，底层会协调计算库的不同实现使全局性能最优。</p>
 <hr>
 <ul>
-<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/SystemVerilog" target="_blank" rel="noopener">System Verilog</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/High-level_synthesis" target="_blank" rel="noopener">High-level synthesis</a></li>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">Abstract syntax tree</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://llvm.org/" target="_blank" rel="noopener">The LLVM Compiler Infrastructure</a></li>
+<li>[3] <span id="refer-3"></span> <a href="https://en.wikipedia.org/wiki/Ahead-of-time_compilation" target="_blank" rel="noopener">Ahead-of-time compilation</a></li>
+<li>[4] <span id="refer-4"></span> <a href="https://en.wikipedia.org/wiki/Just-in-time_compilation" target="_blank" rel="noopener">Just-in-time compilation</a></li>
 </ul>
 
       
@@ -232,19 +239,10 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/ai/ml-system/hardware-backend/4-verification/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          机器学习系统 04 - 后端硬件验证
-        
-      </div>
-    </a>
   
-  
-    <a href="/ai/ml-system/hardware-backend/2-instruction-set/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ai/ml-system/hardware-backend/8-runtime/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">机器学习系统 02 - 后端硬件指令集</div>
+      <div class="article-nav-title">机器学习系统 08 - 后端硬件运行时</div>
     </a>
   
 </nav>
@@ -258,7 +256,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav">无</ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端"><span class="nav-number">2.</span> <span class="nav-text">前端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number">3.</span> <span class="nav-text">优化</span></a></li></ol>
     
     </div>
   </aside>
