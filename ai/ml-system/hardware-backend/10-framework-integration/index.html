@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>机器学习系统 09 - 后端硬件编译器 | KLEON</title>
+  <title>机器学习系统 10 - 后端硬件框架接入 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,18 +21,18 @@
   
   
   
-  <meta name="description" content="编译，广义上是将一种表达映射成另一种表达，维持功能不变。深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。">
+  <meta name="description" content="在开源背景下，框架在社区的加持下不断迭代，后端硬件通常不能cover所有应用场景，需要接入框架借用框架的能力。那什么样的实现最合适，又会有哪些问题？">
 <meta name="keywords" content="机器学习,FPGA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习系统 09 - 后端硬件编译器">
-<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/9-compiler/index.html">
+<meta property="og:title" content="机器学习系统 10 - 后端硬件框架接入">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/10-framework-integration/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="编译，广义上是将一种表达映射成另一种表达，维持功能不变。深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。">
+<meta property="og:description" content="在开源背景下，框架在社区的加持下不断迭代，后端硬件通常不能cover所有应用场景，需要接入框架借用框架的能力。那什么样的实现最合适，又会有哪些问题？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-26T14:25:01.000Z">
+<meta property="og:updated_time" content="2021-02-03T17:28:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习系统 09 - 后端硬件编译器">
-<meta name="twitter:description" content="编译，广义上是将一种表达映射成另一种表达，维持功能不变。深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。">
+<meta name="twitter:title" content="机器学习系统 10 - 后端硬件框架接入">
+<meta name="twitter:description" content="在开源背景下，框架在社区的加持下不断迭代，后端硬件通常不能cover所有应用场景，需要接入框架借用框架的能力。那什么样的实现最合适，又会有哪些问题？">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -156,7 +156,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/9-compiler" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/10-framework-integration" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      机器学习系统 09 - 后端硬件编译器
+      机器学习系统 10 - 后端硬件框架接入
     </h1>
   
 
@@ -172,48 +172,50 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-01-26T14:25:01.000Z" itemprop="datePublished">一月 26, 2021</time>
+	发布于 <time datetime="2021-02-03T17:28:01.000Z" itemprop="datePublished">二月 3, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-01-26T14:25:01.000Z" itemprop="datePublished">一月 26, 2021</time>
+	更新于 <time datetime="2021-02-03T17:28:01.000Z" itemprop="datePublished">二月 3, 2021</time>
 
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>编译，广义上是将一种表达映射成另一种表达，维持功能不变。<br>深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。</p>
+        <p>在开源背景下，框架在社区的加持下不断迭代，后端硬件通常不能cover所有应用场景，需要接入框架借用框架的能力。那什么样的实现最合适，又会有哪些问题？</p>
 <a id="more"></a>
-<p>传统编译器直接解析文本，通过词法与语法分析，构建AST<a href="#refer-1"><sup>1</sup></a>。<br>之后在AST上执行一系列的优化，称为优化pipeline。<br>优化后的AST可以转换为IR（比如LLVM<a href="#refer-2"><sup>2</sup></a> IR），由LLVM进一步优化，并生成后端代码。如果是添加新后端并且复用LLVM，需要实现对应Codegen逻辑。<br>AST也可以不借助LLVM，直接编写codegen逻辑生成不同层级的code或指令。</p>
-<p>随着深度学习模型越来越复杂，在生产中广泛使用，对计算性能和成本的需求日趋强烈，深度学习编译器在这样的背景下逐步发展壮大。</p>
-<p>在深度学习编译器提出前，广泛使用的优化方法是手工fuse和手工codegen。<br>但这样的劣势显而易见，模型中可能存在的子图pattern千奇百怪，并且各种自定义长尾算子层出不求，如果一直依靠手工优化，开发时间和人力成本都不太能令人接受。<br>因此，借鉴传统编译器的思路，通过有限的基础表达符号表示任意计算图结构，由编译器的codegen层统一做后端代码生成。</p>
-<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>编译器根据编译发生时间的不同可以分为AOT<a href="#refer-3"><sup>3</sup></a>（Ahead Of Time）和JIT<a href="#refer-4"><sup>4</sup></a>（Just In Time）。</p>
-<p>AOT编译通常用于standalone编译程序，由用户提前运行编译生成指令，并传输到运行设备上（非标设备/专用设备，比如ARM和定制NPU），通过runtime执行。<br>一次编译，到处运行，这允许AOT编译消耗更多的时间，探索更优结果，但也限制了灵活性。<br>每当模型发生改动就需要触发一次编译行为，通常编译设备和运行设备是分立的，指令文件和runtime版本的同步会更复杂。</p>
-<p>JIT在运行时条件触发编译，runtime和compiler捆绑，不存在版本不匹配的问题。JIT通常见于解释型程序，因为解释效率通常低于编译，通过运行前编译提高执行效率。<br>由于在运行时编译，编译时间相对运行时间必须要合理，这意味着不能引入过于复杂的优化逻辑，另外为了避免重复编译，可以加入cache（程序内/远程）提高效率。</p>
-<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>编译器前端需要读取各个框架的模型文件，比如Tensorflow的SavedModel或者PyTorch的TorchScript。</p>
-<p>也有试图将模型表达统一的工作出现，比如ONNX，试图在Caffe、PyTorch、MXNet等框架间构建转换桥梁。<br>愿景很好，方便用户在不同框架迁移，不被框架锁死，但最终没有被大规模使用。</p>
-<p>首先，Tensorflow出自Google，并不买账，ONNX是其他大公司的联盟产物，然而框架上只有PyTorch不断发展，和Tensorflow二分天下。<br>统一模型表达，还是在统一社区，也就是统一算子集。</p>
-<p>Tensorflow曾凭借其绝对的垄断地位十分强势，后端软件栈都主动接入，接受Tensorflow的核心算子集为golden标准。<br>然而不同框架的算子集相差很多，基本上只有最主流的算子可以无缝转换，换个复杂的模型很有可能就挂了。<br>尤其是Tensorflow的计算图，控制结构十分复杂，连官方的优化工具都可能出现bug。<br>如果模型定制程度高，不如直接改脚本来的快。</p>
-<p>当然对大多数算法工程师来说，没有被框架锁定这件事，只有看哪个框架的生态的轮子能符合业务需求。</p>
-<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>编译优化方法泛指一大类模型优化方法，比如Tensorflow自带的后端XLA，基于profiling搜索的TVM，基于整数线性规划的多面体方法等。</p>
-<p>Tensorflow自带的前端计算图优化Grappler也可以算作编译器的优化功能。<br>在图层面执行一般优化方法，比如CSE（公共子表达式消除），Constant Folding（常量折叠），去除无用节点（Dead Nodes）等。</p>
-<p>对于硬件后端编译器，主要优化步骤如下：</p>
-<ol>
-<li>硬件无关优化。</li>
-<li>尽可能从子图中匹配更多符合硬件结构的pattern。</li>
-<li>匹配可以转换为符合硬件结构pattern的子图，并实现转换逻辑（硬件相关优化），注意功能正确性。</li>
-<li>尽量将匹配到的子图融合，使之最大化连通。</li>
-<li>设定不连通子图最小阈值，防止主存和硬件内存的context switch开销过高，可以通过算子数量或者算力评估确定阈值，标记所有符合阈值的子图算子。</li>
-<li>融合所有标记的子图，生成对应的模型IR或者硬件IR。</li>
-<li>可以通过自定义Op的形式，将生成的IR序列化（作为Op参数），使用统一的Op（调用runtime）。</li>
-<li>如果模型可以全量支持，则可以直接导出IR，使用runtime运行。</li>
-</ol>
-<p>进一步的，编译器可以独立为TensorRT的形式，允许用户使用API直接构建运行，并且可以通过JIT codegen dispatch手工优化的code。</p>
-<p>编译器相比于计算库更关注图层面优化，底层会协调计算库的不同实现使全局性能最优。</p>
+<p>按需求不同，可以有多种方法：</p>
+<ul>
+<li>不接入</li>
+</ul>
+<p>实际上还是借用了框架的模型定义。<br>如果整个模型都能被支持，并且对性能有较高的要求，场景定制，那么可以不接入框架，比如TensorRT可以独立运行。<br>后端软件栈可能需要不小的开发工作支持长尾算子，达到全图覆盖，对于GPGPU这种适用面极广的后端硬件是可行的，TensorRT也标榜可以达到最高性能。</p>
+<ul>
+<li>算子内接入</li>
+</ul>
+<p>最直接的接入方法，利用后端软件接口直接在算子内实现等价逻辑，不用关心模型长什么样，而且不管支持了多少算子都能运行，提高覆盖率只是一个体力活。<br>这种方法针对计算密集型算子优化明显，尤其是当密集计算占比较高，其他计算和通信几乎不影响系统整体性能的时候。<br>比如基于CNN的一系列模型，都可以用这种简单粗暴的方法先支持起来。</p>
+<p>但这种方法的缺点也很明显，一旦计算较分散，每次执行算子都要做一次数据交换，对于图像类模型，带宽占用不低，会拖慢系统整体性能。<br>而如果为了最大化硬件利用率——计算时间占总运行时间的比例——加入指令队列，不做密集算子的interleaving，可能会引入较高的性能抖动。</p>
+<p>除此之外，单算子性能最优并不必然意味着系统性能最优，系统最优通常需要在更高层面协调优化。</p>
+<ul>
+<li>图层面接入</li>
+</ul>
+<p>稍微复杂，借用了框架的算子调度能力。主要工作在如何从现有计算图中划分出适合的子图。<br>如果子图过小，那么设备context切换（内存交换，通信）的开销就可能过大。</p>
+<p>有时候会分出过多子图，但覆盖率很高，可能是子图间的特殊算子。<br>如果是训练算子，通常不会占用主计算通路，可以提前使用清理工具去除。<br>如果是Fusion等优化引入的算子，就可能需要“反编译”，把fuse起来的算子break down。<br>如果是控制结构切割了子图，需要从建模层面尽量消除控制结果，比如并行，展开，将控制结构放在生成代码而不是计算图里。<br>如果子图间不存在数据依赖，可以融合子图，减少通信开销。</p>
+<p>上面提到的方法都需要根据实际情况取舍，因此，分图算法可能会引入更复杂的策略。<br>比如在估计子图大小上，可以用最简单的个数阈值，也可以构建cost model。<br>Cost model可以根据shape和算子估算，也可以通过profling测量，后者相对于前者更自动化，并且可以支持运行时（动态）场景，而前者基本可以在编译时（静态）确定。</p>
+<p>有时候分图算法过于粗暴，比如直接使用算子集，而后端硬件对结构有要求，则可能出错，需要有fallback机制，或者使用更灵活的模板匹配算法。</p>
+<p>由于框架算子层接口可能随大版本更新变动，比如Tensorflow的Grappler（通常是因为protobuf版本问题），可能需要考虑兼容多版本，尽量解耦，复用代码。</p>
+<ul>
+<li>编译层接入</li>
+</ul>
+<p>为了用更通用，更自动化的方法优化能，减少手工优化的工作量，不少研究者提出借鉴编译器的思路，其中Tensorflow的XLA算是较早开始尝试的。</p>
+<p>XLA<a href="#refer-1"><sup>1</sup></a>同样是在图层面接入的，也有一套分图算法，由于XLA使用的是编译，因此只要标记符合的算子即可。<br>XLA嵌在Tensorflow中，在运行时JIT执行，在分图后，符合条件的子图会开始编译流程，转换为HLO表示——更小的粗指令集合，如Softmax等算子可能被打散。<br>转换后的HLO执行一系列的设备无关优化，再交由后端设备Service处理，执行一系列设备相关优化，CPU可以通过LLVM Emitter发射为LLVM IR，交由LLVM编译为CPU后端指令。<br>GPU等较通用设备可以复用LLVM Emitter结构，生成对应的指令。<br>编译后的指令会缓存在XLA的Compilation Cache中，根据Shape和Op计算Hash值存储索引。</p>
+<p>在编译层接入，需要硬件具有一定的通用性，并且要在图层面实现设备相关的分图逻辑。<br>虽然HLO缩小了算子集，但要求对编译后端有足够的了解，开发工作量不小。<br>同样，图层面接口需要注意和版本解耦。</p>
+<ul>
+<li>其他</li>
+</ul>
+<p>编译优化之路总是吸引人的，通用自动化不重复也是人们不屑的追求。<br>如果要全面支持各类框架，工作量也是不小的，通常会是社区为了推广框架，做不少示范性接入工作，测些数据，发些paper。<br>大厂是否跟进，还是取决于最终收益。</p>
+<p>不过现实是模型的根基并没有百花齐放，而是依靠一小撮人探索出的最高效的结构趋同了，因此大厂因靠不断累积手工优化经验，也已经能支持成熟可商业化的模型了。<br>而各类编译方法面临的困境是无法在所有场景下大幅超越手工优化，主要是填补长尾空间。</p>
+<p>历史积累的力量是强大的，不仅展示了有序迭代的惊人成果，同样意味着推到底层设施重来的阻力必然很大。</p>
 <hr>
 <ul>
-<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">Abstract syntax tree</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://llvm.org/" target="_blank" rel="noopener">The LLVM Compiler Infrastructure</a></li>
-<li>[3] <span id="refer-3"></span> <a href="https://en.wikipedia.org/wiki/Ahead-of-time_compilation" target="_blank" rel="noopener">Ahead-of-time compilation</a></li>
-<li>[4] <span id="refer-4"></span> <a href="https://en.wikipedia.org/wiki/Just-in-time_compilation" target="_blank" rel="noopener">Just-in-time compilation</a></li>
+<li>[1] <span id="refer-1"></span> <a href="https://www.tensorflow.org/xla" target="_blank" rel="noopener">XLA: Optimizing Compiler for Machine Learning</a></li>
 </ul>
 
       
@@ -236,19 +238,10 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/ai/ml-system/hardware-backend/10-framework-integration/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          机器学习系统 10 - 后端硬件框架接入
-        
-      </div>
-    </a>
   
-  
-    <a href="/ai/ml-system/hardware-backend/8-runtime/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ai/ml-system/hardware-backend/9-compiler/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">机器学习系统 08 - 后端硬件运行时</div>
+      <div class="article-nav-title">机器学习系统 09 - 后端硬件编译器</div>
     </a>
   
 </nav>
@@ -262,7 +255,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前端"><span class="nav-number">2.</span> <span class="nav-text">前端</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number">3.</span> <span class="nav-text">优化</span></a></li></ol>
+      <ol class="nav">无</ol>
     
     </div>
   </aside>
