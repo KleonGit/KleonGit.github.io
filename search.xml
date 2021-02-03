@@ -224,6 +224,7 @@
 <ul>
 <li>其他</li>
 </ul>
+<p>接入后端的一个重要问题是线程冲突，需要通过全局线程池统一来解决，可以使用同一个线程池实现，或者是可控的线程数量。</p>
 <p>编译优化之路总是吸引人的，通用自动化不重复也是人们不屑的追求。<br>如果要全面支持各类框架，工作量也是不小的，通常会是社区为了推广框架，做不少示范性接入工作，测些数据，发些paper。<br>大厂是否跟进，还是取决于最终收益。</p>
 <p>不过现实是模型的根基并没有百花齐放，而是依靠一小撮人探索出的最高效的结构趋同了，因此大厂因靠不断累积手工优化经验，也已经能支持成熟可商业化的模型了。<br>而各类编译方法面临的困境是无法在所有场景下大幅超越手工优化，主要是填补长尾空间。</p>
 <p>历史积累的力量是强大的，不仅展示了有序迭代的惊人成果，同样意味着推到底层设施重来的阻力必然很大。</p>
@@ -231,6 +232,29 @@
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://www.tensorflow.org/xla" target="_blank" rel="noopener">XLA: Optimizing Compiler for Machine Learning</a></li>
 </ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>FPGA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 11 - 后端硬件系统</title>
+    <url>/ai/ml-system/hardware-backend/11-system/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。<br>相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。</p>
+<a id="more"></a>
+<h1 id="Serving"><a href="#Serving" class="headerlink" title="Serving"></a>Serving</h1><p>后端硬件接入框架后，基本就可以依赖框架的Serving能力对外输出了。比如Tensorflow Serving、Torch Serve。<br>NVIDIA也凭借硬件优势，提供了支持GPU虚拟化的Serving方案。</p>
+<p>Serving框架相比于Training框架可以去除大部分逻辑，保留基本的计算调度和算子实现功能。<br>框架通常基于Training框架的计算核心，封装模型加载，通信协议处理等逻辑。<br>框架基本的性能取决于计算核心，但更关注并发性能，使用HTTP/RPC等协议，RPC使用gRPC（Google）或Thrift（Facebook）等RPC框架。</p>
+<h1 id="容器化与隔离"><a href="#容器化与隔离" class="headerlink" title="容器化与隔离"></a>容器化与隔离</h1><p>随着容器化的流行，带来了无状态确保无副作用，并且保持开发和生产环境一致，环境可复现等诸多好处。<br>构建一个容器化的Serving环境已经是基本操作。</p>
+<p>容器和虚拟机不同，容器更轻量，也意味着隔离的不彻底。<br>尤其是在多租户使用场景下，驱动文件可以直接mount，驱动层就需要考虑严格的内存权限设计。<br>而虚拟机层面需要一些设备虚拟化的工作，通常这部分由云厂商提供，称为实例。</p>
+<p>云厂商提供的虚拟机的隔离性很好，但对于一个用户来说，不需要每个容器都放置在不同的实例上。<br>一般通过云厂商提供的网络（VPC）隔离，配置安全组限制访问权限。<br>同一个VPC内的实例上可以放心部署用户的容器，容器的安全性由用户保证。<br>在多租户场景，对隔离有较高要求的情况下，会使用硬多租方案，也就是申请实例，并与用户vpc连通。</p>
+<h1 id="集群化与弹性"><a href="#集群化与弹性" class="headerlink" title="集群化与弹性"></a>集群化与弹性</h1><p>Kubernetes</p>
+<p>Device Plugin</p>
+<h1 id="接口统一"><a href="#接口统一" class="headerlink" title="接口统一"></a>接口统一</h1><p>Uber Neuropod<br>SageMaker </p>
+<p>硬件后端篇 完结撒花</p>
 ]]></content>
       <categories>
         <category>机器学习</category>

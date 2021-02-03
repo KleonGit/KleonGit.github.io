@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>category: 机器学习 | KLEON</title>
+  <title>机器学习系统 11 - 后端硬件系统 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,16 +21,18 @@
   
   
   
-  <meta name="description" content="Think About The Big Map">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KLEON">
-<meta property="og:url" content="https://blog.kleon.space/categories/机器学习/page/2/index.html">
+  <meta name="description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
+<meta name="keywords" content="机器学习,FPGA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 11 - 后端硬件系统">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/11-system/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="Think About The Big Map">
+<meta property="og:description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-02-04T17:28:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KLEON">
-<meta name="twitter:description" content="Think About The Big Map">
+<meta name="twitter:title" content="机器学习系统 11 - 后端硬件系统">
+<meta name="twitter:description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -82,7 +84,7 @@ var themeMenus = {};
 </script>
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   <header id="allheader" class="site-header" role="banner">
@@ -154,179 +156,84 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main">
-  
-  
-  
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/11-system" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <h1><a href="/archives/2021" class="archive-year">2021</a></h1>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-
-      <a href="/ai/ml-system/hardware-backend/1-overview/" class="archive-article-date">
-		  <time datetime="2021-01-12T12:58:36.000Z" itemprop="datePublished">1月 12, 2021</time>
-	  </a>
-      
+      <header class="article-header">
+        
   
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/ai/ml-system/hardware-backend/1-overview/">机器学习系统 01 - 后端硬件初探</a>
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 11 - 后端硬件系统
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-
-      <a href="/ai/ml-system/0-overview/" class="archive-article-date">
-		  <time datetime="2021-01-11T09:08:04.000Z" itemprop="datePublished">1月 11, 2021</time>
-	  </a>
+    <div class="article-meta">
       
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/ai/ml-system/0-overview/">机器学习系统 00 - 总览</a>
-    </h1>
-  
+	发布于 <time datetime="2021-02-04T17:28:01.000Z" itemprop="datePublished">二月 4, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-02-04T17:28:01.000Z" itemprop="datePublished">二月 4, 2021</time>
 
-    </header>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。<br>相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。</p>
+<a id="more"></a>
+<h1 id="Serving"><a href="#Serving" class="headerlink" title="Serving"></a>Serving</h1><p>后端硬件接入框架后，基本就可以依赖框架的Serving能力对外输出了。比如Tensorflow Serving、Torch Serve。<br>NVIDIA也凭借硬件优势，提供了支持GPU虚拟化的Serving方案。</p>
+<p>Serving框架相比于Training框架可以去除大部分逻辑，保留基本的计算调度和算子实现功能。<br>框架通常基于Training框架的计算核心，封装模型加载，通信协议处理等逻辑。<br>框架基本的性能取决于计算核心，但更关注并发性能，使用HTTP/RPC等协议，RPC使用gRPC（Google）或Thrift（Facebook）等RPC框架。</p>
+<h1 id="容器化与隔离"><a href="#容器化与隔离" class="headerlink" title="容器化与隔离"></a>容器化与隔离</h1><p>随着容器化的流行，带来了无状态确保无副作用，并且保持开发和生产环境一致，环境可复现等诸多好处。<br>构建一个容器化的Serving环境已经是基本操作。</p>
+<p>容器和虚拟机不同，容器更轻量，也意味着隔离的不彻底。<br>尤其是在多租户使用场景下，驱动文件可以直接mount，驱动层就需要考虑严格的内存权限设计。<br>而虚拟机层面需要一些设备虚拟化的工作，通常这部分由云厂商提供，称为实例。</p>
+<p>云厂商提供的虚拟机的隔离性很好，但对于一个用户来说，不需要每个容器都放置在不同的实例上。<br>一般通过云厂商提供的网络（VPC）隔离，配置安全组限制访问权限。<br>同一个VPC内的实例上可以放心部署用户的容器，容器的安全性由用户保证。<br>在多租户场景，对隔离有较高要求的情况下，会使用硬多租方案，也就是申请实例，并与用户vpc连通。</p>
+<h1 id="集群化与弹性"><a href="#集群化与弹性" class="headerlink" title="集群化与弹性"></a>集群化与弹性</h1><p>Kubernetes</p>
+<p>Device Plugin</p>
+<h1 id="接口统一"><a href="#接口统一" class="headerlink" title="接口统一"></a>接口统一</h1><p>Uber Neuropod<br>SageMaker </p>
+<p>硬件后端篇 完结撒花</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+            
+      
+    </footer>
   </div>
-</article>
   
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/categories/机器学习/">上一页</a><a class="page-number" href="/categories/机器学习/">1</a><span class="page-number current">2</span>
-  </nav>
+<nav id="article-nav">
+  
+  
+    <a href="/ai/ml-system/hardware-backend/10-framework-integration/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 10 - 后端硬件框架接入</div>
+    </a>
+  
+</nav>
 
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Serving"><span class="nav-number">1.</span> <span class="nav-text">Serving</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器化与隔离"><span class="nav-number">2.</span> <span class="nav-text">容器化与隔离</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群化与弹性"><span class="nav-number">3.</span> <span class="nav-text">集群化与弹性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口统一"><span class="nav-number">4.</span> <span class="nav-text">接口统一</span></a></li></ol>
+    
+    </div>
+  </aside>
 </section>
-          <aside id="sidebar">
-  
-    <div class="widget-wrap" style="margin: 20px 0;">
-	<div id="search-form-wrap">
-
-    <form class="search-form">
-        <label style="width: 75%;">
-            <span class="screen-reader-text">Search for:</span>
-            <input type="search" class="search-field" style="height: 42px;" placeholder=" 搜索…" value="" name="s" title="Search for:">
-        </label>
-        <input type="submit" class="search-form-submit" value="搜索">
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(无标题)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js"></script>
-
-</div>
-</div>
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">12</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FPGA/">FPGA</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">12</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">联系我们</h3>
-    <div class="widget widget_athemes_social_icons">
-
-    	<ul class="clearfix widget-social-icons">   
-    	
-          
-     			  <li><a href="https://github.com/kleon1024" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-            <li><a href="mailto:dingli.cm@gmail.com?subject=请联系我&body=我能帮你什么" title="email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li> 
-          
-   		
-   		</ul>
-
-
-   		<!--
-   		<ul class="clearfix widget-social-icons">   		
-   		<li class="widget-si-twitter"><a href="http://twitter.com" title="Twitter"><i class="ico-twitter"></i></a></li> 
-		<li class="widget-si-facebook"><a href="http://facebook.com" title="Facebook"><i class="ico-facebook"></i></a></li>
-			<li class="widget-si-gplus"><a href="http://plus.google.com" title="Google+"><i class="ico-gplus"></i></a></li>
-			<li class="widget-si-pinterest"><a href="http://pinterest.com" title="Pinterest"><i class="ico-pinterest"></i></a></li>
-			<li class="widget-si-flickr"><a href="http://flickr.com" title="Flickr"><i class="ico-flickr"></i></a></li>
-			<li class="widget-si-instagram"><a href="http://instagram.com" title="Instagram"><i class="ico-instagram"></i></a></li>
-		</ul> -->
-
-    </div>
-  </div>
-
-
-  
-</aside>
         
       </div>
       <footer id="footer" class="site-footer">
