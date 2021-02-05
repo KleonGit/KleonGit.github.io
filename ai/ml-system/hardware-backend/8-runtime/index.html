@@ -226,7 +226,7 @@ var themeMenus = {};
 <li><strong>多模型</strong></li>
 </ul>
 <p>使用Executor机制，根据IR标识（比如哈希值或者校验和）区分不同模型。</p>
-<p>对一个新IR，创建对应Executor以及State，并在Executor首次调用时调用Device的初始化接口，IR信息（比如计算核handler以及内存地址映射表等）保存在State中。<br>之后调用Device的运行接口，考虑到多线程支持，State信息可能会被同时访问，仅设置为只读。</p>
+<p>对一个新IR，创建对应Executor以及State，并在Executor首次调用时调用Device的初始化接口，IR信息（比如计算核handler以及内存地址映射表等）保存在State中。之后调用Device的运行接口，考虑到多线程支持，State信息可能会被同时访问，仅设置为只读。</p>
 <p>对单个模型的多线程调用，分配线程级数据结构保存当前调用的Blob分配信息，调用结束后销毁，避免加锁。</p>
 <p>多后续标识相同的IR，通过cache表查到对应的Executor调用。</p>
 <ul>
@@ -245,7 +245,7 @@ var themeMenus = {};
 <ul>
 <li>资源池。</li>
 </ul>
-<p>考虑到多线程调用时，每次调用的动态内存申请开销。在专用场景下，每次调用动态内存尺寸不变，可以使用资源池提前分配，并在每次调用时申请。<br>资源池一般需要加锁，资源池大小可根据IR信息配置，也可开放接口供用户配置。</p>
+<p>考虑到多线程调用时，每次调用的动态内存申请开销。在专用场景下，每次调用动态内存尺寸不变，可以使用资源池提前分配，并在每次调用时申请。资源池一般需要加锁，资源池大小可根据IR信息配置，也可开放接口供用户配置。</p>
 <ul>
 <li>CPU Affinity</li>
 </ul>
@@ -257,7 +257,7 @@ var themeMenus = {};
 <ul>
 <li>DMA合并</li>
 </ul>
-<p>DMA的读写开销并不低，如果是IO数据块（处于计算首尾的需要和主存swap的动态数据块）较多，则可能拉低系统整体性能。<br>驱动对内存连续性无法判断，可以在runtime内存申请时提前合并IO数据块，将DMA读写次数合并为1次，提高系统整体性能。</p>
+<p>DMA的读写开销并不低，如果是IO数据块（处于计算首尾的需要和主存swap的动态数据块）较多，则可能拉低系统整体性能。驱动对内存连续性无法判断，可以在runtime内存申请时提前合并IO数据块，将DMA读写次数合并为1次，提高系统整体性能。</p>
 <h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>主要是C++编程的一些吐槽。</p>
 <ul>
 <li>多线程安全</li>
@@ -266,15 +266,15 @@ var themeMenus = {};
 <ul>
 <li>指针安全</li>
 </ul>
-<p>野指针很危险。有时候系统通过原始指针对外需要暴露C API，但在进入C++部分后，需要合理使用unique_ptr，shared_ptr，std::move等限定和转移指针使用权。<br>不然double free，空指针报错就很有可能出现，许多小项目在运行完之后抱一个指针错误，反正也查不出来是哪，就凑合着用了。</p>
+<p>野指针很危险。有时候系统通过原始指针对外需要暴露C API，但在进入C++部分后，需要合理使用unique_ptr，shared_ptr，std::move等限定和转移指针使用权。不然double free，空指针报错就很有可能出现，许多小项目在运行完之后抱一个指针错误，反正也查不出来是哪，就凑合着用了。</p>
 <ul>
 <li>内存访问</li>
 </ul>
-<p>数组下标越界引起的segment fault，在stack trace中并不能反应出来，很可能是程序欢快地运行很久之后突如其来，记得检查。<br>查错时也可以上valgrind之类的内存统计工具，不过程序过大时，各种loss就可能让人眼花缭乱了。</p>
+<p>数组下标越界引起的segment fault，在stack trace中并不能反应出来，很可能是程序欢快地运行很久之后突如其来，记得检查。查错时也可以上valgrind之类的内存统计工具，不过程序过大时，各种loss就可能让人眼花缭乱了。</p>
 <ul>
 <li>内存泄露</li>
 </ul>
-<p>内存泄露的排查也比较艰难，使用内存统计工具，排查各种指针使用情况之后，大概能解决绝大多数bug。<br>但有些因为内存分配策略导致的内存使用量持续升高可能就和模型相关了（比如Tensorflow），需要具体分析。</p>
+<p>内存泄露的排查也比较艰难，使用内存统计工具，排查各种指针使用情况之后，大概能解决绝大多数bug。但有些因为内存分配策略导致的内存使用量持续升高可能就和模型相关了（比如Tensorflow），需要具体分析。</p>
 <hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Intermediate_representation" target="_blank" rel="noopener">Intermediate representation</a></li>

@@ -194,11 +194,12 @@ var themeMenus = {};
 <p>后来，NVIDIA财大气粗，逐步垄断市场，算力每代大跃进。Xilinx起初还想以ACAP<a href="#refer-1"><sup>1</sup></a>——同时集成ARM、FPGA、CGRA的巨兽——反超。</p>
 <p>但无奈ACAP还是难产，大部分时间停留在励志吃下5G、自动驾驶、人工智能等多个领域的PPT中。即使真的大规模量产，成本也是可以想象的没有竞争力。最终，做FPGA加速器的，还是老老实实回去做芯片了。</p>
 <p>FPGA后端指的是Synthesize和Implementation，Implementation包括Remapping，Placing、Routing等。</p>
-<p>相比芯片要傻瓜的多。通过XDC约束，更换策略，画pblock等方法降低违例TNS（Total Negative Slack）。</p>
+<p>相比芯片要傻瓜的多。通过XDC约束布局布线，更换策略，画pblock等方法降低违例TNS（Total Negative Slack）。</p>
 <p>通过阅读STA报告，我们基本能定位有问题（比如fan out过高，WNS明显过小，拥塞等级过高）的地方，反过来修改设计，比如插入寄存器，对跨时钟的逻辑set_false_path，或者手动复制寄存器等等。</p>
 <p>DSP一般被用来搭建计算密集型算子，元素积或者自然指数通常用LUT搭乘法器，根据频率调整合适的pipeline级数，前后插入寄存器提高时序。</p>
 <p>控制跨die信号总量，跨die频率尽可能的低，前后加寄存器。</p>
 <p>多阅读官方文档，熟悉底层器件特性，明白自己写的代码映射到什么样的硬件结构上，参考示例工程。</p>
+<p>Garbage in, grabage out。</p>
 <hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://www.xilinx.com/products/silicon-devices/acap/versal.html" target="_blank" rel="noopener">Versal</a></li>
