@@ -21,18 +21,18 @@
   
   
   
-  <meta name="description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
+  <meta name="description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
 <meta name="keywords" content="机器学习,FPGA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习系统 11 - 后端硬件系统">
 <meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/11-system/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
+<meta property="og:description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-02-04T17:28:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系统 11 - 后端硬件系统">
-<meta name="twitter:description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
+<meta name="twitter:description" content="现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。相比于底层更关注局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -180,17 +180,54 @@ var themeMenus = {};
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。<br>相比于底层更关注的局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。</p>
+        <p>现代的服务系统已经变得庞大复杂，硬件后端需要与服务系统整合，才能在整个pipeline中发挥作用。<br>相比于底层更关注局部性能，服务系统更关心端到端延迟，并发量和硬件利用率，性能稳定性，服务可用率等指标。</p>
 <a id="more"></a>
 <h1 id="Serving"><a href="#Serving" class="headerlink" title="Serving"></a>Serving</h1><p>后端硬件接入框架后，基本就可以依赖框架的Serving能力对外输出了。比如Tensorflow Serving、Torch Serve。<br>NVIDIA也凭借硬件优势，提供了支持GPU虚拟化的Serving方案。</p>
 <p>Serving框架相比于Training框架可以去除大部分逻辑，保留基本的计算调度和算子实现功能。<br>框架通常基于Training框架的计算核心，封装模型加载，通信协议处理等逻辑。<br>框架基本的性能取决于计算核心，但更关注并发性能，使用HTTP/RPC等协议，RPC使用gRPC（Google）或Thrift（Facebook）等RPC框架。</p>
-<h1 id="容器化与隔离"><a href="#容器化与隔离" class="headerlink" title="容器化与隔离"></a>容器化与隔离</h1><p>随着容器化的流行，带来了无状态确保无副作用，并且保持开发和生产环境一致，环境可复现等诸多好处。<br>构建一个容器化的Serving环境已经是基本操作。</p>
-<p>容器和虚拟机不同，容器更轻量，也意味着隔离的不彻底。<br>尤其是在多租户使用场景下，驱动文件可以直接mount，驱动层就需要考虑严格的内存权限设计。<br>而虚拟机层面需要一些设备虚拟化的工作，通常这部分由云厂商提供，称为实例。</p>
-<p>云厂商提供的虚拟机的隔离性很好，但对于一个用户来说，不需要每个容器都放置在不同的实例上。<br>一般通过云厂商提供的网络（VPC）隔离，配置安全组限制访问权限。<br>同一个VPC内的实例上可以放心部署用户的容器，容器的安全性由用户保证。<br>在多租户场景，对隔离有较高要求的情况下，会使用硬多租方案，也就是申请实例，并与用户vpc连通。</p>
-<h1 id="集群化与弹性"><a href="#集群化与弹性" class="headerlink" title="集群化与弹性"></a>集群化与弹性</h1><p>Kubernetes</p>
-<p>Device Plugin</p>
-<h1 id="接口统一"><a href="#接口统一" class="headerlink" title="接口统一"></a>接口统一</h1><p>Uber Neuropod<br>SageMaker </p>
-<p>硬件后端篇 完结撒花</p>
+<p>通常可以进一步优化训练后的模型，使用比如子图融合，编译优化，模型压缩等方法，提高模型的推理性能，达到降低延迟，提高吞吐，降低成本等目的。</p>
+<h1 id="容器化与隔离"><a href="#容器化与隔离" class="headerlink" title="容器化与隔离"></a>容器化与隔离</h1><p>随着容器化的流行，带来了无状态确保无副作用，开发和生产环境一致，环境可复现等诸多好处。<br>构建一个容器化的Serving环境已经是基本操作。</p>
+<p>容器和虚拟机不同，容器更轻量，也意味着隔离的不彻底。<br>尤其是在多租户使用场景下，驱动文件可以直接mount，驱动层就需要考虑严格的内存权限设计。</p>
+<p>而虚拟机层面需要一些设备虚拟化的工作，比如FPGA的虚拟化，通常这部分由云厂商提供。<br>用户可以直接购买的云主机就是一台虚拟机，按资源量将一台物理机内存CPU拆分售卖，称为实例。<br>如果需要物理机可以申请bare metal机器，但对于中小应用开发者，出于成本考虑，可能不会直接购买物理机。</p>
+<p>虚拟机在一定程度上确保了CPU核和内存的隔离，但在Cache和内存带宽上的隔离比较困难。<br>尤其是目前CPU通常使用HyperThread，相当于一个物理核，对应多个逻辑核（通常是两个）。<br>申请小型实例——最极端情况是1核——就可能会遇到和其他实例共享物理核，影响性能。<br>除此之外，多核CPU普遍使用NUMA结构，跨NUMA访问会对性能有较大影响。</p>
+<p>云厂商提供的虚拟机的隔离性较高，但对于一个用户来说，不需要每个容器都通过实例隔离，而是需要和其他用户的容器隔离。<br>一般通过云厂商提供的网络（VPC<a href="#refer-1"><sup>1</sup></a>）隔离，配置安全组限制访问权限。同一个VPC内的实例上可以放心部署用户的容器，容器的安全性由用户保证。<br>在多租户场景，对隔离有较高要求的情况下，就会使用这种硬多租方案，申请实例，并与用户VPC连通。</p>
+<p>Serving服务在部署时，通常需要注意容器的隔离，除了考虑多用户的安全性外，更多的是资源的隔离性，比如通过绑核来控制CPU的独占性，这在许多CPU推理优化方法中是很关键的。</p>
+<h1 id="集群化与弹性"><a href="#集群化与弹性" class="headerlink" title="集群化与弹性"></a>集群化与弹性</h1><p>随着CPU性能触顶，从提升频率，到多核，再到分布式，对计算性能的需求推动了集群的大规模使用。<br>其中用于自动调度编排的系统Kubernetes<a href="#refer-2"><sup>2</sup></a>已经逐步称为集群开发的事实性标准，也称为云原生开发的基本“操作系统”。<br>类比于操作系统，应用对单台机器资源的管理调度（内存，CPU核，进程，线程等）等变成了对更宏观的云上资源（计算资源，数据库，网关等）的管理调度。</p>
+<p>Serving服务同样可以融入这套系统。Serving服务注重的主要是以下几点：</p>
+<ul>
+<li>服务可用性</li>
+</ul>
+<p>这是排在第一位的，Serving服务是需要持续调用的，如果出现不可用，则可能造成巨大的业务损失。<br>使用集群也有这方面的考虑，单一节点失效并不影响整体服务。</p>
+<ul>
+<li>性能稳定性</li>
+</ul>
+<p>在服务持续可用的情况下，服务调用的性能指标随请求量增减的波动不能过大，轻则链路延迟较高，业务体验下降，极端情况是超时，链路崩溃，业务不可用。<br>通常通过资源弹性满足性能稳定性，对于调用变化较缓慢的场景是适合的，资源随调用量，CPU水位（利用率），内存使用量等指标增减。<br>但对于瞬时调用量洪峰，则不可行，服务会出现短时不可用的情况，通常需要提前规划资源，灰度压测，保证在最高瞬时并发下服务的可用性。</p>
+<ul>
+<li>资源弹性</li>
+</ul>
+<p>对很多应用来说，实时调用存在明显的波峰波谷，比如在晚间最高，凌晨最低，调用规模可能差数倍，如果提前购置资源拉高成本，Serving服务应提供资源弹性，满足用户在成本和性能稳定性上的需求。</p>
+<ul>
+<li>资源超卖</li>
+</ul>
+<p>对于Serving服务提供者来说，如果使用自有集群，资源的持有成本是很高的，通常资源划分为半托管（代持用户资源），和全托管（自持资源）。<br>半托管下，用户完全为资源付费，通常是对性能指标极为敏感的，资源水位较低。<br>而全托管下，由于不需要完全持有资源，用户成本可以降低，因此对性能指标没有那么敏感。</p>
+<p>因此服务提供商会超卖，将多个服务调度到相同资源上，进而提高资源水位，节约成本。<br>服务提供商通常会使用虚拟化技术，模型性能优化等方法，维持性能，不至于大幅影响体验。</p>
+<ul>
+<li>在离线混部</li>
+</ul>
+<p>Serving服务可以分为在线调用和离线调用。在线调用对延迟敏感，为保证响应延迟，通常资源水位较低。<br>离线调用对单次调用延迟不敏感，要求总体吞吐，资源利用较充分。<br>因而两者的目标不同，通常会分池，划为在线和离线集群，互不影响。<br>而出于成本考虑，在线调用有波峰波谷，完全可以在波谷时利用闲置的资源，一个是利用弹性，另一个就是混合部署。</p>
+<p>混部对资源的隔离性的要求更高，但总体上可以降低运维成本，避免分池和资源调度的麻烦。</p>
+<h1 id="接口统一"><a href="#接口统一" class="headerlink" title="接口统一"></a>接口统一</h1><p>Serving框架众多，最简单的可以用Flask包一个Python脚本就能服务。<br>但对于Serving服务使用者来说，统一调用接口是一个必然趋势。<br>可以避免切换模型训练框架对业务后端代码的影响。</p>
+<p>比如Uber的Neuropod，AWS的SageMaker，Kubeflow的KfServing都在一定程度上制定了调用接口标准。</p>
+<h1 id="后端硬件小结"><a href="#后端硬件小结" class="headerlink" title="后端硬件小结"></a>后端硬件小结</h1><p>机器学习模型服务只是整体数据分析链路中的一小部分，整体趋势是希望和具体框架解耦，并且自动化。<br>因而机器学习系统通常和数据分析系统紧密联系，前端对接数据仓库，数据湖，后端对接业务后端，比如推荐系统，风控系统，BI（商业分析）系统等。</p>
+<p>机器学习系统致力于更快捷，更自动化地构建部署机器学习模型。<br>业务数据源源不断地产生，经过ETL汇入数据仓库，算法工程师进行特征工程，通过训练系统构建迭代部署机器学习模型，并固定为流水管线，通过AB Test系统上线验证效果并反馈迭代模型。</p>
+<p>市场的粗放式扩张不再，转而对自己圈到的一亩三分地精耕细作。工程师们日复一日试图从庞大的数据中归纳出概率分布，试图去拟合稍纵即逝的注意力和兴趣的真实分布，优化漏斗变现的效率。</p>
+<p>机器学习本身就是为了提高效率，降低成本，硬件后端的优化创新在整个成本效率优化链路中只占一个很小的点，市场枯荣会随本身ROI的评估而不断改变。</p>
+<p>通用性和专用性的交替更迭，便随着经济周期波动下的新生与整合。<br>Xlinx被AMD收购，Nvidia吞并了ARM，巨头们纷纷试水GPU为破除Nvidia垄断，Intel在x86上三年又三年的缝缝补补，ARM和RISC-V已经NPU加入指令拓展。</p>
+<p>FPGA只踏出了机器学习硬件后端的一小步，NPU已经融入了主流芯片，GPGPU的竞赛正如火如荼，CPU的指令集市场份额也在悄然演变。</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Virtual_private_cloud" target="_blank" rel="noopener">Virtual private cloud</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/Kubernetes" target="_blank" rel="noopener">Kubernetes</a></li>
+</ul>
 
       
     </div>
@@ -229,7 +266,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Serving"><span class="nav-number">1.</span> <span class="nav-text">Serving</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器化与隔离"><span class="nav-number">2.</span> <span class="nav-text">容器化与隔离</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群化与弹性"><span class="nav-number">3.</span> <span class="nav-text">集群化与弹性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口统一"><span class="nav-number">4.</span> <span class="nav-text">接口统一</span></a></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Serving"><span class="nav-number">1.</span> <span class="nav-text">Serving</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器化与隔离"><span class="nav-number">2.</span> <span class="nav-text">容器化与隔离</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群化与弹性"><span class="nav-number">3.</span> <span class="nav-text">集群化与弹性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口统一"><span class="nav-number">4.</span> <span class="nav-text">接口统一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后端硬件小结"><span class="nav-number">5.</span> <span class="nav-text">后端硬件小结</span></a></li></ol>
     
     </div>
   </aside>
