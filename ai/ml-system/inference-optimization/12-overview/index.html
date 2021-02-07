@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="KLEON">
 <meta property="og:description" content="模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-02-07T09:15:27.936Z">
+<meta property="og:updated_time" content="2021-02-07T09:26:41.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系统 12 - 推理优化总览">
 <meta name="twitter:description" content="模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。">
@@ -174,7 +174,7 @@ var themeMenus = {};
       
 	发布于 <time datetime="2021-01-15T17:28:01.000Z" itemprop="datePublished">一月 15, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-02-07T09:15:27.936Z" itemprop="datePublished">二月 7, 2021</time>
+	更新于 <time datetime="2021-02-07T09:26:41.291Z" itemprop="datePublished">二月 7, 2021</time>
 
       
     </div>
@@ -212,7 +212,7 @@ var themeMenus = {};
 </ul>
 <p>模型推理的性能问题有很多是memory bound（受限于内存带宽），尤其是在高度密集计算（大batch）的场景下，同时推理相对于训练不需要很高的数据精度，可以使用量化方法缩减数据位宽，直接降低所需内存带宽，memory bound问题也迎刃而解。同时原来用于计算32位数据（FP32）的计算单元可以配置为计算2个16位数据（FP16）和4个8位数据（INT8），计算性能也直接翻番。</p>
 <ul>
-<li>模型剪枝</li>
+<li>剪枝</li>
 </ul>
 <p>深度学习模型并不是要求精确计算，而是计算概率分布，因此在实践中，将模型中权重较小的连接直接置为0或去除，对模型的整体精度影响不大，反而有效降低了总体计算量。</p>
 <ul>
