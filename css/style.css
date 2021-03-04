@@ -1233,7 +1233,7 @@ a.article-title:hover {
 .article-entry .highlight .gutter pre,
 .article-entry .gist .gist-file .gist-data .line-numbers {
   color: #666;
-  font-size: 0.85em;
+  font-size: 0.9em;
 }
 figure.highlight::-webkit-scrollbar {
   width: 10px;
@@ -1308,8 +1308,6 @@ figure.highlight::-webkit-scrollbar-track {
   color: #aaa;
   text-align: right;
   padding-right: 30px;
-  height: 1.7em;
-  line-height: 1.7em;
 }
 .article-entry .highlight .line {
   height: 1.7em;
