@@ -155,6 +155,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Kubernetes实战 1 - 存储系统</title>
+    <url>/k8s/in-action/1-storage-on-k8s/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
+<a id="more"></a>
+<blockquote>
+<p>需要<a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">Kubernetes基本知识</a></p>
+</blockquote>
+<h1 id="本地存储-local-path"><a href="#本地存储-local-path" class="headerlink" title="本地存储 local-path"></a>本地存储 local-path</h1><p>可以用<a href="https://github.com/rancher/local-path-provisioner" target="_blank" rel="noopener">local-path-storage</a>部署基于本地存储的StorageClass。方便灵活，但没有冗余存储，如果Node节点挂掉，相关的PV都会丢失，需要及时备份。</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https://github.com/rancher/<span class="keyword">local</span>-<span class="type">path</span>-provisioner/blob/master/deploy/<span class="keyword">local</span>-<span class="type">path</span>-<span class="keyword">storage</span>.yaml</span><br></pre></td></tr></table></figure>
+<h1 id="对象存储-MinIO"><a href="#对象存储-MinIO" class="headerlink" title="对象存储 MinIO"></a>对象存储 MinIO</h1><p>MinIO支持S3，可通过Helm Chart<a href="https://docs.min.io/cn/deploy-minio-on-kubernetes.html" target="_blank" rel="noopener">部署服务</a>。</p>
+<p>默认部署单节点服务。<br><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">helm <span class="keyword">install</span> stable/minio</span><br></pre></td></tr></table></figure></p>
+<p>分布式服务通过纠删码(EC，Erasure Code)保证高可靠性，需要多节点集群，准备可用的动态存储(longhorn、rook、openebs等)。<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">helm install --<span class="builtin-name">set</span> <span class="attribute">mode</span>=distributed stable/minio</span><br></pre></td></tr></table></figure></p>
+<p>可以使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Operator</a>管理租户。</p>
+<h1 id="分布式文件系统-对象存储-Rook-Ceph"><a href="#分布式文件系统-对象存储-Rook-Ceph" class="headerlink" title="分布式文件系统/对象存储 Rook-Ceph"></a>分布式文件系统/对象存储 Rook-Ceph</h1><blockquote>
+<p>需要集群<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes" target="_blank" rel="noopener">配置CSI</a>，如果是云上集群，不要申请FlexVolume。</p>
+</blockquote>
+<p>Ceph支持分布式块存储、文件系统以及对象存储。</p>
+<p><a href="(https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md">安装Cephfs</a>)支持分布式文件系统。</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">git clone <span class="comment">--single-branch --branch release-1.5 https://github.com/rook/rook</span></span><br><span class="line">cd rook/<span class="keyword">cluster</span>/examples/kubernetes/ceph</span><br><span class="line">kubectl apply -f common.yaml</span><br><span class="line">kubectl apply -f crds.yaml</span><br><span class="line">kubectl apply -f <span class="keyword">operator</span>.yaml</span><br><span class="line"># Wait <span class="keyword">until</span> <span class="keyword">operator</span> <span class="keyword">is</span> running</span><br><span class="line">kubectl apply -f <span class="keyword">cluster</span>.yaml</span><br><span class="line"></span><br><span class="line"># Install Cephfs</span><br><span class="line">kubectl apply -f filesystem.yaml</span><br><span class="line"># Install StorageClass rook-cephfs</span><br><span class="line">kubectl apply -f csi/cephfs/storageclass.yaml</span><br><span class="line"></span><br><span class="line"># Mark rook-cephfs <span class="keyword">as</span> the <span class="keyword">default</span> <span class="keyword">storage</span> <span class="keyword">class</span></span><br><span class="line">kubectl annotate sc rook-cephfs storageclass.kubernetes.io/<span class="keyword">is</span>-<span class="keyword">default</span>-<span class="keyword">class</span>="true"</span><br></pre></td></tr></table></figure>
+<p>安装ceph-rgw支持S3对象存储</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">kubectl apply -f object.yaml</span><br><span class="line">kubectl apply -f storageclass-bucket-delete.yaml</span><br><span class="line">kubectl apply -f object-bucket-claim-delete.yaml</span><br><span class="line">kubectl <span class="builtin-name">get</span> svc rook-ceph-rgw-my-store -n rook-ceph</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get Bucket Config</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">AWS_HOST</span>=$(kubectl -n<span class="built_in"> default </span><span class="builtin-name">get</span> cm ceph-delete-bucket -o yaml | grep BUCKET_HOST | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">AWS_ACCESS_KEY_ID</span>=$(kubectl -n<span class="built_in"> default </span><span class="builtin-name">get</span><span class="built_in"> secret </span>ceph-delete-bucket -o yaml | grep AWS_ACCESS_KEY_ID | awk <span class="string">'&#123;print $2&#125;'</span> | base64 --decode)</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">AWS_SECRET_ACCESS_KEY</span>=$(kubectl -n<span class="built_in"> default </span><span class="builtin-name">get</span><span class="built_in"> secret </span>ceph-delete-bucket -o yaml | grep AWS_SECRET_ACCESS_KEY | awk <span class="string">'&#123;print $2&#125;'</span> | base64 --decode)</span><br></pre></td></tr></table></figure>
+<p>使用<a href="https://github.com/s3tools/s3cmd" target="_blank" rel="noopener">s3cmd</a>检查存储情况，集群内可通过Host<code>rook-ceph-rgw-my-store.rook-ceph.svc</code>访问bucket，可参考<a href="https://zhuanlan.zhihu.com/p/107083375" target="_blank" rel="noopener">文章</a>。</p>
+<p>安装ceph-dashboard<br><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Either Use HTTP Port 7000</span></span><br><span class="line"><span class="comment"># yq w -i cluster.yaml spec.dashboard.ssl false</span></span><br><span class="line"><span class="comment"># kubectl apply -f dashboard-external-http.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Or Use HTTPS Port 8443</span></span><br><span class="line">kubectl apply -f dashboard-external-http.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Default Username: admin</span></span><br><span class="line"><span class="comment"># Default Password:</span></span><br><span class="line">kubectl -n rook-ceph <span class="builtin-name">get</span><span class="built_in"> secret </span>rook-ceph-dashboard-password -o <span class="attribute">jsonpath</span>=<span class="string">"&#123;['data']['password']&#125;"</span> | base64 --decode &amp;&amp; echo</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 01 - 后端硬件初探</title>
     <url>/ai/ml-system/hardware-backend/1-overview/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习系统通常使用定制硬件后端执行计算密集型算子。训练模型中包含大量训练专用的反向梯度算子，相比之下推理模型结构更简单，算子集更小。因此定制硬件通常从推理模型入手。</p>
