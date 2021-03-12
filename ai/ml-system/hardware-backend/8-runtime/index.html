@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>机器学习系统 08 - 后端硬件运行时 | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="运行时（Runtime）抽象出计算模型，提供更通用的接口，进一步屏蔽硬件细节。">
+<meta name="keywords" content="机器学习,FPGA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 08 - 后端硬件运行时">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/8-runtime/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="运行时（Runtime）抽象出计算模型，提供更通用的接口，进一步屏蔽硬件细节。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-25T22:17:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习系统 08 - 后端硬件运行时">
+<meta name="twitter:description" content="运行时（Runtime）抽象出计算模型，提供更通用的接口，进一步屏蔽硬件细节。">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/8-runtime" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 08 - 后端硬件运行时
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-01-25T22:17:34.000Z" itemprop="datePublished">一月 25, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-01-25T22:17:34.000Z" itemprop="datePublished">一月 25, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>运行时（Runtime）抽象出计算模型，提供更通用的接口，进一步屏蔽硬件细节。</p>
+<a id="more"></a>
+<p>在深度学习硬件加速系统中，如果仅依赖驱动接口，业务层/编译层代码中仍然要编入硬件相关代码，需要管理设备，记录内存，整理数据等，耦合较重，迁移困难。</p>
+<p>在驱动之上封装一层runtime有利于进一步提供代码复用程度，将硬件实现和上层应用完全解耦。</p>
+<p>在后端硬件系统设计早期，很可能因为项目压力而倾向于把所有功能写在一起：</p>
+<ol>
+<li>程序读入模型并统一转换为内部定义的模型标记格式。</li>
+<li>接着程序根据标记构建计算图，优化使得计算图的pattern符合硬件需求。</li>
+<li>随后程序根据硬件结构执行算子融合，并生成对应的硬件指令。</li>
+</ol>
+<p>此时，应用层、编译层、运行时完全耦合，专为应用定制设计，模型结构也可能硬编码在代码里。</p>
+<p>这样的设计会带来不少问题：</p>
+<ol>
+<li>整个程序更重，基本上要保证能执行全部算子，否则需要将框架反向接入，使用框架的算子覆盖长尾逻辑。 </li>
+<li>代码高度耦合，换个模型，换个应用就要重写大量代码，为了同时支持多个应用，需要把所有代码全部展开，不利于版本管理和代码复用。</li>
+<li>调试极不方便，模型，编译，运行时每一层都有可能有出错的可能，但因为缺少明确的接口，基本上只能端到端调试。</li>
+</ol>
+<p>因此，需要分层设计软件，解耦逻辑，复用代码。</p>
+<p>从运行时的角度看，用户可能以多种形式使用：</p>
+<ol>
+<li>直接使用，对硬件结构熟悉，通过运行时提供的接口简化操作。</li>
+<li>接入框架，需要在算子内生成运行时所需的数据。</li>
+<li>接入编译，接受编译层的通用中间表达（IR<a href="#refer-1"><sup>1</sup></a>），根据硬件结构转换成指令，屏蔽硬件细节。</li>
+<li>调试使用，提供Python接口，方便运行调试。</li>
+</ol>
+<p>通过合理的抽象，就可以满足使用需求，并保留足够的扩展性。</p>
+<h1 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h1><ul>
+<li><strong>内存抽象</strong></li>
+</ul>
+<p>对驱动来说，其并不关心DMA下发的数据具体是什么类型，也不会关心内存和哪个具体模型对应。</p>
+<p>对用户来说，其并不关心内存分配地址，也不关心硬件运行细节，最好作为函数接口调用。</p>
+<p>因此，可以将内存抽象为三种类型：</p>
+<ol>
+<li>Blob。动态数据块，仅记录形状信息，需要在运行时传输，每次调用计算均会被改变。</li>
+<li>Data。静态模型参数，编译时确定，声明周期和模型相等。</li>
+<li>Instructions。计算指令，其中内存地址需要动态映射。</li>
+</ol>
+<ul>
+<li><strong>设备</strong></li>
+</ul>
+<p>设备（Device）抽象负责硬件设备初始化，设备分配，拥有设备相关执行逻辑。</p>
+<p>设备抽象和硬件实现相关，通常和计算核对应，提供计算核申请与维护，内存申请与维护，指令解释（内存地址映射），数据重排，量化，精度转换等功能。</p>
+<ul>
+<li><strong>多模型</strong></li>
+</ul>
+<p>使用Executor机制，根据IR标识（比如哈希值或者校验和）区分不同模型。</p>
+<p>对一个新IR，创建对应Executor以及State，并在Executor首次调用时调用Device的初始化接口，IR信息（比如计算核handler以及内存地址映射表等）保存在State中。之后调用Device的运行接口，考虑到多线程支持，State信息可能会被同时访问，仅设置为只读。</p>
+<p>对单个模型的多线程调用，分配线程级数据结构保存当前调用的Blob分配信息，调用结束后销毁，避免加锁。</p>
+<p>多后续标识相同的IR，通过cache表查到对应的Executor调用。</p>
+<ul>
+<li><strong>接口</strong></li>
+</ul>
+<p>也就是IR定义，主要包括：</p>
+<ul>
+<li>IR标示符</li>
+<li>设备类型</li>
+<li>动态数据表</li>
+<li>静态数据表</li>
+<li>计算指令表</li>
+</ul>
+<p>其中还可以详细定义是否支持Dynamic Shape，是否需要完全内存映射等，量化精度，数据精度，数据对齐等。</p>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>运行时作为调用的关键路径之一，性能优化也相当重要，常用的优化手段包括：</p>
+<ul>
+<li>资源池。</li>
+</ul>
+<p>考虑到多线程调用时，每次调用的动态内存申请开销。在专用场景下，每次调用动态内存尺寸不变，可以使用资源池提前分配，并在每次调用时申请。资源池一般需要加锁，资源池大小可根据IR信息配置，也可开放接口供用户配置。</p>
+<ul>
+<li>CPU Affinity</li>
+</ul>
+<p>考虑到线程中断开销通常集中于CPU0，多线程使用时希望规划计算使用，也就是设置线程级CPU亲核性。开放亲核性配置供用户配置。</p>
+<ul>
+<li>硬件Warm-UP</li>
+</ul>
+<p>硬件pipeline填充也需要时间，首次启动时需要从DDR加载数据，针对特定应用，数据加载完成后不会反复swap，可以提供warm up接口，使用atomic变量，在首次运行时填充特定寄存器。</p>
+<ul>
+<li>DMA合并</li>
+</ul>
+<p>DMA的读写开销并不低，如果是IO数据块（处于计算首尾的需要和主存swap的动态数据块）较多，则可能拉低系统整体性能。驱动对内存连续性无法判断，可以在runtime内存申请时提前合并IO数据块，将DMA读写次数合并为1次，提高系统整体性能。</p>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>主要是C++编程的一些吐槽。</p>
+<ul>
+<li>多线程安全</li>
+</ul>
+<p>合理规划数据，优先选择不加锁。如果一定要加，根据场景加合适的锁，合理使用线程级数据/原子变量。</p>
+<ul>
+<li>指针安全</li>
+</ul>
+<p>野指针很危险。有时候系统通过原始指针对外需要暴露C API，但在进入C++部分后，需要合理使用unique_ptr，shared_ptr，std::move等限定和转移指针使用权。不然double free，空指针报错就很有可能出现，许多小项目在运行完之后抱一个指针错误，反正也查不出来是哪，就凑合着用了。</p>
+<ul>
+<li>内存访问</li>
+</ul>
+<p>数组下标越界引起的segment fault，在stack trace中并不能反应出来，很可能是程序欢快地运行很久之后突如其来，记得检查。查错时也可以上valgrind之类的内存统计工具，不过程序过大时，各种loss就可能让人眼花缭乱了。</p>
+<ul>
+<li>内存泄露</li>
+</ul>
+<p>内存泄露的排查也比较艰难，使用内存统计工具，排查各种指针使用情况之后，大概能解决绝大多数bug。但有些因为内存分配策略导致的内存使用量持续升高可能就和模型相关了（比如Tensorflow），需要具体分析。</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Intermediate_representation" target="_blank" rel="noopener">Intermediate representation</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/ai/ml-system/hardware-backend/9-compiler/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          机器学习系统 09 - 后端硬件编译器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ai/ml-system/hardware-backend/7-driver/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 07 - 后端硬件驱动</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象"><span class="nav-number">1.</span> <span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number">2.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试"><span class="nav-number">3.</span> <span class="nav-text">调试</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

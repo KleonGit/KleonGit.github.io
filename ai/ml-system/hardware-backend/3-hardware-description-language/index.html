@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>机器学习系统 03 - 后端硬件描述语言 | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。">
+<meta name="keywords" content="机器学习,FPGA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 03 - 后端硬件描述语言">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/3-hardware-description-language/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-14T16:52:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习系统 03 - 后端硬件描述语言">
+<meta name="twitter:description" content="语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/3-hardware-description-language" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 03 - 后端硬件描述语言
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-01-14T16:52:01.000Z" itemprop="datePublished">一月 14, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-01-14T16:52:01.000Z" itemprop="datePublished">一月 14, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。</p>
+<a id="more"></a>
+<p>软件编程语言定义了一系列面向人类可读性的字符语法。人类使用软件编程语言编写描述机器如何处理信息的步骤的文本，简称为软件代码。使用编译软件使用指定指令集翻译成机器具体处理信息的指令，简称为程序。🤓</p>
+<p>类似的，在硬件设计中，硬件的结构决定了功能，因此也需要借助一种文本描述硬件结构，得名硬件（结构）描述语言。</p>
+<p>软件代码可以直接编译成程序运行，也可以直接和测试框架一起编译运行，测试功能正确性。</p>
+<p>而硬件描述语言（HDL，Hardware Description Language）——其中对应硬件结构（可综合）的合法语法——只是对硬件的结构描述，需要使用仿真器（Emulator）构造硬件结构。</p>
+<p>通常高效的仿真器会将硬件代码等价映射成软件代码（比如C++）编译后运行，提高仿真效率。</p>
+<p>就可综合语法部分看，HDL乏像软件语言中的抽象模型，以用于代码复用。但是HDL中的寄存器、线以及模型足以描述任何复杂的硬件。可以利用软件工具管理生成代码，减少一部分coding的工作量。</p>
+<p>比如使用脚本（Perl或者Python）管理模块，辅助连线，或者借用软件的OOP（Object Oriented Programming)模型，套壳做DSL（Domain Specific Language）（比如Chisel套在Scala里），借助套壳语言的语法和抽象简化硬件编码工作。</p>
+<p>除了可综合语法，HDL中还引入了测试语法用来提供仿真激励。为了改进HDL的测试方面的短板，更多语法和抽象被引入进来，以至于可以被称为一门新的语言（比如System Verilog<a href="#refer-1"><sup>1</sup></a>)。</p>
+<p>有趣的是，System Verilog可以被看作天然的并行语言，引入不少并发机制，比如channel，GoLang的并发机制里也有channel。</p>
+<p>硬件开发的主要工作量并不在前端编码（主要包括编写Verilog并做功能仿真），占大头的是仿真测试和优化。在一些非自主开发IP的流程中，前端的工作基本就是把买来的IP（比如ARM）集成连线，写一些胶水逻辑。在一些自主IP定制的流程中，比如RISC-V，主要的功能还是在拓展指令集，然后接着大量测试和优化。</p>
+<p>我曾经试图发明一门新的语言，使用现代语言的语法来改进Verilog。写好了词法Parser，拿到了AST，做了一些类型推断以及代码优化工作，可以生成Verilog。然而如果要用于生产，开发工作量是不小的。最终只是作为一个toy项目，帮我熟悉了一些编译器的知识。</p>
+<p>现在回过头来看，如果考虑写一门HDL的话，需要考虑几点：  </p>
+<ul>
+<li>是否可以适配已有工业流程？通常是生成Verilog和其他EDA流程对接。</li>
+<li>是否可以做到和Verilog可综合语法完全等价？需要形式化验证以及实际项目支持（比如Chisel傍上了RISC-V）。</li>
+<li>是否支持其他blackbox（加密IP网表，VHDL，Verilog，SystemVerilog仿真模型）联合仿真？</li>
+<li>是否能在保证仿真结果精度准确的情况下，提高仿真效率？只能粗粒度功能仿真就很鸡肋。</li>
+<li>是否可以引入稳定的自动优化？怀疑是否又必要，后期优化的时候基本会扣每个寄存器，后端流程也有大量优化。</li>
+<li>是否易学？过多的引入严格的抽象概念会大幅提高语言学习难度（用软件语言的角度类比，学go，可能3天上手写工程，学rust，学一个月可能还经常卡在工程编译上），HDL依赖惯性可能比软件语言要大的多。</li>
+</ul>
+<p>软件语言的迭代，引入了新的编程模型，新的内存管理机制，新的并行模型等等，实实在在地带来了极大的收益，大幅提高了并发性能，大幅减少了代码量，大幅降低了运行时排错的成本等等。</p>
+<p>最终决定新语言是否会被大规模使用的核心还是：<strong>开发学习使用新语言引入的成本是否带来了足够的生产力收益</strong>。</p>
+<p>HDL的核心功能还是描述硬件结构。</p>
+<p>如果高层语言可以直接生成Verilog，要么是面向FPGA的HLS<a href="#refer-2"><sup>2</sup></a>（High Level Synthesis），面向软件工程师的硬件加速，根本不关心生成的代码，生成的代码也不可读。</p>
+<p>要么是面向芯片的设计流程，语言本身最好能和硬件资源一一对应，所见即所得，否则就要生成可读的代码，让工程师检查。不过工程师既然都要人肉检查生成的代码了，再套一层壳就比较鸡肋了。</p>
+<p>HDL已经深深嵌入到整个芯片设计流程中，前端和后端都能统一，EDA工具掌管着优化，VCS和Verdi已经是测试的标准工具。相比软件语言，HDL是一个非常细分且小众的DSL。</p>
+<p>也许，之后会有新的HDL成为事实的工业界标准，但应该会是一个漫长的过程。</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/SystemVerilog" target="_blank" rel="noopener">System Verilog</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/High-level_synthesis" target="_blank" rel="noopener">High-level synthesis</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/ai/ml-system/hardware-backend/4-verification/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          机器学习系统 04 - 后端硬件验证
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ai/ml-system/hardware-backend/2-instruction-set/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 02 - 后端硬件指令集</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav">无</ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
