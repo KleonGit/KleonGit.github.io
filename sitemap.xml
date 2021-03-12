@@ -2,37 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/algo/cs/priority-queue/</loc>
+    
+    <lastmod>2021-03-12T09:06:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-03-05T02:42:13.460Z</lastmod>
+    <lastmod>2021-03-12T02:46:48.779Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/k8s/in-action/1-storage-on-k8s/</loc>
     
-    <lastmod>2021-03-05T02:42:13.440Z</lastmod>
+    <lastmod>2021-03-12T02:46:48.763Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-03-05T02:42:13.440Z</lastmod>
+    <lastmod>2021-03-12T02:46:48.763Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-03-05T02:42:13.440Z</lastmod>
+    <lastmod>2021-03-12T02:46:48.763Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-03-05T02:42:13.440Z</lastmod>
+    <lastmod>2021-03-12T02:46:48.763Z</lastmod>
     
   </url>
   
