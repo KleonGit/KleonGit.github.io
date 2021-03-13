@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>机器学习系统 06 - 后端硬件软件栈 | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="没有软件支持的硬件就是一块砖，围绕硬件编写通用且易用的软件栈所需的资源以及重要性不亚于硬件开发。">
+<meta name="keywords" content="机器学习,FPGA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 06 - 后端硬件软件栈">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/6-software-stack-overview/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="没有软件支持的硬件就是一块砖，围绕硬件编写通用且易用的软件栈所需的资源以及重要性不亚于硬件开发。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-21T08:47:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习系统 06 - 后端硬件软件栈">
+<meta name="twitter:description" content="没有软件支持的硬件就是一块砖，围绕硬件编写通用且易用的软件栈所需的资源以及重要性不亚于硬件开发。">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/6-software-stack-overview" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 06 - 后端硬件软件栈
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-01-21T08:47:50.000Z" itemprop="datePublished">一月 21, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-01-21T08:47:50.000Z" itemprop="datePublished">一月 21, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>没有软件支持的硬件就是一块砖，围绕硬件编写通用且易用的软件栈所需的资源以及重要性不亚于硬件开发。</p>
+<a id="more"></a>
+<p>在硬件工程师主导的团队中，可能会忽视软件的作用以及开发工作量。</p>
+<p>因为从硬件的角度来看，软硬件接口的抽象非常明确：</p>
+<ul>
+<li>寄存器表</li>
+<li>数据</li>
+<li>指令</li>
+</ul>
+<p>后端硬件通常暴露一组控制寄存器，上层软件通过驱动读写寄存器，完成初始化，复位，状态监测等操作。</p>
+<p>后端硬件和主控CPU通过主存交换数据和指令，硬件指令解析器读取指令并发出相应的信号影响控制流和数据流。</p>
+<p>然而软件工程需要在软硬件接口之上做多层封装，提供不同层次的接口抽象，满足不同需求的用户。</p>
+<h1 id="驱动（Driver）"><a href="#驱动（Driver）" class="headerlink" title="驱动（Driver）"></a>驱动（Driver）</h1><p>软件层最底层的封装，与操作系统耦合，提供最基本的硬件控制接口，基本和软硬件接口一致，比如读写寄存器表，读写存储器数据等。</p>
+<p>但通常处于安全性考虑，驱动不会直接提供上面的功能，而是进一步封装，提供执行特定功能的接口。一个接口中，可能执行多个寄存器和存储器读写操作。</p>
+<p>除此之外，驱动运行于操作系统层，天然具备跨进程的能力，因此在驱动也会负责跨进程的硬件状态管理，比如内存管理，指令调度等。</p>
+<h1 id="运行时（Runtime）"><a href="#运行时（Runtime）" class="headerlink" title="运行时（Runtime）"></a>运行时（Runtime）</h1><p>用户使用驱动可以最大程度的控制硬件逻辑，但相应的所需要编写的代码量相当可观，因此，驱动层之上还会封装runtime。</p>
+<p>runtime通常提供更高层次的抽象接口，进一步屏蔽硬件初始化，上下文（context）管理，设备管理，以及指令/数据的显示加载读取等操作。</p>
+<p>总体上来看，runtime的性能相较驱动没有太多损失，但易用性大为提升，错误反馈和排查功能也更为友好。</p>
+<p>因此，如果不是对硬件控制有特别高的需求，会使用runtime接口编程。</p>
+<h1 id="计算库（Libraries）"><a href="#计算库（Libraries）" class="headerlink" title="计算库（Libraries）"></a>计算库（Libraries）</h1><p>编写硬件指令，由其是高效的硬件指令需要对硬件结构有深刻的理解，但是手工编写硬件指令对更高层的用户（比如算法工程师）来说是不够友好并且困难的。</p>
+<p>因此后端硬件官方或第三方通常会提供特定领域计算库，提供常见计算pattern的接口，内置凝结了工程师智慧的手工优化代码，比如CuDNN，MKL-DNN等面向深度学习的计算库。</p>
+<p>一般来说，硬件厂商提供的计算库性能高于第三方开发的计算库，毕竟对于硬件结构的理解更深入。但是第三方在应用上的创新速度远快于硬件厂商的响应速度，各家厂商对于应用的参与和主导程度也会影响计算库的迭代速度和易用性，比如NVIDIA和Intel。</p>
+<h1 id="计算框架（Framework）"><a href="#计算框架（Framework）" class="headerlink" title="计算框架（Framework）"></a>计算框架（Framework）</h1><p>计算库提供了特定计算pattern的优化指令，尤其是对计算密集型算子，提高了硬件利用率。但对于一个特定应用来说，还需要足够灵活和高效的计算框架的支持。</p>
+<p>对于深度学习应用，计算框架（比如Tensorflow和PyTorch等训练框架）提供了算子级别的抽象，使用Python定义DSL，让用户灵活构建计算图，并提供了反向梯度计算，方便训练。</p>
+<p>服务框架用来将训练后的模型部署为在线服务，供业务应用调用，通常使用训练框架的计算核心，但是更注重面向网络接口的高可用，高并发等特性。</p>
+<p>后端硬件通常只能支持主流框架全部算子的子集，需要接入框架提高可用性，否则，整个计算图都能在专用硬件上运行的概率不会太高。接入过程主要考虑调度，算子融合，以及常规的编译优化手段。</p>
+<h1 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h1><p>业务应用通常使用微服务架构，各个模块间相互独立。业务应用负责处理数据处理，格式转换，模型调用等任务。</p>
+<p>业务应用从前端被动获取数据（比如用户的行为数据），或者从数据库/数据仓库中取数据，通过RPC<a href="#refer-1"><sup>1</sup></a>或HTTP调用机器学习模型在线服务，根据服务返回结果（比如物品推荐的打分）执行数据处理操作（比如筛选排列返回给前端的物品呈现顺序），优化某项业务指标（比如点击率或观看时长）。</p>
+<p>机器学习服务有SaaS<a href="#refer-2"><sup>2</sup></a>化的趋势，对小微用户来说，招聘全职的算法工程师和平台工程师的风险偏高，且限于技术深度相对不可控。SaaS服务提供了更高层的使用接口，甚至是无代码操作方式，标准化托管用户的数据收集、处理、分析流程，根据用户的不同需要（比如推荐、风险控制、用户增长等）提供不同类型的服务。</p>
+<h1 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h1><p>基于数据分析的业务决策已经被实践证明在优化某些特定业务指标时效果明显，但数据分析逐步普及的趋势下，似乎陷入了电影院困境，大家被迫要用数据分析来决策。</p>
+<p>数字化确实能带来效率提升，紧随其后的大数据计算利用机器学习在试图在微观层面上找到一些可以带来收益的价值，也就是所谓的挖掘数据中的金子。</p>
+<p>智能化是在数据、算力双双获得爆发性增长后的趋势，但目前的智能化仍然只能看做大数据分析的进一步发展形态，依赖算力和数据规模暴力拟合。</p>
+<p>因此而消耗的能源和人类时间，给环境造成的影响是否真正创造了等量的价值呢？</p>
+<p>正如模型训练步长过小容易陷入局部最优解，依赖于一个个AB Test做出的短期决策是否对长期价值有贡献呢？</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="noopener">Remote procedure call</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/Software_as_a_service" target="_blank" rel="noopener">Software as a service</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/ai/ml-system/hardware-backend/7-driver/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          机器学习系统 07 - 后端硬件驱动
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ai/ml-system/hardware-backend/5-fpga-backend/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 05 - 后端硬件后端流程优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#驱动（Driver）"><span class="nav-number">1.</span> <span class="nav-text">驱动（Driver）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行时（Runtime）"><span class="nav-number">2.</span> <span class="nav-text">运行时（Runtime）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算库（Libraries）"><span class="nav-number">3.</span> <span class="nav-text">计算库（Libraries）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算框架（Framework）"><span class="nav-number">4.</span> <span class="nav-text">计算框架（Framework）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#业务"><span class="nav-number">5.</span> <span class="nav-text">业务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#影响"><span class="nav-number">6.</span> <span class="nav-text">影响</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

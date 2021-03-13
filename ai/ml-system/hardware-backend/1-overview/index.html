@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>机器学习系统 01 - 后端硬件初探 | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="机器学习系统通常使用定制硬件后端执行计算密集型算子。训练模型中包含大量训练专用的反向梯度算子，相比之下推理模型结构更简单，算子集更小。因此定制硬件通常从推理模型入手。">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 01 - 后端硬件初探">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/1-overview/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="机器学习系统通常使用定制硬件后端执行计算密集型算子。训练模型中包含大量训练专用的反向梯度算子，相比之下推理模型结构更简单，算子集更小。因此定制硬件通常从推理模型入手。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-12T12:58:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习系统 01 - 后端硬件初探">
+<meta name="twitter:description" content="机器学习系统通常使用定制硬件后端执行计算密集型算子。训练模型中包含大量训练专用的反向梯度算子，相比之下推理模型结构更简单，算子集更小。因此定制硬件通常从推理模型入手。">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/1-overview" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 01 - 后端硬件初探
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-01-12T12:58:36.000Z" itemprop="datePublished">一月 12, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-01-12T12:58:36.000Z" itemprop="datePublished">一月 12, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>机器学习系统通常使用定制硬件后端执行计算密集型算子。训练模型中包含大量训练专用的反向梯度算子，相比之下推理模型结构更简单，算子集更小。因此定制硬件通常从推理模型入手。</p>
+<a id="more"></a>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>如果采用异构计算系统的定义，硬件后端可以大致分为：</p>
+<ul>
+<li><strong>CPU</strong> </li>
+</ul>
+<p>对应最通用的计算设备，可以执行所有计算，灵活性最高，计算性能通常不够高。不过由于CPU的广泛通用性以及较低的成本，使用CPU做推理计算也很常见。</p>
+<p>因此针对不同指令集的CPU也发展出了不同的优化方案，比如Intel加入了AVX512指令支持超宽SIMD指令，但直接加入编译选项对性能提升不明显，需要使用集合了Intel汇编工程师的智慧的MKL-DNN库，针对不同算子精心设计精细到cache-line的操作；Intel随后几代CPU又加入了VNNI指令（INT8支持，实际使用时也有限制）和BF16指令（详细见推理优化）。</p>
+<ul>
+<li><strong>GPGPU<a href="#refer-1"><sup>1</sup></a></strong></li>
+</ul>
+<p>对应计算密集型通用计算设备，可以执行有限的通用计算，取决于设备指令集。市场现状是，NVIDIA几乎垄断服务器级GPGPU供给，成本较高。CUDA软件栈闭源，优化通常只能基于NVIDIA提供的接口。不过也有一些奇技淫巧，通过接口劫持绕过CUDA软件的部分限制，需要一定的逆向工程的能力。</p>
+<p>NVIDIA在模型量化（使用低位宽存储模型参数）上也很激进，INT8，INT4，FP16领先加入硬件。随之也出现过一阵超低精度paper热，使用2bit/1bit存储。如今，量化方案基本成熟，使用FP32训练，使用FP32直接推理，使用FP16/BF16推理精度略有，使用INT8则可能需要重新训练以恢复精度（详细见模型压缩）。</p>
+<ul>
+<li><strong>NPU</strong></li>
+</ul>
+<p>对应最专用的计算设备，通常支持的指令集最小，比如仅支持矩阵乘法，卷积，以及较常用的高频算子，执行效率最高。</p>
+<p>几年前（现在是2020年）FPGA<a href="#refer-2"><sup>2</sup></a>凭借其相比ASIC<a href="#refer-3"><sup>3</sup></a>（专用定制芯片）的灵活可编程能力，一度出圈，成为深度学习硬件加速器的宠儿。不过，如今泡沫退去，一大批ASIC创业公司纷纷倒闭，FPGA自然也退回其最基础的应用场景（原型验证，低频可编程硬件）。</p>
+<p>与此同时，NPU作为芯片的必备模块，已经与ARM整合进入手机CPU。一些大公司财大气粗，内部也在使用自研的特定场景芯片。</p>
+<p>专用硬件突出“专用”二字，这意味着可以将应用场景无限缩窄。可以针对一类模型，甚至一种模型，甚至几种算子，针对性地使用大量专用优化。这样固然可能取得不错的性能，但是硬件开发本身相比软件来说慢得多。芯片的开发周期通常以年计，FPGA开发可能以月计，软件开发通常以周计。相较之下，必须要权衡开发时间、性能、成本以及通用性。</p>
+<p>FPGA在芯片原型阶段的优势明显，如果大规模量产则成本与功耗都远高于ASIC。</p>
+<p>另一方面，随着GPGPU的不断发展，先进工艺节点夹持，性能大幅提高，FPGA早期的低成本性能比的优势不复存在。在泡沫时期可能存在诸多在多项指标中平衡的特定场景硬件，但最终还是互相合并，收敛到几种硬件设计方案。</p>
+<p>不过FPGA作为不错的早期原型平台还是有价值的，前端硬件的设计思路也和芯片设计相通，可以借鉴。</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://zh.wikipedia.org/zh-hans/%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86%E5%99%A8%E9%80%9A%E7%94%A8%E8%AE%A1%E7%AE%97" target="_blank" rel="noopener">图形处理器通用计算</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank" rel="noopener">Field-programmable gate array</a></li>
+<li>[3] <span id="refer-3"></span> <a href="https://en.wikipedia.org/wiki/Application-specific_integrated_circuit" target="_blank" rel="noopener">Application-specific integrated circuit</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/ai/ml-system/hardware-backend/2-instruction-set/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          机器学习系统 02 - 后端硬件指令集
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ai/ml-system/0-overview/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 00 - 总览</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分类"><span class="nav-number">1.</span> <span class="nav-text">分类</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

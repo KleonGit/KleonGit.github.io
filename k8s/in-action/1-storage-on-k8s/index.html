@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>kubernetes系统实战 1 - 存储系统 | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。">
+<meta name="keywords" content="kubernetes,k8s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes系统实战 1 - 存储系统">
+<meta property="og:url" content="https://blog.kleon.space/k8s/in-action/1-storage-on-k8s/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-03-13T13:44:30.251Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes系统实战 1 - 存储系统">
+<meta name="twitter:description" content="云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-k8s/in-action/1-storage-on-k8s" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Kubernetes系统实战 1 - 存储系统
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-02-26T14:00:01.000Z" itemprop="datePublished">二月 26, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-03-13T13:44:30.251Z" itemprop="datePublished">三月 13, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
+<a id="more"></a>
+<blockquote>
+<p>需要<a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">Kubernetes基本知识</a></p>
+</blockquote>
+<h1 id="本地存储-local-path"><a href="#本地存储-local-path" class="headerlink" title="本地存储 local-path"></a>本地存储 local-path</h1><p>可以用<a href="https://github.com/rancher/local-path-provisioner" target="_blank" rel="noopener">local-path-storage</a>部署基于本地存储的StorageClass。方便灵活，但没有冗余存储，如果Node节点挂掉，相关的PV都会丢失，需要及时备份。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https://github.com/rancher/local-path-provisioner/blob/master/deploy/local-path-storage.yaml</span><br></pre></td></tr></table></figure>
+<h1 id="对象存储-MinIO"><a href="#对象存储-MinIO" class="headerlink" title="对象存储 MinIO"></a>对象存储 MinIO</h1><p>MinIO支持S3，可通过Helm Chart<a href="https://docs.min.io/cn/deploy-minio-on-kubernetes.html" target="_blank" rel="noopener">部署服务</a>。</p>
+<p>添加MinIO Repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm repo add minio https://helm.min.io/</span><br></pre></td></tr></table></figure></p>
+<p>默认部署单节点服务。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm install minio/minio</span><br></pre></td></tr></table></figure></p>
+<p>分布式服务通过纠删码(EC，Erasure Code)保证高可靠性，需要多节点集群，准备可用的动态存储(longhorn、rook、openebs等)。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">helm install minio \                                                                        </span><br><span class="line">  --namespace minio --create-namespace \</span><br><span class="line">  --set mode=distributed \</span><br><span class="line">  --set replicas=4 \</span><br><span class="line">  --set persistence.size=10Gi \</span><br><span class="line">  minio/minio</span><br></pre></td></tr></table></figure></p>
+<p>可以使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Operator</a>管理租户。</p>
+<p>安装<a href="https://docs.minio.io/docs/minio-client-quickstart-guide" target="_blank" rel="noopener">MinIO客户端</a>访问bucket。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://blade-opt.oss-cn-hangzhou.aliyuncs.com/mc</span><br><span class="line">chmod +x mc</span><br></pre></td></tr></table></figure>
+<p>Retreive Keys<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export MINIO_ACCESS_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.accesskey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br><span class="line">export MINIO_SECRET_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.secretkey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br></pre></td></tr></table></figure></p>
+<p>集群内设置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mc alias set k8s http://minio.minio.svc:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY</span><br></pre></td></tr></table></figure></p>
+<p>可通过<code>~/.mc/config.json</code>修改配置，先执行<code>mc config host</code>。</p>
+<p>基本操作<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">mc mb k8s/test</span><br><span class="line">echo "Hello MinIO" &gt; /tmp/minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">mc ls k8s</span><br><span class="line">mc ls k8s/test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Copy</span></span><br><span class="line">mc cp /tmp/minio k8s/test</span><br><span class="line">mc cp k8s/test/minio .</span><br><span class="line">cat minio</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello MinIO</span></span><br><span class="line">rm minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">mc rm k8s/test/minio</span><br><span class="line">mc rb k8s/test</span><br></pre></td></tr></table></figure></p>
+<h1 id="分布式文件系统-对象存储-Rook-Ceph"><a href="#分布式文件系统-对象存储-Rook-Ceph" class="headerlink" title="分布式文件系统/对象存储 Rook-Ceph"></a>分布式文件系统/对象存储 Rook-Ceph</h1><blockquote>
+<p>需要集群<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes" target="_blank" rel="noopener">配置CSI</a>，如果是云上集群，不要申请FlexVolume。</p>
+</blockquote>
+<p>Ceph支持分布式块存储、文件系统以及对象存储。机器需要有未分配或未使用的磁盘，至少需要三个节点保持健康。</p>
+<p><a href="(https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md">安装Cephfs</a>)支持分布式文件系统。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone --single-branch --branch release-1.5 https://github.com/rook/rook</span><br><span class="line">cd rook/cluster/examples/kubernetes/ceph</span><br><span class="line">kubectl apply -f common.yaml</span><br><span class="line">kubectl apply -f crds.yaml</span><br><span class="line">kubectl apply -f operator.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait until operator is running</span></span><br><span class="line">kubectl apply -f cluster.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install Cephfs</span></span><br><span class="line">kubectl apply -f filesystem.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Install StorageClass rook-cephfs</span></span><br><span class="line">kubectl apply -f csi/cephfs/storageclass.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mark rook-cephfs as the default storage class</span></span><br><span class="line">kubectl annotate sc rook-cephfs storageclass.kubernetes.io/is-default-class="true"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install toolbox to check status</span></span><br><span class="line">kubectl apply -f toolbox.yaml</span><br><span class="line">kubectl -n rook-ceph exec -it $(kubectl get pods -l=app=rook-ceph-tools -n rook-ceph -o jsonpath='&#123;.items[0].metadata.name&#125;') bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph status</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph -s </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph df</span></span><br></pre></td></tr></table></figure>
+<p>安装ceph-rgw支持S3对象存储，MinIO Alternative</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f object.yaml</span><br><span class="line">kubectl apply -f object-user.yaml</span><br><span class="line">kubectl get svc rook-ceph-rgw-my-store -n rook-ceph</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get Bucket Config</span></span><br><span class="line">export AWS_HOST=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.Endpoint&#125;' | base64 --decode)</span><br><span class="line">export AWS_ACCESS_KEY_ID=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.AccessKey&#125;' | base64 --decode)</span><br><span class="line">export AWS_SECRET_ACCESS_KEY=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.SecretKey&#125;' | base64 --decode)</span><br></pre></td></tr></table></figure>
+<p>集群内配置好上述环境变量，使用<a href="https://github.com/s3tools/s3cmd" target="_blank" rel="noopener">s3cmd</a>测试bucket读写，可参考<a href="https://zhuanlan.zhihu.com/p/107083375" target="_blank" rel="noopener">文章</a>。可以使用<code>s3cmd --configure</code>详细配置，选择http，不要配置host_bucket。默认域名是<code>rook-ceph-rgw-my-store.rook-ceph.svc</code>(service-name.namespace.svc)。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">s3cmd mb s3://test</span><br><span class="line">echo "Hello Rook" &gt; /tmp/rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">s3cmd ls</span><br><span class="line">s3cmd ls s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Put</span></span><br><span class="line">s3cmd put /tmp/rook s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get</span></span><br><span class="line">s3cmd get s3://test/rook .</span><br><span class="line">cat rook</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello Rook</span></span><br><span class="line">rm rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">s3cmd rm s3://test/rook</span><br><span class="line">s3cmd rb s3://test</span><br></pre></td></tr></table></figure>
+<p>安装ceph-dashboard (Optional)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Either Use HTTP Port 7000</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yq w -i cluster.yaml spec.dashboard.ssl <span class="literal">false</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl apply -f dashboard-external-http.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Or Use HTTPS Port 8443</span></span><br><span class="line">kubectl apply -f dashboard-external-http.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Username: admin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Password:</span></span><br><span class="line">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="&#123;['data']['password']&#125;" | base64 --decode &amp;&amp; echo</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/kubernetes/">kubernetes</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/k8s/">k8s</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kubernetes/">kubernetes</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/algo/cs/priority-queue/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          算法基础 - 优先队列
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ai/ml-system/inference-optimization/12-overview/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 12 - 推理优化总览</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本地存储-local-path"><span class="nav-number">1.</span> <span class="nav-text">本地存储 local-path</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象存储-MinIO"><span class="nav-number">2.</span> <span class="nav-text">对象存储 MinIO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式文件系统-对象存储-Rook-Ceph"><span class="nav-number">3.</span> <span class="nav-text">分布式文件系统/对象存储 Rook-Ceph</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

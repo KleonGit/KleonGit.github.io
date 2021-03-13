@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>机器学习系统 12 - 推理优化总览 | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。">
+<meta name="keywords" content="机器学习,推理优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 12 - 推理优化总览">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/inference-optimization/12-overview/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-02-05T17:28:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习系统 12 - 推理优化总览">
+<meta name="twitter:description" content="模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/inference-optimization/12-overview" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 12 - 推理优化总览
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-02-05T17:28:01.000Z" itemprop="datePublished">二月 5, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-02-05T17:28:01.000Z" itemprop="datePublished">二月 5, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。</p>
+<a id="more"></a>
+<p>说起性能优化，软件的性能优化应该是必备功课，通过profiling定位bottleneck，再针对性优化，可以说具备一定程度通用的方法论，但实际业务上也要随机应变。</p>
+<p>模型性能的优化也属于软件性能优化，特点是模型的运行调度框架已经确定，并且由社区平衡通用性和性能做了不少的优化。</p>
+<p>模型性能的问题主要在低效的计算密集型算子，不合理的子图结构，复杂的动态运行环境，冗余的模型结构和数据宽度。</p>
+<p>针对这些问题，模型推理优化方法主要分为：</p>
+<h1 id="计算图结构优化"><a href="#计算图结构优化" class="headerlink" title="计算图结构优化"></a>计算图结构优化</h1><p>主要是清理冗余节点，一般的训练节点，框架在开始运行前会根据输入和输出裁剪无关节点，通常对性能影响不大。</p>
+<p>但部分嵌入计算图的节点就很难被去除，Tensorflow引入的控制结构就是是图结构优化点之一，比如训练时需要的随机dropout结构等，用户可能在构建模型时把标记是否是训练的变量加入到计算图，在清理时就需要将对应placeholder转变为常量，提取子图。</p>
+<h1 id="算子融合"><a href="#算子融合" class="headerlink" title="算子融合"></a>算子融合</h1><p>主要是融合子图，比如对于Feature Embedding这类常用的特征预处理API，通常为了灵活性，生成的子图比较复杂，算子数量极多，框架调度算子的开销远远超过算子实际执行的开销。因此可以匹配对应子图，使用一个算子代替，大大提高执行效率。高频模型中Tensorflow引入的循环控制结构也可以被优化，比如LSTM结构。</p>
+<p>通常需要匹配识别的子图较复杂，依赖人工发现模式并编写匹配逻辑，基本纯手工，开发验证工作量大，由于引入了控制节点和Dynamic Shape，目前编译优化方法也没有很好的解法。因此，通常只针对成熟模型做此类定制优化，比如Transformer结构，Embedding结构等。</p>
+<h1 id="硬件计算库"><a href="#硬件计算库" class="headerlink" title="硬件计算库"></a>硬件计算库</h1><p>底层硬件开发者出于安全或其他原因考虑，不会开放底层实现细节，也不会开放精细控制接口，但为了迎合市场需求，会推出计算库。</p>
+<p>计算库内提供了粗粒度的算子接口，内置了不少汇编层级的优化经验，实现方法至于是if else还是JIT codegen就不得而知了。</p>
+<p>计算库内的核心是如何高效利用硬件执行矩阵并行计算，通常基于经验，比如考虑Cache大小，内存带宽，数据位宽等，利用一个“经验性”公式计算出合理的矩阵分块配置，比较重要也比较让人感到tricky的是公式中不时出现的magic number，很有可能是结合profiling得出的经验。</p>
+<p>常见的计算库比如CUDA和MKL-DNN，在单个算子优化的基础上，硬件厂家还会提供子图层面的计算优化库，比如TensorRT等。</p>
+<h1 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h1><p>编译优化包含一大类方法，也借鉴了上述方法的思路。主要目标是自动化地、通用化地实现图结构优化、算子融合、以及矩阵分块。</p>
+<p>和编译器的优化思路类似，不同框架的计算图经过分图，将可编译的子图会被统一转化为编译优化框架的中间表示（IR），再通过一系列的通用的编译优化pass得到优化后的IR，随后codegen生成执行代码。只要能被划分进编译子图，就能通用化地支持图结构优化和算子融合。</p>
+<p>最精华的地方在于codegen，主要思路有：</p>
+<ul>
+<li>写入人工调优的经验，生成高效的底层执行代码。一般是社区早期这么做，比如Tensorflow的XLA。</li>
+<li>借用硬件计算库生成高效代码。硬件厂商这头大象终于反应过来了，毕竟他们对硬件更了解，不用白不用。</li>
+<li>把硬件当作黑盒，构建细粒度矩阵分块方法，通过profiling不断调整分块参数，直到收敛到最优解。比较暴力，分块方法的可调参数越多，Tuning（参数搜索）的时间可能越长，不过也有算法加速收敛，比如TVM。</li>
+<li>解析法，比如Ployhedral，把矩阵分块过程描述为一般的空间变换方法，而性能优化问题就转化成了搜索最优整数解的过程。愿景很好，但目标函数本身又很难和实际硬件完全对应，搜索的时间也不小。</li>
+</ul>
+<p>编译优化方法在学术届内百花齐放，本质上还是新瓶装旧酒，关键还是在于如何把新问题转化为通用的老问题，并解决新的问题定义边界带来的新的约束带来的corner case。</p>
+<p>对于主流模型，硬件厂商的人力可以做到全图支持，定制优化的性能让编译优化难以超越，编译优化更多地是在通用化的corner case场景下发挥作用，与手工方法互补。</p>
+<p>同时现有的编译优化方法本身也会遇到比如Dynamic Shape的问题，严重影响分图和codegen，亟待解决。好在如MLIR等编译基础设施工作正在不断发展，解决多层IR信息联合优化，复用优化pass，解决共有的问题。</p>
+<h1 id="模型压缩"><a href="#模型压缩" class="headerlink" title="模型压缩"></a>模型压缩</h1><p>除了编译优化方法之外，模型压缩也被用来从算法层面去除降低数据位宽，冗余图结构，大幅并行化模型结构。</p>
+<ul>
+<li>量化</li>
+</ul>
+<p>模型推理的性能问题有很多是memory bound（受限于内存带宽），尤其是在高度密集计算（大batch）的场景下，同时推理相对于训练不需要很高的数据精度，可以使用量化方法缩减数据位宽，直接降低所需内存带宽，memory bound问题也迎刃而解。同时原来用于计算32位数据（FP32）的计算单元可以配置为计算2个16位数据（FP16）和4个8位数据（INT8），计算性能也直接翻番。</p>
+<ul>
+<li>剪枝</li>
+</ul>
+<p>深度学习模型并不是要求精确计算，而是计算概率分布，因此在实践中，将模型中权重较小的连接直接置为0或去除，对模型的整体精度影响不大，反而有效降低了总体计算量。</p>
+<ul>
+<li>蒸馏</li>
+</ul>
+<p>出于直观，可能使用串行结构（数据依赖）模型，导致计算效率不高，或者使用超大模型，模型参数非常多。但模型训练本质上是拟合数据的目标概率分布，那么就可以使用另一个并行模型“学习”串行模型的概率分布，或者使用一个小模型“学习”大模型的概率分布。只要模型精度控制在预期范围内，那么所需的计算量就能大幅下降。</p>
+<h1 id="推理服务性能优化"><a href="#推理服务性能优化" class="headerlink" title="推理服务性能优化"></a>推理服务性能优化</h1><p>这部分和模型关系不大，但也在关键路径上，因此放在这里。服务的性能优化，主要是优化数据链路，比如数据传输协议，Serving框架线程性能，网关性能等。</p>
+<hr>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推理优化/">推理优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/k8s/in-action/1-storage-on-k8s/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Kubernetes系统实战 1 - 存储系统
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ai/ml-system/hardware-backend/11-system/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 11 - 后端硬件系统</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算图结构优化"><span class="nav-number">1.</span> <span class="nav-text">计算图结构优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#算子融合"><span class="nav-number">2.</span> <span class="nav-text">算子融合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#硬件计算库"><span class="nav-number">3.</span> <span class="nav-text">硬件计算库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译优化"><span class="nav-number">4.</span> <span class="nav-text">编译优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型压缩"><span class="nav-number">5.</span> <span class="nav-text">模型压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推理服务性能优化"><span class="nav-number">6.</span> <span class="nav-text">推理服务性能优化</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

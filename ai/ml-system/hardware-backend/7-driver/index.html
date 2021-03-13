@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>机器学习系统 07 - 后端硬件驱动 | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="驱动是对硬件接口的抽象和封装，设计时需要充分考虑分层和解耦。">
+<meta name="keywords" content="机器学习,FPGA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 07 - 后端硬件驱动">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/hardware-backend/7-driver/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="驱动是对硬件接口的抽象和封装，设计时需要充分考虑分层和解耦。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-22T09:49:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习系统 07 - 后端硬件驱动">
+<meta name="twitter:description" content="驱动是对硬件接口的抽象和封装，设计时需要充分考虑分层和解耦。">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/hardware-backend/7-driver" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 07 - 后端硬件驱动
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-01-22T09:49:45.000Z" itemprop="datePublished">一月 22, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-01-22T09:49:45.000Z" itemprop="datePublished">一月 22, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>驱动是对硬件接口的抽象和封装，设计时需要充分考虑分层和解耦。</p>
+<a id="more"></a>
+<p>Linux系统将设备<a href="#refer-1"><sup>1</sup></a>抽象为文件，比如字符设备、块设备和网络接口，保持和文件一致的读写接口。</p>
+<p>拓展卡类型的FPGA加速卡使用GPIO和PCIe相连，内置PCIe Controller和DMA提供统一寻址。DMA提供多组AXI总线（通常与DDR空间对应，DDR空间不足可高位截断）以及一组AXI-lite总线（通常和用户寄存器空间对应）。</p>
+<p>FPGA硬件设备驱动的核心模块是DMA驱动，配合scatter-gather DMA，负责数据在主存和设备存储间的交换。</p>
+<p>用户软件通过设备文件的读写接口发起大规模DMA读写，通过ioctl等系统调用定制接口，比如寄存器读写等。</p>
+<p>FPGA芯片厂商通常提供DMA驱动，对FPGA开发者屏蔽了PCIe/DMA寄存器的操作细节。因此在驱动和硬件两侧看来，驱动设备文件的数据读写接口和AXI总线接口完全对应。</p>
+<p>硬件加速器会基于FPGA厂商提供的驱动对应硬件功能做二次开发，一是向runtime屏蔽硬件操作的复杂性，复用操作逻辑，二是保护硬件，防止用户软件对硬件执行非法操作。</p>
+<p>对于深度学习硬件后端，驱动的功能主要分为：内存管理，引擎管理，指令调度等。</p>
+<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><p>驱动最简单的管理策略就是直接放开所有物理内存空间，用户可通过读写接口访问任意内存地址。</p>
+<p>但这是个危险的操作，多个用户进程可能直接地址冲突，相互干扰，导致硬件逻辑错误。否则就要修改代码，对每个进程配置一个基地址。对于同构逻辑可能还行，如果是通用逻辑则无法保证均匀切割的地址空间能满足所有进程的需要。</p>
+<p>因此，驱动应提供内存管理的功能，在用户进程发起写请求前，显式申请内存空间，并在进程退出后清理所有残留内存空间。</p>
+<p>更为安全的做法是使用虚拟内存，将硬件的物理内存地址空间（有可能不连续）映射到连续的内存空间，相应的返回给用户的是虚拟内存地址。用户不能直接操作物理内存地址，同时对用户读写请求做内存地址所有权检查，禁止非法访问。</p>
+<p>不过通常安全性和性能是相互限制的，在高频读写场景下，可能会影响系统整体吞吐。对于延迟敏感型应用可能有较大影响，应根据实际场景取舍。可以加入安全模式或低延迟模式的选项，满足不同场景的需要。</p>
+<p>内存管理的另一个问题是，内存碎片。</p>
+<p>如果采用直白的顺序分配方式，不仅在碎片数量上升的情况下，内存分配时间逐步上升，而且可能会在多轮地址全部分配后出现大量碎片，难以重新分配。</p>
+<p>因此一个可以直接想到的方法是，预先将内存切割为大小均等的块，在内存分配时给出适合大小的块，使用bitmap记录内存使用情况。</p>
+<p>指令内存和数据内存的大小通常相差很多，可以根据业务场景预设多种尺寸的内存块。这样会浪费一些内存空间，极端情况是场景所需内存恰好超出预设尺寸一些，必须要分配更大尺寸的空间，不过这样设计的好处是，内存管理逻辑相对简单。</p>
+<p>如果要进一步优化内存使用率，可以使用均等切块，不连续内存访问的方式，由驱动控制数据的拆分，可能会将单次DMA读写拆分为多次。如此引入的额外性能开销，驱动复杂性和调试难度等，需要结合业务通用程度和团队产能平衡。</p>
+<h1 id="引擎管理"><a href="#引擎管理" class="headerlink" title="引擎管理"></a>引擎管理</h1><p>密集型算子的计算核心对应硬件的计算引擎（计算核），同构结构下多个计算引擎的结构与性能完全一致，可能分别置于多个die上（有时候，为了压低单位算力成本需要高超的FPGA后端技巧）。异构结构可能分为大小核结构和完全异构结构。</p>
+<p>使用大小核是为了充分满足设计上限（受限于给定可用资源或面积）。设计标准核的性能算力最佳，但占用资源较多。在设计上限内，不能完整容纳另一个标准核，但可以容纳阉割核（砍计算位宽，降频等）。但大小核功能基本一致，但是性能有差异。</p>
+<p>完全异构核是指设计功能不同的计算核，比如拆分计算密集型和长尾通用型计算核，或者针对特定场景（比如推荐）设计特定计算核（比如Embedding）。</p>
+<p>驱动设计时需要考虑上述各种情况，可以根据实际应用场景取舍。</p>
+<p>一个硬件版本会对应一组硬件结构，可以通过配置文件的形式对应硬件寄存器版本信息。驱动在初始化设备时，创建对应的数据结构，不同类型的核对应不同的引擎类型。对外提供引擎分配，释放，启动，重置接口等。</p>
+<h1 id="指令调度"><a href="#指令调度" class="headerlink" title="指令调度"></a>指令调度</h1><p>对于完全同构引擎，驱动在分配时可以使用独占或共享策略。</p>
+<p>独占策略声明引擎的排他性，通常是处于应用低延迟需要。由其是在没有引入指令交叉发射的机制下，共享同一个引擎的应用可能会被block较长时间，造成较高的延迟抖动。</p>
+<p>共享策略是为了最大化吞吐，多个计算指令填充队列，屏蔽数据交换的overhead。</p>
+<p>异构结构引擎的分配策略类似，需要考虑是否需要区分大小核。</p>
+<p>实际上提前由用户进程分配物理引擎并不一定是最优方案，尤其是在用户进程没有全局信息的情况下。驱动可以负责指令的动态调度，使用虚拟引擎屏蔽物理引擎细节。</p>
+<p>在分配引擎时，并不直接分配物理引擎，而是分配一个虚拟的引擎（持有类型信息），在实际启动引擎时，使用round-robin策略、按优先级或按负载调度指令。</p>
+<p>在某些场景下，硬件物理引擎只有一份，但最大可以处理N条指令（队列深度）。驱动可以通过维护指令队列的方式和硬件结构对应，实时查看硬件的队列深度，但这样会引入轮询开销。</p>
+<p>另一种做法是分配N个虚拟引擎对应一个物理引擎，并使用独占的方式，每个引擎阻塞执行，如此一来驱动就不必关心指令队列的实时状态了。总体上看，由软件调度的性能开销和抽象复杂度都较高。</p>
+<p>另一种思路是将指令调度下沉至硬件，驱动单纯负责内存分配和数据交换，以及简单的引擎管理功能。</p>
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><p>性能优化是必然要提到的，大体说来就是锁和合并。</p>
+<p>多线程应用/多进程应用在驱动中的行为基本一致（除了内存共享），那么最应该注意的就是加锁问题了。</p>
+<p>一个是mutex和spinlock，mutex会调用sleep，并切换context，spinlock则会反复尝试unlock直到成功。</p>
+<p>另一个是精细加锁，不要在整个函数出入口加一把大锁，非常容易引起性能问题。</p>
+<p>中断处理是需要消耗资源的，硬件过多的中断信号可能会丢失，或者造成CPU0占用过高，硬件可以提供中断合并的机制，降低实际中断次数。DMA的启动也有开销，因此需要考虑如何减少DMA读写次数，或者overlap启动开销。</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Device_driver" target="_blank" rel="noopener">Intermediate representation</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FPGA/">FPGA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/ai/ml-system/hardware-backend/8-runtime/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          机器学习系统 08 - 后端硬件运行时
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ai/ml-system/hardware-backend/6-software-stack-overview/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 06 - 后端硬件软件栈</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存管理"><span class="nav-number">1.</span> <span class="nav-text">内存管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引擎管理"><span class="nav-number">2.</span> <span class="nav-text">引擎管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指令调度"><span class="nav-number">3.</span> <span class="nav-text">指令调度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能优化"><span class="nav-number">4.</span> <span class="nav-text">性能优化</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
