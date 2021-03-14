@@ -250,7 +250,7 @@
       </tags>
   </entry>
   <entry>
-    <title>算法基础 - 排序</title>
+    <title>算法基础 - 树</title>
     <url>/algo/cs/tree/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>树是常用的数据结构，应用较多的有二叉搜索树，二叉平衡搜索树(AVL树)，红黑树，多路平衡搜索树(B-树，B+树，B*树)等。</p>
 <a id="more"></a>
@@ -258,24 +258,18 @@
 <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><p>每个节点至多只能指向两个节点。</p>
 <h1 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h1><p>一种朴素的树结构，左子节点均小于父节点，右子节点均大于父节点。当插入新值时由根节点开始按以上规则逐层比较，直到找到合适的叶节点位置。</p>
 <ul>
-<li><p>优点：不需要在插入数据时调整结构</p>
-</li>
-<li><p>缺点：性能易受数据插入顺序影响，最差情况为顺序插入，退化为链表。</p>
-</li>
+<li>优点：不需要在插入数据时调整结构</li>
+<li>缺点：性能易受数据插入顺序影响，最差情况为顺序插入，退化为链表。</li>
 </ul>
 <h1 id="二叉平衡搜索树-AVL树"><a href="#二叉平衡搜索树-AVL树" class="headerlink" title="二叉平衡搜索树(AVL树)"></a>二叉平衡搜索树(AVL树)</h1><p>二叉搜索树的改进，又称AVL树，引入平衡因子，通过旋转操作保证所有子树高度差不超过1。</p>
 <ul>
-<li><p>优点：相比二叉树更平衡，极端情况下表现依然足够好。</p>
-</li>
-<li><p>缺点：在读写比例差不多的情况下，旋转操作过多。</p>
-</li>
+<li>优点：相比二叉树更平衡，极端情况下表现依然足够好。</li>
+<li>缺点：在读写比例差不多的情况下，旋转操作过多。</li>
 </ul>
 <h1 id="红黑树-RB树"><a href="#红黑树-RB树" class="headerlink" title="红黑树(RB树)"></a>红黑树(RB树)</h1><p>AVL树的改进，引入着色规则，通过旋转和着色操作保证所有子树高度差不超过2。Map可以通过红黑树实现。</p>
 <ul>
-<li><p>优点：写性能更高。</p>
-</li>
-<li><p>缺点：查询性能弱于AVL树，因为子树高度差比AVL多一层，最差情况会多一次比较。</p>
-</li>
+<li>优点：写性能更高。</li>
+<li>缺点：查询性能弱于AVL树，因为子树高度差比AVL多一层，最差情况会多一次比较。</li>
 </ul>
 <h1 id="B-树-B-Tree-B树"><a href="#B-树-B-Tree-B树" class="headerlink" title="B-树(B-Tree, B树)"></a>B-树(B-Tree, B树)</h1><p>多路搜索树，又称B树，用于数据索引，子节点内放指针和数据块。通过分裂操作维持树结构。</p>
 <h1 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h1><p>B-树改进型，子节点内不放数据块，统一放在叶节点内。查询性能稳定，IO数据利用率高。</p>
