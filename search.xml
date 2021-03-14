@@ -1,6 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>简链</title>
+    <url>/product/1-product-spec/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>简链，智能化信息流、数据流、工作流。</p>
+<a id="more"></a>
+<p>简链，功能主要划分为：</p>
+<ul>
+<li>原始信息输入 Inbox<ul>
+<li>网页(m,d)<ul>
+<li>share via intent<ul>
+<li>url, how to get title</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>app(i,a)<ul>
+<li>share via intent<ul>
+<li>url</li>
+<li>text</li>
+<li>image</li>
+<li>object</li>
+</ul>
+</li>
+<li>share via copyboard<ul>
+<li>text</li>
+<li>url</li>
+<li>image</li>
+</ul>
+</li>
+<li>share via input box<ul>
+<li>text and url</li>
+<li>image</li>
+<li>command</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[x] desktop(w,m,l)</li>
+<li>chrome extension<ul>
+<li>send via webhook<ul>
+<li>text and url</li>
+<li>command</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>wechat service account<ul>
+<li>send via webhook<ul>
+<li>text and url</li>
+<li>image</li>
+<li>command</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据库 Table<ul>
+<li>type<ul>
+<li>SQL</li>
+<li>Object(mongo:高性能/redis:超性能)</li>
+<li>Graph</li>
+<li>DataLake</li>
+<li>Warehouse</li>
+</ul>
+</li>
+<li>visual<ul>
+<li>table</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基于block的文档展示 Doc/Slices<ul>
+<li>block<ul>
+<li>markdown element</li>
+<li>rich text element</li>
+</ul>
+</li>
+<li>sql create &amp; associate table<ul>
+<li>table</li>
+<li>kanban</li>
+<li>group</li>
+<li>progress</li>
+<li>list</li>
+</ul>
+</li>
+<li>graphics<ul>
+<li>pins</li>
+<li>graphs</li>
+</ul>
+</li>
+<li>data source<ul>
+<li>table specific api</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基于block的表单收集 Form<ul>
+<li>block<ul>
+<li>layout</li>
+</ul>
+</li>
+<li>sql create &amp; associate table<ul>
+<li>component<ul>
+<li>text field</li>
+<li>multi text</li>
+<li>toggle</li>
+<li>radio</li>
+<li>slider</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>智能化任务注册 Act<ul>
+<li>写动作</li>
+</ul>
+</li>
+</ul>
+<h1 id="Inbox"><a href="#Inbox" class="headerlink" title="Inbox"></a>Inbox</h1><h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>纯文本为主。可以将对象文件作为附件的形式发送。存储时添加关系类型appendix。</p>
+<p>可前向引用，后向引用，双向引用。关系类型为parent，children，assosiate。</p>
+<p>用户可自定义关系类型。</p>
+<p>用户可添加标签？</p>
+<p>用户可挂载Tracker，设置提醒，计划时间等。</p>
+<p>用户可添加指令，触发异步任务。</p>
+<p>提供三端，过滤器(标签)，触发器(指令)，API。</p>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">GET  /messages/:uuid</span><br><span class="line">POST /messages</span><br><span class="line">POST /relations</span><br><span class="line">POST /trackers</span><br></pre></td></tr></table></figure>
+<h2 id="Webhook"><a href="#Webhook" class="headerlink" title="Webhook"></a>Webhook</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">POST /webhooks/:uuid</span><br></pre></td></tr></table></figure>
+<h1 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h1><p>关系型数据库，前端可配置展示形式。</p>
+<p>默认配置Inbox数据库，类型为protected(受保护的)。</p>
+<p>可通过Inbox触发器写入。</p>
+<p>可通过API操作。</p>
+<p>可导出为文件。</p>
+<h2 id="API-1"><a href="#API-1" class="headerlink" title="API"></a>API</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">GET /tables</span><br><span class="line">GET /tables/:uuid</span><br></pre></td></tr></table></figure>
+<h1 id="Doc-Slice"><a href="#Doc-Slice" class="headerlink" title="Doc/Slice"></a>Doc/Slice</h1><p>文档展示页面。</p>
+<p>以Block为基本元素。</p>
+<p>不同尺寸的文档，可以使用播放模式。</p>
+<p>可以以Diver为分界线，block可排版。</p>
+<h1 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h1><p>交互式表单。</p>
+<p>可增加用户行为数据收集。</p>
+<h1 id="Auto"><a href="#Auto" class="headerlink" title="Auto"></a>Auto</h1><p>自定义任务。</p>
+<p>提供任务模板。</p>
+<p>提取文本到数据库。无代码？</p>
+<h1 id="UserStory"><a href="#UserStory" class="headerlink" title="UserStory"></a>UserStory</h1><h2 id="全平台web内容收藏"><a href="#全平台web内容收藏" class="headerlink" title="全平台web内容收藏"></a>全平台web内容收藏</h2><h3 id="CRHOME"><a href="#CRHOME" class="headerlink" title="CRHOME"></a>CRHOME</h3><p>插件一键分享，可添加内容</p>
+<p>pure text</p>
+<ul>
+<li>command /command</li>
+<li>tag #tag</li>
+<li>url url://</li>
+<li>text test</li>
+<li>keyword keyword</li>
+</ul>
+<p>/添加书签<br>标题:我亲爱的XXX HAHAHA<br>网页:<a href="https://web.url.com" target="_blank" rel="noopener">https://web.url.com</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">POST api.inbox.mate.ai/open/uuid/messages</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="INBOX"><a href="#INBOX" class="headerlink" title="INBOX"></a>INBOX</h3><p>关联action，镜像流量</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">POST api.actor.mate.ai/open/uuid/actions</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="ACTION"><a href="#ACTION" class="headerlink" title="ACTION"></a>ACTION</h3><p>// 从文本解析<br>// 按关键词解析提取数据</p>
+<p>{<br>  “标题” : “我亲爱的XXX HAHAHA”,<br>  “网页” : “<a href="https://web.url.com" target="_blank" rel="noopener">https://web.url.com</a>“<br>}</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">POST api.table.mate.ai/open/uuid/tables/uuid/rows</span><br><span class="line"><span class="comment">//application/json</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="TABLE"><a href="#TABLE" class="headerlink" title="TABLE"></a>TABLE</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>title</th>
+<th>url</th>
+<th>uuid</th>
+<th>created_time</th>
+<th>updated_time</th>
+<th>deleted_time</th>
+<th>deleted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HAH</td>
+<td>http</td>
+<td>xxxx</td>
+<td>2021-3-14</td>
+<td>2021-3-14</td>
+<td>2021-3-14</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>创建</p>
+<hr>
+<blockquote>
+<p>POST api.doc.mate.ai/docs</p>
+</blockquote>
+<h3 id="DOC"><a href="#DOC" class="headerlink" title="DOC"></a>DOC</h3><p>Insert Table &amp; Set Data Source </p>
+<p>添加数据源</p>
+<ul>
+<li>backend</li>
+<li>protocol</li>
+</ul>
+<p>关联表地址(读写权限，可读/可写)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">GET table.mate.ai/tables/uuid</span><br></pre></td></tr></table></figure>
+<p>跳过行数0<br>选取行数10<br>过滤条件:</p>
+<ul>
+<li>title=我的</li>
+<li>创建日期=最近x天<br>按序字段:</li>
+<li>col1=</li>
+<li>col2=</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">GET api.table.mate.ai/open/uuid/tables/rows?offset=<span class="number">0</span>&amp;limit=<span class="number">10</span>&amp;where=&#123;<span class="string">"created_time"</span>=<span class="string">"7天"</span>&#125;&amp;rows=[]</span><br><span class="line"></span><br><span class="line"><span class="comment">//response body </span></span><br><span class="line"><span class="comment">//application/json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"types"</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"标题"</span>:<span class="string">"text"</span>,</span><br><span class="line">      <span class="string">"created_time"</span>:<span class="string">"time format"</span></span><br><span class="line">    &#125;,</span><br><span class="line">  <span class="string">"rows"</span>:</span><br><span class="line">    [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"标题"</span>:<span class="string">"我的"</span>,</span><br><span class="line">        <span class="string">"url"</span>:<span class="string">"http"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">POST api.table.mate.ai/open/uuid/tables/rows</span><br><span class="line"><span class="comment">// application/json</span></span><br><span class="line"><span class="comment">//application/json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"标题"</span>:<span class="string">"我的"</span>,</span><br><span class="line">  <span class="string">"url"</span>:<span class="string">"http"</span></span><br><span class="line">  <span class="string">"__deleted__"</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标题</th>
+<th>url</th>
+<th>created time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>我的</td>
+<td>http</td>
+<td>2021-3-14</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>按col排序</p>
+<hr>
+<h2 id="Inbox-on-ATD"><a href="#Inbox-on-ATD" class="headerlink" title="Inbox on ATD"></a>Inbox on ATD</h2><blockquote>
+<p>A: Act<br>T: Table<br>D: Doc</p>
+</blockquote>
+<h3 id="Table-1"><a href="#Table-1" class="headerlink" title="Table"></a>Table</h3><p>protected table</p>
+<p><strong>content</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>content</th>
+<th>tags</th>
+<th>files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inbox</td>
+<td>#A</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>files</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>url</th>
+<th>contentid</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>1</td>
+<td>img</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>tags</strong><br>| tag | contentid |<br>| —- | —-       |<br>| #A  | 1         |</p>
+<h3 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h3><h2 id="Doc-on-Table"><a href="#Doc-on-Table" class="headerlink" title="Doc on Table"></a>Doc on Table</h2><p>OT</p>
+<h2 id="Act-on-Table"><a href="#Act-on-Table" class="headerlink" title="Act on Table"></a>Act on Table</h2><p>Schedule<br>Pluggin</p>
+<h1 id="技术调研"><a href="#技术调研" class="headerlink" title="技术调研"></a>技术调研</h1><p>RESTful Database API</p>
+<ul>
+<li>Restdb<a href="#refer-1"><sup>1</sup></a></li>
+<li>FireBase<a href="#refer-2"><sup>2</sup></a></li>
+</ul>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://restdb.io/docs/connect-to-your-online-database" target="_blank" rel="noopener">Restful API Database with Authentication - Restdb.io</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://firebase.google.com/docs/reference/rest/database" target="_blank" rel="noopener">Firebase Database REST API</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>简链</category>
+      </categories>
+      <tags>
+        <tag>产品</tag>
+        <tag>简链</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何掌握复杂事物</title>
     <url>/think/complexity/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>理论往往是优雅简洁的，但是现实一定是复杂的。为了解决现实问题的理论通常会愈发复杂，解决方案可能会最终超越复杂，变成混乱。</p>
