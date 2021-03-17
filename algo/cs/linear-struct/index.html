@@ -29,10 +29,12 @@
 <meta property="og:site_name" content="KLEON">
 <meta property="og:description" content="三种基本线性数据结构。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img.shields.io/badge/leetcode-4-blue.svg">
 <meta property="og:updated_time" content="2021-03-12T13:06:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法基础 - 表，栈，队列">
 <meta name="twitter:description" content="三种基本线性数据结构。">
+<meta name="twitter:image" content="https://img.shields.io/badge/leetcode-4-blue.svg">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -186,7 +188,17 @@ var themeMenus = {};
 <p>数组是各语言内置的数据类型。链表可通过自定义数据结构，使用指针或引用指向前后节点。</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> array [<span class="number">3</span>]<span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> slice []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Append</span></span><br><span class="line">array = <span class="built_in">append</span>(array, <span class="number">1</span>)</span><br><span class="line"><span class="comment">// Prepend</span></span><br><span class="line">array = <span class="built_in">append</span>([]<span class="keyword">int</span>&#123;<span class="number">1</span>&#125;, array...)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line">    Value <span class="keyword">int</span></span><br><span class="line">    Next  *Node</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Go提供了”container/list”<a href="#refer-1"><sup>1</sup></a>标准库实现双向链表。<br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"container/list"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// Create a new list and put some numbers in it.</span></span><br><span class="line">	l := list.New()</span><br><span class="line">	e4 := l.PushBack(<span class="number">4</span>)</span><br><span class="line">	e1 := l.PushFront(<span class="number">1</span>)</span><br><span class="line">	l.InsertBefore(<span class="number">3</span>, e4)</span><br><span class="line">	l.InsertAfter(<span class="number">2</span>, e1)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through list and print its contents.</span></span><br><span class="line">	<span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">		fmt.Println(e.Value)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><hr>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="多个有序数组的第k小数"><a href="#多个有序数组的第k小数" class="headerlink" title="多个有序数组的第k小数"></a>多个有序数组的第k小数</h2><p><img src="https://img.shields.io/badge/leetcode-4-blue.svg" alt> <a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">寻找两个正序数组的中位数</a></p>
+<ul>
+<li>暴力法: 归并排序后取中位数</li>
+<li>指针法：只计中位数</li>
+<li>通用寻找第k小数方法<ul>
+<li>二分法比较排除较小数组的前k/2个元素</li>
+<li>递归查找(k - k/2)/2个元素</li>
+</ul>
+</li>
+</ul>
+<hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://golang.org/pkg/container/list/" target="_blank" rel="noopener">Package list</a></li>
 </ul>
@@ -237,7 +249,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表"><span class="nav-number">1.1.</span> <span class="nav-text">表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈"><span class="nav-number">1.2.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列"><span class="nav-number">1.3.</span> <span class="nav-text">队列</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表"><span class="nav-number">1.1.</span> <span class="nav-text">表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈"><span class="nav-number">1.2.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列"><span class="nav-number">1.3.</span> <span class="nav-text">队列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">2.</span> <span class="nav-text">实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多个有序数组的第k小数"><span class="nav-number">2.1.</span> <span class="nav-text">多个有序数组的第k小数</span></a></li></ol></li></ol>
     
     </div>
   </aside>
