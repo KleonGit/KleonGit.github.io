@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>算法基础 - 表，栈，队列 | KLEON</title>
+  <title>算法基础 - 数组 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,19 +21,22 @@
   
   
   
-  <meta name="description" content="三种基本线性数据结构。">
-<meta name="keywords" content="算法,数据结构">
+  <meta name="description" content="数组是最基础的数据结构之一，存储线性数据，内存结构连续。">
+<meta name="keywords" content="算法,数据结构,leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法基础 - 表，栈，队列">
-<meta property="og:url" content="https://blog.kleon.space/algo/cs/linear-struct/index.html">
+<meta property="og:title" content="算法基础 - 数组">
+<meta property="og:url" content="https://blog.kleon.space/algo/cs/array/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="三种基本线性数据结构。">
+<meta property="og:description" content="数组是最基础的数据结构之一，存储线性数据，内存结构连续。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img.shields.io/badge/leetcode-4-blue.svg">
-<meta property="og:updated_time" content="2021-03-12T13:06:23.000Z">
+<meta property="og:image" content="https://img.shields.io/badge/leetcode-35-blue.svg">
+<meta property="og:image" content="https://img.shields.io/badge/leetcode-35-blue.svg">
+<meta property="og:image" content="https://img.shields.io/badge/leetcode-209-blue.svg">
+<meta property="og:updated_time" content="2021-03-18T07:21:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="算法基础 - 表，栈，队列">
-<meta name="twitter:description" content="三种基本线性数据结构。">
+<meta name="twitter:title" content="算法基础 - 数组">
+<meta name="twitter:description" content="数组是最基础的数据结构之一，存储线性数据，内存结构连续。">
 <meta name="twitter:image" content="https://img.shields.io/badge/leetcode-4-blue.svg">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
@@ -158,7 +161,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-algo/cs/linear-struct" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-algo/cs/array" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -166,7 +169,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      算法基础 - 表，栈，队列
+      算法基础 - 数组
     </h1>
   
 
@@ -174,21 +177,19 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-03-12T13:06:18.000Z" itemprop="datePublished">三月 12, 2021</time>
+	发布于 <time datetime="2021-03-18T07:21:08.000Z" itemprop="datePublished">三月 18, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-03-12T13:06:23.000Z" itemprop="datePublished">三月 12, 2021</time>
+	更新于 <time datetime="2021-03-18T07:21:12.000Z" itemprop="datePublished">三月 18, 2021</time>
 
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>三种基本线性数据结构。</p>
+        <p>数组是最基础的数据结构之一，存储线性数据，内存结构连续。</p>
 <a id="more"></a>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="表"><a href="#表" class="headerlink" title="表"></a>表</h2><p>表是最基础的数据结构之一，存储连续线性数据。可由数组，链表实现。语言的标准库中通常提供基于以上两种实现的容器。</p>
-<p>数组是各语言内置的数据类型。链表可通过自定义数据结构，使用指针或引用指向前后节点。</p>
+<p>数组是Go的内置类型，分为静态数组和动态切片。</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> array [<span class="number">3</span>]<span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> slice []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Append</span></span><br><span class="line">array = <span class="built_in">append</span>(array, <span class="number">1</span>)</span><br><span class="line"><span class="comment">// Prepend</span></span><br><span class="line">array = <span class="built_in">append</span>([]<span class="keyword">int</span>&#123;<span class="number">1</span>&#125;, array...)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="keyword">struct</span> Node &#123;</span><br><span class="line">    Value <span class="keyword">int</span></span><br><span class="line">    Next  *Node</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Go提供了”container/list”<a href="#refer-1"><sup>1</sup></a>标准库实现双向链表。<br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"container/list"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// Create a new list and put some numbers in it.</span></span><br><span class="line">	l := list.New()</span><br><span class="line">	e4 := l.PushBack(<span class="number">4</span>)</span><br><span class="line">	e1 := l.PushFront(<span class="number">1</span>)</span><br><span class="line">	l.InsertBefore(<span class="number">3</span>, e4)</span><br><span class="line">	l.InsertAfter(<span class="number">2</span>, e1)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through list and print its contents.</span></span><br><span class="line">	<span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">		fmt.Println(e.Value)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="多个有序数组的第k小数"><a href="#多个有序数组的第k小数" class="headerlink" title="多个有序数组的第k小数"></a>多个有序数组的第k小数</h2><p><img src="https://img.shields.io/badge/leetcode-4-blue.svg" alt> <a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">寻找两个正序数组的中位数</a></p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="多个有序数组的第k小数"><a href="#多个有序数组的第k小数" class="headerlink" title="多个有序数组的第k小数"></a>多个有序数组的第k小数</h2><p><img src="https://img.shields.io/badge/leetcode-4-blue.svg" alt> <a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">寻找两个正序数组的中位数</a></p>
 <ul>
 <li>暴力法: 归并排序后取中位数</li>
 <li>指针法：只计中位数</li>
@@ -198,10 +199,23 @@ var themeMenus = {};
 </ul>
 </li>
 </ul>
-<hr>
+<h2 id="二分法-升序数组搜索插入位置"><a href="#二分法-升序数组搜索插入位置" class="headerlink" title="二分法-升序数组搜索插入位置"></a>二分法-升序数组搜索插入位置</h2><p><img src="https://img.shields.io/badge/leetcode-35-blue.svg" alt> <a href="https://leetcode-cn.com/problems/search-insert-position/" target="_blank" rel="noopener">搜索插入位置</a></p>
 <ul>
-<li>[1] <span id="refer-1"></span> <a href="https://golang.org/pkg/container/list/" target="_blank" rel="noopener">Package list</a></li>
+<li>暴力法，直接搜索，时间复杂度O(n)</li>
 </ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> n &gt;= target &#123;</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(nums)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>二分法，时间复杂度O(logn)</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    left := <span class="number">0</span></span><br><span class="line">    right := <span class="built_in">len</span>(nums) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> left &lt;= right &#123;</span><br><span class="line">        middle := (right + left) / <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> nums[middle] &gt; target &#123;</span><br><span class="line">            right = middle - <span class="number">1</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> nums[middle] &lt; target &#123;</span><br><span class="line">            left = middle + <span class="number">1</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> middle</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> right + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="双指针法-数组原地移除元素"><a href="#双指针法-数组原地移除元素" class="headerlink" title="双指针法-数组原地移除元素"></a>双指针法-数组原地移除元素</h2><p><img src="https://img.shields.io/badge/leetcode-35-blue.svg" alt> <a href="https://leetcode-cn.com/problems/search-insert-position/" target="_blank" rel="noopener">移除元素</a></p>
+<ul>
+<li>暴力法，查到一个挪一个，时间复杂度O(n<sup>2</sup>)，空间复杂度O(1)</li>
+<li>快慢指针法，时间复杂度O(n)，空间复杂度O(1)</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeElement</span><span class="params">(nums []<span class="keyword">int</span>, val <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    slow := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> fast := <span class="number">0</span>; fast &lt; <span class="built_in">len</span>(nums); fast++ &#123;</span><br><span class="line">        <span class="keyword">if</span> nums[fast] != val &#123;</span><br><span class="line">            nums[slow] = nums[fast]</span><br><span class="line">            slow++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> slow</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="滑动窗口-长度最小的连续子数组"><a href="#滑动窗口-长度最小的连续子数组" class="headerlink" title="滑动窗口-长度最小的连续子数组"></a>滑动窗口-长度最小的连续子数组</h2><p><img src="https://img.shields.io/badge/leetcode-209-blue.svg" alt> <a href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/" target="_blank" rel="noopener">长度最小的子数组</a></p>
+<hr>
 
       
     </div>
@@ -212,7 +226,7 @@ var themeMenus = {};
 
       
   <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
       
             
@@ -223,19 +237,10 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/algo/cs/sort/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          算法基础 - 排序
-        
-      </div>
-    </a>
   
-  
-    <a href="/algo/cs/priority-queue/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/algo/cs/tree/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">算法基础 - 优先队列</div>
+      <div class="article-nav-title">算法基础 - 树</div>
     </a>
   
 </nav>
@@ -249,7 +254,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表"><span class="nav-number">1.1.</span> <span class="nav-text">表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈"><span class="nav-number">1.2.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列"><span class="nav-number">1.3.</span> <span class="nav-text">队列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">2.</span> <span class="nav-text">实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多个有序数组的第k小数"><span class="nav-number">2.1.</span> <span class="nav-text">多个有序数组的第k小数</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">1.</span> <span class="nav-text">实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多个有序数组的第k小数"><span class="nav-number">1.1.</span> <span class="nav-text">多个有序数组的第k小数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分法-升序数组搜索插入位置"><span class="nav-number">1.2.</span> <span class="nav-text">二分法-升序数组搜索插入位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双指针法-数组原地移除元素"><span class="nav-number">1.3.</span> <span class="nav-text">双指针法-数组原地移除元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口-长度最小的连续子数组"><span class="nav-number">1.4.</span> <span class="nav-text">滑动窗口-长度最小的连续子数组</span></a></li></ol></li></ol>
     
     </div>
   </aside>
