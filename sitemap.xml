@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/array/</loc>
-    
-    <lastmod>2021-03-18T07:21:12.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-03-18T00:50:32.233Z</lastmod>
+    <lastmod>2021-03-19T00:39:14.105Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-03-18T00:50:32.221Z</lastmod>
+    <lastmod>2021-03-19T00:39:14.093Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-03-18T00:50:32.221Z</lastmod>
+    <lastmod>2021-03-19T00:39:14.093Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-03-18T00:50:32.221Z</lastmod>
+    <lastmod>2021-03-19T00:39:14.093Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/algo/cs/array/</loc>
+    
+    <lastmod>2021-03-18T07:21:12.000Z</lastmod>
     
   </url>
   
