@@ -2,30 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/algo/cs/list/</loc>
+    
+    <lastmod>2021-03-21T12:19:25.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/algo/cs/hash-table/</loc>
+    
+    <lastmod>2021-03-21T12:19:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-03-21T04:18:47.390Z</lastmod>
+    <lastmod>2021-03-21T05:40:30.140Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-03-21T04:18:47.374Z</lastmod>
+    <lastmod>2021-03-21T05:40:30.128Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-03-21T04:18:47.374Z</lastmod>
+    <lastmod>2021-03-21T05:40:30.128Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-03-21T04:18:47.374Z</lastmod>
+    <lastmod>2021-03-21T05:40:30.128Z</lastmod>
     
   </url>
   
@@ -54,13 +68,6 @@
     <loc>https://blog.kleon.space/algo/cs/sort/</loc>
     
     <lastmod>2021-03-12T14:06:23.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/algo/cs/list/</loc>
-    
-    <lastmod>2021-03-12T13:06:23.000Z</lastmod>
     
   </url>
   
