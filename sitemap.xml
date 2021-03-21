@@ -2,9 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/algo/cs/tree/</loc>
+    
+    <lastmod>2021-03-21T18:27:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/algo/cs/queue/</loc>
+    
+    <lastmod>2021-03-21T15:47:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/algo/cs/stack/</loc>
     
     <lastmod>2021-03-21T13:46:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/tags/index.html</loc>
+    
+    <lastmod>2021-03-21T12:35:54.291Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
+    
+    <lastmod>2021-03-21T12:35:54.271Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/about/index.html</loc>
+    
+    <lastmod>2021-03-21T12:35:54.271Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/categories/index.html</loc>
+    
+    <lastmod>2021-03-21T12:35:54.271Z</lastmod>
     
   </url>
   
@@ -23,34 +65,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/tags/index.html</loc>
-    
-    <lastmod>2021-03-21T07:46:19.220Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
-    
-    <lastmod>2021-03-21T07:46:19.208Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/about/index.html</loc>
-    
-    <lastmod>2021-03-21T07:46:19.208Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/categories/index.html</loc>
-    
-    <lastmod>2021-03-21T07:46:19.208Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.kleon.space/algo/cs/array/</loc>
     
     <lastmod>2021-03-18T07:21:12.000Z</lastmod>
@@ -61,13 +75,6 @@
     <loc>https://blog.kleon.space/product/1-product-spec/</loc>
     
     <lastmod>2021-03-14T12:34:05.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/algo/cs/tree/</loc>
-    
-    <lastmod>2021-03-14T10:19:17.000Z</lastmod>
     
   </url>
   
