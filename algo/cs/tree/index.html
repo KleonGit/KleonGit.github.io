@@ -66,7 +66,7 @@
 <meta property="og:image" content="https://img.shields.io/badge/leetcode-669-blue.svg">
 <meta property="og:image" content="https://img.shields.io/badge/leetcode-108-blue.svg">
 <meta property="og:image" content="https://img.shields.io/badge/leetcode-538-blue.svg">
-<meta property="og:updated_time" content="2021-03-21T18:27:56.000Z">
+<meta property="og:updated_time" content="2021-03-25T10:49:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法基础 - 树">
 <meta name="twitter:description" content="树是常用的数据结构，应用较多的有二叉搜索树，二叉平衡搜索树(AVL树)，红黑树，多路平衡搜索树(B-树，B+树，B*树)等。">
@@ -212,7 +212,7 @@ var themeMenus = {};
       
 	发布于 <time datetime="2021-03-14T10:19:13.000Z" itemprop="datePublished">三月 14, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-03-21T18:27:56.000Z" itemprop="datePublished">三月 21, 2021</time>
+	更新于 <time datetime="2021-03-25T10:49:22.000Z" itemprop="datePublished">三月 25, 2021</time>
 
       
     </div>
@@ -343,7 +343,7 @@ var themeMenus = {};
 <li>层序遍历</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">minDepth</span><span class="params">(root *TreeNode)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    queue := []*TreeNode&#123;&#125;</span><br><span class="line">    depth := <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> root == <span class="literal">nil</span> &#123; <span class="keyword">return</span> depth &#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, root)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        size := <span class="built_in">len</span>(queue)</span><br><span class="line">        depth++</span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; size; i++ &#123;</span><br><span class="line">            node := queue[<span class="number">0</span>]</span><br><span class="line">            queue = queue[<span class="number">1</span>:]</span><br><span class="line">            <span class="keyword">if</span> node.Left == <span class="literal">nil</span> &amp;&amp; node.Right == <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> depth</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> node.Left != <span class="literal">nil</span> &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, node.Left)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> node.Right != <span class="literal">nil</span> &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, node.Right)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> depth</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="完全二叉树的节点数"><a href="#完全二叉树的节点数" class="headerlink" title="完全二叉树的节点数"></a>完全二叉树的节点数</h2><p><img src="https://img.shields.io/badge/leetcode-222-blue.svg" alt> <a href="https://leetcode-cn.com/problems/count-complete-tree-nodes/submissions/" target="_blank" rel="noopener">完全二叉树的节点个数</a></p>
+<h2 id="完全二叉树的节点数"><a href="#完全二叉树的节点数" class="headerlink" title="完全二叉树的节点数"></a>完全二叉树的节点数</h2><p><img src="https://img.shields.io/badge/leetcode-222-blue.svg" alt> <a href="https://leetcode-cn.com/problems/count-complete-tree-nodes/" target="_blank" rel="noopener">完全二叉树的节点个数</a></p>
 <ul>
 <li>前序遍历递归</li>
 </ul>
