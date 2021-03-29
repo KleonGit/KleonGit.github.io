@@ -182,30 +182,51 @@ var themeMenus = {};
       
         <p>产品设计文档</p>
 <a id="more"></a>
-<h1 id="领域"><a href="#领域" class="headerlink" title="领域"></a>领域</h1><h2 id="User"><a href="#User" class="headerlink" title="User"></a>User</h2><p>基本操作单位，通常由自然人担当，也可以是消息源。</p>
+<p>Keypoint:</p>
+<ul>
+<li>统一的信息，数据，IO管线</li>
+</ul>
+<h1 id="领域模型"><a href="#领域模型" class="headerlink" title="领域模型"></a>领域模型</h1><h2 id="User"><a href="#User" class="headerlink" title="User"></a>User</h2><p>基本操作单位，通常由自然人担当，也可以是消息源。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">user-type:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">admin</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">member</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">guest</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">anonymous</span></span><br></pre></td></tr></table></figure>
 <h3 id="People"><a href="#People" class="headerlink" title="People"></a>People</h3><p>自然人注册用户。</p>
-<h3 id="Webhook"><a href="#Webhook" class="headerlink" title="Webhook"></a>Webhook</h3><p>开放输入信道。</p>
-<p>Channel的消息入口API。可用于发送消息Block。</p>
 <h3 id="Bot-Pipe"><a href="#Bot-Pipe" class="headerlink" title="Bot [Pipe]"></a>Bot [Pipe]</h3><p>具有原子化处理能力的自动化插件。</p>
 <p>具有特定功能的消息处理程序，可以在Bot Factory中定义Bot Pipeline行为。</p>
 <p>Bot可由Blueprint实例化一个具体行为和参数的实体，挂载在Channel上。</p>
-<p>Bot的行为预设包括：</p>
+<p>Channel中Bot的预设包括：</p>
 <ul>
 <li>对所有消息处理</li>
 <li>@Bot 处理</li>
 <li>关键词匹配处理</li>
-<li>场景触发</li>
+<li>时间触发</li>
+<li>定位触发</li>
+<li>定义命令</li>
 </ul>
 <p>Bot的基本组成：</p>
 <ul>
-<li>触发器（可选）</li>
-<li>处理单元A</li>
-<li>处理单元B</li>
-<li>Block推送(同Webhook)</li>
+<li>触发器<ul>
+<li>定时触发</li>
+<li>webhook<ul>
+<li>type</li>
+<li>content</li>
+<li>namepsace</li>
 </ul>
-<p>Bot的设计称为Blueprint，实例化称为Bot。</p>
+</li>
+<li>内部调用</li>
+</ul>
+</li>
+<li>Plugin-A</li>
+<li>Plugin-B</li>
+<li>推送Block/Message/Row<ul>
+<li>绑定namespace</li>
+<li>动态namespace</li>
+</ul>
+</li>
+</ul>
+<p>Bot的设计称为Blueprint，实例化称为Bot，BotAccount为一种User。</p>
 <h3 id="Role"><a href="#Role" class="headerlink" title="Role"></a>Role</h3><p>权限管理。参考kubernetes。</p>
 <p>Exchange权限，Doc权限，Bot权限。</p>
+<p>以/team/node/node为权限基本单元。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">group:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">docs</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">channels</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">tables</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">empty</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span>     <span class="string">/namespace/*/[resources]/[id]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span>    <span class="string">/namespace/*/[resources]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span>  <span class="string">/namespace/*/[resources]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span>  <span class="string">/namespace/*/[resources]/[id]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span>   <span class="string">/namespace/*/[resources]/[id]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span>  <span class="string">/namespace/*/[resources]/[id]</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/roles</span></span><br><span class="line"><span class="string">/namespace/*/rolebindings</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/members</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namepsace/*/files</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Channels</span></span><br><span class="line"><span class="string">/namespace/*/channels</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/webhooks</span></span><br><span class="line"><span class="string">/namespace/*/bots</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/histories</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Docs</span></span><br><span class="line"><span class="string">/namespace/*/docs</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/blocks</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/revisions</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Tables</span></span><br><span class="line"><span class="string">/namespace/*/tables</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/rows</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">system-admin:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["admin"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["*"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["*"]</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">["*"]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">moderator:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["admin"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["/develop/*"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["blocks"]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">member:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["member"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["/develop/*"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["docs",</span> <span class="string">"channels"</span><span class="string">,</span> <span class="string">"tables"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["list"]</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["/develop/emergency/*",</span> <span class="string">"/knowledge-base/product-design/*"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["*"]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["/freshman/faq"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["messages",</span> <span class="string">"histories"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">guest:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["guest"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespace:</span> <span class="string">["/develop/emergency/please-fuck-my-brain"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["messages",</span> <span class="string">"files"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">anonymous:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["anonymous"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespace:</span> <span class="string">["/knowledge-base/user-manul/get-started"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["blocks"]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["get",</span> <span class="string">"list"</span><span class="string">]</span></span><br></pre></td></tr></table></figure>
 <h2 id="Block-Drop"><a href="#Block-Drop" class="headerlink" title="Block [Drop]"></a>Block [Drop]</h2><p>Block(Water Drop)是H2O基本单元，其生命周期包括输入，Channel消息以及文档，并与数据库的行关联。</p>
 <p>Block的最基础形式是一行文本，可以接受markdown语法，或限定的与markdown对应的富文本语法。</p>
 <p>Block支持多种原生组件：</p>
@@ -217,42 +238,51 @@ var themeMenus = {};
 <li>表格卡片</li>
 <li>图表</li>
 <li>表单卡片(?)</li>
-<li><p>Third Party Link</p>
-<ul>
+<li>Third Party Link<ul>
 <li>Table</li>
 <li>Doc (Form 匿名？)</li>
 </ul>
 </li>
-<li><p>第三方Block?动态图表，主题，个性化。安全性x。</p>
-</li>
+<li>第三方Block?动态图表，主题，个性化。安全性x。</li>
 </ul>
 <h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>Channel中Block具有Message的性质，包括永久Message，临时Message。</p>
 <p>永久Message在Channel中所有用户可见，包括用户间对话，用户与ActionBot的指令等。<br>临时Message多为系统提示，不会在数据库中保存。</p>
-<h2 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h2><h3 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h3><p>Exchange提供消息的收集，预处理，中转，分发，输出功能。</p>
+<h2 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">team:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">group/group</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#channel</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">%doc</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;table</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">@voice</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">*live-stream</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">person:</span></span><br><span class="line"><span class="bullet">-</span> <span class="comment">#todo</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;todo</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">%weekly-report</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">sources</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#podcast</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#articles</span></span><br><span class="line"><span class="bullet">-</span> <span class="comment">#collection</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;bookmark</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;sparkle</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">%my-sparkles</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%introduce-to-k8s</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%talking-about-k8s</span></span><br><span class="line"><span class="bullet">-</span> <span class="meta">&amp;relation</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#relation</span></span><br><span class="line"></span><br><span class="line"><span class="attr">product:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">%freshman</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#faq</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&amp;freshman-rules</span></span><br><span class="line"><span class="bullet">-</span> <span class="comment">#develop</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;progress</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#ux-design</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%how-to-use-figma</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;progress</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;resources</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#coding</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%coding-format</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;progress</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;crs</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;bugs</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;repos</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/emergency</span></span><br><span class="line">      <span class="bullet">-</span> <span class="comment">#please-fuck-my-brain</span></span><br><span class="line">      <span class="bullet">-</span> <span class="comment">#who-knows-this-damn-bug</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#happytime</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#blow</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">%knowledge-base</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/user-manual</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%getstarted</span></span><br><span class="line">      <span class="bullet">-</span> <span class="comment">#faq</span></span><br><span class="line">      <span class="bullet">-</span> <span class="meta">&amp;pullrequests</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/product-design</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/ux</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">%program-101</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">%program-102</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/arch</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/experiments</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/hardware</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">%performance-of-core-binding-x86</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&amp;performance-of-core-binding-x86-table-1</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&amp;performance-of-core-binding-x86-table-2</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">/users</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&amp;basic-info</span></span><br></pre></td></tr></table></figure>
+<h3 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h3><p>Exchange提供消息的收集，预处理，中转，分发，输出功能。</p>
 <p>使用IM模型作为Exchange功能参考。</p>
 <p>Exchange是消息集散中心，用户的命令，功能的轻UI都可以都过Exchange完成，并留档。</p>
 <p>Exchange界面可以作为简易的命令行，交互底层基于Bot(第三方软件提供服务，Action，Pipeline)，Table(数据空间)，Doc(书面展示与交互)。</p>
 <h4 id="Team"><a href="#Team" class="headerlink" title="Team"></a>Team</h4><p>Exchange的最顶层组织结构。</p>
 <p>Team内的成员共享权限管理。</p>
 <p>个人默认创建并关联一个Team，不可删除。</p>
-<h4 id="Group"><a href="#Group" class="headerlink" title="Group"></a>Group</h4><p>用于组织Channel的结构。#/group/channel，channel创建权限控制。/，/group。</p>
-<h4 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h4><p>基本的会话单元。</p>
+<h4 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h4><p>基本的会话节点。</p>
 <p>消息的输入管线。</p>
 <p>协作的基本空间。</p>
-<h4 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h4><p>细化的会话组织结构。</p>
-<p>便于和Doc对应。</p>
-<h3 id="Doc"><a href="#Doc" class="headerlink" title="Doc"></a>Doc</h3><p>Message可直接和文档连接。</p>
+<h5 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h5><p>细化的会话组织结构。方便全选。</p>
+<h4 id="Doc"><a href="#Doc" class="headerlink" title="Doc"></a>Doc</h4><p>基本的展示节点。</p>
+<h4 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h4><p>基本的数据节点。</p>
+<h4 id><a href="#" class="headerlink" title="/"></a>/</h4><p>基本的空节点，用于组织目录结构。</p>
+<h3 id="Doc-1"><a href="#Doc-1" class="headerlink" title="Doc"></a>Doc</h3><p>Message可直接和文档连接。</p>
 <p>Message中的消息可直接和文档中的block同步。复制？引用？</p>
 <p>Block与Message的Block概念同步。</p>
 <p><strong>Doc可以看成Table的一个附有说明的状态截面</strong>。</p>
 <h4 id="Document"><a href="#Document" class="headerlink" title="Document"></a>Document</h4><p>静态载体</p>
 <h4 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h4><p>Slice为Doc的一种播放形式。</p>
 <h4 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h4><p>可交互载体</p>
-<h3 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h3><p>支持外接数据源。高级操作。</p>
+<h3 id="Table-1"><a href="#Table-1" class="headerlink" title="Table"></a>Table</h3><p>支持外接数据源。高级操作。</p>
 <h4 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h4><p>关系型数据库交互空间。</p>
-<h4 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h4><p>对象型数据库，待衍生。</p>
-<h4 id="Document-1"><a href="#Document-1" class="headerlink" title="Document"></a>Document</h4><p>文档型数据库，待衍生。</p>
-<h4 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h4><p>图数据库，待衍生。</p>
+<!-- #### Object
+
+对象型数据库，待衍生。
+
+#### Document
+
+文档型数据库，待衍生。
+
+#### Graph
+
+图数据库，待衍生。 -->
 
       
     </div>
@@ -291,7 +321,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#领域"><span class="nav-number">1.</span> <span class="nav-text">领域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#User"><span class="nav-number">1.1.</span> <span class="nav-text">User</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#People"><span class="nav-number">1.1.1.</span> <span class="nav-text">People</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webhook"><span class="nav-number">1.1.2.</span> <span class="nav-text">Webhook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bot-Pipe"><span class="nav-number">1.1.3.</span> <span class="nav-text">Bot [Pipe]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Role"><span class="nav-number">1.1.4.</span> <span class="nav-text">Role</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-Drop"><span class="nav-number">1.2.</span> <span class="nav-text">Block [Drop]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Message"><span class="nav-number">1.2.1.</span> <span class="nav-text">Message</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Module"><span class="nav-number">1.3.</span> <span class="nav-text">Module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Exchange"><span class="nav-number">1.3.1.</span> <span class="nav-text">Exchange</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Team"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Team</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Group"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">Group</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Thread"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">Thread</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Doc"><span class="nav-number">1.3.2.</span> <span class="nav-text">Doc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Document"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Document</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Slice"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Slice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Form"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Form</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Table"><span class="nav-number">1.3.3.</span> <span class="nav-text">Table</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">Object</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Document-1"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">Document</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Graph"><span class="nav-number">1.3.3.4.</span> <span class="nav-text">Graph</span></a></li></ol></li></ol></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#领域模型"><span class="nav-number">1.</span> <span class="nav-text">领域模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#User"><span class="nav-number">1.1.</span> <span class="nav-text">User</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#People"><span class="nav-number">1.1.1.</span> <span class="nav-text">People</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bot-Pipe"><span class="nav-number">1.1.2.</span> <span class="nav-text">Bot [Pipe]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Role"><span class="nav-number">1.1.3.</span> <span class="nav-text">Role</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-Drop"><span class="nav-number">1.2.</span> <span class="nav-text">Block [Drop]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Message"><span class="nav-number">1.2.1.</span> <span class="nav-text">Message</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Module"><span class="nav-number">1.3.</span> <span class="nav-text">Module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Exchange"><span class="nav-number">1.3.1.</span> <span class="nav-text">Exchange</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Team"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Team</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">Channel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Thread"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">Thread</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Doc"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Doc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Table"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">Table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">/</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Doc-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">Doc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Document"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Document</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Slice"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Slice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Form"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Form</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Table-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">Table</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">SQL</span></a></li></ol></li></ol></li></ol></li></ol>
     
     </div>
   </aside>
