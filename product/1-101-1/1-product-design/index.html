@@ -245,6 +245,37 @@ var themeMenus = {};
 </li>
 <li>第三方Block?动态图表，主题，个性化。安全性x。</li>
 </ul>
+<p>Block:</p>
+<ul>
+<li>UUID</li>
+<li>Type:<ul>
+<li>TextBlock<ul>
+<li>Text {“text”:”ABC”}</li>
+<li>Heading {“h1”:”ABC”}</li>
+<li>Title {“h2”:”ABC”}</li>
+<li>Subtitle {“h3”:”ABC”}</li>
+<li>Bulleted List {“*”:”ABC”}</li>
+</ul>
+</li>
+<li>FileBlock<ul>
+<li>Image</li>
+<li>Audio</li>
+<li>Video</li>
+<li>File</li>
+</ul>
+</li>
+<li>TableBlock</li>
+<li>ReferenceBlock</li>
+<li>Table</li>
+<li>Chart<ul>
+<li>Bar</li>
+<li>Line</li>
+<li>Scatter</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>Channel中Block具有Message的性质，包括永久Message，临时Message。</p>
 <p>永久Message在Channel中所有用户可见，包括用户间对话，用户与ActionBot的指令等。<br>临时Message多为系统提示，不会在数据库中保存。</p>
 <h2 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">team:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">group/group</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#channel</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">%doc</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;table</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">@voice</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">*live-stream</span></span><br></pre></td></tr></table></figure>
@@ -283,20 +314,24 @@ var themeMenus = {};
 #### Graph
 
 图数据库，待衍生。 -->
-<h1 id="实现调研"><a href="#实现调研" class="headerlink" title="实现调研"></a>实现调研</h1><h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><p>Flutter作为跨端框架。</p>
-<p>MVP支持Android,iOS,Web。</p>
+<h1 id="实现调研"><a href="#实现调研" class="headerlink" title="实现调研"></a>实现调研</h1><h2 id="前端框架"><a href="#前端框架" class="headerlink" title="前端框架"></a>前端框架</h2><p>Flutter作为跨端框架。</p>
+<p>MVP支持Android,iOS,Web,Msite。</p>
+<p><a href="https://github.com/grantkang5/discord-clone" target="_blank" rel="noopener">https://github.com/grantkang5/discord-clone</a></p>
+<p><a href="https://github.com/fluttercandies/wechat_flutter" target="_blank" rel="noopener">https://github.com/fluttercandies/wechat_flutter</a></p>
+<p><a href="https://github.com/konstantinmuenster/notion-clone" target="_blank" rel="noopener">https://github.com/konstantinmuenster/notion-clone</a></p>
 <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="保存有序序列"><a href="#保存有序序列" class="headerlink" title="保存有序序列"></a>保存有序序列</h3><ul>
 <li>增加order字段，每次增删查改都批量修改序号。</li>
 <li>使用string代替order，比如’a’，’aa’。每次向后append。</li>
 <li>使用gap代替order，比如100,200。每次取中间数。</li>
 <li>使用链表法。</li>
 </ul>
-<h1 id="排期"><a href="#排期" class="headerlink" title="排期"></a>排期</h1><h2 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h2><ul>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="OT"><a href="#OT" class="headerlink" title="OT"></a>OT</h3><p><a href="https://operational-transformation.github.io/" target="_blank" rel="noopener">https://operational-transformation.github.io/</a></p>
+<h3 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h3><h1 id="排期"><a href="#排期" class="headerlink" title="排期"></a>排期</h1><h2 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h2><ul>
 <li>[ ] Channel(ws, iOS)</li>
-<li>[ ] User(Member,BotAccount)</li>
+<li>[ ] User(Member, BotAccount)</li>
 <li>[ ] Table(User defined schema)</li>
-<li>[ ] Bot(action,webhook)</li>
-<li>[ ] Doc(text,#title)</li>
+<li>[ ] Bot(action, webhook)</li>
+<li>[ ] Doc(text, #title)</li>
 </ul>
 
       
@@ -336,7 +371,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#领域模型"><span class="nav-number">1.</span> <span class="nav-text">领域模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#User"><span class="nav-number">1.1.</span> <span class="nav-text">User</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#People"><span class="nav-number">1.1.1.</span> <span class="nav-text">People</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bot-Pipe"><span class="nav-number">1.1.2.</span> <span class="nav-text">Bot [Pipe]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Role"><span class="nav-number">1.1.3.</span> <span class="nav-text">Role</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-Drop"><span class="nav-number">1.2.</span> <span class="nav-text">Block [Drop]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Message"><span class="nav-number">1.2.1.</span> <span class="nav-text">Message</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Module"><span class="nav-number">1.3.</span> <span class="nav-text">Module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Exchange"><span class="nav-number">1.3.1.</span> <span class="nav-text">Exchange</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Team"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Team</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">Channel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Thread"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">Thread</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Doc"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Doc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Table"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">Table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">/</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Doc-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">Doc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Document"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Document</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Slice"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Slice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Form"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Form</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Table-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">Table</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">SQL</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现调研"><span class="nav-number">2.</span> <span class="nav-text">实现调研</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">2.1.</span> <span class="nav-text">框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">2.2.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#保存有序序列"><span class="nav-number">2.2.1.</span> <span class="nav-text">保存有序序列</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排期"><span class="nav-number">3.</span> <span class="nav-text">排期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP"><span class="nav-number">3.1.</span> <span class="nav-text">MVP</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#领域模型"><span class="nav-number">1.</span> <span class="nav-text">领域模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#User"><span class="nav-number">1.1.</span> <span class="nav-text">User</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#People"><span class="nav-number">1.1.1.</span> <span class="nav-text">People</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bot-Pipe"><span class="nav-number">1.1.2.</span> <span class="nav-text">Bot [Pipe]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Role"><span class="nav-number">1.1.3.</span> <span class="nav-text">Role</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-Drop"><span class="nav-number">1.2.</span> <span class="nav-text">Block [Drop]</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Message"><span class="nav-number">1.2.1.</span> <span class="nav-text">Message</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Module"><span class="nav-number">1.3.</span> <span class="nav-text">Module</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Exchange"><span class="nav-number">1.3.1.</span> <span class="nav-text">Exchange</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Team"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Team</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">Channel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Thread"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">Thread</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Doc"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">Doc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Table"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">Table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">/</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Doc-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">Doc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Document"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Document</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Slice"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Slice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Form"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">Form</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Table-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">Table</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">SQL</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现调研"><span class="nav-number">2.</span> <span class="nav-text">实现调研</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前端框架"><span class="nav-number">2.1.</span> <span class="nav-text">前端框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">2.2.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#保存有序序列"><span class="nav-number">2.2.1.</span> <span class="nav-text">保存有序序列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">2.3.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OT"><span class="nav-number">2.3.1.</span> <span class="nav-text">OT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">2.3.2.</span> <span class="nav-text"> </span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排期"><span class="nav-number">3.</span> <span class="nav-text">排期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP"><span class="nav-number">3.1.</span> <span class="nav-text">MVP</span></a></li></ol></li></ol>
     
     </div>
   </aside>
