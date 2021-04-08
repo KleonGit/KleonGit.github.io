@@ -1,117 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>如何掌握复杂事物</title>
-    <url>/think/complexity/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>理论往往是优雅简洁的，但是现实一定是复杂的。为了解决现实问题的理论通常会愈发复杂，解决方案可能会最终超越复杂，变成混乱。</p>
-<a id="more"></a>
-<h1 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h1><p>究竟该怎么定义<strong>复杂</strong>？<br>复杂在不同人看来可能很不相同。  </p>
-<p>正在背诵乘法口诀的小学生可能觉得复杂，正在理解理论物理公式的大学生也可能觉得复杂；<br>正在计算购物节满减凑单优惠的剁手党可能觉得复杂，正在试图理解经手多人外包的代码的程序员可能觉得复杂。<br>大学生看小学生的乘法口诀觉得小菜一碟，而程序员可能不一定能理解满减规则。<br>由此看来，复杂性是由概念数量决定的，需要同时考虑的概念数量越多，就会感觉到越复杂。<br>并且，复杂性与一个人的知识积累以及抽象能力相关，小学生背诵乘法表需要记忆。</p>
-<p>我们面对如毛线团般的事物无从下手，而经验丰富的专家则能抽丝剥茧，重新梳理编织得井井有条。<br>那么我们与专家的区别在哪里呢？<br>答案就在<strong>知识储备</strong>上。  </p>
-<p>知识储备的一种理解是，如果把我们的思维比作工具箱，把碰到的问题比作奇形怪状的钉子，那么我们的工具箱中有多少种可选的锤子可以帮助我们敲钉子，就代表我们的知识储备的丰富程度。<br>同样是看到一粒凸起的钉子，普通人（未经过专业训练的人）只会觉得无从下手，光是想象自己赤手空拳跟钉子软碰硬时，就觉得疼得要命。而专家可能会掏出他惯用的锤子，敲敲打打，即使不能把钉子敲好，至少手中有锤，心里不慌。<br>反映到现实中来，普通人如果看到一件事的发生，可能不知从何理解，甚至陷入对复杂性的恐慌之中，大脑一片空白。不过普通人绝不止这一种反应，比如还可能回忆起自己一知半解、道听途说来的概念，强行编造个因果关系。<br>如果我们能把现实简化，抽象出概念，建立模型，则能帮我们更好的理解事情，从而找到可能的解决方法。<br><!-- 我们提出了地球公转的模型，并且通过推算预测解释了很多现象，而观测反过来验证了这个模型的正确性，现代人掌握了这个知识，也就不会再像古代人那样，为日食恐慌了。 --></p>
-<p>值得注意的是，工具箱思维也只是对知识储备的一种片面解释，如果眼里尽是钉子，那不得跟肉中刺一样疼吗？。</p>
-<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>神经生物学揭示了大脑复杂的物理结构，我们目前很难自底向上地完全解释大脑的运作方式，不过我们在不同层次上建立了几种解释模型。<br>一种是基于信号测量的脑区划分方法（需要准确名称），这种方法通过实验测量大脑不同区域的活跃程度与行为之间的关系。<br>另一种是更抽象的概念模型，用行为来验证模型的适用范围。</p>
-<p>认知心理学中就有一个“工作记忆”的模型。模型由长期记忆和短期记忆构成，工作记忆属于短期记忆的一种，相当于思考的工作台，而长期记忆相当于记忆的仓库，用于存储暂时用不到，但可能日后还有用的记忆。<br>每个人的工作记忆大小不同，每个概念占用一定的空间，如果概念数量太多以至于超过了工作台的最大容限，思考将变得困难。<br>我们可以把外界中的概念与工作记忆“交换”，比如用纸或者白板写下来，但因为高速的“内存”和低速的“外存”直接需要不断交换信息，思考的速度将下降。  </p>
-<p>另一个模型是关于<strong>快慢系统</strong>的：我们的大脑可以简化成两种思考系统，一种是<strong>系统1</strong>，通常是迅速的，潜意识的，反射式的，不由自主的；另一种是<strong>系统2</strong>，通常是缓慢的，费力的，需要意识参与的，可以控制的。<br>涉及的所谓“肌肉记忆”的技能，以及需要快速反应的“机械知识”都可以通过反复练习固化下来，直接经由系统1做出反应。而学习、分析、推理、想象等行为则需要<strong>系统2</strong>参与，这时影响思考效率的就包括同时处理的概念数量了。</p>
-<p>我们感受到的复杂通常是系统2的产物，我们不会觉得辨认普通地辨认猫或者其他常见动物是件复杂的事。<br>这通常在一瞬间发生，当你看到一只典型的“猫”样的物体时，猫这个概念几乎不可阻挡的进入脑中，这也是系统1的特性，它是基于神经系统的。<br>至于接下来的处理步骤就取决于你当时的状态，如果你的注意力集中在别的事情上，那么这个概念也只会转瞬即逝，几乎不会有机会进入长期记忆。<br>如果你需要仔细辨认猫的种类，或者确认那个“猫”样的物体究竟是不是猫时，则<strong>可能</strong>需要系统2的参与。<br>如果你对猫的特征有过深入研究，并且熟悉它们，那么同样猫的品种就已经在系统1的自动处理流水线中处理完成提交到你的脑子里了。<br>而如果你刚刚开始学习辨认猫的品种，捧着一本手册努力查阅或者听一旁的朋友涛涛不觉地解释，就很有可能感受到<strong>复杂</strong>，并且经历被信息淹没的感觉。<br>对于你而言，那些非常细节的概念之间毫无联系，光是努力维持那些概念在脑子里就十分费力了，然而实际上那些概念刚从系统1的视觉或者听觉提交上来没多久，就直接被丢弃了。  </p>
-<p>你得承认，复杂超过一定程度，人就几乎不能理解了。  </p>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>我们利用了几种模型来帮助我们分析如何处理复杂性这个问题，这些并不是唯一的解释方法。不过这些模型对于我们的提出解决方法已经有足够的启发了。  </p>
-<p>根据我们的模型，我们该如何提高处理复杂的能力呢？缩减工作记忆中的概念数量以减少甚至避免和“外界存储”的交换，提高工作记忆的容量以容纳更多的概念数量。</p>
-<p>那么如何缩减概念数量呢？我们可以对概念进行分类、抽象、归纳、封装、近似、封装。  </p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>物以类聚，我们可以把相似的概念分为一类——具有共同特征，或者在时空上接近。这样，我们只需按类别考虑概念。<br>许多苹果、梨、香蕉、西瓜、西红柿、黄瓜、冬瓜、南瓜混在一起。如果我们分别考虑每一个物体，由于物体数量很多，就很难同时考虑。如果我们先按品种先分类，就只需要考虑8堆果蔬，一共8个概念。进一步，我们再按能不能带皮吃分类，则只需要考虑2种概念：能带皮吃和不能带皮的。在此基础上讨论理解，则比同时考虑多个具体概念容易得多。<br>当然分类的方法不止一种，比如按颜色分类、按大小分类，分类的具体原则要根据具体问题决定。适应问题的合理分类，能帮助我们更好的简化模型，梳理思路。   </p>
-<h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>抽象是指把多种概念的共同特征提取出来，从具体的事物体中抽象出概念。比如考虑上面提到的果蔬混合物，在分类的基础上，我们可以提取出水果和蔬菜的概念，这样就能在一般性地研究水果或者蔬菜的特性。<br>有时候，抽象所提取的共同特征太少，导致可以被归类的概念太多、太宽泛，这种抽象可能不一定适合我们想要考虑的问题。我们可以多层抽象，比如将共同特征的要求放严一些，这样抽象得到的概念类别也就更多并且具体些。<br>合理的抽象层次，对模型的组织方式有很大影响。   </p>
-<h2 id="归纳"><a href="#归纳" class="headerlink" title="归纳"></a>归纳</h2><p>苹果是甜的，梨也是甜的，西瓜是水果，那么西瓜是甜的吗？我们可以从苹果和梨的特性上尝试归纳出水果是甜的这个特征，以此为假设前提，并通过演绎推广到同样是水果的西瓜上，可以得出西瓜也是甜的的结论。这就是<strong>归纳-演绎</strong>的常见用法。<br>不过，要小心掉进逻辑的陷阱！归纳-演绎的结构推导出的结论正确，必须建立在归纳的结论正确之上，归纳的结论正确又必须建立在引用事实的正确之上。<br>有的人把假设当事实，自然会归纳得出荒谬的结论；有的人不看具体场景，只觉得要解决的问题与归纳的模式有几分相似便套用模板，自然错到离谱，在考试上俗称套公式。  </p>
-<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>封装是将复杂而紧密联系的概念当成一个整体，也就是当成所谓的<strong>黑盒</strong>，在考虑更高层次的问题时，仅考虑这个整体与外界的互动，而不必关心它的内部细节。<br>黑盒的概念应用很广。在研究大脑和行为的关系时，就有人通过人接受的刺激和做出的行为来为黑盒建立模型，这种模型是概念上的。在生活上，我们经常也不自觉结合“常识”的给身边的“黑盒”建立模型，比如在炎炎夏日我们进入室内打开空调时，可能会把空调调到最低温度，而不是最适宜温度，这里就隐含了一个我们给空调这个黑盒建立的模型——设定的温度与当前温度温差越大，空调工作的功率越高，然而这不是空调的真实模型。<br>因此，封装并使用简化的黑盒可以缩减概念数量，但是要注意简化后的模型能在多大程度上还原之前的解释，是否符合需要。</p>
-<h2 id="分治"><a href="#分治" class="headerlink" title="分治"></a>分治</h2><p>有时候，许多概念一拥而上，着实令人头疼。但在开始分析之前，先判断是不是这么多概念都是需要同时思考的，是不是可以<strong>分而治之</strong>。<br>分而治之的思想自古有之，如果我们面对大问题难以入手，那么就化整为零，再逐个击破。同样，面对繁多的概念，如果他们可以分解成更小的概念组，再分别考虑，那么一次要处理的概念数量就能减少不少。  </p>
-<h2 id="近似"><a href="#近似" class="headerlink" title="近似"></a>近似</h2><p>近似用哲学的话来说就是：抓住主要矛盾。<br>近似在工程上经常使用。比如我们通过公式推导出了一串复杂的解，我们通常会在误差允许的范围内对解做近似，忽略权重低的项，保留权重高的项。在简化了解的同时在很大程度上保证结论的有效性，并且这让我们能对更有影响力的变量给予更多的注意力。放在实际应用中，我们就能集中资源攻克主要问题。<br>同样，需要注意的是，不要忘记模型的公式本身是对现实的近似，答案本身是对精确解的解释，而如果使用计算机求解，同样要面对有效数字的近似问题。现实在层层近似之后通过仿真展示在我们面前，然而仿真不是真，也不是现实。<br>化简概念也是类似，把细枝末节剔除出去后，剩下重要的概念也应该不会太多。</p>
-<p>关于如何扩容，工作记忆这个模型对应着物理的神经系统，想要扩容十分困难。有许多号称可以提高记忆力的方法，其实是也通过减少概念数量。比如，通过谐音的方法将需要记忆的概念连成一个故事或者组成一幅画面，概念之间不再毫无关联，而是形成了一个可以自动播放的整体，回忆时再通过机械记忆住的映射规则（回忆一下小时候背乘法口诀表或者中学背元素周期表）反向解释即可。</p>
-<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>以编程为例，开始学习时，我们更注意程序语言的语法，通过一些简单的例子体会语言的特性。这时语法上的每一个特征对我们来说都是一个独立的概念，我们需要不断回顾语法规则来加载概念到工作记忆。此时十分费力，也就是入门的阶段。<br>我们在从外界反复使用这些新概念的同时，我们的大脑会根据“重复=重要”的原则把这些概念放入长期记忆中，并且通过反复练习提高熟练度可以提高概念从长期记忆中提取的速度。  </p>
-<p>在反复练习之中，我们会发现不必过于关注语法本身，而可以总结出基本的使用模式。<br>我们可以抽象出控制结构、循环结构这样的基本结构，明白了可以使用函数来把一系列紧密相关的实现封装起来。我们在阅读别人的代码时，可以不必关注实现细节，而是通过主要函数的调用关系理解整个模块的功能。<br>在这种自底向上的抽象过程中，可能会引入新的编程模型，新的功能模块，新的独立系统。  </p>
-<p>得益于此，我们可以在高抽象层次上设计系统。我们有能力把握有限的子系统数量，如果子系统的数量过多，可以进一步抽象，保持整体的概念数量可控。  </p>
-<!-- # 记忆
-
-机械知识的记忆有无必要。
-
-背珠心算的口诀，与培养分析问题的能力，哪个更重要？ -->
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何快速入门新领域</title>
-    <url>/think/something_new/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote>
-<p>从零开始学前端（移动端）的过程记录，以及走神想到的关于学习新领域的思考。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h1><p>互联网上的垃圾越来越多，各个大厂的生态也趋于闭合。即使仍然还有人在免费提供优质的内容，Google的爬虫也无能为力。<br>现在大行其道的推荐算法，它或许可以通过我的注意力停留时长判断出我的兴趣所在，但在一人一票的制度下，很难为我们挖掘真正沉淀了价值的东西。<br>信息就像一次性纸巾，在被人擦过鼻涕后便只能扔掉，而在一些激励的鼓励下，有不少人在全天无休的制造着这些白色垃圾。  </p>
-<p>这是我最初开始设想阡陌时的一个初衷：<strong>发掘高质量、长生命期的内容</strong>。</p>
-<p>具体的设想暂且不展开，打造一片理想的数字世界需要技术的支持，而作为数字世界大门的就是前端。</p>
-<p>我之前对于前端的了解很少，大概觉得网页就是前端。不过，在各行各业，“前端”都有所知，我之前做硬件开发时的前端便是Verilog HDL。<br>虽然对前端不太了解，但是我觉得计算机软件开发技术可能是所有应用技术里最适合自学入门的，不仅网上现成免费的书籍、课程多，而且得益于开源的兴起，实战项目也不少。  </p>
-<p>不过这些资源散落在互联网的汪洋大海中，并且其中有一大部分处于公海之外的私人水域中。除此之外，资源的质量如何，难度是否合适，应该何时使用，却少有说明。<br>为数不多的路线地图（Roadmap）也只是笼统而论，还没入门的小白用户看起来自然也就一头雾水，等到七拼八凑，走过了不少弯路，才懵懵懂懂有了些印象。<br>这些是我个人在学习过程中的体会，姑且先推广开来，假设和我有相似遭遇的大有人在吧。</p>
-<p>据此至少可以提出三个需求：   </p>
-<ul>
-<li>第一，我希望有一份详细的路线地图，可以让我对需要学习的领域形成大致的“方向感”；  </li>
-<li>第二，我希望路线地图拆分成里程碑（Milestone），把一个大目标拆分成小目标，逐个击破，在及时反馈之中增强信心；  </li>
-<li>第三，我希望学习之路上，有人通行，亦师亦友，汇总常见问题，甚至可以做成专家系统，节约入门者和指导者的时间。  </li>
-</ul>
-<h1 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h1><p>首先，分析我的位置：</p>
-<ul>
-<li>掌握Python、C++等编程语言。</li>
-<li>了解计算机网络基本常识。</li>
-<li>熟悉搜索引擎的使用方法🤣。</li>
-</ul>
-<p>其次，权衡我的目标：</p>
-<p><strong>网页端、移动端还是桌面端？</strong></p>
-<p>这其实是在考虑这三种平台优势是什么。  </p>
-<ul>
-<li>网页端适合电脑使用，对实时性要求不高，合适生产力模式下使用。 </li>
-<li>移动端便携性好，普及程度广，合适随身模式使用，但可能被娱乐模式干扰，优先级较高。  </li>
-<li>桌面端适合电脑使用，有更强的性能与定制性。</li>
-</ul>
-<p><strong>现有主流框架有哪些？是否有跨平台框架？</strong></p>
-<p>网页端有React、Angular、Vue，移动端有Android/iOS原生，桌面端各个系统各式各样。跨平台的方案有React Native、Electron、Flutter。</p>
-<p><strong>各个框架的优势是什么？</strong> </p>
-<p>对比主要从代码复用性和社区成熟度上考虑。代码复用性包括跨平台代码复用，可用第三方库。社区成熟度包括文档、教程的完善程度，项目活跃度，是否仍在积极维护。<br>框架的选择也是见仁见智，JS框架在性能上可能不如意，移动原生开发需要的学习量和工作量太过巨大，跨平台方案不太成熟。评估之后还是选择移动端切入，日后可以补充JS框架做网页端。</p>
-<p>这里的问题是，我从网上获得的评论都具有主观性，对前端几乎为0的了解也导致我没办法做出合理判断。再者，<strong>技术只是实现目标的手段</strong>。总之，先淌一淌这浑水再做决定。</p>
-<h1 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h1><p>学习因目标不同，知识类型不同，有许多不同的方法，从大的方向上可以分为三个阶段。</p>
-<p><strong>直接上手</strong>：  </p>
-<p>这适合早期入门。在老师的指导下或参考有效的资料，形成对知识的感性认识。常见的学习模式是：你不要问那么多为什么，照做就是。很多时候，通过这种方法，就能大致看懂别人的成果并简单应用了。并且，通过上手-反馈循环，可以积累信心。虽然大多数知识的入门都可以使用这个方法，但通过这个方法学到的知识不系统，存在逻辑缺失，在学习的时候可能会在心里存下不少疑问。比如在出现复杂问题时，可能无法解释，只能诉诸玄学。这就是缺乏系统化、整体化的认知的结果。</p>
-<p><strong>系统学习</strong>：  </p>
-<p>这适合中期进阶。之所以能系统学习，是因为知识体系相对稳定，有大量前人总结的体系模型可以参考。系统化学习通常来说要明确学习领域和起点，预先给出公理或者假设，在大家都明确了以下所有内容均基于以上公理或者假设——也就是明确了知识体系的适用范围之后，开始引出推论和模型，并且通过严格的逻辑证明推论成立，或者通过模型解释实际案例表示模型有效。经过系统学习，基本上能对大部分问题套用模型分析解释，解决问题，达成目标，有了更强的定制能力。在系统学习的过程中，可以解释之前遇到的不少疑惑，但系统学习需要警惕绝对知识论，需要明确知识是在一定假设上的理想模型，并不是绝对真理。如果批判性地思考学习，心中的疑问可能只增不减，但这并不是一件完全的坏事，这说明对知识有了更全面深刻的认识。所谓知道的越多，才发现不知道得更多。在系统学习过程中，有人不能接受完全接受模型，而是会对为什么提出模型产生疑问，因为知识体系是经过无数人试错后的总结，而了解知识诞生的历史会让我们学习知识的逻辑更加顺畅，因为建立知识体系的历史是探索与偶然的历史。系统学习并不是学习的终点，已知的模型在面对新的问题的时候很可能会失效，这时候就需要科学探究。</p>
-<p><strong>科学探究</strong>：  </p>
-<p>这适合后期探索。之所以带上科学二字，是因为需要使用科学研究方法，并且得出的知识模型可证伪。不可证伪的知识通常是万能解释的，比如很多伪心理学总能用一套看似有道理的解释套用到所有情况上，并且没法提出切实可行、可重复的解决方案。使用这种方法需要具备丰富的想象力和严谨的逻辑。丰富的想象力要求有能力补足未知的细节，建立知识模型，并设计证明方法，对结果有预期。严谨的逻辑需要知识模型具有可解释性，以前人已有的知识或者可理解的假设作为起点，构建一条完整的逻辑链路。科学探究能构建理论解释之前的一部分疑问，但却有可能调入疑问的黑洞之中，不能说科学的尽头是神学，但是面对自然，仍然要抱有敬畏之心。虽然我们有了一些用来抵御未知的知识，但也要意识到我们这片知识空间的狭小和脆弱，在它之外的是漫无边际、比黑更黑的未知。</p>
-<p>希望以上这些可能对处于不同学习阶段的人有点启发，当然这并不是说所有的学习过程都要以第<strong>科学探究</strong>为最终目标，需要根据自己的实际的目标和所处的位置选择合适的方法。比如纯粹建立在逻辑上的知识可能就不能<strong>直接上手</strong>，只能<strong>系统学习</strong>了。又比如应用性强的知识适合直接上手，即所谓自学成才，可能身经百战，但不知其然，但也可以系统学习，即所谓科班出身，可能头头是道，但纸上谈兵。  </p>
-<p>值得警惕的是那些打着科学旗号兜售自己的“万灵药”的人。</p>
-<p>回到前端入门上来，因为是应用性很强的知识，所以我选择直接上手，需要深度定制或者遇到难解的问题，再回头补习。</p>
-<h1 id="上手"><a href="#上手" class="headerlink" title="上手"></a>上手</h1><p>搜了些路线图，有些前人的路可以参考，但完全照搬可能有些拘束，根据自身情况借鉴即可。</p>
-<p><strong>第一步</strong>：环境准备。这是几乎学习新编程语言必备的，不同教程大同小异，如果社区成熟，按照文档做一遍就行。一些特殊的网络问题，需要想办法解决，同样成熟的社区也会有相应的解决方案。</p>
-<p><strong>第二步</strong>：玩具教程，这通常也是出现在社区文档中的。玩具，又称小玩意儿，通过这些简单的小玩意儿，能大概有个端到端的成果可以展示了。可不要到此就说自己精通了哦。<br>关于语法什么的，如果有相关的编程基础（概念都是相通的，语法存在差异），大概也能猜个大差不差，如果只知道面向对象，而学习函数式可能理解起来就有点费劲，不妨从基础概念开始理解。</p>
-<p><strong>第三步</strong>：了解常用组件，通过但不限于高质量的知识沉淀网站，风靡全球的代码托管网站获得基本了解，如果能找到好的起步教程就很好。一个理想的教程符合直接上手的原则，在上手过程中，介绍了常用的组件、使用方式，也就是“套路”。如果这一步有概念缺失，需要自行回溯学习前置知识，只需要回溯到连蒙带猜理解个大差不差的程度就可以回来继续教程了。</p>
-<p><strong>第四步</strong>：好了，你已经知道了1+1=2，下面我们来算个不定积分。这是不少人可能遇到的情况，教程也能看了七七八八，却发现离自己想实现的目标还有不小的差距。<br>这个差距通常是几方面方面引起的：不知道某项功能怎么实现，需要定制第三方库，需要自己完全实现。</p>
-<p>我们需要逐个击破：</p>
-<ul>
-<li>不知道用什么轮子：搜索学习更复杂的教程，最好包含自己想实现的功能，或者其中一部分。</li>
-<li>有轮子但需要调整：回溯学习第三方库相关知识，尝试修改并观察结果，理解基本原理直到可以上手修改。</li>
-<li>找不到轮子：回溯学习所需的知识，自底向上，逐步搭建。</li>
-</ul>
-<p>其实到这一步，也算淌了些水，我们可以先停一停，需要回到<strong>评估</strong>这一步。如果轮子缺失严重——这通常意味着社区还不够成熟以及巨大的工作量，可能需要考虑使用别的方案，这很有可能意味着<strong>评估</strong>阶段的工作不足，或者领域太新。如果重新评估后发现其他方案更完善，那么应该切换方案。可能有人会抱怨以上四步白白浪费了时间，其实可以从两方面来考虑。其一，这四步消耗的时间是沉没成本，没办法收回，最合理的做法是忽视它，评估继续这个方案所需要的投入以及其他方案从0开始的投入哪个更多。其二，面对一个问题的多种解决方案，通常在回溯之后的知识上是相通的、可重用的，时间也不是完全浪费的。</p>
-<p>我学到这里，基本上达到了可以使用轮子搭建自己想要的功能的地步。向后就需要根据设计的功能反复使用第四步的三个方法，直到满足我们的设计，或者修改设计降低实现复杂度。</p>
-<h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>我在这篇文章里，没有重点讲具体的知识点，而是想通过这次的学习实践归纳一般的方法。当然，抽象得足够高的规律都可能变成“万灵药”的危险。</p>
-<p>前端先学了一点皮毛，先暂且用着，还要补些网页前端、后端、设计、认知科学方面的知识。</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>机器学习系统 0-0 - 总览</title>
     <url>/ai/ml-system/0-overview/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习<a href="#refer-1"><sup>1</sup></a>模型对应一类用于从数据中提取模式与特征的人工智能子领域算法。机器学习系统用于更便捷地、更高效地、更自动化地构建机器学习模型，与数据分析系统整合。</p>
@@ -773,162 +662,114 @@
       </tags>
   </entry>
   <entry>
-    <title>1-101-1</title>
-    <url>/product/1-101-1/1-product-design/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>产品设计文档</p>
+    <title>如何掌握复杂事物</title>
+    <url>/thinking/misc/complexity/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>理论往往是优雅简洁的，但是现实一定是复杂的。为了解决现实问题的理论通常会愈发复杂，解决方案可能会最终超越复杂，变成混乱。</p>
 <a id="more"></a>
-<p>Keypoint:</p>
-<ul>
-<li>统一的信息，数据，IO管线</li>
-</ul>
-<h1 id="领域模型"><a href="#领域模型" class="headerlink" title="领域模型"></a>领域模型</h1><h2 id="User"><a href="#User" class="headerlink" title="User"></a>User</h2><p>基本操作单位，通常由自然人担当，也可以是消息源。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">user-type:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">admin</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">member</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">guest</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">anonymous</span></span><br></pre></td></tr></table></figure>
-<h3 id="People"><a href="#People" class="headerlink" title="People"></a>People</h3><p>自然人注册用户。</p>
-<h3 id="Bot-Pipe"><a href="#Bot-Pipe" class="headerlink" title="Bot [Pipe]"></a>Bot [Pipe]</h3><p>具有原子化处理能力的自动化插件。</p>
-<p>具有特定功能的消息处理程序，可以在Bot Factory中定义Bot Pipeline行为。</p>
-<p>Bot可由Blueprint实例化一个具体行为和参数的实体，挂载在Channel上。</p>
-<p>Channel中Bot的预设包括：</p>
-<ul>
-<li>对所有消息处理</li>
-<li>@Bot 处理</li>
-<li>关键词匹配处理</li>
-<li>时间触发</li>
-<li>定位触发</li>
-<li>定义命令</li>
-</ul>
-<p>Bot的基本组成：</p>
-<ul>
-<li>触发器<ul>
-<li>定时触发</li>
-<li>webhook<ul>
-<li>type</li>
-<li>content</li>
-<li>namepsace</li>
-</ul>
-</li>
-<li>内部调用</li>
-</ul>
-</li>
-<li>Plugin-A</li>
-<li>Plugin-B</li>
-<li>推送Block/Message/Row<ul>
-<li>绑定namespace</li>
-<li>动态namespace</li>
-</ul>
-</li>
-</ul>
-<p>Bot的设计称为Blueprint，实例化称为Bot，BotAccount为一种User。</p>
-<h3 id="Role"><a href="#Role" class="headerlink" title="Role"></a>Role</h3><p>权限管理。参考kubernetes。</p>
-<p>Exchange权限，Doc权限，Bot权限。</p>
-<p>以/team/node/node为权限基本单元。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">group:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">docs</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">channels</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">tables</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">empty</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">verbs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">get</span>     <span class="string">/namespace/*/[resources]/[id]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">list</span>    <span class="string">/namespace/*/[resources]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">create</span>  <span class="string">/namespace/*/[resources]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">update</span>  <span class="string">/namespace/*/[resources]/[id]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">patch</span>   <span class="string">/namespace/*/[resources]/[id]</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">delete</span>  <span class="string">/namespace/*/[resources]/[id]</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/roles</span></span><br><span class="line"><span class="string">/namespace/*/rolebindings</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/members</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namepsace/*/files</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Channels</span></span><br><span class="line"><span class="string">/namespace/*/channels</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/webhooks</span></span><br><span class="line"><span class="string">/namespace/*/bots</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/histories</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Docs</span></span><br><span class="line"><span class="string">/namespace/*/docs</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/blocks</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/revisions</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Tables</span></span><br><span class="line"><span class="string">/namespace/*/tables</span></span><br><span class="line"></span><br><span class="line"><span class="string">/namespace/*/rows</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">system-admin:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["admin"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["*"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["*"]</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">["*"]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">moderator:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["admin"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["/develop/*"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["blocks"]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">member:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["member"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["/develop/*"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["docs",</span> <span class="string">"channels"</span><span class="string">,</span> <span class="string">"tables"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["list"]</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["/develop/emergency/*",</span> <span class="string">"/knowledge-base/product-design/*"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["*"]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespaces:</span> <span class="string">["/freshman/faq"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["messages",</span> <span class="string">"histories"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">guest:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["guest"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespace:</span> <span class="string">["/develop/emergency/please-fuck-my-brain"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["messages",</span> <span class="string">"files"</span><span class="string">]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["*"]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">anonymous:</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">["anonymous"]</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">namespace:</span> <span class="string">["/knowledge-base/user-manul/get-started"]</span></span><br><span class="line">  <span class="attr">resources:</span> <span class="string">["blocks"]</span></span><br><span class="line">  <span class="attr">verbs:</span> <span class="string">["get",</span> <span class="string">"list"</span><span class="string">]</span></span><br></pre></td></tr></table></figure>
-<h2 id="Block-Drop"><a href="#Block-Drop" class="headerlink" title="Block [Drop]"></a>Block [Drop]</h2><p>Block(Water Drop)是H2O基本单元，其生命周期包括输入，Channel消息以及文档，并与数据库的行关联。</p>
-<p>Block的最基础形式是一行文本，可以接受markdown语法，或限定的与markdown对应的富文本语法。</p>
-<p>Block支持多种原生组件：</p>
-<ul>
-<li>[x] Markdown</li>
-<li>图片</li>
-<li>声音</li>
-<li>表格</li>
-<li>表格卡片</li>
-<li>图表</li>
-<li>表单卡片(?)</li>
-<li>Third Party Link<ul>
-<li>Table</li>
-<li>Doc (Form 匿名？)</li>
-</ul>
-</li>
-<li>第三方Block?动态图表，主题，个性化。安全性x。</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">Block:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">UUID</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">Layout:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">ColumnRatio:</span> <span class="number">0.5</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">IndentLevel:</span> <span class="number">0</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">Visible:</span> <span class="literal">false</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">Type:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">TextBlock</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Text</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">text :</span> </span><br><span class="line">          <span class="attr">text:</span> <span class="string">abc</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Heading</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">h1:</span></span><br><span class="line">          <span class="attr">text:</span> <span class="string">abc</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Title</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">h2:</span> <span class="string">abc</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Subtitle</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">h3:</span> <span class="string">abc</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Bulleted</span> <span class="string">List</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">ul:</span> <span class="string">abc</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Numbered</span> <span class="string">List</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">ol:</span> <span class="string">abc</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Toggle</span> <span class="string">List</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">toggle:</span> <span class="string">abc</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">CheckBox:</span> <span class="string">??</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">FormBlock</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Button</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">button:</span></span><br><span class="line">          <span class="attr">text:</span> <span class="string">abc</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">CheckBox</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">checkbox:</span></span><br><span class="line">          <span class="attr">text:</span> <span class="string">abc</span></span><br><span class="line">          <span class="attr">config:</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="string">Radio</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">radio:</span></span><br><span class="line">          <span class="attr">text:</span> <span class="string">abc</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">FileBlock</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Image</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">image:</span></span><br><span class="line">          <span class="attr">text:</span> <span class="string">'ABC'</span></span><br><span class="line">          <span class="attr">config:</span> </span><br><span class="line">            <span class="attr">url:</span> <span class="string">''</span></span><br><span class="line">            <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Audio</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">audio:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">url:</span> <span class="string">''</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Video</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">File</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">DatabaseBlock</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Table</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">table:</span></span><br><span class="line">          <span class="attr">text:</span> <span class="string">abc</span></span><br><span class="line">          <span class="attr">config:</span></span><br><span class="line">            <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">            <span class="attr">database:</span> <span class="string">/team/test</span></span><br><span class="line">            <span class="attr">columns:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">abc</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">def</span></span><br><span class="line">            <span class="attr">rows:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">1</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">2</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">3</span></span><br><span class="line">            <span class="attr">visual:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">table</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">card</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ChartBlock</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Bar</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">barchart:</span></span><br><span class="line">          <span class="attr">text:</span> <span class="string">abc</span></span><br><span class="line">          <span class="attr">config:</span></span><br><span class="line">            <span class="attr">database:</span> <span class="string">/team/test</span></span><br><span class="line">            <span class="attr">format:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">x:</span> <span class="string">bill</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">y:</span> <span class="string">price</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">hue:</span> <span class="string">smoker</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">style:</span> <span class="string">time</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Line</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Scatter</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Reference</span></span><br><span class="line">      <span class="attr">reference:</span></span><br><span class="line">        <span class="attr">text:</span> <span class="string">abc</span></span><br><span class="line">        <span class="attr">config:</span></span><br><span class="line">          <span class="attr">id:</span> <span class="string">uuid4</span></span><br></pre></td></tr></table></figure>
-<h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>Channel中Block具有Message的性质，包括永久Message，临时Message。</p>
-<p>永久Message在Channel中所有用户可见，包括用户间对话，用户与ActionBot的指令等。<br>临时Message多为系统提示，不会在数据库中保存。</p>
-<h2 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">team:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">group/group</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#channel</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">%doc</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;table</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">@voice</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">*live-stream</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">person:</span></span><br><span class="line"><span class="bullet">-</span> <span class="comment">#todo</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;todo</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">%weekly-report</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">sources</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#podcast</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#articles</span></span><br><span class="line"><span class="bullet">-</span> <span class="comment">#collection</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;bookmark</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;sparkle</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">%my-sparkles</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%introduce-to-k8s</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%talking-about-k8s</span></span><br><span class="line"><span class="bullet">-</span> <span class="meta">&amp;relation</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#relation</span></span><br><span class="line"></span><br><span class="line"><span class="attr">product:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">%freshman</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#faq</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&amp;freshman-rules</span></span><br><span class="line"><span class="bullet">-</span> <span class="comment">#develop</span></span><br><span class="line">  <span class="bullet">-</span> <span class="meta">&amp;progress</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#ux-design</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%how-to-use-figma</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;progress</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;resources</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#coding</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%coding-format</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;progress</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;crs</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;bugs</span></span><br><span class="line">    <span class="bullet">-</span> <span class="meta">&amp;repos</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/emergency</span></span><br><span class="line">      <span class="bullet">-</span> <span class="comment">#please-fuck-my-brain</span></span><br><span class="line">      <span class="bullet">-</span> <span class="comment">#who-knows-this-damn-bug</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#happytime</span></span><br><span class="line">  <span class="bullet">-</span> <span class="comment">#blow</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">%knowledge-base</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/user-manual</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">%getstarted</span></span><br><span class="line">      <span class="bullet">-</span> <span class="comment">#faq</span></span><br><span class="line">      <span class="bullet">-</span> <span class="meta">&amp;pullrequests</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/product-design</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/ux</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">%program-101</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">%program-102</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/arch</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">/experiments</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">/hardware</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">%performance-of-core-binding-x86</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&amp;performance-of-core-binding-x86-table-1</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">&amp;performance-of-core-binding-x86-table-2</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">/users</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&amp;basic-info</span></span><br></pre></td></tr></table></figure>
-<h3 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h3><p>Exchange提供消息的收集，预处理，中转，分发，输出功能。</p>
-<p>使用IM模型作为Exchange功能参考。</p>
-<p>Exchange是消息集散中心，用户的命令，功能的轻UI都可以都过Exchange完成，并留档。</p>
-<p>Exchange界面可以作为简易的命令行，交互底层基于Bot(第三方软件提供服务，Action，Pipeline)，Table(数据空间)，Doc(书面展示与交互)。</p>
-<h4 id="Team"><a href="#Team" class="headerlink" title="Team"></a>Team</h4><p>Exchange的最顶层组织结构。</p>
-<p>Team内的成员共享权限管理。</p>
-<p>个人默认创建并关联一个Team，不可删除。</p>
-<h4 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h4><p>基本的会话节点。</p>
-<p>消息的输入管线。</p>
-<p>协作的基本空间。</p>
-<h5 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h5><p>细化的会话组织结构。方便全选。</p>
-<h4 id="Doc"><a href="#Doc" class="headerlink" title="Doc"></a>Doc</h4><p>基本的展示节点。</p>
-<h4 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h4><p>基本的数据节点。</p>
-<h4 id><a href="#" class="headerlink" title="/"></a>/</h4><p>基本的空节点，用于组织目录结构。</p>
-<h3 id="Doc-1"><a href="#Doc-1" class="headerlink" title="Doc"></a>Doc</h3><p>Message可直接和文档连接。</p>
-<p>Message中的消息可直接和文档中的block同步。复制？引用？</p>
-<p>Block与Message的Block概念同步。</p>
-<p><strong>Doc可以看成Table的一个附有说明的状态截面</strong>。</p>
-<h4 id="Document"><a href="#Document" class="headerlink" title="Document"></a>Document</h4><p>静态载体</p>
-<h4 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h4><p>Slice为Doc的一种播放形式。</p>
-<h4 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h4><p>可交互载体 关联Action</p>
-<p><strong>TODO-Checkbox</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">- Action -&gt; `tododb`</span><br><span class="line"></span><br><span class="line">init():</span><br><span class="line">  <span class="keyword">CREATE</span> <span class="string">`tododb-tmpxxx`</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> </span><br><span class="line">listen():</span><br><span class="line">  <span class="keyword">if</span> block.type == BlockType.checkbox:</span><br><span class="line">    <span class="keyword">if</span> event.type == ChannelEvent.create:</span><br><span class="line">      <span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`tododb`</span> (<span class="string">`id`</span>, <span class="string">`标题`</span>, <span class="string">`完成`</span>) <span class="keyword">VALUES</span> (block.id, block.text, block.check);</span><br><span class="line">    else if event.type == ChannelEvent.update</span><br><span class="line">      <span class="keyword">UPDATE</span> <span class="string">`tododb`</span> <span class="keyword">SET</span> <span class="string">`标题`</span>=block.text, <span class="string">`完成`</span>=block.check <span class="keyword">WHERE</span> <span class="string">`id`</span>=block.id;</span><br><span class="line">    else if event.type == ChannelEvent.delete</span><br><span class="line">      <span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="string">`tododb`</span> <span class="keyword">WHERE</span> <span class="string">`id`</span>=block.id;</span><br></pre></td></tr></table></figure>
-<p><strong>Task-action</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">- Action -&gt; `taskdb`</span><br><span class="line"></span><br><span class="line">init():</span><br><span class="line">listen():</span><br><span class="line">  if event.type == ChannelEvent.create:</span><br><span class="line">    <span class="keyword">if</span> block.text.startswith(<span class="string">'任务'</span>):</span><br><span class="line">      <span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`taskdb`</span> (<span class="string">`id`</span>, <span class="string">`标题`</span>, <span class="string">`指派人`</span>) <span class="keyword">VALUES</span> (block.id, block.text, block.creator);</span><br><span class="line">      if len(block.members) &gt; 0:</span><br><span class="line">        <span class="keyword">UPDATE</span> <span class="string">`taskdb`</span> <span class="keyword">SET</span> <span class="string">`接受人`</span>=block.members[<span class="number">0</span>] <span class="keyword">WHERE</span> <span class="string">`id`</span>=block.id;</span><br><span class="line">    if block.text.split()[0] in ['完成', 'done']:</span><br><span class="line">      if block.reference is not None:</span><br><span class="line">        if block.reference.attrs.assignee == block.creator:</span><br><span class="line">          <span class="keyword">UPDATE</span> <span class="string">`taskdb`</span> <span class="keyword">SET</span> <span class="string">`状态`</span>=<span class="string">'已完成'</span>, <span class="string">`进度`</span>=<span class="string">'100'</span> <span class="keyword">WHERE</span> <span class="string">`id`</span>=block.id;</span><br></pre></td></tr></table></figure>
-<p><strong>Task-buttons</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">- ReferenceTableRow</span><br><span class="line">- Button:</span><br><span class="line">    text: '接受'</span><br><span class="line">    columnRatio: '0.5'</span><br><span class="line">    database: '/team/namespace/taskdb'</span><br><span class="line">    binding: '接受人'</span><br><span class="line">- Button:</span><br><span class="line">    text: '拒绝'</span><br><span class="line">    columnRatio: '0.5'</span><br><span class="line">listen():</span><br><span class="line">  if event.Type == EventType.xxx</span><br></pre></td></tr></table></figure>
-<p><strong>Query-textfield</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">- Action -&gt; `querydb`</span><br><span class="line">- Text: '1. 请留下你的宝贵意见'</span><br><span class="line">- TextField:</span><br><span class="line">    database: '/team/namespace/querydb'</span><br><span class="line">    binding: '1-1意见'</span><br><span class="line">init():</span><br><span class="line">listen():</span><br><span class="line">  if event.type == ChannelEvent.update:</span><br><span class="line">    <span class="keyword">if</span> block.type == BlockType.textfield:</span><br><span class="line">      <span class="keyword">INSERT</span> <span class="keyword">if</span> <span class="keyword">not</span> exist <span class="keyword">else</span> <span class="keyword">UPDATE</span> <span class="string">`querydb`</span> <span class="keyword">SET</span> block.binding=block.text <span class="keyword">WHERE</span> <span class="string">`user_id`</span>=event.creator;</span><br></pre></td></tr></table></figure>
-<p><strong>VoteRadioButton</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">- Action -&gt; `votedb`</span><br><span class="line">- Text: '1. 下列选项中，正确的是：'</span><br><span class="line">- Radio:</span><br><span class="line">    text: 'ABCD'</span><br><span class="line">    database: '/team/namespace/votedb'</span><br><span class="line">    binding: '1' <span class="keyword">select</span> <span class="keyword">or</span> <span class="keyword">create</span></span><br><span class="line">init():</span><br><span class="line">  <span class="keyword">database</span>: <span class="string">'/team/namespace/hahaha'</span></span><br><span class="line">listen():</span><br><span class="line">  <span class="keyword">if</span> event.type == ChannelEvent.create:</span><br><span class="line">    <span class="keyword">if</span> block.type == BlockType.radio:</span><br><span class="line">      <span class="keyword">if</span> block.binding <span class="keyword">not</span> <span class="keyword">in</span> <span class="string">`votedb`</span>.columns:</span><br><span class="line">        <span class="string">`votedb`</span>.columns.add(block.binding)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> event.type == ChannelEvent.update:</span><br><span class="line">    <span class="keyword">if</span> block.type == BlockType.radio:</span><br><span class="line">      <span class="keyword">INSERT</span> <span class="keyword">or</span> <span class="keyword">UPDATE</span> <span class="string">`votedb`</span> <span class="keyword">SET</span> block.binding=block.text <span class="keyword">WHERE</span> <span class="string">`user_id`</span>=event.creator</span><br></pre></td></tr></table></figure>
-<p>Application预定义组件</p>
-<p>Application:</p>
-<ul>
-<li>Action</li>
-<li>Webhook</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">Team + TODO Application</span><br><span class="line"></span><br><span class="line">1. Configure</span><br><span class="line">+ Name: 计划清单</span><br><span class="line">+ Actions</span><br><span class="line">  - name: preprocess-it</span><br><span class="line">    Steps:</span><br><span class="line">    + Trigger:</span><br><span class="line">      Keywords:</span><br><span class="line">      - 任务</span><br><span class="line">      - 哈哈</span><br><span class="line">    - Plugin-OCR</span><br><span class="line">    - Plugin-Object-Detect</span><br><span class="line">    - Plugin-Message</span><br><span class="line">      - as bot account</span><br><span class="line">  presetTypes:</span><br><span class="line">    + Book</span><br><span class="line">    + Travel</span><br><span class="line">+ DataBase</span><br><span class="line">  database: /team/progress</span><br><span class="line">  presetColumns:</span><br><span class="line">    - 标题:标题</span><br><span class="line">    - 完成:完成</span><br><span class="line">    - 类型:类型</span><br><span class="line">+ Channels:</span><br><span class="line">  - /team/my/todo</span><br><span class="line">    - rules:</span><br><span class="line">      - 触发类型:</span><br><span class="line">        - (x) 关键词</span><br><span class="line">        - ( ) 新消息</span><br><span class="line">        - ( ) 作为选项</span><br><span class="line">        - ( ) 类型触发(checkbox)</span><br><span class="line">        - (·) webhook</span><br><span class="line">          - [x] webhook1</span><br><span class="line">          - [ ] webhook2</span><br><span class="line">  - /team/your/todo</span><br><span class="line">+ Docs:</span><br><span class="line">  - /team/doc/todolist</span><br><span class="line">+ Webhooks</span><br><span class="line">    - url: webhook.1-101-1.com/abz1nsulixydq20j912</span><br><span class="line">      bot: TODO</span><br><span class="line">      channels:</span><br><span class="line">        - /team/namspace/channel</span><br><span class="line">      docs:</span><br><span class="line">        - /team/namespace/doc</span><br><span class="line">+ BotAccount</span><br><span class="line">  - TODO</span><br><span class="line">  + BookManager</span><br><span class="line"></span><br><span class="line">2. Channel</span><br><span class="line"></span><br><span class="line">text: "哈哈悲惨世界"</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">checkbox:</span><br><span class="line">  text: "悲惨世界"</span><br><span class="line">  checked: false</span><br></pre></td></tr></table></figure>
-<p>Application开发<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">1. <span class="keyword">Create</span> Application</span><br><span class="line">actions:</span><br><span class="line">- action1:</span><br><span class="line">    <span class="keyword">desc</span>: webhook</span><br><span class="line">    <span class="keyword">triggers</span>:</span><br><span class="line">    - webhook1</span><br><span class="line">    steps:</span><br><span class="line">    - <span class="keyword">plugin</span>-message</span><br><span class="line">      - createfromjson</span><br><span class="line">    - <span class="keyword">plugin</span>-push:</span><br><span class="line">      bot: bot1</span><br><span class="line">      channels:</span><br><span class="line">      - channel1</span><br><span class="line">    - <span class="keyword">plugin</span>-push:</span><br><span class="line">      bot: bot2</span><br><span class="line">      channels:</span><br><span class="line">      - channel2</span><br><span class="line">      docs:</span><br><span class="line">      - doc1</span><br><span class="line">  action2:</span><br><span class="line">    <span class="keyword">desc</span>: retweet</span><br><span class="line">    <span class="keyword">triggers</span>:</span><br><span class="line">    - channel1:</span><br><span class="line">      <span class="keyword">type</span>: every</span><br><span class="line">    steps:</span><br><span class="line">    - <span class="keyword">plugin</span>-push</span><br><span class="line">      bot: bot2</span><br><span class="line">      channels:</span><br><span class="line">      channel1</span><br><span class="line">channels:</span><br><span class="line">- channel1</span><br><span class="line">- channel2</span><br><span class="line"><span class="keyword">databases</span>:</span><br><span class="line">- db1</span><br><span class="line">- db2</span><br><span class="line">docs:</span><br><span class="line">- doc1</span><br><span class="line">- doc2</span><br><span class="line">webhooks:</span><br><span class="line">- webhook1</span><br><span class="line">- webhook2</span><br><span class="line">botaccount:</span><br><span class="line">- bot1</span><br><span class="line">- bot2</span><br></pre></td></tr></table></figure></p>
-<h3 id="Table-1"><a href="#Table-1" class="headerlink" title="Table"></a>Table</h3><p>支持外接数据源。高级操作。</p>
-<h4 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h4><p>关系型数据库交互空间。</p>
-<!-- #### Object
+<h1 id="定性"><a href="#定性" class="headerlink" title="定性"></a>定性</h1><p>究竟该怎么定义<strong>复杂</strong>？<br>复杂在不同人看来可能很不相同。  </p>
+<p>正在背诵乘法口诀的小学生可能觉得复杂，正在理解理论物理公式的大学生也可能觉得复杂；<br>正在计算购物节满减凑单优惠的剁手党可能觉得复杂，正在试图理解经手多人外包的代码的程序员可能觉得复杂。<br>大学生看小学生的乘法口诀觉得小菜一碟，而程序员可能不一定能理解满减规则。<br>由此看来，复杂性是由概念数量决定的，需要同时考虑的概念数量越多，就会感觉到越复杂。<br>并且，复杂性与一个人的知识积累以及抽象能力相关，小学生背诵乘法表需要记忆。</p>
+<p>我们面对如毛线团般的事物无从下手，而经验丰富的专家则能抽丝剥茧，重新梳理编织得井井有条。<br>那么我们与专家的区别在哪里呢？<br>答案就在<strong>知识储备</strong>上。  </p>
+<p>知识储备的一种理解是，如果把我们的思维比作工具箱，把碰到的问题比作奇形怪状的钉子，那么我们的工具箱中有多少种可选的锤子可以帮助我们敲钉子，就代表我们的知识储备的丰富程度。<br>同样是看到一粒凸起的钉子，普通人（未经过专业训练的人）只会觉得无从下手，光是想象自己赤手空拳跟钉子软碰硬时，就觉得疼得要命。而专家可能会掏出他惯用的锤子，敲敲打打，即使不能把钉子敲好，至少手中有锤，心里不慌。<br>反映到现实中来，普通人如果看到一件事的发生，可能不知从何理解，甚至陷入对复杂性的恐慌之中，大脑一片空白。不过普通人绝不止这一种反应，比如还可能回忆起自己一知半解、道听途说来的概念，强行编造个因果关系。<br>如果我们能把现实简化，抽象出概念，建立模型，则能帮我们更好的理解事情，从而找到可能的解决方法。<br><!-- 我们提出了地球公转的模型，并且通过推算预测解释了很多现象，而观测反过来验证了这个模型的正确性，现代人掌握了这个知识，也就不会再像古代人那样，为日食恐慌了。 --></p>
+<p>值得注意的是，工具箱思维也只是对知识储备的一种片面解释，如果眼里尽是钉子，那不得跟肉中刺一样疼吗？。</p>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>神经生物学揭示了大脑复杂的物理结构，我们目前很难自底向上地完全解释大脑的运作方式，不过我们在不同层次上建立了几种解释模型。<br>一种是基于信号测量的脑区划分方法（需要准确名称），这种方法通过实验测量大脑不同区域的活跃程度与行为之间的关系。<br>另一种是更抽象的概念模型，用行为来验证模型的适用范围。</p>
+<p>认知心理学中就有一个“工作记忆”的模型。模型由长期记忆和短期记忆构成，工作记忆属于短期记忆的一种，相当于思考的工作台，而长期记忆相当于记忆的仓库，用于存储暂时用不到，但可能日后还有用的记忆。<br>每个人的工作记忆大小不同，每个概念占用一定的空间，如果概念数量太多以至于超过了工作台的最大容限，思考将变得困难。<br>我们可以把外界中的概念与工作记忆“交换”，比如用纸或者白板写下来，但因为高速的“内存”和低速的“外存”直接需要不断交换信息，思考的速度将下降。  </p>
+<p>另一个模型是关于<strong>快慢系统</strong>的：我们的大脑可以简化成两种思考系统，一种是<strong>系统1</strong>，通常是迅速的，潜意识的，反射式的，不由自主的；另一种是<strong>系统2</strong>，通常是缓慢的，费力的，需要意识参与的，可以控制的。<br>涉及的所谓“肌肉记忆”的技能，以及需要快速反应的“机械知识”都可以通过反复练习固化下来，直接经由系统1做出反应。而学习、分析、推理、想象等行为则需要<strong>系统2</strong>参与，这时影响思考效率的就包括同时处理的概念数量了。</p>
+<p>我们感受到的复杂通常是系统2的产物，我们不会觉得辨认普通地辨认猫或者其他常见动物是件复杂的事。<br>这通常在一瞬间发生，当你看到一只典型的“猫”样的物体时，猫这个概念几乎不可阻挡的进入脑中，这也是系统1的特性，它是基于神经系统的。<br>至于接下来的处理步骤就取决于你当时的状态，如果你的注意力集中在别的事情上，那么这个概念也只会转瞬即逝，几乎不会有机会进入长期记忆。<br>如果你需要仔细辨认猫的种类，或者确认那个“猫”样的物体究竟是不是猫时，则<strong>可能</strong>需要系统2的参与。<br>如果你对猫的特征有过深入研究，并且熟悉它们，那么同样猫的品种就已经在系统1的自动处理流水线中处理完成提交到你的脑子里了。<br>而如果你刚刚开始学习辨认猫的品种，捧着一本手册努力查阅或者听一旁的朋友涛涛不觉地解释，就很有可能感受到<strong>复杂</strong>，并且经历被信息淹没的感觉。<br>对于你而言，那些非常细节的概念之间毫无联系，光是努力维持那些概念在脑子里就十分费力了，然而实际上那些概念刚从系统1的视觉或者听觉提交上来没多久，就直接被丢弃了。  </p>
+<p>你得承认，复杂超过一定程度，人就几乎不能理解了。  </p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>我们利用了几种模型来帮助我们分析如何处理复杂性这个问题，这些并不是唯一的解释方法。不过这些模型对于我们的提出解决方法已经有足够的启发了。  </p>
+<p>根据我们的模型，我们该如何提高处理复杂的能力呢？缩减工作记忆中的概念数量以减少甚至避免和“外界存储”的交换，提高工作记忆的容量以容纳更多的概念数量。</p>
+<p>那么如何缩减概念数量呢？我们可以对概念进行分类、抽象、归纳、封装、近似、封装。  </p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>物以类聚，我们可以把相似的概念分为一类——具有共同特征，或者在时空上接近。这样，我们只需按类别考虑概念。<br>许多苹果、梨、香蕉、西瓜、西红柿、黄瓜、冬瓜、南瓜混在一起。如果我们分别考虑每一个物体，由于物体数量很多，就很难同时考虑。如果我们先按品种先分类，就只需要考虑8堆果蔬，一共8个概念。进一步，我们再按能不能带皮吃分类，则只需要考虑2种概念：能带皮吃和不能带皮的。在此基础上讨论理解，则比同时考虑多个具体概念容易得多。<br>当然分类的方法不止一种，比如按颜色分类、按大小分类，分类的具体原则要根据具体问题决定。适应问题的合理分类，能帮助我们更好的简化模型，梳理思路。   </p>
+<h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>抽象是指把多种概念的共同特征提取出来，从具体的事物体中抽象出概念。比如考虑上面提到的果蔬混合物，在分类的基础上，我们可以提取出水果和蔬菜的概念，这样就能在一般性地研究水果或者蔬菜的特性。<br>有时候，抽象所提取的共同特征太少，导致可以被归类的概念太多、太宽泛，这种抽象可能不一定适合我们想要考虑的问题。我们可以多层抽象，比如将共同特征的要求放严一些，这样抽象得到的概念类别也就更多并且具体些。<br>合理的抽象层次，对模型的组织方式有很大影响。   </p>
+<h2 id="归纳"><a href="#归纳" class="headerlink" title="归纳"></a>归纳</h2><p>苹果是甜的，梨也是甜的，西瓜是水果，那么西瓜是甜的吗？我们可以从苹果和梨的特性上尝试归纳出水果是甜的这个特征，以此为假设前提，并通过演绎推广到同样是水果的西瓜上，可以得出西瓜也是甜的的结论。这就是<strong>归纳-演绎</strong>的常见用法。<br>不过，要小心掉进逻辑的陷阱！归纳-演绎的结构推导出的结论正确，必须建立在归纳的结论正确之上，归纳的结论正确又必须建立在引用事实的正确之上。<br>有的人把假设当事实，自然会归纳得出荒谬的结论；有的人不看具体场景，只觉得要解决的问题与归纳的模式有几分相似便套用模板，自然错到离谱，在考试上俗称套公式。  </p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>封装是将复杂而紧密联系的概念当成一个整体，也就是当成所谓的<strong>黑盒</strong>，在考虑更高层次的问题时，仅考虑这个整体与外界的互动，而不必关心它的内部细节。<br>黑盒的概念应用很广。在研究大脑和行为的关系时，就有人通过人接受的刺激和做出的行为来为黑盒建立模型，这种模型是概念上的。在生活上，我们经常也不自觉结合“常识”的给身边的“黑盒”建立模型，比如在炎炎夏日我们进入室内打开空调时，可能会把空调调到最低温度，而不是最适宜温度，这里就隐含了一个我们给空调这个黑盒建立的模型——设定的温度与当前温度温差越大，空调工作的功率越高，然而这不是空调的真实模型。<br>因此，封装并使用简化的黑盒可以缩减概念数量，但是要注意简化后的模型能在多大程度上还原之前的解释，是否符合需要。</p>
+<h2 id="分治"><a href="#分治" class="headerlink" title="分治"></a>分治</h2><p>有时候，许多概念一拥而上，着实令人头疼。但在开始分析之前，先判断是不是这么多概念都是需要同时思考的，是不是可以<strong>分而治之</strong>。<br>分而治之的思想自古有之，如果我们面对大问题难以入手，那么就化整为零，再逐个击破。同样，面对繁多的概念，如果他们可以分解成更小的概念组，再分别考虑，那么一次要处理的概念数量就能减少不少。  </p>
+<h2 id="近似"><a href="#近似" class="headerlink" title="近似"></a>近似</h2><p>近似用哲学的话来说就是：抓住主要矛盾。<br>近似在工程上经常使用。比如我们通过公式推导出了一串复杂的解，我们通常会在误差允许的范围内对解做近似，忽略权重低的项，保留权重高的项。在简化了解的同时在很大程度上保证结论的有效性，并且这让我们能对更有影响力的变量给予更多的注意力。放在实际应用中，我们就能集中资源攻克主要问题。<br>同样，需要注意的是，不要忘记模型的公式本身是对现实的近似，答案本身是对精确解的解释，而如果使用计算机求解，同样要面对有效数字的近似问题。现实在层层近似之后通过仿真展示在我们面前，然而仿真不是真，也不是现实。<br>化简概念也是类似，把细枝末节剔除出去后，剩下重要的概念也应该不会太多。</p>
+<p>关于如何扩容，工作记忆这个模型对应着物理的神经系统，想要扩容十分困难。有许多号称可以提高记忆力的方法，其实是也通过减少概念数量。比如，通过谐音的方法将需要记忆的概念连成一个故事或者组成一幅画面，概念之间不再毫无关联，而是形成了一个可以自动播放的整体，回忆时再通过机械记忆住的映射规则（回忆一下小时候背乘法口诀表或者中学背元素周期表）反向解释即可。</p>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>以编程为例，开始学习时，我们更注意程序语言的语法，通过一些简单的例子体会语言的特性。这时语法上的每一个特征对我们来说都是一个独立的概念，我们需要不断回顾语法规则来加载概念到工作记忆。此时十分费力，也就是入门的阶段。<br>我们在从外界反复使用这些新概念的同时，我们的大脑会根据“重复=重要”的原则把这些概念放入长期记忆中，并且通过反复练习提高熟练度可以提高概念从长期记忆中提取的速度。  </p>
+<p>在反复练习之中，我们会发现不必过于关注语法本身，而可以总结出基本的使用模式。<br>我们可以抽象出控制结构、循环结构这样的基本结构，明白了可以使用函数来把一系列紧密相关的实现封装起来。我们在阅读别人的代码时，可以不必关注实现细节，而是通过主要函数的调用关系理解整个模块的功能。<br>在这种自底向上的抽象过程中，可能会引入新的编程模型，新的功能模块，新的独立系统。  </p>
+<p>得益于此，我们可以在高抽象层次上设计系统。我们有能力把握有限的子系统数量，如果子系统的数量过多，可以进一步抽象，保持整体的概念数量可控。  </p>
+<!-- # 记忆
 
-对象型数据库，待衍生。
+机械知识的记忆有无必要。
 
-#### Document
-
-文档型数据库，待衍生。
-
-#### Graph
-
-图数据库，待衍生。 -->
-<h3 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h3><ul>
-<li>webhook</li>
-<li>bot</li>
-<li>commands</li>
-<li>workflow</li>
-</ul>
-<h1 id="实现调研"><a href="#实现调研" class="headerlink" title="实现调研"></a>实现调研</h1><h2 id="前端框架"><a href="#前端框架" class="headerlink" title="前端框架"></a>前端框架</h2><p>Flutter作为跨端框架。</p>
-<p>MVP支持Android,iOS,Web,Msite。</p>
-<p><a href="https://github.com/grantkang5/discord-clone" target="_blank" rel="noopener">https://github.com/grantkang5/discord-clone</a></p>
-<p><a href="https://github.com/fluttercandies/wechat_flutter" target="_blank" rel="noopener">https://github.com/fluttercandies/wechat_flutter</a></p>
-<p><a href="https://github.com/konstantinmuenster/notion-clone" target="_blank" rel="noopener">https://github.com/konstantinmuenster/notion-clone</a></p>
-<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="保存有序序列"><a href="#保存有序序列" class="headerlink" title="保存有序序列"></a>保存有序序列</h3><ul>
-<li>增加order字段，每次增删查改都批量修改序号。</li>
-<li>使用string代替order，比如’a’，’aa’。每次向后append。</li>
-<li>使用gap代替order，比如100,200。每次取中间数。</li>
-<li>使用链表法。</li>
-</ul>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="OT"><a href="#OT" class="headerlink" title="OT"></a>OT</h3><p><a href="https://operational-transformation.github.io/" target="_blank" rel="noopener">https://operational-transformation.github.io/</a></p>
-<h3 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h3><h1 id="排期"><a href="#排期" class="headerlink" title="排期"></a>排期</h1><h2 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h2><ul>
-<li>[ ] Channel(ws, iOS)</li>
-<li>[ ] User(Member, BotAccount)</li>
-<li>[ ] Table(User defined schema)</li>
-<li>[ ] Bot(action, webhook)</li>
-<li>[ ] Doc(text, #title)</li>
-</ul>
+背珠心算的口诀，与培养分析问题的能力，哪个更重要？ -->
 ]]></content>
       <categories>
-        <category>1-101-1</category>
+        <category>学习</category>
       </categories>
       <tags>
-        <tag>产品</tag>
-        <tag>1-101-1</tag>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何快速入门新领域</title>
+    <url>/thinking/misc/something-new/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote>
+<p>从零开始学前端（移动端）的过程记录，以及走神想到的关于学习新领域的思考。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h1><p>互联网上的垃圾越来越多，各个大厂的生态也趋于闭合。即使仍然还有人在免费提供优质的内容，Google的爬虫也无能为力。<br>现在大行其道的推荐算法，它或许可以通过我的注意力停留时长判断出我的兴趣所在，但在一人一票的制度下，很难为我们挖掘真正沉淀了价值的东西。<br>信息就像一次性纸巾，在被人擦过鼻涕后便只能扔掉，而在一些激励的鼓励下，有不少人在全天无休的制造着这些白色垃圾。  </p>
+<p>这是我最初开始设想阡陌时的一个初衷：<strong>发掘高质量、长生命期的内容</strong>。</p>
+<p>具体的设想暂且不展开，打造一片理想的数字世界需要技术的支持，而作为数字世界大门的就是前端。</p>
+<p>我之前对于前端的了解很少，大概觉得网页就是前端。不过，在各行各业，“前端”都有所知，我之前做硬件开发时的前端便是Verilog HDL。<br>虽然对前端不太了解，但是我觉得计算机软件开发技术可能是所有应用技术里最适合自学入门的，不仅网上现成免费的书籍、课程多，而且得益于开源的兴起，实战项目也不少。  </p>
+<p>不过这些资源散落在互联网的汪洋大海中，并且其中有一大部分处于公海之外的私人水域中。除此之外，资源的质量如何，难度是否合适，应该何时使用，却少有说明。<br>为数不多的路线地图（Roadmap）也只是笼统而论，还没入门的小白用户看起来自然也就一头雾水，等到七拼八凑，走过了不少弯路，才懵懵懂懂有了些印象。<br>这些是我个人在学习过程中的体会，姑且先推广开来，假设和我有相似遭遇的大有人在吧。</p>
+<p>据此至少可以提出三个需求：   </p>
+<ul>
+<li>第一，我希望有一份详细的路线地图，可以让我对需要学习的领域形成大致的“方向感”；  </li>
+<li>第二，我希望路线地图拆分成里程碑（Milestone），把一个大目标拆分成小目标，逐个击破，在及时反馈之中增强信心；  </li>
+<li>第三，我希望学习之路上，有人通行，亦师亦友，汇总常见问题，甚至可以做成专家系统，节约入门者和指导者的时间。  </li>
+</ul>
+<h1 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h1><p>首先，分析我的位置：</p>
+<ul>
+<li>掌握Python、C++等编程语言。</li>
+<li>了解计算机网络基本常识。</li>
+<li>熟悉搜索引擎的使用方法🤣。</li>
+</ul>
+<p>其次，权衡我的目标：</p>
+<p><strong>网页端、移动端还是桌面端？</strong></p>
+<p>这其实是在考虑这三种平台优势是什么。  </p>
+<ul>
+<li>网页端适合电脑使用，对实时性要求不高，合适生产力模式下使用。 </li>
+<li>移动端便携性好，普及程度广，合适随身模式使用，但可能被娱乐模式干扰，优先级较高。  </li>
+<li>桌面端适合电脑使用，有更强的性能与定制性。</li>
+</ul>
+<p><strong>现有主流框架有哪些？是否有跨平台框架？</strong></p>
+<p>网页端有React、Angular、Vue，移动端有Android/iOS原生，桌面端各个系统各式各样。跨平台的方案有React Native、Electron、Flutter。</p>
+<p><strong>各个框架的优势是什么？</strong> </p>
+<p>对比主要从代码复用性和社区成熟度上考虑。代码复用性包括跨平台代码复用，可用第三方库。社区成熟度包括文档、教程的完善程度，项目活跃度，是否仍在积极维护。<br>框架的选择也是见仁见智，JS框架在性能上可能不如意，移动原生开发需要的学习量和工作量太过巨大，跨平台方案不太成熟。评估之后还是选择移动端切入，日后可以补充JS框架做网页端。</p>
+<p>这里的问题是，我从网上获得的评论都具有主观性，对前端几乎为0的了解也导致我没办法做出合理判断。再者，<strong>技术只是实现目标的手段</strong>。总之，先淌一淌这浑水再做决定。</p>
+<h1 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h1><p>学习因目标不同，知识类型不同，有许多不同的方法，从大的方向上可以分为三个阶段。</p>
+<p><strong>直接上手</strong>：  </p>
+<p>这适合早期入门。在老师的指导下或参考有效的资料，形成对知识的感性认识。常见的学习模式是：你不要问那么多为什么，照做就是。很多时候，通过这种方法，就能大致看懂别人的成果并简单应用了。并且，通过上手-反馈循环，可以积累信心。虽然大多数知识的入门都可以使用这个方法，但通过这个方法学到的知识不系统，存在逻辑缺失，在学习的时候可能会在心里存下不少疑问。比如在出现复杂问题时，可能无法解释，只能诉诸玄学。这就是缺乏系统化、整体化的认知的结果。</p>
+<p><strong>系统学习</strong>：  </p>
+<p>这适合中期进阶。之所以能系统学习，是因为知识体系相对稳定，有大量前人总结的体系模型可以参考。系统化学习通常来说要明确学习领域和起点，预先给出公理或者假设，在大家都明确了以下所有内容均基于以上公理或者假设——也就是明确了知识体系的适用范围之后，开始引出推论和模型，并且通过严格的逻辑证明推论成立，或者通过模型解释实际案例表示模型有效。经过系统学习，基本上能对大部分问题套用模型分析解释，解决问题，达成目标，有了更强的定制能力。在系统学习的过程中，可以解释之前遇到的不少疑惑，但系统学习需要警惕绝对知识论，需要明确知识是在一定假设上的理想模型，并不是绝对真理。如果批判性地思考学习，心中的疑问可能只增不减，但这并不是一件完全的坏事，这说明对知识有了更全面深刻的认识。所谓知道的越多，才发现不知道得更多。在系统学习过程中，有人不能接受完全接受模型，而是会对为什么提出模型产生疑问，因为知识体系是经过无数人试错后的总结，而了解知识诞生的历史会让我们学习知识的逻辑更加顺畅，因为建立知识体系的历史是探索与偶然的历史。系统学习并不是学习的终点，已知的模型在面对新的问题的时候很可能会失效，这时候就需要科学探究。</p>
+<p><strong>科学探究</strong>：  </p>
+<p>这适合后期探索。之所以带上科学二字，是因为需要使用科学研究方法，并且得出的知识模型可证伪。不可证伪的知识通常是万能解释的，比如很多伪心理学总能用一套看似有道理的解释套用到所有情况上，并且没法提出切实可行、可重复的解决方案。使用这种方法需要具备丰富的想象力和严谨的逻辑。丰富的想象力要求有能力补足未知的细节，建立知识模型，并设计证明方法，对结果有预期。严谨的逻辑需要知识模型具有可解释性，以前人已有的知识或者可理解的假设作为起点，构建一条完整的逻辑链路。科学探究能构建理论解释之前的一部分疑问，但却有可能调入疑问的黑洞之中，不能说科学的尽头是神学，但是面对自然，仍然要抱有敬畏之心。虽然我们有了一些用来抵御未知的知识，但也要意识到我们这片知识空间的狭小和脆弱，在它之外的是漫无边际、比黑更黑的未知。</p>
+<p>希望以上这些可能对处于不同学习阶段的人有点启发，当然这并不是说所有的学习过程都要以第<strong>科学探究</strong>为最终目标，需要根据自己的实际的目标和所处的位置选择合适的方法。比如纯粹建立在逻辑上的知识可能就不能<strong>直接上手</strong>，只能<strong>系统学习</strong>了。又比如应用性强的知识适合直接上手，即所谓自学成才，可能身经百战，但不知其然，但也可以系统学习，即所谓科班出身，可能头头是道，但纸上谈兵。  </p>
+<p>值得警惕的是那些打着科学旗号兜售自己的“万灵药”的人。</p>
+<p>回到前端入门上来，因为是应用性很强的知识，所以我选择直接上手，需要深度定制或者遇到难解的问题，再回头补习。</p>
+<h1 id="上手"><a href="#上手" class="headerlink" title="上手"></a>上手</h1><p>搜了些路线图，有些前人的路可以参考，但完全照搬可能有些拘束，根据自身情况借鉴即可。</p>
+<p><strong>第一步</strong>：环境准备。这是几乎学习新编程语言必备的，不同教程大同小异，如果社区成熟，按照文档做一遍就行。一些特殊的网络问题，需要想办法解决，同样成熟的社区也会有相应的解决方案。</p>
+<p><strong>第二步</strong>：玩具教程，这通常也是出现在社区文档中的。玩具，又称小玩意儿，通过这些简单的小玩意儿，能大概有个端到端的成果可以展示了。可不要到此就说自己精通了哦。<br>关于语法什么的，如果有相关的编程基础（概念都是相通的，语法存在差异），大概也能猜个大差不差，如果只知道面向对象，而学习函数式可能理解起来就有点费劲，不妨从基础概念开始理解。</p>
+<p><strong>第三步</strong>：了解常用组件，通过但不限于高质量的知识沉淀网站，风靡全球的代码托管网站获得基本了解，如果能找到好的起步教程就很好。一个理想的教程符合直接上手的原则，在上手过程中，介绍了常用的组件、使用方式，也就是“套路”。如果这一步有概念缺失，需要自行回溯学习前置知识，只需要回溯到连蒙带猜理解个大差不差的程度就可以回来继续教程了。</p>
+<p><strong>第四步</strong>：好了，你已经知道了1+1=2，下面我们来算个不定积分。这是不少人可能遇到的情况，教程也能看了七七八八，却发现离自己想实现的目标还有不小的差距。<br>这个差距通常是几方面方面引起的：不知道某项功能怎么实现，需要定制第三方库，需要自己完全实现。</p>
+<p>我们需要逐个击破：</p>
+<ul>
+<li>不知道用什么轮子：搜索学习更复杂的教程，最好包含自己想实现的功能，或者其中一部分。</li>
+<li>有轮子但需要调整：回溯学习第三方库相关知识，尝试修改并观察结果，理解基本原理直到可以上手修改。</li>
+<li>找不到轮子：回溯学习所需的知识，自底向上，逐步搭建。</li>
+</ul>
+<p>其实到这一步，也算淌了些水，我们可以先停一停，需要回到<strong>评估</strong>这一步。如果轮子缺失严重——这通常意味着社区还不够成熟以及巨大的工作量，可能需要考虑使用别的方案，这很有可能意味着<strong>评估</strong>阶段的工作不足，或者领域太新。如果重新评估后发现其他方案更完善，那么应该切换方案。可能有人会抱怨以上四步白白浪费了时间，其实可以从两方面来考虑。其一，这四步消耗的时间是沉没成本，没办法收回，最合理的做法是忽视它，评估继续这个方案所需要的投入以及其他方案从0开始的投入哪个更多。其二，面对一个问题的多种解决方案，通常在回溯之后的知识上是相通的、可重用的，时间也不是完全浪费的。</p>
+<p>我学到这里，基本上达到了可以使用轮子搭建自己想要的功能的地步。向后就需要根据设计的功能反复使用第四步的三个方法，直到满足我们的设计，或者修改设计降低实现复杂度。</p>
+<h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>我在这篇文章里，没有重点讲具体的知识点，而是想通过这次的学习实践归纳一般的方法。当然，抽象得足够高的规律都可能变成“万灵药”的危险。</p>
+<p>前端先学了一点皮毛，先暂且用着，还要补些网页前端、后端、设计、认知科学方面的知识。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
       </tags>
   </entry>
   <entry>
