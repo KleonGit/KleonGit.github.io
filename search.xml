@@ -662,12 +662,12 @@
       </tags>
   </entry>
   <entry>
-    <title>消息流-1 在各个应用之间</title>
+    <title>消息流在各个应用之间</title>
     <url>/thinking/message-flow/1-current/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-<p>消息是信息传递的最基本单位。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>消息是信息传递的最基本单位。</p>
 <p>声音，图像，文本，一条消息自身具备独立的语义。</p>
 <p>各式各样的应用使用数据库把消息按自己的格式组织起来。</p>
+<a id="more"></a>
 <h1 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h1><blockquote>
 <p>备忘录</p>
 </blockquote>
@@ -1318,6 +1318,60 @@
       </tags>
   </entry>
   <entry>
+    <title>机器学习系统 1-7 - 后端硬件驱动</title>
+    <url>/ai/ml-system/hardware-backend/7-driver/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>驱动是对硬件接口的抽象和封装，设计时需要充分考虑分层和解耦。</p>
+<a id="more"></a>
+<p>Linux系统将设备<a href="#refer-1"><sup>1</sup></a>抽象为文件，比如字符设备、块设备和网络接口，保持和文件一致的读写接口。</p>
+<p>拓展卡类型的FPGA加速卡使用GPIO和PCIe相连，内置PCIe Controller和DMA提供统一寻址。DMA提供多组AXI总线（通常与DDR空间对应，DDR空间不足可高位截断）以及一组AXI-lite总线（通常和用户寄存器空间对应）。</p>
+<p>FPGA硬件设备驱动的核心模块是DMA驱动，配合scatter-gather DMA，负责数据在主存和设备存储间的交换。</p>
+<p>用户软件通过设备文件的读写接口发起大规模DMA读写，通过ioctl等系统调用定制接口，比如寄存器读写等。</p>
+<p>FPGA芯片厂商通常提供DMA驱动，对FPGA开发者屏蔽了PCIe/DMA寄存器的操作细节。因此在驱动和硬件两侧看来，驱动设备文件的数据读写接口和AXI总线接口完全对应。</p>
+<p>硬件加速器会基于FPGA厂商提供的驱动对应硬件功能做二次开发，一是向runtime屏蔽硬件操作的复杂性，复用操作逻辑，二是保护硬件，防止用户软件对硬件执行非法操作。</p>
+<p>对于深度学习硬件后端，驱动的功能主要分为：内存管理，引擎管理，指令调度等。</p>
+<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><p>驱动最简单的管理策略就是直接放开所有物理内存空间，用户可通过读写接口访问任意内存地址。</p>
+<p>但这是个危险的操作，多个用户进程可能直接地址冲突，相互干扰，导致硬件逻辑错误。否则就要修改代码，对每个进程配置一个基地址。对于同构逻辑可能还行，如果是通用逻辑则无法保证均匀切割的地址空间能满足所有进程的需要。</p>
+<p>因此，驱动应提供内存管理的功能，在用户进程发起写请求前，显式申请内存空间，并在进程退出后清理所有残留内存空间。</p>
+<p>更为安全的做法是使用虚拟内存，将硬件的物理内存地址空间（有可能不连续）映射到连续的内存空间，相应的返回给用户的是虚拟内存地址。用户不能直接操作物理内存地址，同时对用户读写请求做内存地址所有权检查，禁止非法访问。</p>
+<p>不过通常安全性和性能是相互限制的，在高频读写场景下，可能会影响系统整体吞吐。对于延迟敏感型应用可能有较大影响，应根据实际场景取舍。可以加入安全模式或低延迟模式的选项，满足不同场景的需要。</p>
+<p>内存管理的另一个问题是，内存碎片。</p>
+<p>如果采用直白的顺序分配方式，不仅在碎片数量上升的情况下，内存分配时间逐步上升，而且可能会在多轮地址全部分配后出现大量碎片，难以重新分配。</p>
+<p>因此一个可以直接想到的方法是，预先将内存切割为大小均等的块，在内存分配时给出适合大小的块，使用bitmap记录内存使用情况。</p>
+<p>指令内存和数据内存的大小通常相差很多，可以根据业务场景预设多种尺寸的内存块。这样会浪费一些内存空间，极端情况是场景所需内存恰好超出预设尺寸一些，必须要分配更大尺寸的空间，不过这样设计的好处是，内存管理逻辑相对简单。</p>
+<p>如果要进一步优化内存使用率，可以使用均等切块，不连续内存访问的方式，由驱动控制数据的拆分，可能会将单次DMA读写拆分为多次。如此引入的额外性能开销，驱动复杂性和调试难度等，需要结合业务通用程度和团队产能平衡。</p>
+<h1 id="引擎管理"><a href="#引擎管理" class="headerlink" title="引擎管理"></a>引擎管理</h1><p>密集型算子的计算核心对应硬件的计算引擎（计算核），同构结构下多个计算引擎的结构与性能完全一致，可能分别置于多个die上（有时候，为了压低单位算力成本需要高超的FPGA后端技巧）。异构结构可能分为大小核结构和完全异构结构。</p>
+<p>使用大小核是为了充分满足设计上限（受限于给定可用资源或面积）。设计标准核的性能算力最佳，但占用资源较多。在设计上限内，不能完整容纳另一个标准核，但可以容纳阉割核（砍计算位宽，降频等）。但大小核功能基本一致，但是性能有差异。</p>
+<p>完全异构核是指设计功能不同的计算核，比如拆分计算密集型和长尾通用型计算核，或者针对特定场景（比如推荐）设计特定计算核（比如Embedding）。</p>
+<p>驱动设计时需要考虑上述各种情况，可以根据实际应用场景取舍。</p>
+<p>一个硬件版本会对应一组硬件结构，可以通过配置文件的形式对应硬件寄存器版本信息。驱动在初始化设备时，创建对应的数据结构，不同类型的核对应不同的引擎类型。对外提供引擎分配，释放，启动，重置接口等。</p>
+<h1 id="指令调度"><a href="#指令调度" class="headerlink" title="指令调度"></a>指令调度</h1><p>对于完全同构引擎，驱动在分配时可以使用独占或共享策略。</p>
+<p>独占策略声明引擎的排他性，通常是处于应用低延迟需要。由其是在没有引入指令交叉发射的机制下，共享同一个引擎的应用可能会被block较长时间，造成较高的延迟抖动。</p>
+<p>共享策略是为了最大化吞吐，多个计算指令填充队列，屏蔽数据交换的overhead。</p>
+<p>异构结构引擎的分配策略类似，需要考虑是否需要区分大小核。</p>
+<p>实际上提前由用户进程分配物理引擎并不一定是最优方案，尤其是在用户进程没有全局信息的情况下。驱动可以负责指令的动态调度，使用虚拟引擎屏蔽物理引擎细节。</p>
+<p>在分配引擎时，并不直接分配物理引擎，而是分配一个虚拟的引擎（持有类型信息），在实际启动引擎时，使用round-robin策略、按优先级或按负载调度指令。</p>
+<p>在某些场景下，硬件物理引擎只有一份，但最大可以处理N条指令（队列深度）。驱动可以通过维护指令队列的方式和硬件结构对应，实时查看硬件的队列深度，但这样会引入轮询开销。</p>
+<p>另一种做法是分配N个虚拟引擎对应一个物理引擎，并使用独占的方式，每个引擎阻塞执行，如此一来驱动就不必关心指令队列的实时状态了。总体上看，由软件调度的性能开销和抽象复杂度都较高。</p>
+<p>另一种思路是将指令调度下沉至硬件，驱动单纯负责内存分配和数据交换，以及简单的引擎管理功能。</p>
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><p>性能优化是必然要提到的，大体说来就是锁和合并。</p>
+<p>多线程应用/多进程应用在驱动中的行为基本一致（除了内存共享），那么最应该注意的就是加锁问题了。</p>
+<p>一个是mutex和spinlock，mutex会调用sleep，并切换context，spinlock则会反复尝试unlock直到成功。</p>
+<p>另一个是精细加锁，不要在整个函数出入口加一把大锁，非常容易引起性能问题。</p>
+<p>中断处理是需要消耗资源的，硬件过多的中断信号可能会丢失，或者造成CPU0占用过高，硬件可以提供中断合并的机制，降低实际中断次数。DMA的启动也有开销，因此需要考虑如何减少DMA读写次数，或者overlap启动开销。</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Device_driver" target="_blank" rel="noopener">Intermediate representation</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>FPGA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 1-8 - 后端硬件运行时</title>
     <url>/ai/ml-system/hardware-backend/8-runtime/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>运行时（Runtime）抽象出计算模型，提供更通用的接口，进一步屏蔽硬件细节。</p>
@@ -1429,49 +1483,47 @@
       </tags>
   </entry>
   <entry>
-    <title>机器学习系统 1-7 - 后端硬件驱动</title>
-    <url>/ai/ml-system/hardware-backend/7-driver/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>驱动是对硬件接口的抽象和封装，设计时需要充分考虑分层和解耦。</p>
+    <title>机器学习系统 1-9 - 后端硬件编译器</title>
+    <url>/ai/ml-system/hardware-backend/9-compiler/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>编译，广义上是将一种表达映射成另一种表达，维持功能不变。深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。</p>
 <a id="more"></a>
-<p>Linux系统将设备<a href="#refer-1"><sup>1</sup></a>抽象为文件，比如字符设备、块设备和网络接口，保持和文件一致的读写接口。</p>
-<p>拓展卡类型的FPGA加速卡使用GPIO和PCIe相连，内置PCIe Controller和DMA提供统一寻址。DMA提供多组AXI总线（通常与DDR空间对应，DDR空间不足可高位截断）以及一组AXI-lite总线（通常和用户寄存器空间对应）。</p>
-<p>FPGA硬件设备驱动的核心模块是DMA驱动，配合scatter-gather DMA，负责数据在主存和设备存储间的交换。</p>
-<p>用户软件通过设备文件的读写接口发起大规模DMA读写，通过ioctl等系统调用定制接口，比如寄存器读写等。</p>
-<p>FPGA芯片厂商通常提供DMA驱动，对FPGA开发者屏蔽了PCIe/DMA寄存器的操作细节。因此在驱动和硬件两侧看来，驱动设备文件的数据读写接口和AXI总线接口完全对应。</p>
-<p>硬件加速器会基于FPGA厂商提供的驱动对应硬件功能做二次开发，一是向runtime屏蔽硬件操作的复杂性，复用操作逻辑，二是保护硬件，防止用户软件对硬件执行非法操作。</p>
-<p>对于深度学习硬件后端，驱动的功能主要分为：内存管理，引擎管理，指令调度等。</p>
-<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><p>驱动最简单的管理策略就是直接放开所有物理内存空间，用户可通过读写接口访问任意内存地址。</p>
-<p>但这是个危险的操作，多个用户进程可能直接地址冲突，相互干扰，导致硬件逻辑错误。否则就要修改代码，对每个进程配置一个基地址。对于同构逻辑可能还行，如果是通用逻辑则无法保证均匀切割的地址空间能满足所有进程的需要。</p>
-<p>因此，驱动应提供内存管理的功能，在用户进程发起写请求前，显式申请内存空间，并在进程退出后清理所有残留内存空间。</p>
-<p>更为安全的做法是使用虚拟内存，将硬件的物理内存地址空间（有可能不连续）映射到连续的内存空间，相应的返回给用户的是虚拟内存地址。用户不能直接操作物理内存地址，同时对用户读写请求做内存地址所有权检查，禁止非法访问。</p>
-<p>不过通常安全性和性能是相互限制的，在高频读写场景下，可能会影响系统整体吞吐。对于延迟敏感型应用可能有较大影响，应根据实际场景取舍。可以加入安全模式或低延迟模式的选项，满足不同场景的需要。</p>
-<p>内存管理的另一个问题是，内存碎片。</p>
-<p>如果采用直白的顺序分配方式，不仅在碎片数量上升的情况下，内存分配时间逐步上升，而且可能会在多轮地址全部分配后出现大量碎片，难以重新分配。</p>
-<p>因此一个可以直接想到的方法是，预先将内存切割为大小均等的块，在内存分配时给出适合大小的块，使用bitmap记录内存使用情况。</p>
-<p>指令内存和数据内存的大小通常相差很多，可以根据业务场景预设多种尺寸的内存块。这样会浪费一些内存空间，极端情况是场景所需内存恰好超出预设尺寸一些，必须要分配更大尺寸的空间，不过这样设计的好处是，内存管理逻辑相对简单。</p>
-<p>如果要进一步优化内存使用率，可以使用均等切块，不连续内存访问的方式，由驱动控制数据的拆分，可能会将单次DMA读写拆分为多次。如此引入的额外性能开销，驱动复杂性和调试难度等，需要结合业务通用程度和团队产能平衡。</p>
-<h1 id="引擎管理"><a href="#引擎管理" class="headerlink" title="引擎管理"></a>引擎管理</h1><p>密集型算子的计算核心对应硬件的计算引擎（计算核），同构结构下多个计算引擎的结构与性能完全一致，可能分别置于多个die上（有时候，为了压低单位算力成本需要高超的FPGA后端技巧）。异构结构可能分为大小核结构和完全异构结构。</p>
-<p>使用大小核是为了充分满足设计上限（受限于给定可用资源或面积）。设计标准核的性能算力最佳，但占用资源较多。在设计上限内，不能完整容纳另一个标准核，但可以容纳阉割核（砍计算位宽，降频等）。但大小核功能基本一致，但是性能有差异。</p>
-<p>完全异构核是指设计功能不同的计算核，比如拆分计算密集型和长尾通用型计算核，或者针对特定场景（比如推荐）设计特定计算核（比如Embedding）。</p>
-<p>驱动设计时需要考虑上述各种情况，可以根据实际应用场景取舍。</p>
-<p>一个硬件版本会对应一组硬件结构，可以通过配置文件的形式对应硬件寄存器版本信息。驱动在初始化设备时，创建对应的数据结构，不同类型的核对应不同的引擎类型。对外提供引擎分配，释放，启动，重置接口等。</p>
-<h1 id="指令调度"><a href="#指令调度" class="headerlink" title="指令调度"></a>指令调度</h1><p>对于完全同构引擎，驱动在分配时可以使用独占或共享策略。</p>
-<p>独占策略声明引擎的排他性，通常是处于应用低延迟需要。由其是在没有引入指令交叉发射的机制下，共享同一个引擎的应用可能会被block较长时间，造成较高的延迟抖动。</p>
-<p>共享策略是为了最大化吞吐，多个计算指令填充队列，屏蔽数据交换的overhead。</p>
-<p>异构结构引擎的分配策略类似，需要考虑是否需要区分大小核。</p>
-<p>实际上提前由用户进程分配物理引擎并不一定是最优方案，尤其是在用户进程没有全局信息的情况下。驱动可以负责指令的动态调度，使用虚拟引擎屏蔽物理引擎细节。</p>
-<p>在分配引擎时，并不直接分配物理引擎，而是分配一个虚拟的引擎（持有类型信息），在实际启动引擎时，使用round-robin策略、按优先级或按负载调度指令。</p>
-<p>在某些场景下，硬件物理引擎只有一份，但最大可以处理N条指令（队列深度）。驱动可以通过维护指令队列的方式和硬件结构对应，实时查看硬件的队列深度，但这样会引入轮询开销。</p>
-<p>另一种做法是分配N个虚拟引擎对应一个物理引擎，并使用独占的方式，每个引擎阻塞执行，如此一来驱动就不必关心指令队列的实时状态了。总体上看，由软件调度的性能开销和抽象复杂度都较高。</p>
-<p>另一种思路是将指令调度下沉至硬件，驱动单纯负责内存分配和数据交换，以及简单的引擎管理功能。</p>
-<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><p>性能优化是必然要提到的，大体说来就是锁和合并。</p>
-<p>多线程应用/多进程应用在驱动中的行为基本一致（除了内存共享），那么最应该注意的就是加锁问题了。</p>
-<p>一个是mutex和spinlock，mutex会调用sleep，并切换context，spinlock则会反复尝试unlock直到成功。</p>
-<p>另一个是精细加锁，不要在整个函数出入口加一把大锁，非常容易引起性能问题。</p>
-<p>中断处理是需要消耗资源的，硬件过多的中断信号可能会丢失，或者造成CPU0占用过高，硬件可以提供中断合并的机制，降低实际中断次数。DMA的启动也有开销，因此需要考虑如何减少DMA读写次数，或者overlap启动开销。</p>
+<p>传统编译器直接解析文本，通过词法与语法分析，构建AST<a href="#refer-1"><sup>1</sup></a>。之后在AST上执行一系列的优化，称为优化pipeline。</p>
+<p>优化后的AST可以转换为IR（比如LLVM<a href="#refer-2"><sup>2</sup></a> IR），由LLVM进一步优化，并生成后端代码。如果是添加新后端并且复用LLVM，需要实现对应Codegen逻辑。AST也可以不借助LLVM，直接编写codegen逻辑生成不同层级的code或指令。</p>
+<p>随着深度学习模型越来越复杂，在生产中广泛使用，对计算性能和成本的需求日趋强烈，深度学习编译器在这样的背景下逐步发展壮大。</p>
+<p>在深度学习编译器提出前，广泛使用的优化方法是手工fuse和手工codegen。但这样的劣势显而易见，模型中可能存在的子图pattern千奇百怪，并且各种自定义长尾算子层出不求，如果一直依靠手工优化，开发时间和人力成本都不太能令人接受。</p>
+<p>因此，借鉴传统编译器的思路，通过有限的基础表达符号表示任意计算图结构，由编译器的codegen层统一做后端代码生成。</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>编译器根据编译发生时间的不同可以分为AOT<a href="#refer-3"><sup>3</sup></a>（Ahead Of Time）和JIT<a href="#refer-4"><sup>4</sup></a>（Just In Time）。</p>
+<p>AOT编译通常用于standalone编译程序，由用户提前运行编译生成指令，并传输到运行设备上（非标设备/专用设备，比如ARM和定制NPU），通过runtime执行。</p>
+<p>一次编译，到处运行，这允许AOT编译消耗更多的时间，探索更优结果，但也限制了灵活性。每当模型发生改动就需要触发一次编译行为，通常编译设备和运行设备是分立的，指令文件和runtime版本的同步会更复杂。</p>
+<p>JIT在运行时条件触发编译，runtime和compiler捆绑，不存在版本不匹配的问题。JIT通常见于解释型程序，因为解释效率通常低于编译，通过运行前编译提高执行效率。</p>
+<p>由于在运行时编译，编译时间相对运行时间必须要合理，这意味着不能引入过于复杂的优化逻辑，另外为了避免重复编译，可以加入cache（程序内/远程）提高效率。</p>
+<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>编译器前端需要读取各个框架的模型文件，比如Tensorflow的SavedModel或者PyTorch的TorchScript。</p>
+<p>也有试图将模型表达统一的工作出现，比如ONNX，试图在Caffe、PyTorch、MXNet等框架间构建转换桥梁。愿景很好，方便用户在不同框架迁移，不被框架锁死，但最终没有被大规模使用。</p>
+<p>首先，Tensorflow出自Google，并不买账，ONNX是其他大公司的联盟产物，然而框架上只有PyTorch不断发展，和Tensorflow二分天下。</p>
+<p>统一模型表达，还是在统一社区，也就是统一算子集。</p>
+<p>Tensorflow曾凭借其绝对的垄断地位十分强势，后端软件栈都主动接入，接受Tensorflow的核心算子集为golden标准。然而不同框架的算子集相差很多，基本上只有最主流的算子可以无缝转换，换个复杂的模型很有可能就挂了。尤其是Tensorflow的计算图，控制结构十分复杂，连官方的优化工具都可能出现bug。如果模型定制程度高，不如直接改脚本来的快。</p>
+<p>当然对大多数算法工程师来说，没有被框架锁定这件事，只有看哪个框架的生态的轮子能符合业务需求。</p>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>编译优化方法泛指一大类模型优化方法，比如Tensorflow自带的后端XLA，基于profiling搜索的TVM，基于整数线性规划的多面体方法等。</p>
+<p>Tensorflow自带的前端计算图优化Grappler也可以算作编译器的优化功能。在图层面执行一般优化方法，比如CSE（公共子表达式消除），Constant Folding（常量折叠），去除无用节点（Dead Nodes）等。</p>
+<p>对于硬件后端编译器，主要优化步骤如下：</p>
+<ol>
+<li>硬件无关优化。</li>
+<li>尽可能从子图中匹配更多符合硬件结构的pattern。</li>
+<li>匹配可以转换为符合硬件结构pattern的子图，并实现转换逻辑（硬件相关优化），注意功能正确性。</li>
+<li>尽量将匹配到的子图融合，使之最大化连通。</li>
+<li>设定不连通子图最小阈值，防止主存和硬件内存的context switch开销过高，可以通过算子数量或者算力评估确定阈值，标记所有符合阈值的子图算子。</li>
+<li>融合所有标记的子图，生成对应的模型IR或者硬件IR。</li>
+<li>可以通过自定义Op的形式，将生成的IR序列化（作为Op参数），使用统一的Op（调用runtime）。</li>
+<li>如果模型可以全量支持，则可以直接导出IR，使用runtime运行。</li>
+</ol>
+<p>进一步的，编译器可以独立为TensorRT的形式，允许用户使用API直接构建运行，并且可以通过JIT codegen dispatch手工优化的code。</p>
+<p>编译器相比于计算库更关注图层面优化，底层会协调计算库的不同实现使全局性能最优。</p>
 <hr>
 <ul>
-<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Device_driver" target="_blank" rel="noopener">Intermediate representation</a></li>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">Abstract syntax tree</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://llvm.org/" target="_blank" rel="noopener">The LLVM Compiler Infrastructure</a></li>
+<li>[3] <span id="refer-3"></span> <a href="https://en.wikipedia.org/wiki/Ahead-of-time_compilation" target="_blank" rel="noopener">Ahead-of-time compilation</a></li>
+<li>[4] <span id="refer-4"></span> <a href="https://en.wikipedia.org/wiki/Just-in-time_compilation" target="_blank" rel="noopener">Just-in-time compilation</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -1533,58 +1585,6 @@
       <tags>
         <tag>机器学习</tag>
         <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 1-9 - 后端硬件编译器</title>
-    <url>/ai/ml-system/hardware-backend/9-compiler/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>编译，广义上是将一种表达映射成另一种表达，维持功能不变。深度学习后端硬件的编译，是将DSL描述的计算图映射成后端硬件指令。</p>
-<a id="more"></a>
-<p>传统编译器直接解析文本，通过词法与语法分析，构建AST<a href="#refer-1"><sup>1</sup></a>。之后在AST上执行一系列的优化，称为优化pipeline。</p>
-<p>优化后的AST可以转换为IR（比如LLVM<a href="#refer-2"><sup>2</sup></a> IR），由LLVM进一步优化，并生成后端代码。如果是添加新后端并且复用LLVM，需要实现对应Codegen逻辑。AST也可以不借助LLVM，直接编写codegen逻辑生成不同层级的code或指令。</p>
-<p>随着深度学习模型越来越复杂，在生产中广泛使用，对计算性能和成本的需求日趋强烈，深度学习编译器在这样的背景下逐步发展壮大。</p>
-<p>在深度学习编译器提出前，广泛使用的优化方法是手工fuse和手工codegen。但这样的劣势显而易见，模型中可能存在的子图pattern千奇百怪，并且各种自定义长尾算子层出不求，如果一直依靠手工优化，开发时间和人力成本都不太能令人接受。</p>
-<p>因此，借鉴传统编译器的思路，通过有限的基础表达符号表示任意计算图结构，由编译器的codegen层统一做后端代码生成。</p>
-<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>编译器根据编译发生时间的不同可以分为AOT<a href="#refer-3"><sup>3</sup></a>（Ahead Of Time）和JIT<a href="#refer-4"><sup>4</sup></a>（Just In Time）。</p>
-<p>AOT编译通常用于standalone编译程序，由用户提前运行编译生成指令，并传输到运行设备上（非标设备/专用设备，比如ARM和定制NPU），通过runtime执行。</p>
-<p>一次编译，到处运行，这允许AOT编译消耗更多的时间，探索更优结果，但也限制了灵活性。每当模型发生改动就需要触发一次编译行为，通常编译设备和运行设备是分立的，指令文件和runtime版本的同步会更复杂。</p>
-<p>JIT在运行时条件触发编译，runtime和compiler捆绑，不存在版本不匹配的问题。JIT通常见于解释型程序，因为解释效率通常低于编译，通过运行前编译提高执行效率。</p>
-<p>由于在运行时编译，编译时间相对运行时间必须要合理，这意味着不能引入过于复杂的优化逻辑，另外为了避免重复编译，可以加入cache（程序内/远程）提高效率。</p>
-<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><p>编译器前端需要读取各个框架的模型文件，比如Tensorflow的SavedModel或者PyTorch的TorchScript。</p>
-<p>也有试图将模型表达统一的工作出现，比如ONNX，试图在Caffe、PyTorch、MXNet等框架间构建转换桥梁。愿景很好，方便用户在不同框架迁移，不被框架锁死，但最终没有被大规模使用。</p>
-<p>首先，Tensorflow出自Google，并不买账，ONNX是其他大公司的联盟产物，然而框架上只有PyTorch不断发展，和Tensorflow二分天下。</p>
-<p>统一模型表达，还是在统一社区，也就是统一算子集。</p>
-<p>Tensorflow曾凭借其绝对的垄断地位十分强势，后端软件栈都主动接入，接受Tensorflow的核心算子集为golden标准。然而不同框架的算子集相差很多，基本上只有最主流的算子可以无缝转换，换个复杂的模型很有可能就挂了。尤其是Tensorflow的计算图，控制结构十分复杂，连官方的优化工具都可能出现bug。如果模型定制程度高，不如直接改脚本来的快。</p>
-<p>当然对大多数算法工程师来说，没有被框架锁定这件事，只有看哪个框架的生态的轮子能符合业务需求。</p>
-<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>编译优化方法泛指一大类模型优化方法，比如Tensorflow自带的后端XLA，基于profiling搜索的TVM，基于整数线性规划的多面体方法等。</p>
-<p>Tensorflow自带的前端计算图优化Grappler也可以算作编译器的优化功能。在图层面执行一般优化方法，比如CSE（公共子表达式消除），Constant Folding（常量折叠），去除无用节点（Dead Nodes）等。</p>
-<p>对于硬件后端编译器，主要优化步骤如下：</p>
-<ol>
-<li>硬件无关优化。</li>
-<li>尽可能从子图中匹配更多符合硬件结构的pattern。</li>
-<li>匹配可以转换为符合硬件结构pattern的子图，并实现转换逻辑（硬件相关优化），注意功能正确性。</li>
-<li>尽量将匹配到的子图融合，使之最大化连通。</li>
-<li>设定不连通子图最小阈值，防止主存和硬件内存的context switch开销过高，可以通过算子数量或者算力评估确定阈值，标记所有符合阈值的子图算子。</li>
-<li>融合所有标记的子图，生成对应的模型IR或者硬件IR。</li>
-<li>可以通过自定义Op的形式，将生成的IR序列化（作为Op参数），使用统一的Op（调用runtime）。</li>
-<li>如果模型可以全量支持，则可以直接导出IR，使用runtime运行。</li>
-</ol>
-<p>进一步的，编译器可以独立为TensorRT的形式，允许用户使用API直接构建运行，并且可以通过JIT codegen dispatch手工优化的code。</p>
-<p>编译器相比于计算库更关注图层面优化，底层会协调计算库的不同实现使全局性能最优。</p>
-<hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">Abstract syntax tree</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://llvm.org/" target="_blank" rel="noopener">The LLVM Compiler Infrastructure</a></li>
-<li>[3] <span id="refer-3"></span> <a href="https://en.wikipedia.org/wiki/Ahead-of-time_compilation" target="_blank" rel="noopener">Ahead-of-time compilation</a></li>
-<li>[4] <span id="refer-4"></span> <a href="https://en.wikipedia.org/wiki/Just-in-time_compilation" target="_blank" rel="noopener">Just-in-time compilation</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>FPGA</tag>
       </tags>
   </entry>
   <entry>

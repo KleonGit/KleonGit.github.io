@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/thinking/message-flow/1-current/">消息流-1 在各个应用之间</a>
+      <a class="article-title" href="/thinking/message-flow/1-current/">消息流在各个应用之间</a>
     </h1>
   
 
@@ -180,122 +180,19 @@ var themeMenus = {};
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<p>消息是信息传递的最基本单位。</p>
-<p>声音，图像，文本，一条消息自身具备独立的语义。</p>
-<p>各式各样的应用使用数据库把消息按自己的格式组织起来。</p>
-<h1 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h1><blockquote>
-<p>备忘录</p>
-</blockquote>
-<p>大概只会看一次而怕自己忘掉的</p>
-<p>很多串文本</p>
-<p>记录密码，书名，摘抄，灵感，还想放下图片，文件，音频</p>
-<blockquote>
-<p>代办事项</p>
-</blockquote>
-<p>一些早晚忘了更新状态的</p>
-<p>一个check复选框 + 一串文本 + 一个定时提醒器</p>
-<p>按时间，按位置反复提醒</p>
-<blockquote>
-<p>收藏夹</p>
-</blockquote>
-<p>一些你以为你会再用到的</p>
-<p>一串文本 + 一串网页链接</p>
-<blockquote>
-<p>项目计划</p>
-</blockquote>
-<p>比代办事项复杂一点的甩锅给很多人的</p>
-<p>一串文本 + 一些自定义属性</p>
-<p>文本之前加上了母女关系，能按树状图排列</p>
-<p>可以按自定义属性中的一项按看板排列，通常因为没有大白板和便签纸</p>
-<blockquote>
-<p>文档</p>
-</blockquote>
-<p>爷爷是Word</p>
-<p>不知道是写给谁看的但至少自己会看一遍的</p>
-<p>很多串文本 + 假装表格的文本 + 任何文件链接 + 复杂的页面布局</p>
-<p>哦万年不更新所以经常会有坑</p>
-<p>可以当成完全展开的专家系统用</p>
-<p>文献引用好麻烦</p>
-<blockquote>
-<p>表格</p>
-</blockquote>
-<p>爷爷是Excel</p>
-<p>看似有无限空间然而只用了左上角的</p>
-<p>一张数据表 + 到处填公式的单元格 + 放不下的图表</p>
-<p>除了煮咖啡什么都能做</p>
-<blockquote>
-<p>幻灯片</p>
-</blockquote>
-<p>爷爷是PowerPoint，大名PPT</p>
-<p>把文档的大段文字解释去掉再切成片的</p>
-<p>文档 + 从Excel粘来的表格和图表 + 从网上粘来的图片和图标</p>
-<p>尺寸可以非常大</p>
-<p>还可以加动画，只要我想，全写在一张上也没有问题，导出pdf自带加密</p>
-<blockquote>
-<p>办公IM</p>
-</blockquote>
-<p>大部分人都是观众唯一的参与感是收到OK的表情的</p>
-<p>无限长 普通文本串 / anything外链</p>
-<p>想整合文档，表格，PPT，文件盘，webhook</p>
-<p>老板在的群都置顶有新消息就要爬楼看看有没有提到自己</p>
-<p>已读不回</p>
-<blockquote>
-<p>生活IM</p>
-</blockquote>
-<p>在吗吃啥玩啥到了吗哈哈哈哈哈的</p>
-<p>无限长 普通文本串 / 图片(jpg,gif)</p>
-<p>经常给自己发文件</p>
-<p>大部分群都屏蔽就是不退没事还要去爬楼吃瓜</p>
-<blockquote>
-<p>笔记应用</p>
-</blockquote>
-<p>一种不知道为什么特殊的文档</p>
-<p>白纸很大无标题前十分钟删除键频率高于50%</p>
-<p>迁移超麻烦</p>
-<p>算了我还是用markdown放github吧</p>
-<blockquote>
-<p>数据库</p>
-</blockquote>
-<p>听起来很难用还要学SQL实际上技术工作大概可能会用到</p>
-<blockquote>
-<p>调查问卷</p>
-</blockquote>
-<p>就是Form</p>
-<p>一种可以交互的文档</p>
-<p>文本 + 按钮 + 各种组件</p>
-<p>有一个提交按钮要按</p>
-<h1 id="归纳"><a href="#归纳" class="headerlink" title="归纳"></a>归纳</h1><blockquote>
-<p>文本</p>
-</blockquote>
-<p>最基本的元素，无处不在</p>
-<blockquote>
-<p>样式</p>
-</blockquote>
-<p>包括文本样式，页面布局</p>
-<p>可以很灵活，但通常自己选的很丑，不如用系统默认</p>
-<blockquote>
-<p>数据</p>
-</blockquote>
-<p>存在数据表里</p>
-<p>不用SQL还可以：表格，看板，卡片列表</p>
-<blockquote>
-<p>链接</p>
-</blockquote>
-<p>认识的就预览不认识的就留着，包括一切非文本</p>
-<blockquote>
-<p>控件</p>
-</blockquote>
-<p>可以和文本各司其职和数据表关联即可</p>
-<blockquote>
-<p>节奏感</p>
-</blockquote>
-<p>分割线帮你切出幻灯片</p>
-<blockquote>
-<p>自动化</p>
-</blockquote>
-<p>快速复用低代码</p>
+        
 
+          
+          <div class="entry-summary">
+          消息是信息传递的最基本单位。
+声音，图像，文本，一条消息自身具备独立的语义。
+各式各样的应用使用数据库把消息按自己的格式组织起来。
+
+        
+          <p class="article-more-link">
+            <a href="/thinking/message-flow/1-current/#more">阅读全文</a>
+          </p>
+        </div>
       
     </div>
     <footer class="entry-meta entry-footer">
