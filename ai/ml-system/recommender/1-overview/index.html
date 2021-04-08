@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>tag: 产品 | KLEON</title>
+  <title>机器学习系统 4-1 - 推荐系统总览 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,16 +21,18 @@
   
   
   
-  <meta name="description" content="Think About The Big Map">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KLEON">
-<meta property="og:url" content="https://blog.kleon.space/tags/产品/index.html">
+  <meta name="description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
+<meta name="keywords" content="机器学习,推理优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 4-1 - 推荐系统总览">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/recommender/1-overview/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="Think About The Big Map">
+<meta property="og:description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-04-08T15:28:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KLEON">
-<meta name="twitter:description" content="Think About The Big Map">
+<meta name="twitter:title" content="机器学习系统 4-1 - 推荐系统总览">
+<meta name="twitter:description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -82,7 +84,7 @@ var themeMenus = {};
 </script>
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   <header id="allheader" class="site-header" role="banner">
@@ -154,154 +156,128 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main">
-  
-  
-  
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/recommender/1-overview" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <h1><a href="/archives/2021" class="archive-year">2021</a></h1>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-
-      <a href="/product/1-101-1/1-product-design/" class="archive-article-date">
-		  <time datetime="2021-03-29T10:22:35.000Z" itemprop="datePublished">3月 29, 2021</time>
-	  </a>
-      
+      <header class="article-header">
+        
   
-    <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/product/1-101-1/1-product-design/">1-101-1</a>
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 4-1 - 推荐系统总览
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-04-07T14:28:01.000Z" itemprop="datePublished">四月 7, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-04-08T15:28:01.000Z" itemprop="datePublished">四月 8, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。</p>
+<a id="more"></a>
+<h1 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h1><p>推荐系统的功能模块主要包括：</p>
+<ul>
+<li>召回</li>
+</ul>
+<p>从全量候选物品中全选一小部分，规模在千/万级别。对<strong>运行速度</strong>要求高，通常使用传统机器学习算法或自定义规则。可以搭配使用多种召回方法。召回物品经过滤过滤去重送往下个模块。</p>
+<ul>
+<li>排序</li>
+</ul>
+<p>对召回物品打分拍排序，可以使用更复杂的模型，加入更多特征，更精准的排序。对<strong>模型精度</strong>要求高，通常使用深度学习方法。排序可细化为粗排，精排和重排三个步骤。</p>
+<ul>
+<li><p>粗排</p>
+<p>当召回物品数量过多，或者排序模型比较复杂时，会使用相对简单的模型对召回物品粗略排序筛选，进一步降低物品数量。</p>
+</li>
+<li><p>精排</p>
+<p>主要排序步骤，会尽可能使用复杂的模型和足够的特征提高模型精度。</p>
+</li>
+<li><p>重排</p>
+<p>通常用于进一步调整，比如固定物品插入，多样性保证等。</p>
+</li>
+</ul>
+<ul>
+<li>AB测试</li>
+</ul>
+<p>AB测试系统用来线上衡量模型的效果，通常分为App，Domain(Scene)，(Lab)，Layer，(Conditional Layer)，Experiment(Bucket)等。</p>
+<h1 id="外围辅助"><a href="#外围辅助" class="headerlink" title="外围辅助"></a>外围辅助</h1><p>推荐系统除了核心的算法模块外，还需要外围存储和计算系统的支持，可以包括：</p>
+<ul>
+<li>离线数仓</li>
+</ul>
+<p>以Hive为代表，用于离线数据批处理，处理后的数据通常放在KV存储中供实时访问，通常以小时或天更新。</p>
+<ul>
+<li>实时数仓</li>
+</ul>
+<p>以HBase为代表，用于实时特征访问。</p>
+<ul>
+<li>关系型数据库</li>
+</ul>
+<p>以MySQL，PostgreSQL为代表，用于存储小规模数据，存取速度较快。</p>
+<ul>
+<li>KV缓存数据库</li>
+</ul>
+<p>以Redis为代表，存储提前计算好的映射表，可设置失效时间，内存缓存读速度最快。</p>
+<ul>
+<li>大数据计算引擎</li>
+</ul>
+<p>以Spark，Flink为代表，执行批量数据处理和传统机器学习算法，可用于召回阶段。</p>
+<ul>
+<li>深度学习模型引擎</li>
+</ul>
+<p>以Tensorflow，PyTorch为代表，提供更复杂的深度学习模型服务。</p>
+<ul>
+<li>搜索索引引擎</li>
+</ul>
+<p>以ElasticSearch为代表，按条件索引速度较快。</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推理优化/">推理优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+      
+            
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/product/1-101-1/1-product-design/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">1-101-1</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
+<!-- Table of Contents -->
 
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#核心算法"><span class="nav-number">1.</span> <span class="nav-text">核心算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外围辅助"><span class="nav-number">2.</span> <span class="nav-text">外围辅助</span></a></li></ol>
+    
+    </div>
+  </aside>
 </section>
-          <aside id="sidebar">
-  
-    <div class="widget-wrap" style="margin: 20px 0;">
-	<div id="search-form-wrap">
-
-    <form class="search-form">
-        <label style="width: 75%;">
-            <span class="screen-reader-text">Search for:</span>
-            <input type="search" class="search-field" style="height: 42px;" placeholder=" 搜索…" value="" name="s" title="Search for:">
-        </label>
-        <input type="submit" class="search-form-submit" value="搜索">
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(无标题)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js"></script>
-
-</div>
-</div>
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/1-101-1/">1-101-1</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kubernetes/">kubernetes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">8</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1-101-1/">1-101-1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FPGA/">FPGA</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/">k8s</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/">kubernetes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推理优化/">推理优化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">8</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">联系我们</h3>
-    <div class="widget widget_athemes_social_icons">
-
-    	<ul class="clearfix widget-social-icons">   
-    	
-          
-     			  <li><a href="https://github.com/kleon1024" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-            <li><a href="mailto:dingli.cm@gmail.com?subject=请联系我&body=我能帮你什么" title="email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li> 
-          
-   		
-   		</ul>
-
-
-   		<!--
-   		<ul class="clearfix widget-social-icons">   		
-   		<li class="widget-si-twitter"><a href="http://twitter.com" title="Twitter"><i class="ico-twitter"></i></a></li> 
-		<li class="widget-si-facebook"><a href="http://facebook.com" title="Facebook"><i class="ico-facebook"></i></a></li>
-			<li class="widget-si-gplus"><a href="http://plus.google.com" title="Google+"><i class="ico-gplus"></i></a></li>
-			<li class="widget-si-pinterest"><a href="http://pinterest.com" title="Pinterest"><i class="ico-pinterest"></i></a></li>
-			<li class="widget-si-flickr"><a href="http://flickr.com" title="Flickr"><i class="ico-flickr"></i></a></li>
-			<li class="widget-si-instagram"><a href="http://instagram.com" title="Instagram"><i class="ico-instagram"></i></a></li>
-		</ul> -->
-
-    </div>
-  </div>
-
-
-  
-</aside>
         
       </div>
       <footer id="footer" class="site-footer">
