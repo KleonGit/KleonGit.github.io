@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/tags/index.html</loc>
+    
+    <lastmod>2021-04-22T03:29:23.145Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
+    
+    <lastmod>2021-04-22T03:29:23.133Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/about/index.html</loc>
+    
+    <lastmod>2021-04-22T03:29:23.133Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/categories/index.html</loc>
+    
+    <lastmod>2021-04-22T03:29:23.133Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/algo/cs/back-tracking/</loc>
+    
+    <lastmod>2021-04-21T09:40:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/thinking/message-flow/1-current/</loc>
     
     <lastmod>2021-04-08T16:58:36.000Z</lastmod>
@@ -12,34 +47,6 @@
     <loc>https://blog.kleon.space/ai/ml-system/recommender/1-overview/</loc>
     
     <lastmod>2021-04-08T15:28:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/tags/index.html</loc>
-    
-    <lastmod>2021-04-08T09:35:56.044Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
-    
-    <lastmod>2021-04-08T09:35:56.028Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/about/index.html</loc>
-    
-    <lastmod>2021-04-08T09:35:56.028Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/categories/index.html</loc>
-    
-    <lastmod>2021-04-08T09:35:56.028Z</lastmod>
     
   </url>
   
