@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>KLEON</title>
+  <title>机器学习系统 2-3 - 编译优化 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,17 +21,18 @@
   
   
   
-  <meta name="description" content="有意思">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KLEON">
-<meta property="og:url" content="https://blog.kleon.space/about/index.html">
+  <meta name="description" content="深度学习的编译优化方法师承程序语言，相比而言，程序语言的输入是语法树，深度学习的输入是计算图，有相似的编译结构，深度学习后端可以借鉴LLVM架构灵活支持新后端硬件。">
+<meta name="keywords" content="机器学习,推理优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习系统 2-3 - 编译优化">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/inference-optimization/3-compilation-optimization/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="有意思">
+<meta property="og:description" content="深度学习的编译优化方法师承程序语言，相比而言，程序语言的输入是语法树，深度学习的输入是计算图，有相似的编译结构，深度学习后端可以借鉴LLVM架构灵活支持新后端硬件。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-04-23T11:17:26.899Z">
+<meta property="og:updated_time" content="2021-04-23T19:28:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KLEON">
-<meta name="twitter:description" content="有意思">
+<meta name="twitter:title" content="机器学习系统 2-3 - 编译优化">
+<meta name="twitter:description" content="深度学习的编译优化方法师承程序语言，相比而言，程序语言的输入是语法树，深度学习的输入是计算图，有相似的编译结构，深度学习后端可以借鉴LLVM架构灵活支持新后端硬件。">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -83,7 +84,7 @@ var themeMenus = {};
 </script>
 
 
-  <body>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
 
   <header id="allheader" class="site-header" role="banner">
@@ -155,23 +156,61 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main"><article id="about-"  class="article article-type-about" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/inference-optimization/3-compilation-optimization" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      机器学习系统 2-3 - 编译优化
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
+	发布于 <time datetime="2021-04-23T19:28:01.000Z" itemprop="datePublished">四月 23, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-04-23T19:28:01.000Z" itemprop="datePublished">四月 23, 2021</time>
+
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>有意思</p>
+        <p>深度学习的编译优化方法师承程序语言，相比而言，程序语言的输入是语法树，深度学习的输入是计算图，有相似的编译结构，深度学习后端可以借鉴LLVM架构灵活支持新后端硬件。</p>
+<a id="more"></a>
+<p>不少社区都提出了自己的编译优化框架，定义了自己的一套中间表达（IR，Intermediate Represent），在发展过程中，这些框架和IR也在相互借鉴相互融合。</p>
+<h1 id="XLA"><a href="#XLA" class="headerlink" title="XLA"></a>XLA</h1><p>XLA(Accelerated Linear Algebra)是TensorFLow给出的编译优化框架，嵌入在Tensorflow的图层面的Grappler优化中，提供了子图划分，IR转换，Codegen(代码生成)等功能，属于JIT(Just-In-Time)流程。</p>
+<p>XLA定义一套Tensorflow算子集的子集Instruction，在IR转换阶段将Tensorflow的算子转换为等价表达，随后执行编译优化以及Codegen。</p>
+<p>对于通用计算硬件，能在子图划分阶段进入候选集的算子基本都能完成整套编译优化流程，XLA后端将XLA Instruction转换为LLVM IR使用LLVM生成代码，能做到较好的模型覆盖。</p>
+<p>但对于专用硬件，一是支持的算子较少，分割的子图大小和数量都较多，会引入较高的跨设备调度开销，通常会设定编译触发阈值，二是支持的子图pattern受限，纯粹使用算子集划分子图，后端硬件可能不支持，需要fallback回Tensorflow图，或者提前加入图匹配。</p>
+<p>但XLA对子图输入Shape敏感，导致每种Shape都会触发一次编译，XLA的编译结果Cache很有可能溢出，尤其是对于输入极不固定的模型，频繁编译会大大影响模型性能，甚至导致负优化。</p>
+<p>另一方面，XLA的代码生成仍然是启发式的，不能在指令层面优化，也没有动态搜索，导致XLA在大部分常见场景上不敌手工图优化。</p>
+<p>因此，XLA的一个优化方向是使用第三方库负责计算密集型算子的计算，XLA编译机制作为fusion优化，能较好平衡优化性能。</p>
+<h1 id="TensorRT"><a href="#TensorRT" class="headerlink" title="TensorRT"></a>TensorRT</h1><p>TensorRT是NVIDIA提供的一套独立的模型构建工具，提供了算子级别的API，用户可以用来直接构建计算图，并提供了转换工具将框架的模型文件转换为Tensor RT的执行参数。</p>
+<p>同时，TensorRT也在图层面用和XLA类似的方法接入了TensorFlow，TensorRT内部负责优化子图和生成GPU kernel。</p>
+<h1 id="OpenVINO"><a href="#OpenVINO" class="headerlink" title="OpenVINO"></a>OpenVINO</h1><p>OpenVINO是Intel提供的一套独立的模型构建工具，并提供了转换工具执行全图转换，支持的算子的覆盖度有待提高。内部应该也是基于OneDNN（原MKL-DNN）提供的构建接口。</p>
+<h1 id="TVM"><a href="#TVM" class="headerlink" title="TVM"></a>TVM</h1><p>TVM的主要思想是搜索计算密集型算子的所有可调的参数空间，比如循环展开的基本宽度（可能影响Cache），循环顺序（可能影响分块逻辑），数据Layout等。</p>
+<p>TVM使用TVM IR定义了基本操作，可以直接通过TVM IR描述某个计算密集型算子的计算结构，使用Schedule定义在计算结构上搜索(Tuning)的空间。</p>
+<p>在计算图层面，TVM定义了一套Relay IR作为计算图层面的表达，各个框架的算子可以转换为Relay IR，再统一优化，执行fusion等操作。</p>
+<p>可以通过XLA接入Tensorflow。</p>
+<h1 id="PolyHydral"><a href="#PolyHydral" class="headerlink" title="PolyHydral"></a>PolyHydral</h1><p>多面体优化，TVM所使用的方法来源，但更侧重于使用数学方法启发式地寻找最优解，结合少量Profiling，定义每套硬件的启发参数。</p>
+<h1 id="MLIR"><a href="#MLIR" class="headerlink" title="MLIR"></a>MLIR</h1><p>MLIR旨在统一多种框架的多层IR，共享优化方法，并将图信息跨IR保留，解决Dynamic Shape的问题。</p>
 
       
     </div>
     <footer class="entry-meta entry-footer">
       
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+
       
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推理优化/">推理优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
       
             
       
@@ -179,123 +218,30 @@ var themeMenus = {};
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/ai/ml-system/inference-optimization/2-graph-optimization/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">机器学习系统 2-2 - 图优化</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
 <!-- Table of Contents -->
 
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
     
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XLA"><span class="nav-number">1.</span> <span class="nav-text">XLA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TensorRT"><span class="nav-number">2.</span> <span class="nav-text">TensorRT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenVINO"><span class="nav-number">3.</span> <span class="nav-text">OpenVINO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TVM"><span class="nav-number">4.</span> <span class="nav-text">TVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PolyHydral"><span class="nav-number">5.</span> <span class="nav-text">PolyHydral</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MLIR"><span class="nav-number">6.</span> <span class="nav-text">MLIR</span></a></li></ol>
+    
+    </div>
+  </aside>
 </section>
-          <aside id="sidebar">
-  
-    <div class="widget-wrap" style="margin: 20px 0;">
-	<div id="search-form-wrap">
-
-    <form class="search-form">
-        <label style="width: 75%;">
-            <span class="screen-reader-text">Search for:</span>
-            <input type="search" class="search-field" style="height: 42px;" placeholder=" 搜索…" value="" name="s" title="Search for:">
-        </label>
-        <input type="submit" class="search-form-submit" value="搜索">
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(无标题)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js"></script>
-
-</div>
-</div>
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/kubernetes/">kubernetes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息流/">消息流</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">9</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FPGA/">FPGA</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/">k8s</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kubernetes/">kubernetes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习/">学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推理优化/">推理优化</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息流/">消息流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">9</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">联系我们</h3>
-    <div class="widget widget_athemes_social_icons">
-
-    	<ul class="clearfix widget-social-icons">   
-    	
-          
-     			  <li><a href="https://github.com/kleon1024" title="Github"><i class="fa fa-github" aria-hidden="true"></i></a></li> 
-          
-   		
-          
-            <li><a href="mailto:dingli.cm@gmail.com?subject=请联系我&body=我能帮你什么" title="email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li> 
-          
-   		
-   		</ul>
-
-
-   		<!--
-   		<ul class="clearfix widget-social-icons">   		
-   		<li class="widget-si-twitter"><a href="http://twitter.com" title="Twitter"><i class="ico-twitter"></i></a></li> 
-		<li class="widget-si-facebook"><a href="http://facebook.com" title="Facebook"><i class="ico-facebook"></i></a></li>
-			<li class="widget-si-gplus"><a href="http://plus.google.com" title="Google+"><i class="ico-gplus"></i></a></li>
-			<li class="widget-si-pinterest"><a href="http://pinterest.com" title="Pinterest"><i class="ico-pinterest"></i></a></li>
-			<li class="widget-si-flickr"><a href="http://flickr.com" title="Flickr"><i class="ico-flickr"></i></a></li>
-			<li class="widget-si-instagram"><a href="http://instagram.com" title="Instagram"><i class="ico-instagram"></i></a></li>
-		</ul> -->
-
-    </div>
-  </div>
-
-
-  
-</aside>
         
       </div>
       <footer id="footer" class="site-footer">
