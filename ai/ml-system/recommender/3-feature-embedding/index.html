@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>机器学习系统 4-1 - 推荐系统总览 | KLEON</title>
+  <title>机器学习系统 4-3 - 特征嵌入(embedding) | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,18 +21,18 @@
   
   
   
-  <meta name="description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
+  <meta name="description" content="Embedding是高维向量到低维空间的转换。在理想情况下，嵌入可以将语义上相似的不同输入映射到嵌入空间里的邻近处，以此来捕获输入的语义1。">
 <meta name="keywords" content="机器学习,推理优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习系统 4-1 - 推荐系统总览">
-<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/recommender/1-overview/index.html">
+<meta property="og:title" content="机器学习系统 4-3 - 特征嵌入(Embedding)">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/recommender/3-feature-embedding/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
+<meta property="og:description" content="Embedding是高维向量到低维空间的转换。在理想情况下，嵌入可以将语义上相似的不同输入映射到嵌入空间里的邻近处，以此来捕获输入的语义1。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-04-08T15:28:01.000Z">
+<meta property="og:updated_time" content="2021-04-25T17:28:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习系统 4-1 - 推荐系统总览">
-<meta name="twitter:description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
+<meta name="twitter:title" content="机器学习系统 4-3 - 特征嵌入(Embedding)">
+<meta name="twitter:description" content="Embedding是高维向量到低维空间的转换。在理想情况下，嵌入可以将语义上相似的不同输入映射到嵌入空间里的邻近处，以此来捕获输入的语义1。">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -156,7 +156,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-ai/ml-system/recommender/1-overview" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/recommender/3-feature-embedding" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      机器学习系统 4-1 - 推荐系统总览
+      机器学习系统 4-3 - 特征嵌入(Embedding)
     </h1>
   
 
@@ -172,71 +172,27 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-04-07T14:28:01.000Z" itemprop="datePublished">四月 7, 2021</time>
+	发布于 <time datetime="2021-04-25T17:28:01.000Z" itemprop="datePublished">四月 25, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-04-08T15:28:01.000Z" itemprop="datePublished">四月 8, 2021</time>
+	更新于 <time datetime="2021-04-25T17:28:01.000Z" itemprop="datePublished">四月 25, 2021</time>
 
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。</p>
+        <p>Embedding是高维向量到低维空间的转换。在理想情况下，嵌入可以将语义上相似的不同输入映射到嵌入空间里的邻近处，以此来捕获输入的语义<a href="#refer-1"><sup>1</sup></a>。</p>
 <a id="more"></a>
-<h1 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h1><p>数据很大程度上决定了模型的效果上限，通过特征工程构造合适的特征对效果有举足轻重的影响。</p>
-<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><p>推荐系统的功能模块主要包括：</p>
+<p>在常见的特征中，通常可以用分桶或OneHot编码转为特征，对于类别较多的特征或者非结构化特征，可以通过Embedding转换为紧凑的实值特征向量表示。</p>
+<h1 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h1><h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>词嵌入（Word Embedding）将每个单词表示为密集向量，嵌入的相似句子应该在空间上彼此接近。常用模型有神经网络模型（NNLM）、用于字词表示的全局向量（GloVe）、深层语境化词表示（ELMo）、Word2Vec等。</p>
+<h2 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h2><p>使用大型图片数据集训练模型，常用的预训练模型有ResNet、Inception、NasNet、MobileNet等。最后使用不含Softmax分类器的模型作为特征向量，这类向量可以很好的描述图片基本属性。</p>
+<h2 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h2><p>可以从高位功率谱密度系数提取特征向量。</p>
+<h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><p>用户和物品数量可能相当大，可以使用矩阵分解、单值分解、神经协同过滤、神经因式分解机等得到向量。物品的嵌入位置表达了物品属性，位置接近的嵌入位置代表用户更相似的兴趣度。</p>
+<h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p>Video2Vec</p>
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>Graph2Vec</p>
+<hr>
 <ul>
-<li>召回</li>
+<li>[1] <span id="refer-1"></span> <a href="https://cloud.google.com/architecture/overview-extracting-and-serving-feature-embeddings-for-machine-learning?hl=zh-cn" target="_blank" rel="noopener">概述：提取和提供用于机器学习的特征嵌入  |  云架构中心  |  Google Cloud</a></li>
 </ul>
-<p>从全量候选物品中全选一小部分，规模在千/万级别。对<strong>运行速度</strong>要求高，通常使用传统机器学习算法或自定义规则。可以搭配使用多种召回方法。召回物品经过滤过滤去重送往下个模块。</p>
-<ul>
-<li>排序</li>
-</ul>
-<p>对召回物品打分拍排序，可以使用更复杂的模型，加入更多特征，更精准的排序。对<strong>模型精度</strong>要求高，通常使用深度学习方法。排序可细化为粗排，精排和重排三个步骤。</p>
-<ul>
-<li>粗排</li>
-</ul>
-<p>当召回物品数量过多，或者排序模型比较复杂时，会使用相对简单的模型对召回物品粗略排序筛选，进一步降低物品数量。</p>
-<ul>
-<li>精排</li>
-</ul>
-<p>主要排序步骤，会尽可能使用复杂的模型和足够的特征提高模型精度。</p>
-<ul>
-<li>重排</li>
-</ul>
-<p>通常用于进一步调整，比如固定物品插入，多样性保证等。</p>
-<ul>
-<li>AB测试</li>
-</ul>
-<p>AB测试系统用来线上衡量模型的效果，通常分为App，Domain(Scene)，(Lab)，Layer，(Conditional Layer)，Experiment(Bucket)等。</p>
-<h1 id="外围辅助"><a href="#外围辅助" class="headerlink" title="外围辅助"></a>外围辅助</h1><p>推荐系统除了核心的算法模块外，还需要外围存储和计算系统的支持，可以包括：</p>
-<ul>
-<li>离线数仓</li>
-</ul>
-<p>以Hive为代表，用于离线数据批处理，处理后的数据通常放在KV存储中供实时访问，通常以小时或天更新。</p>
-<ul>
-<li>实时数仓</li>
-</ul>
-<p>以HBase为代表，用于实时特征访问。</p>
-<ul>
-<li>关系型数据库</li>
-</ul>
-<p>以MySQL，PostgreSQL为代表，用于存储小规模数据，存取速度较快。</p>
-<ul>
-<li>KV缓存数据库</li>
-</ul>
-<p>以Redis为代表，存储提前计算好的映射表，可设置失效时间，内存缓存读速度最快。</p>
-<ul>
-<li>大数据计算引擎</li>
-</ul>
-<p>以Spark，Flink为代表，执行批量数据处理和传统机器学习算法，可用于召回阶段。</p>
-<ul>
-<li>深度学习模型引擎</li>
-</ul>
-<p>以Tensorflow，PyTorch为代表，提供更复杂的深度学习模型服务。</p>
-<ul>
-<li>搜索索引引擎</li>
-</ul>
-<p>以ElasticSearch为代表，按条件索引速度较快。</p>
 
       
     </div>
@@ -258,19 +214,19 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/thinking/message-flow/1-current/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/ai/ml-system/recommender/2-feature-engineer/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          消息流在各个应用之间
+          机器学习系统 4-2 - 特征工程
         
       </div>
     </a>
   
   
-    <a href="/algo/cs/queue/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ai/ml-system/inference-optimization/5-system-level-optimization/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">算法基础 - 队列</div>
+      <div class="article-nav-title">机器学习系统 2-5 - 系统级优化</div>
     </a>
   
 </nav>
@@ -284,7 +240,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征"><span class="nav-number">1.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程"><span class="nav-number">2.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外围辅助"><span class="nav-number">3.</span> <span class="nav-text">外围辅助</span></a></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类型"><span class="nav-number">1.</span> <span class="nav-text">类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本"><span class="nav-number">1.1.</span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像"><span class="nav-number">1.2.</span> <span class="nav-text">图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#音频"><span class="nav-number">1.3.</span> <span class="nav-text">音频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协同过滤"><span class="nav-number">1.4.</span> <span class="nav-text">协同过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频"><span class="nav-number">1.5.</span> <span class="nav-text">视频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图"><span class="nav-number">1.6.</span> <span class="nav-text">图</span></a></li></ol></li></ol>
     
     </div>
   </aside>

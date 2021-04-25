@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>机器学习系统 4-1 - 推荐系统总览 | KLEON</title>
+  <title>机器学习系统 3-1 - 产品功能总览 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,18 +21,18 @@
   
   
   
-  <meta name="description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
+  <meta name="description" content="机器学习产品的基本功能，现状和趋势。">
 <meta name="keywords" content="机器学习,推理优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习系统 4-1 - 推荐系统总览">
-<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/recommender/1-overview/index.html">
+<meta property="og:title" content="机器学习系统 3-1 - 产品功能总览">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/system/1-overview/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
+<meta property="og:description" content="机器学习产品的基本功能，现状和趋势。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-04-08T15:28:01.000Z">
+<meta property="og:updated_time" content="2021-04-22T11:34:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习系统 4-1 - 推荐系统总览">
-<meta name="twitter:description" content="推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。">
+<meta name="twitter:title" content="机器学习系统 3-1 - 产品功能总览">
+<meta name="twitter:description" content="机器学习产品的基本功能，现状和趋势。">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -156,7 +156,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-ai/ml-system/recommender/1-overview" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/system/1-overview" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      机器学习系统 4-1 - 推荐系统总览
+      机器学习系统 3-1 - 产品功能总览
     </h1>
   
 
@@ -172,71 +172,21 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-04-07T14:28:01.000Z" itemprop="datePublished">四月 7, 2021</time>
+	发布于 <time datetime="2021-04-22T11:34:46.000Z" itemprop="datePublished">四月 22, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-04-08T15:28:01.000Z" itemprop="datePublished">四月 8, 2021</time>
+	更新于 <time datetime="2021-04-22T11:34:53.000Z" itemprop="datePublished">四月 22, 2021</time>
 
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。</p>
+        <p>机器学习产品的基本功能，现状和趋势。</p>
 <a id="more"></a>
-<h1 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h1><p>数据很大程度上决定了模型的效果上限，通过特征工程构造合适的特征对效果有举足轻重的影响。</p>
-<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><p>推荐系统的功能模块主要包括：</p>
-<ul>
-<li>召回</li>
-</ul>
-<p>从全量候选物品中全选一小部分，规模在千/万级别。对<strong>运行速度</strong>要求高，通常使用传统机器学习算法或自定义规则。可以搭配使用多种召回方法。召回物品经过滤过滤去重送往下个模块。</p>
-<ul>
-<li>排序</li>
-</ul>
-<p>对召回物品打分拍排序，可以使用更复杂的模型，加入更多特征，更精准的排序。对<strong>模型精度</strong>要求高，通常使用深度学习方法。排序可细化为粗排，精排和重排三个步骤。</p>
-<ul>
-<li>粗排</li>
-</ul>
-<p>当召回物品数量过多，或者排序模型比较复杂时，会使用相对简单的模型对召回物品粗略排序筛选，进一步降低物品数量。</p>
-<ul>
-<li>精排</li>
-</ul>
-<p>主要排序步骤，会尽可能使用复杂的模型和足够的特征提高模型精度。</p>
-<ul>
-<li>重排</li>
-</ul>
-<p>通常用于进一步调整，比如固定物品插入，多样性保证等。</p>
-<ul>
-<li>AB测试</li>
-</ul>
-<p>AB测试系统用来线上衡量模型的效果，通常分为App，Domain(Scene)，(Lab)，Layer，(Conditional Layer)，Experiment(Bucket)等。</p>
-<h1 id="外围辅助"><a href="#外围辅助" class="headerlink" title="外围辅助"></a>外围辅助</h1><p>推荐系统除了核心的算法模块外，还需要外围存储和计算系统的支持，可以包括：</p>
-<ul>
-<li>离线数仓</li>
-</ul>
-<p>以Hive为代表，用于离线数据批处理，处理后的数据通常放在KV存储中供实时访问，通常以小时或天更新。</p>
-<ul>
-<li>实时数仓</li>
-</ul>
-<p>以HBase为代表，用于实时特征访问。</p>
-<ul>
-<li>关系型数据库</li>
-</ul>
-<p>以MySQL，PostgreSQL为代表，用于存储小规模数据，存取速度较快。</p>
-<ul>
-<li>KV缓存数据库</li>
-</ul>
-<p>以Redis为代表，存储提前计算好的映射表，可设置失效时间，内存缓存读速度最快。</p>
-<ul>
-<li>大数据计算引擎</li>
-</ul>
-<p>以Spark，Flink为代表，执行批量数据处理和传统机器学习算法，可用于召回阶段。</p>
-<ul>
-<li>深度学习模型引擎</li>
-</ul>
-<p>以Tensorflow，PyTorch为代表，提供更复杂的深度学习模型服务。</p>
-<ul>
-<li>搜索索引引擎</li>
-</ul>
-<p>以ElasticSearch为代表，按条件索引速度较快。</p>
+<p>机器学习已经被广泛应用于推荐，风控，广告，搜索，图像，语音，文本等各个领域。机器学习系统也成为核心组件之一，用于建模，训练，预测的迭代流程。</p>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><p>负责数据的存储，清洗，标注，以及特征工程，使用SQL，pandas，scikit等工具分析数据分布，提取特征。</p>
+<h2 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h2><p>提供Jupyter Notebook界面，调试训练模型。</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>提供分布式/硬件加速训练和调参功能。</p>
+<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><p>提供模型在线服务或批处理功能。</p>
 
       
     </div>
@@ -258,19 +208,19 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/thinking/message-flow/1-current/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/algo/cs/back-tracking/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          消息流在各个应用之间
+          算法基础 - 回溯法
         
       </div>
     </a>
   
   
-    <a href="/algo/cs/queue/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/thinking/message-flow/1-current/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">算法基础 - 队列</div>
+      <div class="article-nav-title">消息流在各个应用之间</div>
     </a>
   
 </nav>
@@ -284,7 +234,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征"><span class="nav-number">1.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程"><span class="nav-number">2.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外围辅助"><span class="nav-number">3.</span> <span class="nav-text">外围辅助</span></a></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#功能"><span class="nav-number">1.</span> <span class="nav-text">功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据"><span class="nav-number">1.1.</span> <span class="nav-text">数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建模"><span class="nav-number">1.2.</span> <span class="nav-text">建模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">1.3.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务"><span class="nav-number">1.4.</span> <span class="nav-text">服务</span></a></li></ol></li></ol>
     
     </div>
   </aside>
