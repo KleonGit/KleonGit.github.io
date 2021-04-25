@@ -1777,6 +1777,58 @@
       </tags>
   </entry>
   <entry>
+    <title>机器学习系统 2-4 - 模型压缩</title>
+    <url>/ai/ml-system/inference-optimization/4-model-compression/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型压缩相比图优化/编译优化无损优化方法，侧重减少网络参数量，达到节约服务器资源，端侧部署优化等目的。</p>
+<a id="more"></a>
+<h1 id="结构优化"><a href="#结构优化" class="headerlink" title="结构优化"></a>结构优化</h1><p>如矩阵分解（Factor Machine），权值共享（CNN），分组卷积（MobileNet的depth-wise Conv)，分拆卷积（Inception）等。</p>
+<p>结构优化主要是模型结构创新，以更少的计算量/模型参数达到相似的模型准确度。</p>
+<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>使用高精度浮点训练，使用定点推理。常见量化格式有FP16，BF16，INT8，INT4。</p>
+<h1 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h1><p>剪枝按粒度可分为突触剪枝、神经元剪枝、权重矩阵剪枝等。</p>
+<p>基本思想是将接近0的参数置为0，通过稀疏矩阵存储。</p>
+<p>首先训练一个精度较高的大模型，按阈值置0，随后在训练集上微调，验证模型大小和精度是否符合预期，否则持续迭代。</p>
+<h1 id="蒸馏"><a href="#蒸馏" class="headerlink" title="蒸馏"></a>蒸馏</h1><p>蒸馏过程是对Student和Teacher的拟合，老师和学生可以使用不同的网络结构（串行到并行），不同规模的参数（减少模型参数）。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-5 - 系统级优化</title>
+    <url>/ai/ml-system/inference-optimization/5-system-level-optimization/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>推理优化除了对模型本身的优化，还需要考虑计算框架、推理服务等系统层面的优化。</p>
+<a id="more"></a>
+<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><ul>
+<li>编译器优化</li>
+<li>线程并行</li>
+<li>Cache优化</li>
+<li>Memory</li>
+<li>稀疏化</li>
+<li>内存精细管理</li>
+<li>专用指令，比如ARM的NEON、Intel的AVX</li>
+<li>亲核性，NUMA</li>
+</ul>
+<h1 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h1><ul>
+<li>线程/进程/服务实例并行</li>
+<li>调度绑定</li>
+<li>资源复用</li>
+<li>网络开销</li>
+<li>缓存</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 4-1 - 推荐系统总览</title>
     <url>/ai/ml-system/recommender/1-overview/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。</p>
