@@ -899,9 +899,10 @@
       </tags>
   </entry>
   <entry>
-    <title>算法面筋</title>
+    <title>烤面筋 - 算法</title>
     <url>/work/interview/algo/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>计算机算法</p>
+<a id="more"></a>
 <ul>
 <li>找第K大数</li>
 <li>捡石头</li>
@@ -932,16 +933,14 @@
       </tags>
   </entry>
   <entry>
-    <title>烤面筋 - 编程原理</title>
+    <title>烤面筋 - 原理</title>
     <url>/work/interview/cs/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>计算机常识，操作系统，编程</p>
+<a id="more"></a>
 <ul>
-<li><p>进程与线程</p>
-</li>
-<li><p>协程</p>
-</li>
-<li><p>用户态与内核态</p>
-</li>
+<li>进程与线程</li>
+<li>协程</li>
+<li>用户态与内核态</li>
 </ul>
 <p>内核态：cpu可以访问内存的所有数据，包括外围设备，例如硬盘，网卡，cpu也可以将自己从一个程序切换到另一个程序。</p>
 <p>用户态：只能受限的访问内存，且不允许访问外围设备，占用cpu的能力被剥夺，cpu资源可以被其他程序获取。</p>
@@ -956,9 +955,10 @@
       </tags>
   </entry>
   <entry>
-    <title>烤面筋 - 智力</title>
+    <title>烤面筋 - 通用</title>
     <url>/work/interview/general/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>数学，智力题</p>
+<a id="more"></a>
 <ul>
 <li>从概率角度，5局3胜和3局2胜，哪个胜算更大？</li>
 </ul>
@@ -975,9 +975,10 @@
       </tags>
   </entry>
   <entry>
-    <title>烤面筋 - 机器学习/推荐系统</title>
+    <title>烤面筋 - AI</title>
     <url>/work/interview/recommender/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习，推荐系统</p>
+<a id="more"></a>
 <ul>
 <li>推荐系统中的三个要素</li>
 </ul>
@@ -1006,7 +1007,8 @@
   <entry>
     <title>烤面筋 - 链接</title>
     <url>/work/interview/third-party/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>第三方链接统计</p>
+<a id="more"></a>
 <p><a href="https://zhuanlan.zhihu.com/p/43661309" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43661309</a></p>
 <p>CF,MF,Graph Embedding,LR,JVM,Quick Sort,Coroutine,Thread,Process,HashMap,RB-Tree,AVL-Tree</p>
 <p><a href="https://blog.csdn.net/v_JULY_v/article/details/108292943" target="_blank" rel="noopener">https://blog.csdn.net/v_JULY_v/article/details/108292943</a></p>
