@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>算法基础 - 排序 | KLEON</title>
+  <title>算法面筋 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,18 +21,18 @@
   
   
   
-  <meta name="description" content="排序是最常用的操作。">
-<meta name="keywords" content="算法,数据结构,leetcode">
+  <meta name="description" content="找第K大数捡石头100盏灯红黑树AVL树N个数取M个两数之和哈希法 双指针法：https://segmentfault.com/a/1190000023552474 不增加额外空间旋转方阵递归大树乘法拿苹果图论，顺序限制二分排序str归属集合数字大序数减去小序数的最大值N个人围圈报数，求顺序abcd*4=dcba">
+<meta name="keywords" content="面筋">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法基础 - 排序">
-<meta property="og:url" content="https://blog.kleon.space/algo/cs/sort/index.html">
+<meta property="og:title" content="算法面筋">
+<meta property="og:url" content="https://blog.kleon.space/work/interview/algo/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="排序是最常用的操作。">
+<meta property="og:description" content="找第K大数捡石头100盏灯红黑树AVL树N个数取M个两数之和哈希法 双指针法：https://segmentfault.com/a/1190000023552474 不增加额外空间旋转方阵递归大树乘法拿苹果图论，顺序限制二分排序str归属集合数字大序数减去小序数的最大值N个人围圈报数，求顺序abcd*4=dcba">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-03-12T14:06:23.000Z">
+<meta property="og:updated_time" content="2021-04-26T18:23:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="算法基础 - 排序">
-<meta name="twitter:description" content="排序是最常用的操作。">
+<meta name="twitter:title" content="算法面筋">
+<meta name="twitter:description" content="找第K大数捡石头100盏灯红黑树AVL树N个数取M个两数之和哈希法 双指针法：https://segmentfault.com/a/1190000023552474 不增加额外空间旋转方阵递归大树乘法拿苹果图论，顺序限制二分排序str归属集合数字大序数减去小序数的最大值N个人围圈报数，求顺序abcd*4=dcba">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -156,7 +156,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-algo/cs/sort" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-work/interview/algo" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      算法基础 - 排序
+      算法面筋
     </h1>
   
 
@@ -172,36 +172,27 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-03-12T14:06:18.000Z" itemprop="datePublished">三月 12, 2021</time>
+	发布于 <time datetime="2021-04-26T18:23:19.000Z" itemprop="datePublished">四月 26, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-03-12T14:06:23.000Z" itemprop="datePublished">三月 12, 2021</time>
+	更新于 <time datetime="2021-04-26T18:23:19.000Z" itemprop="datePublished">四月 26, 2021</time>
 
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>排序是最常用的操作。</p>
-<a id="more"></a>
-<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>快排(QUICK-SORT)基于分治思想，核心是对子数组partition，partition挑选一个参考基准(主元，通常为第一个或最后一个元素)，以主元为分界将数据分为两份，子数组递归partition。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// QUICKSORT</span></span><br><span class="line"><span class="keyword">if</span> p &lt; r</span><br><span class="line">   then q ← PARTITION(A, p, r)</span><br><span class="line">        QUICKSORT(A, p, q - <span class="number">1</span>)</span><br><span class="line">        QUICKSORT(A, q + <span class="number">1</span>, r)</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// PARTITION</span></span><br><span class="line">x ← A[r]</span><br><span class="line">i ← p - <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> j ← p to r - <span class="number">1</span></span><br><span class="line">     do <span class="keyword">if</span> A[j] ≤ x</span><br><span class="line">           then i ← i + <span class="number">1</span></span><br><span class="line">                exchange A[i] &lt;-&gt; A[j]</span><br><span class="line">exchange A[i + <span class="number">1</span>] &lt;-&gt; A[r]</span><br><span class="line"><span class="keyword">return</span> i + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// GoLang</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">partition</span><span class="params">(a []<span class="keyword">int</span>, lo, hi <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	pivot := a[hi]</span><br><span class="line">	i := lo - <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> j := lo; j &lt; hi; j++ &#123;</span><br><span class="line">		<span class="keyword">if</span> a[j] &lt; pivot &#123;</span><br><span class="line">			i++</span><br><span class="line">			a[j], a[i] = a[i], a[j]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>], a[hi] = a[hi], a[i+<span class="number">1</span>]</span><br><span class="line">	<span class="keyword">return</span> i + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort</span><span class="params">(a []<span class="keyword">int</span>, lo, hi <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> lo &gt;= hi &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	p := partition(a, lo, hi)</span><br><span class="line">	quickSort(a, lo, p<span class="number">-1</span>)</span><br><span class="line">	quickSort(a, p+<span class="number">1</span>, hi)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><p>归并排序(MERGE-SORT)使用分治思想，每两个有序数组相互比较合并。</p>
-<hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://zhuanlan.zhihu.com/p/39615266" target="_blank" rel="noopener">数据结构与算法(4)——优先队列和堆 - 知乎</a></li>
-</ul>
-
+        <h1 id="找第K大数"><a href="#找第K大数" class="headerlink" title="找第K大数"></a>找第K大数</h1><h1 id="捡石头"><a href="#捡石头" class="headerlink" title="捡石头"></a>捡石头</h1><h1 id="100盏灯"><a href="#100盏灯" class="headerlink" title="100盏灯"></a>100盏灯</h1><h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h1 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h1><h1 id="N个数取M个"><a href="#N个数取M个" class="headerlink" title="N个数取M个"></a>N个数取M个</h1><h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p>哈希法</p>
+<p>双指针法：<br><a href="https://segmentfault.com/a/1190000023552474" target="_blank" rel="noopener">https://segmentfault.com/a/1190000023552474</a></p>
+<h1 id="不增加额外空间旋转方阵"><a href="#不增加额外空间旋转方阵" class="headerlink" title="不增加额外空间旋转方阵"></a>不增加额外空间旋转方阵</h1><h1 id="递归大树乘法"><a href="#递归大树乘法" class="headerlink" title="递归大树乘法"></a>递归大树乘法</h1><h1 id="拿苹果图论，顺序限制"><a href="#拿苹果图论，顺序限制" class="headerlink" title="拿苹果图论，顺序限制"></a>拿苹果图论，顺序限制</h1><h1 id="二分排序"><a href="#二分排序" class="headerlink" title="二分排序"></a>二分排序</h1><h1 id="str归属集合"><a href="#str归属集合" class="headerlink" title="str归属集合"></a>str归属集合</h1><h1 id="数字大序数减去小序数的最大值"><a href="#数字大序数减去小序数的最大值" class="headerlink" title="数字大序数减去小序数的最大值"></a>数字大序数减去小序数的最大值</h1><h1 id="N个人围圈报数，求顺序"><a href="#N个人围圈报数，求顺序" class="headerlink" title="N个人围圈报数，求顺序"></a>N个人围圈报数，求顺序</h1><h1 id="abcd-4-dcba"><a href="#abcd-4-dcba" class="headerlink" title="abcd*4=dcba"></a>abcd*4=dcba</h1>
       
     </div>
     <footer class="entry-meta entry-footer">
       
 	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/算法/">算法</a>
+    <a class="article-category-link" href="/categories/面筋/">面筋</a>
 
       
   <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面筋/">面筋</a></li></ul>
 
       
             
@@ -212,19 +203,10 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/algo/cs/tree/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          算法基础 - 树
-        
-      </div>
-    </a>
   
-  
-    <a href="/algo/cs/list/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/work/interview/cs/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">算法基础 - 链表</div>
+      <div class="article-nav-title">编程面筋</div>
     </a>
   
 </nav>
@@ -238,7 +220,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-number">1.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#归并排序"><span class="nav-number">2.</span> <span class="nav-text">归并排序</span></a></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#找第K大数"><span class="nav-number">1.</span> <span class="nav-text">找第K大数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#捡石头"><span class="nav-number">2.</span> <span class="nav-text">捡石头</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#100盏灯"><span class="nav-number">3.</span> <span class="nav-text">100盏灯</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树"><span class="nav-number">4.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AVL树"><span class="nav-number">5.</span> <span class="nav-text">AVL树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#N个数取M个"><span class="nav-number">6.</span> <span class="nav-text">N个数取M个</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两数之和"><span class="nav-number">7.</span> <span class="nav-text">两数之和</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不增加额外空间旋转方阵"><span class="nav-number">8.</span> <span class="nav-text">不增加额外空间旋转方阵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归大树乘法"><span class="nav-number">9.</span> <span class="nav-text">递归大树乘法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拿苹果图论，顺序限制"><span class="nav-number">10.</span> <span class="nav-text">拿苹果图论，顺序限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分排序"><span class="nav-number">11.</span> <span class="nav-text">二分排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#str归属集合"><span class="nav-number">12.</span> <span class="nav-text">str归属集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数字大序数减去小序数的最大值"><span class="nav-number">13.</span> <span class="nav-text">数字大序数减去小序数的最大值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#N个人围圈报数，求顺序"><span class="nav-number">14.</span> <span class="nav-text">N个人围圈报数，求顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#abcd-4-dcba"><span class="nav-number">15.</span> <span class="nav-text">abcd*4=dcba</span></a></li></ol>
     
     </div>
   </aside>

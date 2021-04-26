@@ -184,10 +184,12 @@ var themeMenus = {};
 <a id="more"></a>
 <p>在常见的特征中，通常可以用分桶或OneHot编码转为特征，对于类别较多的特征或者非结构化特征，可以通过Embedding转换为紧凑的实值特征向量表示。</p>
 <h1 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h1><h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>词嵌入（Word Embedding）将每个单词表示为密集向量，嵌入的相似句子应该在空间上彼此接近。常用模型有神经网络模型（NNLM）、用于字词表示的全局向量（GloVe）、深层语境化词表示（ELMo）、Word2Vec等。</p>
+<h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><p>CBOW</p>
+<p>Skip-gram</p>
 <h2 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h2><p>使用大型图片数据集训练模型，常用的预训练模型有ResNet、Inception、NasNet、MobileNet等。最后使用不含Softmax分类器的模型作为特征向量，这类向量可以很好的描述图片基本属性。</p>
 <h2 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h2><p>可以从高位功率谱密度系数提取特征向量。</p>
 <h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><p>用户和物品数量可能相当大，可以使用矩阵分解、单值分解、神经协同过滤、神经因式分解机等得到向量。物品的嵌入位置表达了物品属性，位置接近的嵌入位置代表用户更相似的兴趣度。</p>
-<h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p>Video2Vec</p>
+<h3 id="神经协同过滤"><a href="#神经协同过滤" class="headerlink" title="神经协同过滤"></a>神经协同过滤</h3><h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p>Video2Vec</p>
 <h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>Graph2Vec</p>
 <hr>
 <ul>
@@ -240,7 +242,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类型"><span class="nav-number">1.</span> <span class="nav-text">类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本"><span class="nav-number">1.1.</span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像"><span class="nav-number">1.2.</span> <span class="nav-text">图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#音频"><span class="nav-number">1.3.</span> <span class="nav-text">音频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协同过滤"><span class="nav-number">1.4.</span> <span class="nav-text">协同过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频"><span class="nav-number">1.5.</span> <span class="nav-text">视频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图"><span class="nav-number">1.6.</span> <span class="nav-text">图</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类型"><span class="nav-number">1.</span> <span class="nav-text">类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本"><span class="nav-number">1.1.</span> <span class="nav-text">文本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Word2Vec"><span class="nav-number">1.1.1.</span> <span class="nav-text">Word2Vec</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像"><span class="nav-number">1.2.</span> <span class="nav-text">图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#音频"><span class="nav-number">1.3.</span> <span class="nav-text">音频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协同过滤"><span class="nav-number">1.4.</span> <span class="nav-text">协同过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#神经协同过滤"><span class="nav-number">1.4.1.</span> <span class="nav-text">神经协同过滤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频"><span class="nav-number">1.5.</span> <span class="nav-text">视频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图"><span class="nav-number">1.6.</span> <span class="nav-text">图</span></a></li></ol></li></ol>
     
     </div>
   </aside>

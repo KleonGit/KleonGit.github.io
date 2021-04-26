@@ -2,6 +2,76 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/work/interview/algo/</loc>
+    
+    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/cs/</loc>
+    
+    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/general/</loc>
+    
+    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/recommender/</loc>
+    
+    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/third-party/</loc>
+    
+    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/cs/algo/sort/</loc>
+    
+    <lastmod>2021-04-26T16:06:18.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/tags/index.html</loc>
+    
+    <lastmod>2021-04-26T10:05:11.620Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
+    
+    <lastmod>2021-04-26T10:05:11.604Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/about/index.html</loc>
+    
+    <lastmod>2021-04-26T10:05:11.604Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/categories/index.html</loc>
+    
+    <lastmod>2021-04-26T10:05:11.604Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/ai/ml-system/recommender/3-feature-embedding/</loc>
     
     <lastmod>2021-04-25T18:28:01.000Z</lastmod>
@@ -19,34 +89,6 @@
     <loc>https://blog.kleon.space/ai/ml-system/inference-optimization/5-system-level-optimization/</loc>
     
     <lastmod>2021-04-25T09:28:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/tags/index.html</loc>
-    
-    <lastmod>2021-04-25T09:19:12.492Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
-    
-    <lastmod>2021-04-25T09:19:12.480Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/about/index.html</loc>
-    
-    <lastmod>2021-04-25T09:19:12.480Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/categories/index.html</loc>
-    
-    <lastmod>2021-04-25T09:19:12.480Z</lastmod>
     
   </url>
   
@@ -72,13 +114,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/back-tracking/</loc>
-    
-    <lastmod>2021-04-22T11:35:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.kleon.space/ai/ml-system/system/1-overview/</loc>
     
     <lastmod>2021-04-22T11:34:53.000Z</lastmod>
@@ -100,56 +135,49 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/tree/</loc>
+    <loc>https://blog.kleon.space/cs/algo/tree/</loc>
     
     <lastmod>2021-03-25T10:49:22.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/list/</loc>
+    <loc>https://blog.kleon.space/cs/algo/list/</loc>
     
     <lastmod>2021-03-25T10:49:14.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/queue/</loc>
+    <loc>https://blog.kleon.space/cs/algo/queue/</loc>
     
     <lastmod>2021-03-21T15:47:26.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/stack/</loc>
+    <loc>https://blog.kleon.space/cs/algo/stack/</loc>
     
     <lastmod>2021-03-21T13:46:47.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/hash-table/</loc>
+    <loc>https://blog.kleon.space/cs/algo/hash-table/</loc>
     
     <lastmod>2021-03-21T12:19:20.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/array/</loc>
+    <loc>https://blog.kleon.space/cs/algo/array/</loc>
     
     <lastmod>2021-03-18T07:21:12.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/algo/cs/sort/</loc>
-    
-    <lastmod>2021-03-12T14:06:23.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/algo/cs/priority-queue/</loc>
+    <loc>https://blog.kleon.space/cs/algo/priority-queue/</loc>
     
     <lastmod>2021-03-12T09:06:23.000Z</lastmod>
     
