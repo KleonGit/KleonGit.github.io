@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/cs/algo/greedy/</loc>
+    
+    <lastmod>2021-04-26T23:00:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/work/interview/algo/</loc>
     
     <lastmod>2021-04-26T18:23:19.000Z</lastmod>
@@ -46,28 +53,28 @@
   <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-04-26T12:49:05.437Z</lastmod>
+    <lastmod>2021-04-26T15:01:50.444Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-04-26T12:49:05.425Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/categories/index.html</loc>
-    
-    <lastmod>2021-04-26T12:49:05.425Z</lastmod>
+    <lastmod>2021-04-26T15:01:50.428Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-04-26T12:49:05.421Z</lastmod>
+    <lastmod>2021-04-26T15:01:50.428Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/categories/index.html</loc>
+    
+    <lastmod>2021-04-26T15:01:50.428Z</lastmod>
     
   </url>
   
