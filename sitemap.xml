@@ -2,44 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.kleon.space/cs/algo/array/</loc>
-    
-    <lastmod>2021-04-28T09:27:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/cs/algo/dynamic-programming/</loc>
-    
-    <lastmod>2021-04-28T08:51:02.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-04-28T02:33:38.160Z</lastmod>
+    <lastmod>2021-04-29T02:03:40.438Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-04-28T02:33:38.148Z</lastmod>
+    <lastmod>2021-04-29T02:03:40.426Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-04-28T02:33:38.148Z</lastmod>
+    <lastmod>2021-04-29T02:03:40.426Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-04-28T02:33:38.148Z</lastmod>
+    <lastmod>2021-04-29T02:03:40.426Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/cs/algo/dynamic-programming/</loc>
+    
+    <lastmod>2021-04-28T10:32:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/cs/algo/array/</loc>
+    
+    <lastmod>2021-04-28T09:27:06.000Z</lastmod>
     
   </url>
   
