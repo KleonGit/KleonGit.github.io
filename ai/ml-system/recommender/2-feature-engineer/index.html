@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="KLEON">
 <meta property="og:description" content="特征工程是利用数据的特定领域知识构建特征使算法达到最高性能的过程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-04-25T17:28:01.000Z">
+<meta property="og:updated_time" content="2021-05-02T12:31:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习系统 4-2 - 特征工程">
 <meta name="twitter:description" content="特征工程是利用数据的特定领域知识构建特征使算法达到最高性能的过程。">
@@ -174,7 +174,7 @@ var themeMenus = {};
       
 	发布于 <time datetime="2021-04-25T17:28:01.000Z" itemprop="datePublished">四月 25, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-04-25T17:28:01.000Z" itemprop="datePublished">四月 25, 2021</time>
+	更新于 <time datetime="2021-05-02T12:31:14.000Z" itemprop="datePublished">五月 2, 2021</time>
 
       
     </div>
@@ -191,23 +191,40 @@ var themeMenus = {};
 <li>Wrapper本质上是分类器，使用选取的特征子集对样本集分类，分类精度作为特征子集优劣的衡量标准，常用的有逐步回归（Stepwise Regression）、向前选择（Forward Selection）和向后选择（Backward Selection）。优点是考虑了特征间的相关性，缺点是数据较少时容易过拟合，特征较多时计算时间长。</li>
 <li>Embedded是自主选择特征，如使用Regularization做特征选择，或者用决策树思想，比如Random Forest和Gradient Boosting。</li>
 </ul>
-<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><h2 id="数值特征（Numerial）"><a href="#数值特征（Numerial）" class="headerlink" title="数值特征（Numerial）"></a>数值特征（Numerial）</h2><ul>
-<li>标准化与缩放。归一化江数据按比例缩放，使得不同单位/量级的特征间具有可比性。</li>
+<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><h3 id="数值特征（Numerial）"><a href="#数值特征（Numerial）" class="headerlink" title="数值特征（Numerial）"></a>数值特征（Numerial）</h3><ul>
+<li>标准化与归一化。归一化将数据按比例缩放，使得不同单位/量级的特征间具有可比性。</li>
+</ul>
+<p>归一的常用方法：</p>
+<ol>
+<li><p>线性函数归一化，<script type="math/tex">X_{max}</script>、<script type="math/tex">X_{min}</script>分别为数据的最大值和最小值，映射到[0, 1]。</p>
+<script type="math/tex; mode=display">X_{norm} = \frac{X-X_{min}}{X_{max}-X_{min}}</script></li>
+<li><p>零均值归一化，假设原始数据均值为<script type="math/tex">\mu</script>，标准差为<script type="math/tex">\sigma</script>，映射到均值为0，标准差为1的分布上。</p>
+<script type="math/tex; mode=display">z=\frac{x-\mu}{\sigma}</script></li>
+</ol>
+<ul>
 <li>分桶后onehot。</li>
+</ul>
+<p>等距分桶、等频分桶。</p>
+<ul>
 <li>缺失值处理。使用均值、中位数、众数代替，也可以直接忽略，将缺失当作一种信息编码。</li>
 <li>GBDT模型。LightBGM、XGBoost。</li>
 </ul>
-<h2 id="类别特征（Categorical）"><a href="#类别特征（Categorical）" class="headerlink" title="类别特征（Categorical）"></a>类别特征（Categorical）</h2><ul>
-<li>One-Hot编码。通常用于处理类别间不具有大小关系的特征。当类别数量较多时，特征空间会非常大。</li>
-<li>Hash编码。将原始高维向量压缩成低维向量，且尽量不损失原始特征的表达能力。</li>
+<h3 id="类别特征（Categorical）"><a href="#类别特征（Categorical）" class="headerlink" title="类别特征（Categorical）"></a>类别特征（Categorical）</h3><ul>
+<li>One-Hot Encoding。通常用于处理类别间不具有大小关系的特征。当类别数量较多时，特征空间会非常大。</li>
+<li>Hash Encoding。将原始高维向量压缩成低维向量，且尽量不损失原始特征的表达能力。</li>
+<li>Ordinal Encoding。序号编码通常用于处理类别间具有大小关系的数据。</li>
+<li>Binary Encoding。用二进制编码，比One-Hot少很多，本质上属于Hash。</li>
 </ul>
-<h2 id="Embedding特征"><a href="#Embedding特征" class="headerlink" title="Embedding特征"></a>Embedding特征</h2><h2 id="Context特征"><a href="#Context特征" class="headerlink" title="Context特征"></a>Context特征</h2><p>用户授权的前提下拿到的客户端带的信息，比如请求时间，手机品牌，型号，操作系统，网络状态，用户渠道等。</p>
-<h2 id="Session特征"><a href="#Session特征" class="headerlink" title="Session特征"></a>Session特征</h2><p>基于用户行为流水，常见划分方法包括：</p>
+<h3 id="Embdedding特征"><a href="#Embdedding特征" class="headerlink" title="Embdedding特征"></a>Embdedding特征</h3><h3 id="Context特征"><a href="#Context特征" class="headerlink" title="Context特征"></a>Context特征</h3><p>用户授权的前提下拿到的客户端带的信息，比如请求时间，手机品牌，型号，操作系统，网络状态，用户渠道等。</p>
+<h3 id="Session行为特征"><a href="#Session行为特征" class="headerlink" title="Session行为特征"></a>Session行为特征</h3><p>基于用户行为流水，常见划分方法包括：</p>
 <ul>
 <li>固定行为数窗口，如最近100条行为中的行为统计。</li>
 <li>固定时间窗口，如1/3/7/15天内的有过正向行为的item id或同级量。</li>
 <li>连续行为窗口，如从打开到关闭App期间的互动行为。</li>
 </ul>
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>为了提高复杂关系的拟合能力，在特征工程中经常会把一阶离散特征两两组合，构成高阶组合特征。</p>
+<p>当两个特征的数量较多时，可以矩阵分解为k维的低维向量表示。</p>
+<script type="math/tex; mode=display">Y=sigmoid(\sum_{i}\sum_{j}w_{ij}<x_{i}, x_{j}>)</script><p>可以通过梯度提升决策树（GBDT）寻找有效的特征组合，该方法的思想是每次都在之前构建的决策树的残差上构建下一棵决策树。</p>
 <h1 id="典型"><a href="#典型" class="headerlink" title="典型"></a>典型</h1><h2 id="商品推荐"><a href="#商品推荐" class="headerlink" title="商品推荐"></a>商品推荐</h2><h2 id="游戏推荐"><a href="#游戏推荐" class="headerlink" title="游戏推荐"></a>游戏推荐</h2><h2 id="视频推荐"><a href="#视频推荐" class="headerlink" title="视频推荐"></a>视频推荐</h2><h2 id="新闻推荐"><a href="#新闻推荐" class="headerlink" title="新闻推荐"></a>新闻推荐</h2>
       
     </div>
@@ -255,7 +272,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过程"><span class="nav-number">1.</span> <span class="nav-text">过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特征提取"><span class="nav-number">1.1.</span> <span class="nav-text">特征提取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征构建"><span class="nav-number">1.2.</span> <span class="nav-text">特征构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征选择"><span class="nav-number">1.3.</span> <span class="nav-text">特征选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建"><span class="nav-number">2.</span> <span class="nav-text">构建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数值特征（Numerial）"><span class="nav-number">2.1.</span> <span class="nav-text">数值特征（Numerial）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类别特征（Categorical）"><span class="nav-number">2.2.</span> <span class="nav-text">类别特征（Categorical）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Embedding特征"><span class="nav-number">2.3.</span> <span class="nav-text">Embedding特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Context特征"><span class="nav-number">2.4.</span> <span class="nav-text">Context特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session特征"><span class="nav-number">2.5.</span> <span class="nav-text">Session特征</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#典型"><span class="nav-number">3.</span> <span class="nav-text">典型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#商品推荐"><span class="nav-number">3.1.</span> <span class="nav-text">商品推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏推荐"><span class="nav-number">3.2.</span> <span class="nav-text">游戏推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频推荐"><span class="nav-number">3.3.</span> <span class="nav-text">视频推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新闻推荐"><span class="nav-number">3.4.</span> <span class="nav-text">新闻推荐</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过程"><span class="nav-number">1.</span> <span class="nav-text">过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特征提取"><span class="nav-number">1.1.</span> <span class="nav-text">特征提取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征构建"><span class="nav-number">1.2.</span> <span class="nav-text">特征构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征选择"><span class="nav-number">1.3.</span> <span class="nav-text">特征选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构建"><span class="nav-number">2.</span> <span class="nav-text">构建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型"><span class="nav-number">2.1.</span> <span class="nav-text">类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数值特征（Numerial）"><span class="nav-number">2.1.1.</span> <span class="nav-text">数值特征（Numerial）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类别特征（Categorical）"><span class="nav-number">2.1.2.</span> <span class="nav-text">类别特征（Categorical）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embdedding特征"><span class="nav-number">2.1.3.</span> <span class="nav-text">Embdedding特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Context特征"><span class="nav-number">2.1.4.</span> <span class="nav-text">Context特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session行为特征"><span class="nav-number">2.1.5.</span> <span class="nav-text">Session行为特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合"><span class="nav-number">2.2.</span> <span class="nav-text">组合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#典型"><span class="nav-number">3.</span> <span class="nav-text">典型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#商品推荐"><span class="nav-number">3.1.</span> <span class="nav-text">商品推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏推荐"><span class="nav-number">3.2.</span> <span class="nav-text">游戏推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频推荐"><span class="nav-number">3.3.</span> <span class="nav-text">视频推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新闻推荐"><span class="nav-number">3.4.</span> <span class="nav-text">新闻推荐</span></a></li></ol></li></ol>
     
     </div>
   </aside>

@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>烤面筋 - 算法 | KLEON</title>
+  <title>机器学习系统 4-1 - 打分 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,18 +21,18 @@
   
   
   
-  <meta name="description" content="计算机算法">
-<meta name="keywords" content="面筋">
+  <meta name="description" content="多feature打分，准而精">
+<meta name="keywords" content="机器学习,推理优化">
 <meta property="og:type" content="article">
-<meta property="og:title" content="烤面筋 - 算法">
-<meta property="og:url" content="https://blog.kleon.space/work/interview/algo/index.html">
+<meta property="og:title" content="机器学习系统 4-1 - 打分">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/recommender/5-rank/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="计算机算法">
+<meta property="og:description" content="多feature打分，准而精">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-04-26T18:23:19.000Z">
+<meta property="og:updated_time" content="2021-05-02T12:24:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="烤面筋 - 算法">
-<meta name="twitter:description" content="计算机算法">
+<meta name="twitter:title" content="机器学习系统 4-1 - 打分">
+<meta name="twitter:description" content="多feature打分，准而精">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -156,7 +156,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-work/interview/algo" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/recommender/5-rank" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      烤面筋 - 算法
+      机器学习系统 4-1 - 打分
     </h1>
   
 
@@ -172,60 +172,27 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-04-26T18:23:19.000Z" itemprop="datePublished">四月 26, 2021</time>
+	发布于 <time datetime="2021-05-02T12:25:02.000Z" itemprop="datePublished">五月 2, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-04-26T18:23:19.000Z" itemprop="datePublished">四月 26, 2021</time>
+	更新于 <time datetime="2021-05-02T12:24:56.000Z" itemprop="datePublished">五月 2, 2021</time>
 
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>计算机算法</p>
+        <p>多feature打分，准而精</p>
 <a id="more"></a>
-<ul>
-<li>找第K大数</li>
-<li>捡石头</li>
-<li>100盏灯</li>
-<li>红黑树</li>
-<li>AVL树</li>
-<li>N个数取M个</li>
-<li>两数之和</li>
-</ul>
-<p>哈希法</p>
-<p>双指针法：<br><a href="https://segmentfault.com/a/1190000023552474" target="_blank" rel="noopener">https://segmentfault.com/a/1190000023552474</a></p>
-<ul>
-<li>不增加额外空间旋转方阵</li>
-<li>递归大树乘法</li>
-<li>拿苹果图论，顺序限制</li>
-<li>二分排序</li>
-<li>str归属集合</li>
-<li>数字大序数减去小序数的最大值</li>
-<li>N个人围圈报数，求顺序</li>
-<li>abcd*4=dcba</li>
-<li>33.搜索旋转排序数组</li>
-<li>dp，n个物品，每个基础价值ai，第k个拿会减去（k-1）*bi的价值，要拿m个使总价值最大（卡了，面试官给了提示过了</li>
-</ul>
-<p>背包容量为n，价值a[i]，第k个拿价值减(k - i) * b[i]，物品重量为1<br>dp为第k个拿物品时的最大价值</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">dp := <span class="built_in">make</span>([]<span class="keyword">int</span>, m + <span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(items); i++ &#123;</span><br><span class="line">  <span class="keyword">for</span> j := m; j &gt;= i; i-- &#123;</span><br><span class="line">    dp[j] = max(dp[j], dp[j - <span class="number">1</span>] + a[i] - i * b[i])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> dp[m]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>贪心，n个怪物，每个怪物有攻击ai，勇者防御初始为d，每打一只防御+1，防御&lt;ai的话直接受到bi的伤害。问最优打怪顺序。（没做出来，给了个n=1000的网络流做法，面试官表示n是10w也能贪心做</li>
-</ul>
-<p>如果有能不吃伤害打的，直接打<br>如果没有能不吃伤害打的，直接打破防最强的</p>
-<ul>
-<li>二叉树序列化和反序列化+校验</li>
-</ul>
-<p>BFS，层序遍历重建二叉树</p>
-
+<h1 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h1><h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>
       
     </div>
     <footer class="entry-meta entry-footer">
       
 	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/面筋/">面筋</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
 
       
   <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面筋/">面筋</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推理优化/">推理优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
       
             
@@ -236,19 +203,19 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/cs/algo/greedy/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/ai/ml-system/recommender/6-ab-test/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          算法基础 - 贪心法
+          机器学习系统 4-1 - AB测试
         
       </div>
     </a>
   
   
-    <a href="/work/interview/cs/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ai/ml-system/recommender/4-recall/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">烤面筋 - 原理</div>
+      <div class="article-nav-title">机器学习系统 4-4 - 召回</div>
     </a>
   
 </nav>
@@ -262,7 +229,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav">无</ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Wide-amp-Deep"><span class="nav-number">1.</span> <span class="nav-text">Wide&amp;Deep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DeepFM"><span class="nav-number">2.</span> <span class="nav-text">DeepFM</span></a></li></ol>
     
     </div>
   </aside>

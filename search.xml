@@ -91,6 +91,7 @@
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">drawCircle</span><span class="params">(n <span class="keyword">int</span>, x <span class="keyword">int</span>, y <span class="keyword">int</span>, length <span class="keyword">int</span>, count <span class="keyword">int</span>, m [][]<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> length &lt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> length == <span class="number">0</span> &#123;</span><br><span class="line">        count++</span><br><span class="line">        m[y][x] = count</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; length; i++ &#123;</span><br><span class="line">        count++</span><br><span class="line">        m[y][x + i] = count</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; length; i++ &#123;</span><br><span class="line">        count++</span><br><span class="line">        m[y + i][x + length] = count</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := length; i &gt; <span class="number">0</span>; i-- &#123;</span><br><span class="line">        count++</span><br><span class="line">        m[y + length][x + i] = count</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := length; i &gt; <span class="number">0</span>; i-- &#123;</span><br><span class="line">        count++</span><br><span class="line">        m[y + i][x] = count</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    drawCircle(n, x + <span class="number">1</span>, y + <span class="number">1</span>, length - <span class="number">2</span>, count, m)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">generateMatrix</span><span class="params">(n <span class="keyword">int</span>)</span> [][]<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>([][]<span class="keyword">int</span>, n)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++ &#123;</span><br><span class="line">        m[i] = <span class="built_in">make</span>([]<span class="keyword">int</span>, n)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    drawCircle(n, <span class="number">0</span>, <span class="number">0</span>, n - <span class="number">1</span>, <span class="number">0</span>, m)</span><br><span class="line">    <span class="keyword">return</span> m</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="双指针法-平方数之和"><a href="#双指针法-平方数之和" class="headerlink" title="双指针法-平方数之和"></a>双指针法-平方数之和</h2><p><img src="https://img.shields.io/badge/leetcode-633-blue.svg" alt> <a href="https://leetcode-cn.com/problems/sum-of-square-numbers/" target="_blank" rel="noopener">平方数之和</a></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">judgeSquareSum</span><span class="params">(c <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    left, right := <span class="number">0</span>, <span class="keyword">int</span>(math.Sqrt(<span class="keyword">float64</span>(c)))</span><br><span class="line">    <span class="keyword">for</span> left &lt;= right &#123;</span><br><span class="line">        sum := left*left + right*right</span><br><span class="line">        <span class="keyword">if</span> sum == c &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> sum &gt; c &#123;</span><br><span class="line">            right--</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            left++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二分法-搜索旋转排序数组"><a href="#二分法-搜索旋转排序数组" class="headerlink" title="二分法-搜索旋转排序数组"></a>二分法-搜索旋转排序数组</h2><p><img src="https://img.shields.io/badge/leetcode-33-blue.svg" alt> <a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/" target="_blank" rel="noopener">搜索旋转排序数组</a></p>
 <hr>
 ]]></content>
       <categories>
@@ -1139,7 +1140,19 @@
 <li>数字大序数减去小序数的最大值</li>
 <li>N个人围圈报数，求顺序</li>
 <li>abcd*4=dcba</li>
+<li>33.搜索旋转排序数组</li>
+<li>dp，n个物品，每个基础价值ai，第k个拿会减去（k-1）*bi的价值，要拿m个使总价值最大（卡了，面试官给了提示过了</li>
 </ul>
+<p>背包容量为n，价值a[i]，第k个拿价值减(k - i) * b[i]，物品重量为1<br>dp为第k个拿物品时的最大价值</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">dp := <span class="built_in">make</span>([]<span class="keyword">int</span>, m + <span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(items); i++ &#123;</span><br><span class="line">  <span class="keyword">for</span> j := m; j &gt;= i; i-- &#123;</span><br><span class="line">    dp[j] = max(dp[j], dp[j - <span class="number">1</span>] + a[i] - i * b[i])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> dp[m]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>贪心，n个怪物，每个怪物有攻击ai，勇者防御初始为d，每打一只防御+1，防御&lt;ai的话直接受到bi的伤害。问最优打怪顺序。（没做出来，给了个n=1000的网络流做法，面试官表示n是10w也能贪心做</li>
+</ul>
+<p>如果有能不吃伤害打的，直接打<br>如果没有能不吃伤害打的，直接打破防最强的</p>
+<ul>
+<li>二叉树序列化和反序列化+校验</li>
+</ul>
+<p>BFS，层序遍历重建二叉树</p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -1153,7 +1166,7 @@
     <url>/work/interview/cs/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>计算机常识，操作系统，编程</p>
 <a id="more"></a>
-<ul>
+<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><ul>
 <li>进程与线程</li>
 <li>协程</li>
 <li>用户态与内核态</li>
@@ -1162,6 +1175,23 @@
 <p>用户态：只能受限的访问内存，且不允许访问外围设备，占用cpu的能力被剥夺，cpu资源可以被其他程序获取。</p>
 <p>由于需要限制不同的程序之间的访问能力, 防止他们获取别的程序的内存数据, 或者获取外围设备的数据, 并发送到网络, CPU划分出两个权限等级 — 用户态和内核态。</p>
 <p>系统调用，陷阱指令</p>
+<h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><p>HashMap,Guava cache</p>
+<p><a href="https://colobu.com/2019/11/18/how-is-the-bigcache-is-fast/" target="_blank" rel="noopener">https://colobu.com/2019/11/18/how-is-the-bigcache-is-fast/</a></p>
+<h1 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h1><ul>
+<li>多线程写稀疏矩阵*稠密矩阵</li>
+</ul>
+<p><a href="https://www.licc.tech/article?id=63" target="_blank" rel="noopener">https://www.licc.tech/article?id=63</a><br>在Eigen中实现稀疏矩阵的多线程乘法</p>
+<h1 id="服务部署"><a href="#服务部署" class="headerlink" title="服务部署"></a>服务部署</h1><ul>
+<li>nginx</li>
+<li>Redis</li>
+</ul>
+<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><ul>
+<li>关系型数据库存储结构</li>
+<li>索引原理</li>
+</ul>
+<h1 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h1><ul>
+<li>MQ</li>
+</ul>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -1195,6 +1225,8 @@
     <url>/work/interview/recommender/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习，推荐系统</p>
 <a id="more"></a>
+<p>百面机器学习算法工程师带你去面试</p>
+<p><a href="https://github.com/stormstone/awesome-material/blob/master/Book/%E7%99%BE%E9%9D%A2%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%B8%A6%E4%BD%A0%E5%8E%BB%E9%9D%A2%E8%AF%95.pdf" target="_blank" rel="noopener">https://github.com/stormstone/awesome-material/blob/master/Book/%E7%99%BE%E9%9D%A2%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%B8%A6%E4%BD%A0%E5%8E%BB%E9%9D%A2%E8%AF%95.pdf</a></p>
 <ul>
 <li>推荐系统中的三个要素</li>
 </ul>
@@ -1211,6 +1243,62 @@
 <li>现在让你设计一个日活百万的推荐系统架构，请从在线端和离线端两个角度描述你的设计方案</li>
 <li>如何设计A/B Test系统？如何保证流量正交？</li>
 <li>流量分桶吗？如何保证流量分桶唯一？</li>
+</ul>
+<h2 id="树模型"><a href="#树模型" class="headerlink" title="树模型"></a>树模型</h2><ul>
+<li>GBDT 的原理（知识）</li>
+<li>决策树节点分裂时是如何选择特征的？（知识）</li>
+<li>写出 Gini Index 和 Information Gain 的公式并举例说明（知识）</li>
+<li>分类树和回归树的区别是什么？（知识）</li>
+<li>与 Random Forest 作比较，并以此介绍什么是模型的Bias和Variance（知识）</li>
+<li>XGBoost 的参数调优有哪些经验（工具）</li>
+<li>XGBoost 的正则化是如何实现的（工具）</li>
+<li>XGBoost 的并行化部分是如何实现的（工具）</li>
+<li>为什么预测股票涨跌一般都会出现严重的过拟合现象（业务）</li>
+<li>如果选用一种其他的模型替代 XGBoost 或者改进 XGBoost 你会怎么做，为什么？（业务+逻辑+知识）</li>
+</ul>
+<h2 id="CTR"><a href="#CTR" class="headerlink" title="CTR"></a>CTR</h2><ul>
+<li>softmax 函数的定义是什么？（知识）</li>
+<li>深度神经网络为什么会产生梯度消失现象，如何解决它？（知识）</li>
+<li>常见的激活函数有哪些？都有什么特点？（知识）</li>
+<li>挑一种激活函数推导梯度下降的过程。（知识+逻辑）</li>
+<li>Attention 机制什么？（知识）</li>
+<li>阿里将attention机制引入推荐模型的动机是什么？（知识+业务）</li>
+<li>DIN中将用户和商品进行了embedding，请讲清楚两项你知道的embedding 方法。（知识）</li>
+<li>推荐系统中 embedding 技术都可以有哪些应用？（业务+知识）</li>
+<li>你如何 serving 类似 DIN 这样的深度学习模型(工具+业务)</li>
+</ul>
+<h2 id="广度"><a href="#广度" class="headerlink" title="广度"></a>广度</h2><ul>
+<li>NN，RNN，个别聚类算法，模型评估等知识的理解程度</li>
+<li>spark的调优经验，model serving的主要方法，parameter server的原理</li>
+<li>GAN，LSTM，online learning的基本理解</li>
+<li>embedding方法，attention机制，multi task，GNN，reinforcement learning，online learning的基本理解</li>
+</ul>
+<h2 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h2><ul>
+<li>为什么需要对数值型特征做归一化呢？</li>
+</ul>
+<p>保持相同学习速率下，特征的更新速度一致，梯度下降更快。当然，数据归一化并不是万能的。在实际应用中，通过梯度下降法求解的模型通常是需要归一化的，包括线性回归、逻辑回归、支持向量机、神经网络等模型。但对于决策树模型则并不适用，以C4.5为例，决策树在进行节点分裂时主要依据数据集D关于特征x的信息增益比（详见第3章第3节），而信息增益比跟特征是否经过归一化是无关的，因为归一化并不会改变样本在特征x上的信息增益。</p>
+<ul>
+<li>什么时候需要对连续特征分桶？</li>
+</ul>
+<p><a href="https://cloud.tencent.com/developer/article/1590912" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1590912</a><br>分桶是离散化的常用方法，将连续型特征离线化为一系列 0/1 的离散特征；<br>当数值特征跨越不同的数量级的时候，模型可能会只对大的特征值敏感，这种情况可以考虑分桶操作。<br>分桶操作可以看作是对数值变量的离散化，之后通过二值化进行 one-hot 编码。<br>分桶的数量和宽度可以根据业务领域的经验来指定，但也有一些常规的做法：</p>
+<ol>
+<li>等距分桶。每个桶的宽度是固定的，即值域范围是固定的，比如是 0-99，100-199，200-299等；这种适合样本分布比较均匀的情况，避免出现有的桶的数量很少，而有的桶数量过多的情况；</li>
+<li>等频分桶，也称为分位数分桶。也就是每个桶有一样多的样本，但可能出现数值相差太大的样本放在同个桶的情况；<br>模型分桶。使用模型找到最佳分桶，比如聚类，将特征分成多个类别，或者树模型，这种非线性模型天生具有对连续型特征切分的能力，利用特征分割点进行离散化。</li>
+</ol>
+<p>分桶的优点：</p>
+<ol>
+<li>分桶后得到的稀疏向量，内积乘法运算速度更快，计算结果更方便存储；</li>
+<li>对异常数据有很强的鲁棒性</li>
+</ol>
+<ul>
+<li>在对数据进行预处理时，应该怎样处理类别型特征？</li>
+</ul>
+<p>大小关系：序号编码。<br>不具有大小关系：One-Hot编码+Embedding。<br>更多Hash/Binary。</p>
+<ul>
+<li><p>什么是组合特征？如何处理高维组合特征？</p>
+</li>
+<li><p>为什么L1正则化可以产生稀疏模型（L1是怎么让系数等于零的），以及为什么L2正则化可以防止过拟合?</p>
+</li>
 </ul>
 ]]></content>
       <categories>
@@ -1237,6 +1325,8 @@
 <p>LR,L1 Norm,L2 Norm,Gradient Descendant,Momentum,Adam,XGB,Loss Function,FM,LR,Softmax,Sigmoid,TF SourceCode,Open Source,XGBoost,C++,AUC,XGB并行,模型优化算法,RMSprop,Adgrad,GMM,EM,Process,Thread,User Space,Kernel Space,</p>
 <p><a href="https://www.nowcoder.com/discuss/596829?type=2" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/596829?type=2</a></p>
 <p>XGB,GBDT,Recall,Rank,Recommender System Design,XGB,GBDT,LGBM,L1,L2,LR,SVM,XGB,Adam,SGD,Xavier,Loss,Recommender System Index,GBDT,LSTM,Train/Validation/Test Dataset,FM,FFM,XGB,GBDT,ETL,Feature Engineer,DIN,DICE,Dataset,Hyperparameter Search,Django,Flask,Nginx,Apache,CSRF,ORM reverse,Overfitting,LR,Tree,NN,Tuning,Data Lacking,XGB,GBDT,Softmax,LR,Classifier,Regression,DQN,Data Skew,Quantization,CNN,Recall,L2R,PS,Distributed Training,Tree Regression,XGB,GBDT,Softmax Overflow,Overfitting,HDFS,Fine Tune,Flink,Storm,Spark,Spark for Training,Kafka,Kafka Topic,Data Skew,W&amp;D,L2R,Lambda MART,Lambda Rank,NDCG,Position Bias,Cold Start,LSTM,LSTM Unit,Concave Optimization,SGD,OU,Replay Buffer,Sliding,LSTM,Layer,Unit,Data EDA,CNN,Tuning,FM,FFM,Postion Bias,Recommender System Index,Recommend Flow Orthogonal,DIN,Attention,XGB,Distributed XGB,Streaming,Flink,Spark,</p>
+<p><a href="https://www.nowcoder.com/discuss/458758?channel=-1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/458758?channel=-1</a></p>
+<p>Cache,HashMap,Guava Cache,</p>
 <hr>
 ]]></content>
       <categories>
@@ -2149,23 +2239,40 @@
 <li>Wrapper本质上是分类器，使用选取的特征子集对样本集分类，分类精度作为特征子集优劣的衡量标准，常用的有逐步回归（Stepwise Regression）、向前选择（Forward Selection）和向后选择（Backward Selection）。优点是考虑了特征间的相关性，缺点是数据较少时容易过拟合，特征较多时计算时间长。</li>
 <li>Embedded是自主选择特征，如使用Regularization做特征选择，或者用决策树思想，比如Random Forest和Gradient Boosting。</li>
 </ul>
-<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><h2 id="数值特征（Numerial）"><a href="#数值特征（Numerial）" class="headerlink" title="数值特征（Numerial）"></a>数值特征（Numerial）</h2><ul>
-<li>标准化与缩放。归一化江数据按比例缩放，使得不同单位/量级的特征间具有可比性。</li>
+<h1 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h1><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><h3 id="数值特征（Numerial）"><a href="#数值特征（Numerial）" class="headerlink" title="数值特征（Numerial）"></a>数值特征（Numerial）</h3><ul>
+<li>标准化与归一化。归一化将数据按比例缩放，使得不同单位/量级的特征间具有可比性。</li>
+</ul>
+<p>归一的常用方法：</p>
+<ol>
+<li><p>线性函数归一化，<script type="math/tex">X_{max}</script>、<script type="math/tex">X_{min}</script>分别为数据的最大值和最小值，映射到[0, 1]。</p>
+<script type="math/tex; mode=display">X_{norm} = \frac{X-X_{min}}{X_{max}-X_{min}}</script></li>
+<li><p>零均值归一化，假设原始数据均值为<script type="math/tex">\mu</script>，标准差为<script type="math/tex">\sigma</script>，映射到均值为0，标准差为1的分布上。</p>
+<script type="math/tex; mode=display">z=\frac{x-\mu}{\sigma}</script></li>
+</ol>
+<ul>
 <li>分桶后onehot。</li>
+</ul>
+<p>等距分桶、等频分桶。</p>
+<ul>
 <li>缺失值处理。使用均值、中位数、众数代替，也可以直接忽略，将缺失当作一种信息编码。</li>
 <li>GBDT模型。LightBGM、XGBoost。</li>
 </ul>
-<h2 id="类别特征（Categorical）"><a href="#类别特征（Categorical）" class="headerlink" title="类别特征（Categorical）"></a>类别特征（Categorical）</h2><ul>
-<li>One-Hot编码。通常用于处理类别间不具有大小关系的特征。当类别数量较多时，特征空间会非常大。</li>
-<li>Hash编码。将原始高维向量压缩成低维向量，且尽量不损失原始特征的表达能力。</li>
+<h3 id="类别特征（Categorical）"><a href="#类别特征（Categorical）" class="headerlink" title="类别特征（Categorical）"></a>类别特征（Categorical）</h3><ul>
+<li>One-Hot Encoding。通常用于处理类别间不具有大小关系的特征。当类别数量较多时，特征空间会非常大。</li>
+<li>Hash Encoding。将原始高维向量压缩成低维向量，且尽量不损失原始特征的表达能力。</li>
+<li>Ordinal Encoding。序号编码通常用于处理类别间具有大小关系的数据。</li>
+<li>Binary Encoding。用二进制编码，比One-Hot少很多，本质上属于Hash。</li>
 </ul>
-<h2 id="Embedding特征"><a href="#Embedding特征" class="headerlink" title="Embedding特征"></a>Embedding特征</h2><h2 id="Context特征"><a href="#Context特征" class="headerlink" title="Context特征"></a>Context特征</h2><p>用户授权的前提下拿到的客户端带的信息，比如请求时间，手机品牌，型号，操作系统，网络状态，用户渠道等。</p>
-<h2 id="Session特征"><a href="#Session特征" class="headerlink" title="Session特征"></a>Session特征</h2><p>基于用户行为流水，常见划分方法包括：</p>
+<h3 id="Embdedding特征"><a href="#Embdedding特征" class="headerlink" title="Embdedding特征"></a>Embdedding特征</h3><h3 id="Context特征"><a href="#Context特征" class="headerlink" title="Context特征"></a>Context特征</h3><p>用户授权的前提下拿到的客户端带的信息，比如请求时间，手机品牌，型号，操作系统，网络状态，用户渠道等。</p>
+<h3 id="Session行为特征"><a href="#Session行为特征" class="headerlink" title="Session行为特征"></a>Session行为特征</h3><p>基于用户行为流水，常见划分方法包括：</p>
 <ul>
 <li>固定行为数窗口，如最近100条行为中的行为统计。</li>
 <li>固定时间窗口，如1/3/7/15天内的有过正向行为的item id或同级量。</li>
 <li>连续行为窗口，如从打开到关闭App期间的互动行为。</li>
 </ul>
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>为了提高复杂关系的拟合能力，在特征工程中经常会把一阶离散特征两两组合，构成高阶组合特征。</p>
+<p>当两个特征的数量较多时，可以矩阵分解为k维的低维向量表示。</p>
+<script type="math/tex; mode=display">Y=sigmoid(\sum_{i}\sum_{j}w_{ij}<x_{i}, x_{j}>)</script><p>可以通过梯度提升决策树（GBDT）寻找有效的特征组合，该方法的思想是每次都在之前构建的决策树的残差上构建下一棵决策树。</p>
 <h1 id="典型"><a href="#典型" class="headerlink" title="典型"></a>典型</h1><h2 id="商品推荐"><a href="#商品推荐" class="headerlink" title="商品推荐"></a>商品推荐</h2><h2 id="游戏推荐"><a href="#游戏推荐" class="headerlink" title="游戏推荐"></a>游戏推荐</h2><h2 id="视频推荐"><a href="#视频推荐" class="headerlink" title="视频推荐"></a>视频推荐</h2><h2 id="新闻推荐"><a href="#新闻推荐" class="headerlink" title="新闻推荐"></a>新闻推荐</h2>]]></content>
       <categories>
         <category>机器学习</category>
@@ -2192,6 +2299,100 @@
 <hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://cloud.google.com/architecture/overview-extracting-and-serving-feature-embeddings-for-machine-learning?hl=zh-cn" target="_blank" rel="noopener">概述：提取和提供用于机器学习的特征嵌入  |  云架构中心  |  Google Cloud</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-4 - 召回</title>
+    <url>/ai/ml-system/recommender/4-recall/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>多种策略混合，快而全</p>
+<a id="more"></a>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h1 id="树模型"><a href="#树模型" class="headerlink" title="树模型"></a>树模型</h1><p>树模型<a href="#refer-5"><sup>5</sup></a> <a href="#refer-6"><sup>6</sup></a></p>
+<h2 id="DT"><a href="#DT" class="headerlink" title="DT"></a>DT</h2><p>决策树是一种基本的分类和回归方法。和我们之前学过的逻辑斯特回归，线性回归等算法不同，他们要么只能做回归要么只能做分类，而决策树既可以做分类也可以做回归。主要包括：ID3，C4.5，CART。</p>
+<p>物理含义：表示定义在特征空间上的条件概率分布，也就是把<script type="math/tex">P(y)</script>转化为<script type="math/tex">P(y|X)</script>。同时也可以理解为 if-then 规则的集合。如下图左图所示。</p>
+<p>几何含义： “分而治之”的思想，即把特征空间划分为一系列的矩形区域，然后再每一个区域拟合一个简单的模型。如下图右图所示。本文将用决策树的几何含义对决策树进行讲解。</p>
+<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>原因：<br>在决策树构建的过程中，对决策树的生长没有进行合理的限制（剪枝）；<br>样本中有一些噪声数据，没有对噪声数据进行有效的剔除；<br>在构建决策树过程中使用了较多的输出变量，变量较多也容易产生过拟合。<br>解决办法：<br>选择合理的参数进行剪枝，可以分为预剪枝和后剪枝，我们一般采用后剪枝的方法；<br>利用K−folds交叉验证，将训练集分为K份，然后进行K次交叉验证，每次使用K−1份作为训练样本数据集，另外一份作为测试集；<br>减少特征，计算每一个特征和响应变量的相关性，常见得为皮尔逊相关系数，将相关性较小的变量剔除；当然还有一些其他的方法来进行特征筛选，比如基于决策树的特征筛选，通过正则化的方式来进行特征选取等（决策的正则化，例如，L1和L2正则，具体是对谁的正则呢？怎样正则的呢？）。</p>
+<h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><p>预剪枝：在决策树生成初期就已经设置了决策树的参数，决策树构建过程中，满足参数条件就提前停止决策树的生成。<br>后剪枝：后剪枝是一种全局的优化方法，它是在决策树完全建立之后再返回去对决策树进行剪枝。<br>参数：树的高度、叶子节点的数目、最大叶子节点数、限制不纯度。</p>
+<p>预剪枝使得决策树的很多分支都没有“展开”，这不仅降低了过拟合的风险，还显著减少了决策树的训练时间开销和测试时间开销。但是，另一方面，因为预剪枝是基于“贪心”的，所以，虽然当前划分不能提升泛华性能，但是基于该划分的后续划分却有可能导致性能提升，因此预剪枝决策树有可能带来欠拟合的风险。</p>
+<p>后剪枝决策树通常比预剪枝决策树保留了更多的分支，一般情形下，后剪枝决策树的欠拟合风险小，泛华性能往往也要优于预剪枝决策树。但后剪枝过程是在构建完全决策树之后进行的，并且要自底向上的对树中的所有非叶结点进行逐一考察，因此其训练时间开销要比未剪枝决策树和预剪枝决策树都大得多。</p>
+<ul>
+<li>REP-错误率降低剪枝</li>
+<li>PEP-悲观剪枝<a href="#refer-13"><sup>13</sup></a></li>
+<li>CCP-代价复杂度剪枝<a href="#refer-13"><sup>13</sup></a></li>
+</ul>
+<p>后剪枝会减少欠拟合的风险，但训练时间相对于预剪枝会长很多。</p>
+<p>REP方法是通过一个新的验证集来纠正树的过拟合问题。对于决策树中的每一个非叶子节点的子树，我们将它替换成一个叶子节点，该叶子节点的类别用大多数原则来确定，这样就产生了一个新的相对简化决策树，然后比较这两个决策树在验证集中的表现。如果新的决策树在验证集中的正确率较高，那么该子树就可以替换成叶子节点，从而达到决策树剪枝的目的。该算法是从下往上依次遍历所有的子树，直至没有任何子树可以替换使得在验证集上的表现得以改进时，算法就可以终止。</p>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>ID3以信息增益作为特征划分依据。信息增益表示由于得知特征a的信息后儿时的数据集D的分类不确定性减少的程度，后面部分越小,减小的程度越小,增益越大。选择划分后信息增益大的作为划分特征，说明使用该特征后划分得到的子集纯度越高，即不确定性越小。因此我们总是选择当前使得信息增益最大的特征来划分数据集。缺点是信息增益偏向取值较多的特征（原因：当特征的取值较多时，根据此特征划分更容易得到纯度更高的子集，因此划分后的熵更低，即不确定性更低，因此信息增益更大）</p>
+<p>C4.5以信息增益率作为特征划分依据。可以利用连续特征，同时还增加了处理缺失值的方法和剪枝。需要注意的是，C4.5使用信息增益比对特征进行选择又会出现对特征取值较少的特征有偏好的问题。因此 C4.5 并不是直接用增益率最大的特征进行划分，而是使用一个启发式方法：先从候选划分特征中找到信息增益高于平均值的特征，再从中选择增益率最高的。C4.5处理连续特征方法是首先对连续特征进行排序，然后选择相邻值得中点作为分割点，需要注意的是，C4.5处理连续值是二分，并且该连续特征在接下来也可以继续使用。其余就和处理离散特征没有太大的区别了。</p>
+<h2 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h2><h2 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h2><h2 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h2><h1 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h1><p>协同过滤<a href="#refer-1"><sup>1</sup></a>（Collaborative Filter，CF）主要用于召回，主要分为ItemCF和UserCF。</p>
+<h2 id="ItemCF"><a href="#ItemCF" class="headerlink" title="ItemCF"></a>ItemCF</h2><p>给用户推荐和他兴趣相似的其他用户喜欢的物品。</p>
+<h2 id="UserCF"><a href="#UserCF" class="headerlink" title="UserCF"></a>UserCF</h2><p>给用户推荐和他之前喜欢的物品相关的物品。</p>
+<h2 id="MF-Matrix-Factorization"><a href="#MF-Matrix-Factorization" class="headerlink" title="MF(Matrix Factorization)"></a>MF(Matrix Factorization)</h2><p>矩阵分解<a href="#refer-2"><sup>2</sup></a>主要使用的是特征分解和奇异值分解（SVD）。</p>
+<p>SVD++ BiasSVD</p>
+<h1 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h1><ul>
+<li>查表（MySQL）</li>
+<li>向量召回</li>
+<li><p>Elastic Search</p>
+</li>
+<li><p>缓存（Redis）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://lumingdong.cn/cooperative-recommendation-algorithms.html" target="_blank" rel="noopener">基于协同的推荐算法</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://blog.csdn.net/GFDGFHSDS/article/details/104775336" target="_blank" rel="noopener">推荐系统之LFM算法详解</a></li>
+<li>[3] <span id="refer-3"></span> <a href="https://blog.csdn.net/u012151283/article/details/77716085" target="_blank" rel="noopener">矩阵分解(MF,SVD)和协同过滤(CF)</a></li>
+<li>[4] <span id="refer-4"></span> <a href="https://zh.wikipedia.org/zh-hans/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3" target="_blank" rel="noopener">矩阵分解 - 维基百科</a></li>
+<li>[5] <span id="refer-5"></span> <a href="https://blog.csdn.net/jamexfx/article/details/93780308" target="_blank" rel="noopener">推荐系统面试题之机器学习（一）树模型</a></li>
+<li>[6] <span id="refer-6"></span> <a href="https://zhuanlan.zhihu.com/p/36335867" target="_blank" rel="noopener">决策树的进化史 - 知乎</a></li>
+<li>[7] <span id="refer-7"></span> <a href="https://scikit-learn.org/stable/modules/tree.html" target="_blank" rel="noopener">1.10. Decision Trees — scikit-learn 0.24.2 documentation</a></li>
+<li>[8] <span id="refer-8"></span> <a href="https://cuijiahua.com/blog/2017/11/ml_2_decision_tree_1.html" target="_blank" rel="noopener">机器学习实战教程（二）：决策树基础篇之让我们从相亲说起</a></li>
+<li>[9] <span id="refer-9"></span> <a href="https://blog.csdn.net/manduner/article/details/90516561" target="_blank" rel="noopener">决策树常见的面试点整理</a></li>
+<li>[10] <span id="refer-10"></span> <a href="https://blog.csdn.net/weixin_39946355/article/details/111668238" target="_blank" rel="noopener">l2的最优回归_机器学习（七）：数据预处理—特征选择-L1、L2正则化</a></li>
+<li>[11] <span id="refer-11"></span> <a href="https://blog.csdn.net/jinping_shi/article/details/52433975" target="_blank" rel="noopener">机器学习中正则化项L1和L2的直观理解</a></li>
+<li>[12] <span id="refer-12"></span> <a href="https://blog.csdn.net/sinat_27784071/article/details/84347642" target="_blank" rel="noopener">降低过拟合风险的方法</a></li>
+<li>[13] <span id="refer-13"></span> <a href="https://blog.csdn.net/weixin_43216017/article/details/87534496" target="_blank" rel="noopener">决策树的剪枝：REP/PEP/CCP算法</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-1 - 打分</title>
+    <url>/ai/ml-system/recommender/5-rank/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>多feature打分，准而精</p>
+<a id="more"></a>
+<h1 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h1><h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-1 - AB测试</title>
+    <url>/ai/ml-system/recommender/6-ab-test/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>AB Test</p>
+<a id="more"></a>
+<ul>
+<li>ExperimentRoom</li>
+<li>ExperimentLayer</li>
+<li>ExperimentGroup</li>
+<li>Experiment</li>
 </ul>
 ]]></content>
       <categories>
