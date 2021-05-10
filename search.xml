@@ -44,6 +44,47 @@
       </tags>
   </entry>
   <entry>
+    <title>Kubernetes系统实战 1 - 存储系统</title>
+    <url>/k8s/in-action/1-storage-on-k8s/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
+<a id="more"></a>
+<blockquote>
+<p>需要<a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">Kubernetes基本知识</a></p>
+</blockquote>
+<h1 id="本地存储-local-path"><a href="#本地存储-local-path" class="headerlink" title="本地存储 local-path"></a>本地存储 local-path</h1><p>可以用<a href="https://github.com/rancher/local-path-provisioner" target="_blank" rel="noopener">local-path-storage</a>部署基于本地存储的StorageClass。方便灵活，但没有冗余存储，如果Node节点挂掉，相关的PV都会丢失，需要及时备份。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https://github.com/rancher/local-path-provisioner/blob/master/deploy/local-path-storage.yaml</span><br></pre></td></tr></table></figure>
+<h1 id="对象存储-MinIO"><a href="#对象存储-MinIO" class="headerlink" title="对象存储 MinIO"></a>对象存储 MinIO</h1><p>MinIO支持S3，可通过Helm Chart<a href="https://docs.min.io/cn/deploy-minio-on-kubernetes.html" target="_blank" rel="noopener">部署服务</a>。</p>
+<p>添加MinIO Repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm repo add minio https://helm.min.io/</span><br></pre></td></tr></table></figure></p>
+<p>默认部署单节点服务。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm install minio/minio</span><br></pre></td></tr></table></figure></p>
+<p>分布式服务通过纠删码(EC，Erasure Code)保证高可靠性，需要多节点集群，准备可用的动态存储(longhorn、rook、openebs等)。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">helm install minio \                                                                        </span><br><span class="line">  --namespace minio --create-namespace \</span><br><span class="line">  --set mode=distributed \</span><br><span class="line">  --set replicas=4 \</span><br><span class="line">  --set persistence.size=10Gi \</span><br><span class="line">  minio/minio</span><br></pre></td></tr></table></figure></p>
+<p>可以使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Operator</a>管理租户。</p>
+<p>安装<a href="https://docs.minio.io/docs/minio-client-quickstart-guide" target="_blank" rel="noopener">MinIO客户端</a>访问bucket。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://blade-opt.oss-cn-hangzhou.aliyuncs.com/mc</span><br><span class="line">chmod +x mc</span><br></pre></td></tr></table></figure>
+<p>Retreive Keys<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export MINIO_ACCESS_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.accesskey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br><span class="line">export MINIO_SECRET_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.secretkey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br></pre></td></tr></table></figure></p>
+<p>集群内设置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mc alias set k8s http://minio.minio.svc:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY</span><br></pre></td></tr></table></figure></p>
+<p>可通过<code>~/.mc/config.json</code>修改配置，先执行<code>mc config host</code>。</p>
+<p>基本操作<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">mc mb k8s/test</span><br><span class="line">echo "Hello MinIO" &gt; /tmp/minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">mc ls k8s</span><br><span class="line">mc ls k8s/test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Copy</span></span><br><span class="line">mc cp /tmp/minio k8s/test</span><br><span class="line">mc cp k8s/test/minio .</span><br><span class="line">cat minio</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello MinIO</span></span><br><span class="line">rm minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">mc rm k8s/test/minio</span><br><span class="line">mc rb k8s/test</span><br></pre></td></tr></table></figure></p>
+<h1 id="分布式文件系统-对象存储-Rook-Ceph"><a href="#分布式文件系统-对象存储-Rook-Ceph" class="headerlink" title="分布式文件系统/对象存储 Rook-Ceph"></a>分布式文件系统/对象存储 Rook-Ceph</h1><blockquote>
+<p>需要集群<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes" target="_blank" rel="noopener">配置CSI</a>，如果是云上集群，不要申请FlexVolume。</p>
+</blockquote>
+<p>Ceph支持分布式块存储、文件系统以及对象存储。机器需要有未分配或未使用的磁盘，至少需要三个节点保持健康。</p>
+<p><a href="(https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md">安装Cephfs</a>)支持分布式文件系统。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone --single-branch --branch release-1.5 https://github.com/rook/rook</span><br><span class="line">cd rook/cluster/examples/kubernetes/ceph</span><br><span class="line">kubectl apply -f common.yaml</span><br><span class="line">kubectl apply -f crds.yaml</span><br><span class="line">kubectl apply -f operator.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait until operator is running</span></span><br><span class="line">kubectl apply -f cluster.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install Cephfs</span></span><br><span class="line">kubectl apply -f filesystem.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Install StorageClass rook-cephfs</span></span><br><span class="line">kubectl apply -f csi/cephfs/storageclass.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mark rook-cephfs as the default storage class</span></span><br><span class="line">kubectl annotate sc rook-cephfs storageclass.kubernetes.io/is-default-class="true"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install toolbox to check status</span></span><br><span class="line">kubectl apply -f toolbox.yaml</span><br><span class="line">kubectl -n rook-ceph exec -it $(kubectl get pods -l=app=rook-ceph-tools -n rook-ceph -o jsonpath='&#123;.items[0].metadata.name&#125;') bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph status</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph -s </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph df</span></span><br></pre></td></tr></table></figure>
+<p>安装ceph-rgw支持S3对象存储，MinIO Alternative</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f object.yaml</span><br><span class="line">kubectl apply -f object-user.yaml</span><br><span class="line">kubectl get svc rook-ceph-rgw-my-store -n rook-ceph</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get Bucket Config</span></span><br><span class="line">export AWS_HOST=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.Endpoint&#125;' | base64 --decode)</span><br><span class="line">export AWS_ACCESS_KEY_ID=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.AccessKey&#125;' | base64 --decode)</span><br><span class="line">export AWS_SECRET_ACCESS_KEY=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.SecretKey&#125;' | base64 --decode)</span><br></pre></td></tr></table></figure>
+<p>集群内配置好上述环境变量，使用<a href="https://github.com/s3tools/s3cmd" target="_blank" rel="noopener">s3cmd</a>测试bucket读写，可参考<a href="https://zhuanlan.zhihu.com/p/107083375" target="_blank" rel="noopener">文章</a>。可以使用<code>s3cmd --configure</code>详细配置，选择http，不要配置host_bucket。默认域名是<code>rook-ceph-rgw-my-store.rook-ceph.svc</code>(service-name.namespace.svc)。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">s3cmd mb s3://test</span><br><span class="line">echo "Hello Rook" &gt; /tmp/rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">s3cmd ls</span><br><span class="line">s3cmd ls s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Put</span></span><br><span class="line">s3cmd put /tmp/rook s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get</span></span><br><span class="line">s3cmd get s3://test/rook .</span><br><span class="line">cat rook</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello Rook</span></span><br><span class="line">rm rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">s3cmd rm s3://test/rook</span><br><span class="line">s3cmd rb s3://test</span><br></pre></td></tr></table></figure>
+<p>安装ceph-dashboard (Optional)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Either Use HTTP Port 7000</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yq w -i cluster.yaml spec.dashboard.ssl <span class="literal">false</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl apply -f dashboard-external-http.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Or Use HTTPS Port 8443</span></span><br><span class="line">kubectl apply -f dashboard-external-http.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Username: admin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Password:</span></span><br><span class="line">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="&#123;['data']['password']&#125;" | base64 --decode &amp;&amp; echo</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法基础 - 数组</title>
     <url>/cs/algo/array/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>数组是最基础的数据结构之一，存储线性数据，内存结构连续。</p>
@@ -835,47 +876,6 @@
       <tags>
         <tag>算法</tag>
         <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes系统实战 1 - 存储系统</title>
-    <url>/k8s/in-action/1-storage-on-k8s/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
-<a id="more"></a>
-<blockquote>
-<p>需要<a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">Kubernetes基本知识</a></p>
-</blockquote>
-<h1 id="本地存储-local-path"><a href="#本地存储-local-path" class="headerlink" title="本地存储 local-path"></a>本地存储 local-path</h1><p>可以用<a href="https://github.com/rancher/local-path-provisioner" target="_blank" rel="noopener">local-path-storage</a>部署基于本地存储的StorageClass。方便灵活，但没有冗余存储，如果Node节点挂掉，相关的PV都会丢失，需要及时备份。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https://github.com/rancher/local-path-provisioner/blob/master/deploy/local-path-storage.yaml</span><br></pre></td></tr></table></figure>
-<h1 id="对象存储-MinIO"><a href="#对象存储-MinIO" class="headerlink" title="对象存储 MinIO"></a>对象存储 MinIO</h1><p>MinIO支持S3，可通过Helm Chart<a href="https://docs.min.io/cn/deploy-minio-on-kubernetes.html" target="_blank" rel="noopener">部署服务</a>。</p>
-<p>添加MinIO Repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm repo add minio https://helm.min.io/</span><br></pre></td></tr></table></figure></p>
-<p>默认部署单节点服务。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm install minio/minio</span><br></pre></td></tr></table></figure></p>
-<p>分布式服务通过纠删码(EC，Erasure Code)保证高可靠性，需要多节点集群，准备可用的动态存储(longhorn、rook、openebs等)。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">helm install minio \                                                                        </span><br><span class="line">  --namespace minio --create-namespace \</span><br><span class="line">  --set mode=distributed \</span><br><span class="line">  --set replicas=4 \</span><br><span class="line">  --set persistence.size=10Gi \</span><br><span class="line">  minio/minio</span><br></pre></td></tr></table></figure></p>
-<p>可以使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Operator</a>管理租户。</p>
-<p>安装<a href="https://docs.minio.io/docs/minio-client-quickstart-guide" target="_blank" rel="noopener">MinIO客户端</a>访问bucket。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://blade-opt.oss-cn-hangzhou.aliyuncs.com/mc</span><br><span class="line">chmod +x mc</span><br></pre></td></tr></table></figure>
-<p>Retreive Keys<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export MINIO_ACCESS_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.accesskey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br><span class="line">export MINIO_SECRET_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.secretkey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br></pre></td></tr></table></figure></p>
-<p>集群内设置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mc alias set k8s http://minio.minio.svc:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY</span><br></pre></td></tr></table></figure></p>
-<p>可通过<code>~/.mc/config.json</code>修改配置，先执行<code>mc config host</code>。</p>
-<p>基本操作<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">mc mb k8s/test</span><br><span class="line">echo "Hello MinIO" &gt; /tmp/minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">mc ls k8s</span><br><span class="line">mc ls k8s/test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Copy</span></span><br><span class="line">mc cp /tmp/minio k8s/test</span><br><span class="line">mc cp k8s/test/minio .</span><br><span class="line">cat minio</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello MinIO</span></span><br><span class="line">rm minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">mc rm k8s/test/minio</span><br><span class="line">mc rb k8s/test</span><br></pre></td></tr></table></figure></p>
-<h1 id="分布式文件系统-对象存储-Rook-Ceph"><a href="#分布式文件系统-对象存储-Rook-Ceph" class="headerlink" title="分布式文件系统/对象存储 Rook-Ceph"></a>分布式文件系统/对象存储 Rook-Ceph</h1><blockquote>
-<p>需要集群<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes" target="_blank" rel="noopener">配置CSI</a>，如果是云上集群，不要申请FlexVolume。</p>
-</blockquote>
-<p>Ceph支持分布式块存储、文件系统以及对象存储。机器需要有未分配或未使用的磁盘，至少需要三个节点保持健康。</p>
-<p><a href="(https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md">安装Cephfs</a>)支持分布式文件系统。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone --single-branch --branch release-1.5 https://github.com/rook/rook</span><br><span class="line">cd rook/cluster/examples/kubernetes/ceph</span><br><span class="line">kubectl apply -f common.yaml</span><br><span class="line">kubectl apply -f crds.yaml</span><br><span class="line">kubectl apply -f operator.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait until operator is running</span></span><br><span class="line">kubectl apply -f cluster.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install Cephfs</span></span><br><span class="line">kubectl apply -f filesystem.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Install StorageClass rook-cephfs</span></span><br><span class="line">kubectl apply -f csi/cephfs/storageclass.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mark rook-cephfs as the default storage class</span></span><br><span class="line">kubectl annotate sc rook-cephfs storageclass.kubernetes.io/is-default-class="true"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install toolbox to check status</span></span><br><span class="line">kubectl apply -f toolbox.yaml</span><br><span class="line">kubectl -n rook-ceph exec -it $(kubectl get pods -l=app=rook-ceph-tools -n rook-ceph -o jsonpath='&#123;.items[0].metadata.name&#125;') bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph status</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph -s </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph df</span></span><br></pre></td></tr></table></figure>
-<p>安装ceph-rgw支持S3对象存储，MinIO Alternative</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f object.yaml</span><br><span class="line">kubectl apply -f object-user.yaml</span><br><span class="line">kubectl get svc rook-ceph-rgw-my-store -n rook-ceph</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get Bucket Config</span></span><br><span class="line">export AWS_HOST=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.Endpoint&#125;' | base64 --decode)</span><br><span class="line">export AWS_ACCESS_KEY_ID=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.AccessKey&#125;' | base64 --decode)</span><br><span class="line">export AWS_SECRET_ACCESS_KEY=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.SecretKey&#125;' | base64 --decode)</span><br></pre></td></tr></table></figure>
-<p>集群内配置好上述环境变量，使用<a href="https://github.com/s3tools/s3cmd" target="_blank" rel="noopener">s3cmd</a>测试bucket读写，可参考<a href="https://zhuanlan.zhihu.com/p/107083375" target="_blank" rel="noopener">文章</a>。可以使用<code>s3cmd --configure</code>详细配置，选择http，不要配置host_bucket。默认域名是<code>rook-ceph-rgw-my-store.rook-ceph.svc</code>(service-name.namespace.svc)。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">s3cmd mb s3://test</span><br><span class="line">echo "Hello Rook" &gt; /tmp/rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">s3cmd ls</span><br><span class="line">s3cmd ls s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Put</span></span><br><span class="line">s3cmd put /tmp/rook s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get</span></span><br><span class="line">s3cmd get s3://test/rook .</span><br><span class="line">cat rook</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello Rook</span></span><br><span class="line">rm rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">s3cmd rm s3://test/rook</span><br><span class="line">s3cmd rb s3://test</span><br></pre></td></tr></table></figure>
-<p>安装ceph-dashboard (Optional)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Either Use HTTP Port 7000</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yq w -i cluster.yaml spec.dashboard.ssl <span class="literal">false</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl apply -f dashboard-external-http.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Or Use HTTPS Port 8443</span></span><br><span class="line">kubectl apply -f dashboard-external-http.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Username: admin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Password:</span></span><br><span class="line">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="&#123;['data']['password']&#125;" | base64 --decode &amp;&amp; echo</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -2279,7 +2279,7 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>推理优化</tag>
+        <tag>特征工程</tag>
       </tags>
   </entry>
   <entry>
@@ -2306,7 +2306,7 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>推理优化</tag>
+        <tag>Embedding</tag>
       </tags>
   </entry>
   <entry>
@@ -2314,7 +2314,197 @@
     <url>/ai/ml-system/recommender/4-recall/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>多种策略混合，快而全</p>
 <a id="more"></a>
-<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h1 id="树模型"><a href="#树模型" class="headerlink" title="树模型"></a>树模型</h1><p>树模型<a href="#refer-5"><sup>5</sup></a> <a href="#refer-6"><sup>6</sup></a></p>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h1 id="基于内容（标签）"><a href="#基于内容（标签）" class="headerlink" title="基于内容（标签）"></a>基于内容（标签）</h1><p>所谓基于内容的推荐算法(Content-Based Recommendations)是基于标的物相关信息、用户相关信息及用户对标的物的操作行为来构建推荐算法模型，为用户提供推荐服务。这里的标的物相关信息可以是对标的物文字描述的metadata信息、标签、用户评论、人工标注的信息等。用户相关信息是指人口统计学信息(如年龄、性别、偏好、地域、收入等等)。用户对标的物的操作行为可以是评论、收藏、点赞、观看、浏览、点击、加购物车、购买等。基于内容的推荐算法一般只依赖于用户自身的行为为用户提供推荐，不涉及到其他用户的行为。</p>
+<p>基于内容的个性化推荐，一般需要三个步骤：</p>
+<ol>
+<li>基于用户信息及用户操作行为构建用户特征表示</li>
+<li>基于标的物信息构建标的物特征表示</li>
+<li>基于用户及标的物特征表示为用户推荐标的物</li>
+</ol>
+<h2 id="基于用户和标的物特征为用户推荐的核心思想"><a href="#基于用户和标的物特征为用户推荐的核心思想" class="headerlink" title="基于用户和标的物特征为用户推荐的核心思想"></a>基于用户和标的物特征为用户推荐的核心思想</h2><ul>
+<li>基于用户历史行为记录做推荐</li>
+</ul>
+<p>我们需要事先计算标的物之间的相似性，然后将用户历史记录中的标的物的相似标的物推荐给用户。</p>
+<p>不管标的物包含哪类信息，一般的思路是将标的物特征转化为向量化表示，有了向量化表示，我们就可以通过cosine余弦相似度计算两个标的物之间的相似度了。</p>
+<ul>
+<li>用户和标的物特征都用显式的标签表示，利用该表示做推荐</li>
+</ul>
+<p>标的物用标签来表示，那么反过来，每个标签就可以关联一组标的物，那么根据用户的标签表示，用户的兴趣标签就可以关联到一组标的物，这组通过标签关联到的标的物，就可以作为给用户的推荐候选集。这类方法就是所谓的倒排索引法，是搜索业务通用的解决方案。</p>
+<ul>
+<li>用户和标的物嵌入到同一个向量空间，基于向量相似做推荐</li>
+</ul>
+<p>当用户和标的物嵌入到同一个向量空间中后，我们就可以计算用户和标的物之间的相似度，然后按照标的物跟用户的相似度，为用户推荐相似度高的标的物。还可以基于用户向量表示计算用户相似度，将相似用户喜欢的标的物推荐给该用户，这时标的物嵌入是不必要的。</p>
+<h2 id="基于用户信息及用户操作行为构建用户特征表示"><a href="#基于用户信息及用户操作行为构建用户特征表示" class="headerlink" title="基于用户信息及用户操作行为构建用户特征表示"></a>基于用户信息及用户操作行为构建用户特征表示</h2><p>用户的特征表示可以基于用户对标的物的操作行为(如点击、购买、收藏、播放等)构建用户对标的物的偏好画像，也可以基于用户自身的人口统计学特征来表达。有了用户特征表示，我们就可以基于用户特征为用户推荐与他特征匹配的标的物。构建用户特征的方法主要有如下5种：</p>
+<ul>
+<li>用户行为记录作为显示特征</li>
+</ul>
+<p>记录用户过去一段时间对标的物的偏好。拿视频行业来说，如果用户过去一段时间看了A、B、C三个视频，同时可以根据每个视频用户观看时长占视频总时长的比例给用户的行为打分(<script type="math/tex">S_1</script>,<script type="math/tex">S_2</script>,<script type="math/tex">S_3</script>)，这时用户的兴趣偏好就可以记录为：</p>
+<script type="math/tex; mode=display">
+{(A,S_1),(B,S_2),(C,S_3)}</script><p>该方案直接将用户历史操作过的标的物作为用户的特征表示，在推荐时可以将与用户操作过的标的物相似的标的物推荐给用户。</p>
+<ul>
+<li>显式的标签特征</li>
+</ul>
+<p>如果标的物是有标签来描述的，那么这些标签可以用来表征标的物。用户的兴趣画像也可以基于用户对标的物的行为来打上对应的标签。拿视频推荐来举例，如果用户过去看了科幻和恐怖两类电影，那么恐怖、科幻就是用户的偏好标签了。</p>
+<p>每个标的物的标签可以是包含权重的，而用户对标的物的操作行为也是有权重的，从而用户的兴趣标签是有权重的。</p>
+<p>在具体推荐时，可以将用户的兴趣标签关联到的标的物(具备该标签的标的物)推荐给用户。</p>
+<ul>
+<li>向量式的兴趣特征</li>
+</ul>
+<p>可以基于标的物的信息将标的物嵌入到向量空间中，利用向量来表示标的物，我们会在后面讲解嵌入的算法实现方案。有了标的物的向量化表示，用户的兴趣向量就可以用他操作过的标的物的向量的平均向量来表示了。</p>
+<p>这里表示用户兴趣向量有很多种策略，可以基于用户对操作过的标的物的评分以及时间加权来获取用户的加权偏好向量，而不是直接取平均。另外，我们也可以根据用户操作过的标的物之间的相似度，为用户构建多个兴趣向量(比如对标的物聚类，用户在某一类上操作过的标的物的向量均值作为用户在这个类别上的兴趣向量)，从而更好地表达用户多方位的兴趣偏好。</p>
+<p>有了用户的兴趣向量及标的物的兴趣向量，可以基于向量相似性计算用户对标的物的偏好度，再基于偏好度大小来为用户推荐标的物。</p>
+<ul>
+<li>通过交互方式获取用户兴趣标签</li>
+</ul>
+<p>很多APP在用户第一次注册时让用户选择自己的兴趣标签，一旦用户勾选了自己的兴趣标签，那么这些兴趣标签就是系统为用户提供推荐的原材料。具体推荐策略与上面一样。</p>
+<ul>
+<li>用户的人口统计学特征</li>
+</ul>
+<p>用户在登陆、注册时提供的关于自身相关的信息、通过运营活动用户填写的信息、通过用户行为利用算法推断得出的结论，如年龄、性别、地域、收入、爱好、居住地、工作地点等是非常重要的信息。基于这些关于用户维度的信息，我们可以将用户特征用向量化表示出来，向量的维度就是可获取的用户特征数。</p>
+<p>有了用户特征向量就可以计算用户相似度，将相似用户喜欢的标的物推荐给该用户。</p>
+<h2 id="基于标的物信息构建标的物特征表示"><a href="#基于标的物信息构建标的物特征表示" class="headerlink" title="基于标的物信息构建标的物特征表示"></a>基于标的物信息构建标的物特征表示</h2><p>标的物的特征，一般可以利用显式的标签来表示，也可以利用隐式的向量(当然one-hot编码也是向量表示，但是不是隐式的)来刻画，向量的每个维度就是一个隐式的特征项。前面提到某些推荐算法需要计算标的物之间的相似度，下面我们在讲标的物的各种特征表示时，也简单介绍一下标的物之间的相似度计算方法。顺便说一下，标的物关联标的物的推荐范式也需要知道标的物之间的相似度。下面我们从4个方面来详细讲解怎么构建标的物的特征表示。</p>
+<ul>
+<li>标的物包含标签信息</li>
+</ul>
+<p>最简单的方式是将将标签按照某种序排列，每个标签看成一个维度，那么每个标的物就可以表示成一个N维的向量了(N是标签的个数)，如果标的物包含某个标签，向量在相应标签的分量上的值为1，否则为0，即所谓的one-hot编码。有可能N非常大(如视频行业，N可能是几万、甚至几十万上百万)，这时向量是稀疏向量(一般标的物只有少量的几个或者几十个标签)，我们可以采用稀疏向量的表示来优化向量存储和计算，提升效率。有了标的物基于标签的向量化表示，很容易基于cosine余弦计算相似度了。</p>
+<p>实际上标签不是这么简单的，有很多业务标签是分级的，比如电商(如淘宝)，有多级的标签(见下面图3)，标签的层级关系形成一颗树状结构，这时该怎么向量化呢？最简单的方案是只考虑叶子节点的标签(也是最低层级的标签)，基于叶子节点标签构建向量表示。更复杂的方法，可以基于层级结构构建标签表示及计算标的物相似度。</p>
+<p>标签可以是通过算法获取的，比如通过NLP技术从文本信息中提取关键词作为标签。对于图片/视频，它们的描述信息(标题等)可以提取标签，另外可以通过目标检测的方法从图片/视频中提取相关对象构建标签。</p>
+<p>标签可以是用户打的，很多产品在用户与标的物交互时可以为标的物打标签，这些标签就是标的物的一种刻画。标签也可是人工标注的，像Netflix在做推荐时，请了上万个专家对视频从上千个维度来打标签，让标签具备非常高的质量。基于这么精细优质的标签做推荐，效果一定不错。很多行业的标的物来源于第三方提供商，他们在入驻平台时会被要求按照某些规范填写相关标签信息(比如典型的如电商)。</p>
+<ul>
+<li>标的物具备结构化的信息</li>
+</ul>
+<p>有些行业标的物是具备结构化信息的，如视频行业，一般会有媒资库，媒资库中针对每个节目会有标题、演职员、导演、标签、评分、地域等维度数据，这类数据一般存在关系型数据库中。这类数据，我们可以将一个字段(也是一个特征)作为向量的一个维度，这时向量化表示每个维度的值不一定是数值，但是形式还是向量化的形式，即所谓的向量空间模型（Vector Space Model，简称VSM）。这时我们可以通过如下的方式计算两个标的物之间的相似度。</p>
+<script type="math/tex; mode=display">
+V_1 = (p_1, p_2, p_3, ..., p_k)</script><script type="math/tex; mode=display">
+V_2 = (q_1, q_2, q_3, ..., q_k)</script><script type="math/tex; mode=display">
+sim(V_1, V_2) = \sum_{t=1}^{k}w_t*sim(p_t, q_t)</script><ul>
+<li>包含文本信息的标的物的特征表示</li>
+</ul>
+<p>像今日头条和手机百度APP这类新闻资讯或者搜索类APP，标的物就是一篇篇的文章(其中会包含图片或者视频)，文本信息是最重要的信息形式，构建标的物之间的相似性有很多种方法。下面对常用的方法做一些讲解说明。</p>
+<p>z. 词袋模型</p>
+<p>统计所有文档中词出现的频次转化为向量。</p>
+<p>词袋随新词不断增大，矩阵非常稀疏，未保留句法。</p>
+<p>a. 利用TF-IDF将文本信息转化为特征向量</p>
+<p>TF-IDF通过将所有文档(即标的物)分词，获得所有不同词的集合(假设有M个词)，那么就可以为每个文档构建一个M维(每个词就是一个维度)的向量，而该向量中某个词所在维度的值可以通过统计每个词在文档中的重要性来衡量，这个重要性的度量就是TF-IDF。<br>TF即某个词在某篇文档中出现的频次，用于衡量这个词在文档中的重要性，出现次数越多的词重要性越大，当然我们会提前将“的”、“地”、“啊”等停用词去掉，这些词对构建向量是没有任何实际价值的，甚至是有害的。<script type="math/tex">t_k</script>是第k个词，<script type="math/tex">d_j</script>是第j个文档。</p>
+<script type="math/tex; mode=display">
+TF(t_k, d_j) = \frac{|| t_k \in d_j  ||}{|| d_j ||}</script><p>IDF代表的是某个词在所有文档中的“区分度”，如果某个词只在少量几个文档中出现，那么它包含的价值就是巨大的(所谓物以稀为贵)，如果某个词在很多文档中出现，那么它就不能很好地衡量(区分出)这个文档。N是所有文档的个数，<script type="math/tex">n_k</script>是包含<script type="math/tex">t_k</script>的文档个数。</p>
+<script type="math/tex; mode=display">
+IDF(t_k) = log\frac{N}{n_k}</script><script type="math/tex; mode=display">
+TF-IDF(t_k, d_j) = TF(t_k, d_j) * IDF(t_k)</script><p>有了基于TF-IDF计算的标的物的向量表示，我们就很容易计算两个标的物之间的相似度了(cosine余弦相似度)。</p>
+<p>b. 利用LDA算法构建文章(标的物)的主题</p>
+<p>c. 利用doc2vec算法构建文本相似度</p>
+<p>Word2Vec, CBOW, Skipgram</p>
+<h2 id="基于用户及标的物特征表示为用户推荐标的物"><a href="#基于用户及标的物特征表示为用户推荐标的物" class="headerlink" title="基于用户及标的物特征表示为用户推荐标的物"></a>基于用户及标的物特征表示为用户推荐标的物</h2><h1 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h1><p>协同过滤<a href="#refer-1"><sup>1</sup></a>（Collaborative Filter，CF）主要用于召回，主要分为ItemCF和UserCF。</p>
+<h2 id="ItemCF"><a href="#ItemCF" class="headerlink" title="ItemCF"></a>ItemCF</h2><p>给用户推荐和他兴趣相似的其他用户喜欢的物品。</p>
+<p>实际应用中，采用一个session 内的用户行为来计算 两个商品的pair对。</p>
+<p>modified 算法<br>余弦相似度过于粗暴，容易出现哈利波特效应，改良版将会降低热门用户对商品的权重</p>
+<ol>
+<li>wbcos i2i (weighted bin)</li>
+<li>swing i2i</li>
+<li>expectaion i2i</li>
+</ol>
+<p>最小化目标函数算法</p>
+<ol>
+<li>WALS</li>
+<li>SGD</li>
+</ol>
+<p>SGD优点：非常灵活：适用于其他损失函数；可以并行化。</p>
+<p>SGD缺点：较慢，收敛速度不那么快；难以处理未观察到的项（entries），需要使用负采样或gravity。</p>
+<p>WALS优点：可以并行化；收敛速度比SGD更快；更容易处理未观察到的项（entries）。</p>
+<p>WALS缺点：仅适用于平方损失；</p>
+<p>ranki2i<br>背景：上面都是基于统计产生的i2i,实际展示的时候不是要最相似原商品的，还有考虑该商品的ctr 和 cvr 等综合产出<br>过程：利用模型，离线训练和离线预测，右i的点击率，并进行重排。</p>
+<ol>
+<li>分别预测ctr，cvr<br>类似于线上rank,这里采用左i的feature和右i的feature，模型可采用现有rank模型，（gbdt，lr，dnn皆可）</li>
+<li>一步到位<br>利用pairwise或者listwise 作为损失函数<br>将gmv或者点击率转化为预测目标，label为多分类，指标为ndcg.</li>
+</ol>
+<h2 id="UserCF"><a href="#UserCF" class="headerlink" title="UserCF"></a>UserCF</h2><p>给用户推荐和他之前喜欢的物品相关的物品。</p>
+<h2 id="FM（Factorization-Machines）"><a href="#FM（Factorization-Machines）" class="headerlink" title="FM（Factorization Machines）"></a>FM（Factorization Machines）</h2><ol>
+<li>FM能处理数据高度稀疏场景，SVM则不能；</li>
+<li>FM具有线性的计算复杂度，而SVM依赖于support vector。</li>
+<li>FM能够在任意的实数特征向量中生效。</li>
+</ol>
+<h2 id="MF-Matrix-Factorization"><a href="#MF-Matrix-Factorization" class="headerlink" title="MF(Matrix Factorization)"></a>MF(Matrix Factorization)</h2><p>矩阵分解<a href="#refer-2"><sup>2</sup></a>主要使用的是特征分解和奇异值分解（SVD）。</p>
+<p>SVD++ BiasSVD</p>
+<h1 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h1><ul>
+<li>查表（MySQL）</li>
+<li>向量召回</li>
+<li><p>Elastic Search</p>
+</li>
+<li><p>缓存（Redis）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://lumingdong.cn/cooperative-recommendation-algorithms.html" target="_blank" rel="noopener">基于协同的推荐算法</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://blog.csdn.net/GFDGFHSDS/article/details/104775336" target="_blank" rel="noopener">推荐系统之LFM算法详解</a></li>
+<li>[3] <span id="refer-3"></span> <a href="https://blog.csdn.net/u012151283/article/details/77716085" target="_blank" rel="noopener">矩阵分解(MF,SVD)和协同过滤(CF)</a></li>
+<li>[4] <span id="refer-4"></span> <a href="https://zh.wikipedia.org/zh-hans/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3" target="_blank" rel="noopener">矩阵分解 - 维基百科</a></li>
+<li>[5] <span id="refer-5"></span> <a href="https://blog.csdn.net/jamexfx/article/details/93780308" target="_blank" rel="noopener">推荐系统面试题之机器学习（一）树模型</a></li>
+<li>[6] <span id="refer-6"></span> <a href="https://zhuanlan.zhihu.com/p/36335867" target="_blank" rel="noopener">决策树的进化史 - 知乎</a></li>
+<li>[7] <span id="refer-7"></span> <a href="https://scikit-learn.org/stable/modules/tree.html" target="_blank" rel="noopener">1.10. Decision Trees — scikit-learn 0.24.2 documentation</a></li>
+<li>[8] <span id="refer-8"></span> <a href="https://cuijiahua.com/blog/2017/11/ml_2_decision_tree_1.html" target="_blank" rel="noopener">机器学习实战教程（二）：决策树基础篇之让我们从相亲说起</a></li>
+<li>[9] <span id="refer-9"></span> <a href="https://blog.csdn.net/manduner/article/details/90516561" target="_blank" rel="noopener">决策树常见的面试点整理</a></li>
+<li>[10] <span id="refer-10"></span> <a href="https://blog.csdn.net/weixin_39946355/article/details/111668238" target="_blank" rel="noopener">l2的最优回归_机器学习（七）：数据预处理—特征选择-L1、L2正则化</a></li>
+<li>[11] <span id="refer-11"></span> <a href="https://blog.csdn.net/jinping_shi/article/details/52433975" target="_blank" rel="noopener">机器学习中正则化项L1和L2的直观理解</a></li>
+<li>[12] <span id="refer-12"></span> <a href="https://blog.csdn.net/sinat_27784071/article/details/84347642" target="_blank" rel="noopener">降低过拟合风险的方法</a></li>
+<li>[13] <span id="refer-13"></span> <a href="https://blog.csdn.net/weixin_43216017/article/details/87534496" target="_blank" rel="noopener">决策树的剪枝：REP/PEP/CCP算法</a></li>
+<li>[14] <span id="refer-14"></span> <a href="https://easyai.tech/ai-definition/" target="_blank" rel="noopener">AI 知识库</a></li>
+<li>[15] <span id="refer-15"></span> <a href="https://cloud.tencent.com/developer/article/1150805" target="_blank" rel="noopener">树算法对比：RF、GBDT、XGBoost</a></li>
+<li>[16] <span id="refer-16"></span> <a href="https://zhuanlan.zhihu.com/p/34679467" target="_blank" rel="noopener">RF、GBDT、XGBoost常见面试题整理</a></li>
+<li>[17] <span id="refer-17"></span> <a href="https://zhuanlan.zhihu.com/p/348776985" target="_blank" rel="noopener">GBDT理解难点———拟合负梯度</a></li>
+<li>[18] <span id="refer-18"></span> <a href="https://www.cnblogs.com/wkang/p/10091790.html" target="_blank" rel="noopener">从零开始学推荐系统一：基于邻域的算法</a></li>
+<li>[19] <span id="refer-19"></span> <a href="https://zhuanlan.zhihu.com/p/115690499" target="_blank" rel="noopener">深入理解推荐系统：召回</a></li>
+<li>[20] <span id="refer-20"></span> <a href="https://zhuanlan.zhihu.com/p/80068528" target="_blank" rel="noopener">基于内容的推荐算法</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-1 - 打分</title>
+    <url>/ai/ml-system/recommender/5-rank/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>多feature打分，准而精</p>
+<a id="more"></a>
+<h1 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h1><h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-7 - 树模型</title>
+    <url>/ai/ml-system/recommender/6-ab-test/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>AB Test</p>
+<a id="more"></a>
+<ul>
+<li>ExperimentRoom</li>
+<li>ExperimentLayer</li>
+<li>ExperimentGroup</li>
+<li>Experiment</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-1 - AB测试</title>
+    <url>/ai/ml-system/recommender/7-tree/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>树模型以决策树为基本原型。</p>
+<a id="more"></a>
+<p>树模型<a href="#refer-5"><sup>5</sup></a> <a href="#refer-6"><sup>6</sup></a></p>
 <h2 id="DT"><a href="#DT" class="headerlink" title="DT"></a>DT</h2><p>决策树是一种基本的分类和回归方法。和我们之前学过的逻辑斯特回归，线性回归等算法不同，他们要么只能做回归要么只能做分类，而决策树既可以做分类也可以做回归。主要包括：ID3，C4.5，CART。</p>
 <p>物理含义：表示定义在特征空间上的条件概率分布，也就是把<script type="math/tex">P(y)</script>转化为<script type="math/tex">P(y|X)</script>。同时也可以理解为 if-then 规则的集合。如下图左图所示。</p>
 <p>几何含义： “分而治之”的思想，即把特征空间划分为一系列的矩形区域，然后再每一个区域拟合一个简单的模型。如下图右图所示。本文将用决策树的几何含义对决策树进行讲解。</p>
@@ -2364,72 +2554,6 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <p>列抽样。XGBoost借鉴了随机森林的做法，支持列抽样，不仅防止过 拟合，还能减少计算；</p>
 <p>对缺失值的处理。对于特征的值有缺失的样本，XGBoost还可以自动 学习出它的分裂方向；</p>
 <p>XGBoost工具支持并行。Boosting不是一种串行的结构吗？怎么并行的？注意XGBoost的并行不是tree粒度的并行，XGBoost也是一次迭代完才能进行下一次迭代的（第t次迭代的代价函数里包含了前面t-1次迭代的预测值）。XGBoost的并行是在特征粒度上的。我们知道，决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），XGBoost在训练之前，预先对数据进行了排序，然后保存为block结构，后面的迭代 中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行。</p>
-<h1 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h1><p>协同过滤<a href="#refer-1"><sup>1</sup></a>（Collaborative Filter，CF）主要用于召回，主要分为ItemCF和UserCF。</p>
-<h2 id="ItemCF"><a href="#ItemCF" class="headerlink" title="ItemCF"></a>ItemCF</h2><p>给用户推荐和他兴趣相似的其他用户喜欢的物品。</p>
-<h2 id="UserCF"><a href="#UserCF" class="headerlink" title="UserCF"></a>UserCF</h2><p>给用户推荐和他之前喜欢的物品相关的物品。</p>
-<h2 id="MF-Matrix-Factorization"><a href="#MF-Matrix-Factorization" class="headerlink" title="MF(Matrix Factorization)"></a>MF(Matrix Factorization)</h2><p>矩阵分解<a href="#refer-2"><sup>2</sup></a>主要使用的是特征分解和奇异值分解（SVD）。</p>
-<p>SVD++ BiasSVD</p>
-<h1 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h1><ul>
-<li>查表（MySQL）</li>
-<li>向量召回</li>
-<li><p>Elastic Search</p>
-</li>
-<li><p>缓存（Redis）</p>
-</li>
-</ul>
-<hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://lumingdong.cn/cooperative-recommendation-algorithms.html" target="_blank" rel="noopener">基于协同的推荐算法</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://blog.csdn.net/GFDGFHSDS/article/details/104775336" target="_blank" rel="noopener">推荐系统之LFM算法详解</a></li>
-<li>[3] <span id="refer-3"></span> <a href="https://blog.csdn.net/u012151283/article/details/77716085" target="_blank" rel="noopener">矩阵分解(MF,SVD)和协同过滤(CF)</a></li>
-<li>[4] <span id="refer-4"></span> <a href="https://zh.wikipedia.org/zh-hans/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3" target="_blank" rel="noopener">矩阵分解 - 维基百科</a></li>
-<li>[5] <span id="refer-5"></span> <a href="https://blog.csdn.net/jamexfx/article/details/93780308" target="_blank" rel="noopener">推荐系统面试题之机器学习（一）树模型</a></li>
-<li>[6] <span id="refer-6"></span> <a href="https://zhuanlan.zhihu.com/p/36335867" target="_blank" rel="noopener">决策树的进化史 - 知乎</a></li>
-<li>[7] <span id="refer-7"></span> <a href="https://scikit-learn.org/stable/modules/tree.html" target="_blank" rel="noopener">1.10. Decision Trees — scikit-learn 0.24.2 documentation</a></li>
-<li>[8] <span id="refer-8"></span> <a href="https://cuijiahua.com/blog/2017/11/ml_2_decision_tree_1.html" target="_blank" rel="noopener">机器学习实战教程（二）：决策树基础篇之让我们从相亲说起</a></li>
-<li>[9] <span id="refer-9"></span> <a href="https://blog.csdn.net/manduner/article/details/90516561" target="_blank" rel="noopener">决策树常见的面试点整理</a></li>
-<li>[10] <span id="refer-10"></span> <a href="https://blog.csdn.net/weixin_39946355/article/details/111668238" target="_blank" rel="noopener">l2的最优回归_机器学习（七）：数据预处理—特征选择-L1、L2正则化</a></li>
-<li>[11] <span id="refer-11"></span> <a href="https://blog.csdn.net/jinping_shi/article/details/52433975" target="_blank" rel="noopener">机器学习中正则化项L1和L2的直观理解</a></li>
-<li>[12] <span id="refer-12"></span> <a href="https://blog.csdn.net/sinat_27784071/article/details/84347642" target="_blank" rel="noopener">降低过拟合风险的方法</a></li>
-<li>[13] <span id="refer-13"></span> <a href="https://blog.csdn.net/weixin_43216017/article/details/87534496" target="_blank" rel="noopener">决策树的剪枝：REP/PEP/CCP算法</a></li>
-<li>[14] <span id="refer-14"></span> <a href="https://easyai.tech/ai-definition/" target="_blank" rel="noopener">AI 知识库</a></li>
-<li>[15] <span id="refer-15"></span> <a href="https://cloud.tencent.com/developer/article/1150805" target="_blank" rel="noopener">树算法对比：RF、GBDT、XGBoost</a></li>
-<li>[16] <span id="refer-16"></span> <a href="https://zhuanlan.zhihu.com/p/34679467" target="_blank" rel="noopener">RF、GBDT、XGBoost常见面试题整理</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 4-1 - 打分</title>
-    <url>/ai/ml-system/recommender/5-rank/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>多feature打分，准而精</p>
-<a id="more"></a>
-<h1 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h1><h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 4-1 - AB测试</title>
-    <url>/ai/ml-system/recommender/6-ab-test/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>AB Test</p>
-<a id="more"></a>
-<ul>
-<li>ExperimentRoom</li>
-<li>ExperimentLayer</li>
-<li>ExperimentGroup</li>
-<li>Experiment</li>
-</ul>
 ]]></content>
       <categories>
         <category>机器学习</category>
