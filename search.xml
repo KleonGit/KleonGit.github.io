@@ -1337,6 +1337,32 @@
       </tags>
   </entry>
   <entry>
+    <title>机器学习系统 5-1 - 数据系统</title>
+    <url>/ai/ml-system/big-data/1-overview/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>高效稳健的数据系统是保障各项业务运行的基石。</p>
+<a id="more"></a>
+<p>数据系统主要可以划分为：</p>
+<ul>
+<li>分布式文件系统，如HDFS。</li>
+<li>数据收集，包括移动端埋点，服务端日志，第三方数据等</li>
+<li>数据仓库，长期保存结构化数据，Hive，提供数据清洗，特征工程等功能。</li>
+<li>数据湖，长期保存非结构化数据，如S3,Minio。</li>
+<li>数据库，线上服务使用的数据源，按性能分关系型（MySQL，PostgreSQL），键值型（Redis内存），文档型（MongoDB，CouchBase内存），列存储（HBase）。</li>
+<li>消息队列，模块解耦，如Kafka。</li>
+<li>日志系统，ELK（ElasticSearch, LogStash, Kibana）。</li>
+<li>计算引擎，按功能分实时（Flink，Spark Streaming），离线（Spark，Hadoop）。</li>
+<li>ETL，日志抽取。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>大数据</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 1-1 - 后端硬件初探</title>
     <url>/ai/ml-system/hardware-backend/1-overview/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习系统通常使用定制硬件后端执行计算密集型算子。训练模型中包含大量训练专用的反向梯度算子，相比之下推理模型结构更简单，算子集更小。因此定制硬件通常从推理模型入手。</p>
@@ -2222,7 +2248,109 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>推理优化</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-10 - 因子分解机</title>
+    <url>/ai/ml-system/recommender/10-factor-machine/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>因子分解机</p>
+<a id="more"></a>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><ol>
+<li>FM能处理数据高度稀疏场景，SVM则不能；</li>
+<li>FM具有线性的计算复杂度，而SVM依赖于support vector。</li>
+<li>FM能够在任意的实数特征向量中生效。</li>
+</ol>
+<p>—</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-11 - 树模型</title>
+    <url>/ai/ml-system/recommender/11-tree/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>树模型以决策树为基本原型。</p>
+<a id="more"></a>
+<p>树模型<a href="#refer-5"><sup>5</sup></a> <a href="#refer-6"><sup>6</sup></a></p>
+<h2 id="DT"><a href="#DT" class="headerlink" title="DT"></a>DT</h2><p>决策树是一种基本的分类和回归方法。和我们之前学过的逻辑斯特回归，线性回归等算法不同，他们要么只能做回归要么只能做分类，而决策树既可以做分类也可以做回归。主要包括：ID3，C4.5，CART。</p>
+<p>物理含义：表示定义在特征空间上的条件概率分布，也就是把<script type="math/tex">P(y)</script>转化为<script type="math/tex">P(y|X)</script>。同时也可以理解为 if-then 规则的集合。如下图左图所示。</p>
+<p>几何含义： “分而治之”的思想，即把特征空间划分为一系列的矩形区域，然后再每一个区域拟合一个简单的模型。如下图右图所示。本文将用决策树的几何含义对决策树进行讲解。</p>
+<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>原因：<br>在决策树构建的过程中，对决策树的生长没有进行合理的限制（剪枝）；<br>样本中有一些噪声数据，没有对噪声数据进行有效的剔除；<br>在构建决策树过程中使用了较多的输出变量，变量较多也容易产生过拟合。<br>解决办法：<br>选择合理的参数进行剪枝，可以分为预剪枝和后剪枝，我们一般采用后剪枝的方法；<br>利用K−folds交叉验证，将训练集分为K份，然后进行K次交叉验证，每次使用K−1份作为训练样本数据集，另外一份作为测试集；<br>减少特征，计算每一个特征和响应变量的相关性，常见得为皮尔逊相关系数，将相关性较小的变量剔除；当然还有一些其他的方法来进行特征筛选，比如基于决策树的特征筛选，通过正则化的方式来进行特征选取等（决策的正则化，例如，L1和L2正则，具体是对谁的正则呢？怎样正则的呢？）。</p>
+<h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><p>预剪枝：在决策树生成初期就已经设置了决策树的参数，决策树构建过程中，满足参数条件就提前停止决策树的生成。<br>后剪枝：后剪枝是一种全局的优化方法，它是在决策树完全建立之后再返回去对决策树进行剪枝。<br>参数：树的高度、叶子节点的数目、最大叶子节点数、限制不纯度。</p>
+<p>预剪枝使得决策树的很多分支都没有“展开”，这不仅降低了过拟合的风险，还显著减少了决策树的训练时间开销和测试时间开销。但是，另一方面，因为预剪枝是基于“贪心”的，所以，虽然当前划分不能提升泛华性能，但是基于该划分的后续划分却有可能导致性能提升，因此预剪枝决策树有可能带来欠拟合的风险。</p>
+<p>后剪枝决策树通常比预剪枝决策树保留了更多的分支，一般情形下，后剪枝决策树的欠拟合风险小，泛华性能往往也要优于预剪枝决策树。但后剪枝过程是在构建完全决策树之后进行的，并且要自底向上的对树中的所有非叶结点进行逐一考察，因此其训练时间开销要比未剪枝决策树和预剪枝决策树都大得多。</p>
+<ul>
+<li>REP-错误率降低剪枝</li>
+<li>PEP-悲观剪枝<a href="#refer-13"><sup>13</sup></a></li>
+<li>CCP-代价复杂度剪枝<a href="#refer-13"><sup>13</sup></a></li>
+</ul>
+<p>后剪枝会减少欠拟合的风险，但训练时间相对于预剪枝会长很多。</p>
+<p>REP方法是通过一个新的验证集来纠正树的过拟合问题。对于决策树中的每一个非叶子节点的子树，我们将它替换成一个叶子节点，该叶子节点的类别用大多数原则来确定，这样就产生了一个新的相对简化决策树，然后比较这两个决策树在验证集中的表现。如果新的决策树在验证集中的正确率较高，那么该子树就可以替换成叶子节点，从而达到决策树剪枝的目的。该算法是从下往上依次遍历所有的子树，直至没有任何子树可以替换使得在验证集上的表现得以改进时，算法就可以终止。</p>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>ID3以信息增益作为特征划分依据。信息增益表示由于得知特征a的信息后儿时的数据集D的分类不确定性减少的程度，后面部分越小,减小的程度越小,增益越大。选择划分后信息增益大的作为划分特征，说明使用该特征后划分得到的子集纯度越高，即不确定性越小。因此我们总是选择当前使得信息增益最大的特征来划分数据集。缺点是信息增益偏向取值较多的特征（原因：当特征的取值较多时，根据此特征划分更容易得到纯度更高的子集，因此划分后的熵更低，即不确定性更低，因此信息增益更大）</p>
+<p>C4.5以信息增益率作为特征划分依据。可以利用连续特征，同时还增加了处理缺失值的方法和剪枝。需要注意的是，C4.5使用信息增益比对特征进行选择又会出现对特征取值较少的特征有偏好的问题。因此 C4.5 并不是直接用增益率最大的特征进行划分，而是使用一个启发式方法：先从候选划分特征中找到信息增益高于平均值的特征，再从中选择增益率最高的。C4.5处理连续特征方法是首先对连续特征进行排序，然后选择相邻值得中点作为分割点，需要注意的是，C4.5处理连续值是二分，并且该连续特征在接下来也可以继续使用。其余就和处理离散特征没有太大的区别了。</p>
+<p>CART以基尼系数作为特征划分依据。无论是 ID3 还是 C4.5 都会涉及大量的对数运算。CART 分类树算法使用基尼系数，基尼系数代表了模型的不纯度，基尼系数越小，则不纯度越低，特征越好。</p>
+<script type="math/tex; mode=display">
+Gini(p) = \sum_{k=1}^{K} p_{k} (1-p_{k}) = 1 - \sum_{k=1}^{K} p_{k}^2</script><p>如果是二类分类问题，计算就更加简单了，如果属于第一个样本输出的概率是 p，则基尼系数的表达式为：</p>
+<script type="math/tex; mode=display">
+Gini(p) = 2p(1 - p)</script><p>对于个给定的样本D，假设有 K 个类别, 第 k 个类别的数量为 <script type="math/tex">C_{k}</script> ,则样本 D 的基尼系数表达式为：</p>
+<script type="math/tex; mode=display">
+Gini(D) = 1 - \sum_{k=1}^{K} (\frac{|C_k|}{|D|})^2</script><p>特别的，对于样本 D，如果根据特征 A 的某个值 a，把 D 分成 D1 和 D2 两部分，则在特征 A 的条件下，D 的基尼系数表达式为：</p>
+<script type="math/tex; mode=display">
+Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
+<li>采用基尼系数可以降低计算量</li>
+<li>连续值处理：其思想和 C4.5 是相同的，都是将连续的特征离散化。唯一的区别在于在选择划分点时的度量方式不同，C4.5 使用的是信息增益比，则 CART 分类树使用的是基尼系数。</li>
+<li>采用二叉树：ID3 或者 C4.5采用的是多叉树；CART树采用的是二叉树。在 ID3 或者 C4.5 的一棵子树中，离散特征只会参与一层节点的建立；CART树中离散的特征可能参与多层节点的建立。</li>
+</ul>
+<h2 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h2><p>随机森林是集成学习中的Bagging方法。提到随机森林，就不得不提Bagging，Bagging可以简单的理解为：放回抽样，多数表决（分类）或简单平均（回归）,同时Bagging的基学习器之间属于并列生成，不存在强依赖关系。</p>
+<p>Random Forest（随机森林）是Bagging的扩展变体，它在以决策树 为基学习器构建Bagging集成的基础上，进一步在决策树的训练过程中引入了随机特征选择，因此可以概括RF包括四个部分：1、随机选择样本（放回抽样）；2、随机选择特征；3、构建决策树；4、随机森林投票（平均）。 </p>
+<p>RF和Bagging对比：RF的起始性能较差，特别当只有一个基学习器时，随着学习器数目增多，随机森林通常会收敛到更低的泛化误差。随机森林的训练效率也会高于Bagging，因为在单个决策树的构建中，Bagging使用的是‘确定性’决策树，在选择特征划分结点时，要对所有的特征进行考虑，而随机森林使用的是‘随机性’特征数，只需考虑特征的子集。</p>
+<h2 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h2><p>GBDT是集成学习中的Boosting方法。提GBDT之前，谈一下Boosting，Boosting是一种与Bagging很类似的技术。不论是Boosting还是Bagging，所使用的多个分类器类型都是一致的。但是在前者当中，不同的分类器是通过串行训练而获得的，每个新分类器都根据已训练的分类器的性能来进行训练。Boosting是通过关注被已有分类器错分的那些数据来获得新的分类器。 </p>
+<p>GBDT与传统的Boosting区别较大，它的每一次计算都是为了减少上一次的残差，而为了消除残差，我们可以在残差减小的梯度方向上建立模型,所以说，在GradientBoost中，每个新的模型的建立是为了使得之前的模型的残差往梯度下降的方法，与传统的Boosting中关注正确错误的样本加权有着很大的区别。 </p>
+<p>在GradientBoosting算法中，关键就是利用损失函数的负梯度方向在当前模型的值作为残差的近似值，进而拟合一棵CART回归树。 </p>
+<p>GBDT的会累加所有树的结果，而这种累加是无法通过分类完成的，因此GBDT的树都是CART回归树，而不是分类树（尽管GBDT调整后也可以用于分类但不代表GBDT的树为分类树）。</p>
+<p>GBDT的性能在RF的基础上又有一步提升，因此其优点也很明显，1、它能灵活的处理各种类型的数据；2、在相对较少的调参时间下，预测的准确度较高。 </p>
+<p>当然由于它是Boosting，因此基学习器之前存在串行关系，难以并行训练数据。</p>
+<h2 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h2><p>XGBoost的性能在GBDT上又有一步提升，而其性能也能通过各种比赛管窥一二。坊间对XGBoost最大的认知在于其能够自动地运用CPU的多线程进行并行计算，同时在算法精度上也进行了精度的提高。 </p>
+<p>由于GBDT在合理的参数设置下，往往要生成一定数量的树才能达到令人满意的准确率，在数据集较复杂时，模型可能需要几千次迭代运算。但是XGBoost利用并行的CPU更好的解决了这个问题。 </p>
+<p>其实XGBoost和GBDT的差别也较大，这一点也同样体现在其性能表现上，详见XGBoost与GBDT的区别。</p>
+<ul>
+<li>与GBDT的区别</li>
+</ul>
+<p>传统的GBDT以CART树作为基学习器，XGBoost还支持线性分类器，这个时候XGBoost相当于L1和L2正则化的逻辑斯蒂回归（分类）或者线性回归（回归）；传统的GBDT在优化的时候只用到一阶导数信息，XGBoost则对代价函数进行了二阶泰勒展开，得到一阶和二阶导数；</p>
+<p>XGBoost在代价函数中加入了正则项，用于控制模型的复杂度。从权衡方差偏差来看，它降低了模型的方差，使学习出来的模型更加简单，放置过拟合，这也是XGBoost优于传统GBDT的一个特性；shrinkage（缩减），相当于学习速率（XGBoost中的eta）。XGBoost在进行完一次迭代时，会将叶子节点的权值乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。（GBDT也有学习速率）；</p>
+<p>列抽样。XGBoost借鉴了随机森林的做法，支持列抽样，不仅防止过 拟合，还能减少计算；</p>
+<p>对缺失值的处理。对于特征的值有缺失的样本，XGBoost还可以自动 学习出它的分裂方向；</p>
+<p>XGBoost工具支持并行。Boosting不是一种串行的结构吗？怎么并行的？注意XGBoost的并行不是tree粒度的并行，XGBoost也是一次迭代完才能进行下一次迭代的（第t次迭代的代价函数里包含了前面t-1次迭代的预测值）。XGBoost的并行是在特征粒度上的。我们知道，决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），XGBoost在训练之前，预先对数据进行了排序，然后保存为block结构，后面的迭代 中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-11 - 深度模型</title>
+    <url>/ai/ml-system/recommender/12-deep-model/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>深度模型主要是在深度学习后崛起的，主要通过深度学习网络做了自动特征交叉。</p>
+<a id="more"></a>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><ul>
+<li>Wide&amp;Deep</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
       </tags>
   </entry>
   <entry>
@@ -2279,7 +2407,7 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>特征工程</tag>
+        <tag>推荐系统</tag>
       </tags>
   </entry>
   <entry>
@@ -2306,7 +2434,7 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>Embedding</tag>
+        <tag>推荐系统</tag>
       </tags>
   </entry>
   <entry>
@@ -2314,7 +2442,90 @@
     <url>/ai/ml-system/recommender/4-recall/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>多种策略混合，快而全</p>
 <a id="more"></a>
-<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h1 id="基于内容（标签）"><a href="#基于内容（标签）" class="headerlink" title="基于内容（标签）"></a>基于内容（标签）</h1><p>所谓基于内容的推荐算法(Content-Based Recommendations)是基于标的物相关信息、用户相关信息及用户对标的物的操作行为来构建推荐算法模型，为用户提供推荐服务。这里的标的物相关信息可以是对标的物文字描述的metadata信息、标签、用户评论、人工标注的信息等。用户相关信息是指人口统计学信息(如年龄、性别、偏好、地域、收入等等)。用户对标的物的操作行为可以是评论、收藏、点赞、观看、浏览、点击、加购物车、购买等。基于内容的推荐算法一般只依赖于用户自身的行为为用户提供推荐，不涉及到其他用户的行为。</p>
+<h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><h1 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h1><ul>
+<li>查表（MySQL）</li>
+<li>向量召回</li>
+<li><p>Elastic Search</p>
+</li>
+<li><p>缓存（Redis）</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://lumingdong.cn/cooperative-recommendation-algorithms.html" target="_blank" rel="noopener">基于协同的推荐算法</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://blog.csdn.net/GFDGFHSDS/article/details/104775336" target="_blank" rel="noopener">推荐系统之LFM算法详解</a></li>
+<li>[3] <span id="refer-3"></span> <a href="https://blog.csdn.net/u012151283/article/details/77716085" target="_blank" rel="noopener">矩阵分解(MF,SVD)和协同过滤(CF)</a></li>
+<li>[4] <span id="refer-4"></span> <a href="https://zh.wikipedia.org/zh-hans/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3" target="_blank" rel="noopener">矩阵分解 - 维基百科</a></li>
+<li>[5] <span id="refer-5"></span> <a href="https://blog.csdn.net/jamexfx/article/details/93780308" target="_blank" rel="noopener">推荐系统面试题之机器学习（一）树模型</a></li>
+<li>[6] <span id="refer-6"></span> <a href="https://zhuanlan.zhihu.com/p/36335867" target="_blank" rel="noopener">决策树的进化史 - 知乎</a></li>
+<li>[7] <span id="refer-7"></span> <a href="https://scikit-learn.org/stable/modules/tree.html" target="_blank" rel="noopener">1.10. Decision Trees — scikit-learn 0.24.2 documentation</a></li>
+<li>[8] <span id="refer-8"></span> <a href="https://cuijiahua.com/blog/2017/11/ml_2_decision_tree_1.html" target="_blank" rel="noopener">机器学习实战教程（二）：决策树基础篇之让我们从相亲说起</a></li>
+<li>[9] <span id="refer-9"></span> <a href="https://blog.csdn.net/manduner/article/details/90516561" target="_blank" rel="noopener">决策树常见的面试点整理</a></li>
+<li>[10] <span id="refer-10"></span> <a href="https://blog.csdn.net/weixin_39946355/article/details/111668238" target="_blank" rel="noopener">l2的最优回归_机器学习（七）：数据预处理—特征选择-L1、L2正则化</a></li>
+<li>[11] <span id="refer-11"></span> <a href="https://blog.csdn.net/jinping_shi/article/details/52433975" target="_blank" rel="noopener">机器学习中正则化项L1和L2的直观理解</a></li>
+<li>[12] <span id="refer-12"></span> <a href="https://blog.csdn.net/sinat_27784071/article/details/84347642" target="_blank" rel="noopener">降低过拟合风险的方法</a></li>
+<li>[13] <span id="refer-13"></span> <a href="https://blog.csdn.net/weixin_43216017/article/details/87534496" target="_blank" rel="noopener">决策树的剪枝：REP/PEP/CCP算法</a></li>
+<li>[14] <span id="refer-14"></span> <a href="https://easyai.tech/ai-definition/" target="_blank" rel="noopener">AI 知识库</a></li>
+<li>[15] <span id="refer-15"></span> <a href="https://cloud.tencent.com/developer/article/1150805" target="_blank" rel="noopener">树算法对比：RF、GBDT、XGBoost</a></li>
+<li>[16] <span id="refer-16"></span> <a href="https://zhuanlan.zhihu.com/p/34679467" target="_blank" rel="noopener">RF、GBDT、XGBoost常见面试题整理</a></li>
+<li>[17] <span id="refer-17"></span> <a href="https://zhuanlan.zhihu.com/p/348776985" target="_blank" rel="noopener">GBDT理解难点———拟合负梯度</a></li>
+<li>[18] <span id="refer-18"></span> <a href="https://www.cnblogs.com/wkang/p/10091790.html" target="_blank" rel="noopener">从零开始学推荐系统一：基于邻域的算法</a></li>
+<li>[19] <span id="refer-19"></span> <a href="https://zhuanlan.zhihu.com/p/115690499" target="_blank" rel="noopener">深入理解推荐系统：召回</a></li>
+<li>[20] <span id="refer-20"></span> <a href="https://zhuanlan.zhihu.com/p/80068528" target="_blank" rel="noopener">基于内容的推荐算法</a></li>
+<li>[21] <span id="refer-21"></span> <a href="https://blog.csdn.net/weixin_42608414/article/details/106502942" target="_blank" rel="noopener">work2vec的实战应用</a></li>
+<li>[22] <span id="refer-22"></span> <a href="https://www.cnblogs.com/jielongAI/p/10409463.html" target="_blank" rel="noopener">word2vec是如何工作的？</a></li>
+<li>[23] <span id="refer-23"></span> <a href="https://radimrehurek.com/gensim/models/doc2vec.html" target="_blank" rel="noopener">models.doc2vec – Doc2vec paragraph embeddings — gensim</a></li>
+<li>[24] <span id="refer-24"></span> <a href="https://zhuanlan.zhihu.com/p/80069337" target="_blank" rel="noopener">协同过滤推荐算法</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-5 - 排序</title>
+    <url>/ai/ml-system/recommender/5-rank/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>用尽量多且有效的feature排序，准而精</p>
+<a id="more"></a>
+<h1 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h1><h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-6 - AB测试</title>
+    <url>/ai/ml-system/recommender/6-ab-test/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>AB Test</p>
+<a id="more"></a>
+<ul>
+<li>ExperimentRoom</li>
+<li>ExperimentLayer</li>
+<li>ExperimentGroup</li>
+<li>Experiment</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-7 - 基于内容的推荐算法</title>
+    <url>/ai/ml-system/recommender/7-content-based/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基于内容的推荐算法又叫基于标签的推荐算法，是最早被大规模应用的，思路直观，仍在系统冷启动中发挥作用。</p>
+<a id="more"></a>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>所谓基于内容的推荐算法(Content-Based Recommendations)是基于标的物相关信息、用户相关信息及用户对标的物的操作行为来构建推荐算法模型，为用户提供推荐服务。这里的标的物相关信息可以是对标的物文字描述的metadata信息、标签、用户评论、人工标注的信息等。用户相关信息是指人口统计学信息(如年龄、性别、偏好、地域、收入等等)。用户对标的物的操作行为可以是评论、收藏、点赞、观看、浏览、点击、加购物车、购买等。基于内容的推荐算法一般只依赖于用户自身的行为为用户提供推荐，不涉及到其他用户的行为。</p>
 <p>基于内容的个性化推荐，一般需要三个步骤：</p>
 <ol>
 <li>基于用户信息及用户操作行为构建用户特征表示</li>
@@ -2392,9 +2603,150 @@ TF(t_k, d_j) = \frac{|| t_k \in d_j  ||}{|| d_j ||}</script><p>IDF代表的是�
 IDF(t_k) = log\frac{N}{n_k}</script><script type="math/tex; mode=display">
 TF-IDF(t_k, d_j) = TF(t_k, d_j) * IDF(t_k)</script><p>有了基于TF-IDF计算的标的物的向量表示，我们就很容易计算两个标的物之间的相似度了(cosine余弦相似度)。</p>
 <p>b. 利用LDA算法构建文章(标的物)的主题</p>
+<p>LDA算法是一类文档主题生成模型，包含词、主题、文档三层结构，是一个三层的贝叶斯概率模型。 对于语料库中的每篇文档，LDA定义了如下生成过程（generative process）：</p>
+<p>[1] 对每一篇文档，从主题分布中抽取一个主题；<br>[2] 从上述被抽到的主题所对应的单词分布中抽取一个单词；<br>[3] 重复上述过程直至遍历文档中的每一个单词。</p>
+<p>我们通过对所有文档进行LDA训练，就可以构建每篇文档的主题分布，从而构建一个基于主题的向量(每个主题就是向量的一个分量，而值就是该主题的概率值)，这样我们就可以利用该向量来计算两篇文档的相似度了。主题模型可以理解为一个降维过程，将文档的词向量表示降维成主题的向量表示(主题的个数是远远小于词的个数的，所以是降维)。</p>
 <p>c. 利用doc2vec算法构建文本相似度</p>
-<p>Word2Vec, CBOW, Skipgram</p>
-<h2 id="基于用户及标的物特征表示为用户推荐标的物"><a href="#基于用户及标的物特征表示为用户推荐标的物" class="headerlink" title="基于用户及标的物特征表示为用户推荐标的物"></a>基于用户及标的物特征表示为用户推荐标的物</h2><h1 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h1><p>协同过滤<a href="#refer-1"><sup>1</sup></a> <a href="#refer-21"><sup>21</sup></a>（Collaborative Filter，CF）主要用于召回，主要分为ItemCF和UserCF。</p>
+<p>doc2vec或者叫做 paragraph2vec, sentence embeddings，是一种非监督式算法，可以获得 句子、段落、文章的稠密向量表达，它是 word2vec 的拓展，2014年被Google的两位大牛提出，并大量用于文本分类和情感分析中。通过doc2vec学出句子、段落、文章的向量表示，可以通过计算向量之间距离来表达句子、段落、文章之间的相似性。</p>
+<p>这里我们简单描述一下doc2vec的核心思想。doc2vec受word2vec启发，由它推广而来，我们先来简单解释一下word2vec的思路。</p>
+<p>word2vec<a href="#refer-21"><sup>21</sup></a> <a href="#refer-22"><sup>22</sup></a>通过学习一个唯一的向量表示每个词，每个词向量作为矩阵W中的一列(W是所有词的词向量构成的矩阵)，矩阵列可以通过词汇表为每个词做索引，排在索引第一位的放到矩阵W的第一列，如此类推。将学习问题转化为通过上下文词序列中前几个词来预测下一个词。<br>word2vec可以用CBOW, Skipgram训练模型。Skipgram主要通过输入句子中特定的单词来预测该单词周边的其他单词。CBOW是通过目标单词周边的单词来预测目标单词，这点刚好跟skip-gram模型相反。Python包Gensim<a href="#refer-23"><sup>23</sup></a>可用来训练Word2Vec/Doc2Vec。</p>
+<p>doc2vec类似地，每个段落/文档表示为向量，作为矩阵D的一列，每个词也表示为一个向量，作为矩阵W中的一列。将学习问题转化为通过上下文词序列中前几个词和段落/文档来预测下一个词。将段落/文档和词向量通过拼接或者平均来预测句子的下一个词(下图是通过“the”、“cat”、“sat”及段落id来预测下一个词“on”)。在训练的时候我们固定上下文的长度，用滑动窗口的方法产生训练集。段落向量/句向量在上下文中共享。</p>
+<ul>
+<li>图片、音频、视频</li>
+</ul>
+<p>如果标的物包含的是图片、音频或者视频信息，处理起来会更加复杂。一种方法是利用它们的文本信息(标题、评论、描述信息、利用图像技术提取的字幕等文本信息等等，对于音频，可以通过语音识别转化为文本)采用上面(3)的技术方案获得向量化表示。对于图像或者视频，也可以利用openCV中的PSNR和SSIM算法来表示视频特征，也可以计算视频之间的相似度。另外一种可行的方法是采用图像、音频处理技术直接从图像、视频、音频中提取特征进行向量化表示，从而容易计算出相似度。总之，图片、图像、音频都可以转化为NLP问题或者图像处理问题(见下面图6)，通过图像处理和NLP获得对应的特征表示，从而最终计算出相似度，这里不详细讲解。</p>
+<h2 id="基于用户及标的物特征表示为用户推荐标的物"><a href="#基于用户及标的物特征表示为用户推荐标的物" class="headerlink" title="基于用户及标的物特征表示为用户推荐标的物"></a>基于用户及标的物特征表示为用户推荐标的物</h2><ul>
+<li>采用跟基于物品的协同过滤类似的方式推荐</li>
+</ul>
+<p>该方法采用基于用户行为记录的显式特征表示用户特征，通过将用户操作过的标的物最相似的标的物推荐给用户，算法原理跟基于物品的协同过滤类似，计算公式甚至是一样的，但是这里计算标的物相似度是基于标的物的自身信息来计算的，而基于物品的协同过滤是基于用户对标的物的行为矩阵来计算的。</p>
+<p>用户<script type="math/tex">u</script>对标的物<script type="math/tex">s</script>的喜好度<script type="math/tex">sim(u,s)</script>，可以表示为：</p>
+<script type="math/tex; mode=display">
+sim(u, s) = \sum_{s_i\inS} score(u, s_i) * sim(s_i, s)</script><p>其中<script type="math/tex">S</script>是所有用户操作过的标的物的列表，<script type="math/tex">score(u, s_i)</script>是用户<script type="math/tex">u</script>对标的物<script type="math/tex">s_i</script>的喜好度，<script type="math/tex">sim(s_i, s)</script>是标的物<script type="math/tex">s_i</script>和<script type="math/tex">s</script>的相似度。有了用户对每个标的物的相似度，基于相似度降序排列，就可以取topN推荐给用户了。</p>
+<p>除了采用上面的公式外，我们在推荐时也可以稍作变化，采用最近邻方法(K-Nearest Neighbor, KNN)。对于用户操作/喜欢过的每个标的物，通过kNN找到最相似的k个标的物。</p>
+<ul>
+<li>采用跟基于用户协同过滤类似的方法计算推荐</li>
+</ul>
+<p>如果我们获得了用户的人口统计学向量表示或者基于用户历史操作行为获得了用户的向量化表示，那么我们可以采用跟基于用户的协同过滤方法相似的方法来为用户提供个性化推荐，具体思路如下：</p>
+<p>我们可以将与该用户最相似的用户喜欢的标的物推荐给该用户，算法原理跟基于用户的协同过滤类似，计算公式甚至是一样的。但是这里计算用户相似度是基于用户的人口统计学特征向量表示来计算的(计算用户向量cosine余弦相似度)或者是基于用户历史行为嵌入获得的特征向量来计算的，而基于用户的协同过滤是基于用户对标的物的行为矩阵来计算用户之间的相似度。</p>
+<p>用户<script type="math/tex">u</script>对标的物<script type="math/tex">s</script>的喜好度<script type="math/tex">sim(u,s)</script>，可以表示为：</p>
+<script type="math/tex; mode=display">
+sim(u, s) = \sum_{s_i\inU} sim(u, u_i) * score(u_i, s)</script><p>其中<script type="math/tex">U</script>是与该用户最相似的用户集合，<script type="math/tex">score(u_i, s)</script>是用户<script type="math/tex">u</script>对标的物<script type="math/tex">s</script>的喜好度，<script type="math/tex">sim(u_i, u)</script>是标的物<script type="math/tex">u_i</script>和<script type="math/tex">u</script>的相似度。有了用户对每个标的物的相似度，基于相似度降序排列，就可以取topN推荐给用户了。</p>
+<p>与前面一样我们也可以采用最近邻方法(K-Nearest Neighbor, KNN)。通过kNN找到最相似的k个用户，将这些用户操作/喜欢过的每个标的物推荐给用户。</p>
+<ul>
+<li>基于标的物聚类的推荐</li>
+</ul>
+<p>有了标的物的向量表示，我们可以用kmeans等聚类算法将标的物聚类，有了标的物的聚类，推荐就好办了。从用户历史行为中的标的物所在的类别挑选用户没有操作行为的标的物推荐给用户，这种推荐方式是非常直观自然的。</p>
+<ul>
+<li>基于向量相似的推荐</li>
+</ul>
+<p>不管是前面提到的用户的显示的兴趣特征(利用标签来衡量用户兴趣)或者是向量式的兴趣特征(将用户的兴趣投影到向量空间)，我们都可以获得用户兴趣的向量表示。</p>
+<p>如果我们获得了用户的向量表示和标的物的向量表示，那么我们就可以通过向量的cosine余弦相似度计算用户与标的物之间的相似度。一样地，有了用户对每个标的物的相似度，基于相似度降序排列，就可以取topN推荐给用户了。</p>
+<p>基于向量的相似的推荐，需要计算用户向量与每个标的物向量的相似性。如果标的物数量较多，整个计算过程还是相当耗时的。同样地，计算标的物最相似的K个标的物，也会涉及到与每个其他的标的物计算相似度，也是非常耗时的。</p>
+<p>整个计算过程的时间复杂度是<script type="math/tex">O(N^2)</script>，N是标的物的总数。</p>
+<p>上述复杂的计算过程可以利用Spark等分布式计算平台来加速计算。对于T+1级(每天更新一次推荐结果)的推荐服务，利用Spark事先计算好，将推荐结果存储起来供前端业务调用是可以的。</p>
+<p>另外一种可行的策略是利用高效的向量检索库，在极短时间(一般几毫秒或者几十毫秒)内为用户索引出topN最相似的标的物。目前FaceBook开源的FAISS库(<a href="https://github.com/facebookresearch/faiss)就是一个高效的向量搜索与聚类库，可以在毫秒级响应查询及聚类需求，因此可以用于个性化的实时推荐。目前国内有很多公司将该库用到了推荐业务上。" target="_blank" rel="noopener">https://github.com/facebookresearch/faiss)就是一个高效的向量搜索与聚类库，可以在毫秒级响应查询及聚类需求，因此可以用于个性化的实时推荐。目前国内有很多公司将该库用到了推荐业务上。</a></p>
+<p>FAISS库适合稠密向量的检索和聚类，所以对于利用LDA、Doc2vector算法构建向量表示的方案是实用的，因为这些方法构建的是稠密向量。而对于TF-IDF及基于标签构建的向量化表示，就不适用了，这两类方法构建的都是稀疏的高维向量。</p>
+<ul>
+<li>基于标签的反向倒排索引做推荐</li>
+</ul>
+<p>基于标的物的标签和用户的历史兴趣，我们可以构建出用户基于标签兴趣的画像及标签与标的物的倒排索引查询表(熟悉搜索的同学应该不难理解)。基于该反向索引表及用户的兴趣画像，我们就可以为用户做个性化推荐了。该类算法其实就是基于标签的召回算法。</p>
+<p>具体推荐过程是这样的：从用户画像中获取用户的兴趣标签，基于用户的兴趣标签从倒排索引表中获取该标签对应的标的物，这样就可以从用户关联到标的物了。其中用户的每个兴趣标签及标签关联到的标的物都是有权重的。</p>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>基于内容的推荐是最古老的一类推荐算法，在整个推荐系统发展史上具有举足轻重的地位。虽然它的效果可能没有协同过滤及新一代推荐算法好，但是它们还是非常有应用价值的，甚至是必不可少的。基于内容的推荐算法主要用在如下几类场景。</p>
+<ul>
+<li>完全个性化推荐</li>
+</ul>
+<p>就是基于内容特征来为每个用户生成不同的推荐结果，我们常说的推荐系统就是指这类推荐形态。上面一节已经完整地讲解了怎么为用户做个性化推荐，这里不再赘述。</p>
+<ul>
+<li>的物关联标的物推荐</li>
+</ul>
+<p>标的物关联标的物的推荐也是工业界最常用的推荐形态，大量用于真实产品中。</p>
+<p>上一节讲了很多怎么构建标的物之间相似度的方法，其实这些方法可以直接用来做标的物关联标的物的推荐，只要我们将与某个标的物最相似的topN的标的物作为关联推荐即可。</p>
+<ul>
+<li>配合其他推荐算法</li>
+</ul>
+<p>由于基于内容的推荐算法在精准度上不如协同过滤等算法，但是可以更好的适应冷启动，所以在实际业务中基于内容的推荐算法会配合其他算法一起服务于用户，最常用的方法是采用级联的方式，先给用户协同过滤的推荐结果，如果该用户行为少没有协同过滤推荐结果，就为该用户推荐基于内容的推荐算法产生的推荐结果。</p>
+<ul>
+<li>主题推荐</li>
+</ul>
+<p>如果我们有标的物的标签信息，并且基于标签系统构建了一套推荐算法，那么我们就可以将用户喜欢的标签采用主题的方式推荐给用户，每个主题就是用户的一个兴趣标签。通过一些列主题的罗列展示，让用户从中筛选自己感兴趣的内容(见下面图8)。Netflix的首页大量采用基于主题的推荐模式。主题推荐的好处是可以将用户所有的兴趣点按照兴趣偏好大小先后展示出来，可解释性强，并且让用户有更多维度的自由选择空间。</p>
+<ul>
+<li>给用户推荐标签</li>
+</ul>
+<p>另外一种可行的推荐策略是不直接给用户推荐标的物，而是给用户推荐标签，用户通过关注推荐的标签，自动获取具备该标签的标的物。除了可以通过推荐的标签关联到标的物获得直接推荐标的物类似的效果外，间接地通过用户对推荐的标签的选择、关注进一步获得了用户的兴趣偏好，这是一种可行的推荐产品实现方案。</p>
+<h1 id="优劣"><a href="#优劣" class="headerlink" title="优劣"></a>优劣</h1><p>基于内容的推荐算法算是一类比较直观易懂的算法，目前在工业级推荐系统中有大量的使用场景，在本节我们对基于内容的推荐算法的优缺点加以说明，方便读者在实践中选择取舍，构建适合业务场景的内容推荐系统。</p>
+<p>优点：</p>
+<p>基于上面的介绍，基于内容的推荐算法是非常直观的，具体来说，它有如下6个优点。</p>
+<p>（1）可以很好的识别用户的口味<br>该算法完全基于用户的历史兴趣来为用户推荐，推荐的标的物也是跟用户历史兴趣相似的，所以推荐的内容一定是符合用户的口味的。</p>
+<p>（2）非常直观易懂，可解释性强<br>基于内容的推荐算法基于用户的兴趣为用户推荐跟他兴趣相似的标的物，原理简单，容易理解。同时，由于是基于用户历史兴趣推荐跟兴趣相似的标的物，用户也非常容易接受和认可。</p>
+<p>（3）可以更加容易的解决冷启动<br>只要用户有一个操作行为，就可以基于内容为用户做推荐，不依赖其他用户行为。同时对于新入库的标的物，只要它具备metadata信息等标的物相关信息，就可以利用基于内容的推荐算法将它分发出去。因此，对于强依赖于UGC内容的产品(如抖音、快手等)，基于内容的推荐可以更好地对标的物提供方进行流量扶持。</p>
+<p>（4）算法实现相对简单<br>基于内容的推荐可以基于标签维度做推荐，也可以将标的物嵌入向量空间中，利用相似度做推荐，不管哪种方式，算法实现较简单，有现成的开源的算法库供开发者使用，非常容易落地到真实的业务场景中。</p>
+<p>（5）对于小众领域也能有比较好的推荐效果<br>对于冷门小众的标的物，用户行为少，协同过滤等方法很难将这类内容分发出去，而基于内容的算法受到这种情况的影响相对较小。</p>
+<p>（6）非常适合标的物快速增长的有时效性要求的产品<br>对于标的物增长很快的产品，如今日头条等新闻资讯类APP，基本每天都有几十万甚至更多的标的物入库，另外标的物时效性也很强。新标的物一般用户行为少，协同过滤等算法很难将这些大量实时产生的新标的物推荐出去，这时就可以采用基于内容的推荐算法更好地分发这些内容。</p>
+<p>缺点：</p>
+<p>虽然基于内容的推荐实现相对容易，解释性强，但是基于内容的推荐算法存在一些不足，导致它的效果及应用范围受到一定限制。主要的问题有如下4个：</p>
+<p>（1）推荐范围狭窄，新颖性不强<br>由于该类算法只依赖于单个用户的行为为用户做推荐，推荐的结果会聚集在用户过去感兴趣的标的物类别上，如果用户不主动关注其他类型的标的物，很难为用户推荐多样性的结果，也无法挖掘用户深层次的潜在兴趣。特别是对于新用户，只有少量的行为，为用户推荐的标的物较单一。</p>
+<p>（2）需要知道相关的内容信息且处理起来较难<br>内容信息主要是文本、视频、音频，处理起来费力，相对难度较大，依赖领域知识。同时这些信息更容易有更大概率含有噪音，增加了处理难度。另外，对内容理解的全面性、完整性及准确性会影响推荐的效果。</p>
+<p>（3）较难将长尾标的物分发出去<br>基于内容的推荐需要用户对标的物有操作行为，长尾标的物一般操作行为非常少，只有很少用户操作，甚至没有用户操作。由于基于内容的推荐只利用单个用户行为做推荐，所以更难将它分发给更多的用户。</p>
+<p>（4）推荐精准度不太高<br>基于工业界的实践经验，相比协同过滤算法，基于内容的推荐算法精准度要差一些。</p>
+<h1 id="落地"><a href="#落地" class="headerlink" title="落地"></a>落地</h1><p>基于内容的推荐算法虽然容易理解，实现起来相对简单，但在落地到真实业务场景中，有很多问题需要思考解决。下面这些问题是在落地基于内容推荐算法时必须思考的，这里将他们列举出来，并提供一些简单的建议，希望可以帮到读者。</p>
+<ul>
+<li>内容来源的获取</li>
+</ul>
+<p>对于基于内容的推荐来说，有完整的、高质量的内容信息是可以构建精准的推荐算法的基础，那我们有哪些方法可以获取内容来源呢？下面这些策略是主要获取内容(包括标的物内容和用户相关内容)来源的手段。</p>
+<p>（1）标的物“自身携带”的信息<br>标的物在上架时，第三方会准备相关的内容信息，如天猫上的商品在上架时会补充很多必要的信息。对于视频来说，各类metadata信息也是视频入库时需要填充的信息。我们要做的是增加对新标的物入库的监控和审核，及时发现信息不全的情况并做适当处理。</p>
+<p>（2）通过爬虫获取标的物相关信息<br>通过爬虫爬取的信息可以作为标的物信息的补充，特别是补充上面（1）不全的信息。有了更完整的信息就可以获得更好的特征表示。</p>
+<p>（3）通过人工标注数据<br>往往人工标注的数据价值密度高，通过人工精准的标注可以大大提升算法推荐的精准度。但是人工标注成本太大。</p>
+<p>（4）通过运营活动或者产品交互让用户填的内容<br>通过抽奖活动让用户填写家庭组成、兴趣偏好等，在用户开始注册时让用户填写兴趣偏好特征，这些都是获取内容的手段。</p>
+<p>（5）通过收集用户行为直接获得或者预测推断出的内容<br>通过请求用户GPS位置知道用户的活动轨迹，用户购物时填写收货地址，用户绑定的身份证和银行卡等，通过用户操作行为预测出用户的兴趣偏好，这些方法都可以获得部分用户数据。</p>
+<p>（6）通过与第三方合作或者产品矩阵之间补充信息<br>目前中国有大数据交易市场，通过正规的数据交易或者跟其他公司合作，在不侵犯用户隐私的情况下，通过交换数据可以有效填补自己产品上缺失的数据。</p>
+<p>如果公司有多个产品，新产品可以借助老产品的巨大用户基数，将新产品的用户与老产品用户关联起来(id-maping或者账号打通)，这样老产品上丰富的用户行为信息可以赋能给新产品。</p>
+<ul>
+<li>怎么利用负反馈</li>
+</ul>
+<p>用户对标的物的操作行为不一定代表正向反馈，有可能是负向的。比如点开一个视频，看了不到几秒就退出来了，明显表明用户不喜欢。有很多产品会在用户交互中直接提供负向反馈能力，这样可以收集到更多负向反馈。</p>
+<p>负向反馈代表用户强烈的不满，因此如果推荐算法可以很好的利用这些负向反馈就能够大大提升推荐系统的精准度和满意度。基于内容的推荐算法整合负向反馈的方式有如下几种：</p>
+<p>(1) 将负向反馈整合到算法模型中<br>在构建算法模型中整合负向反馈，跟正向反馈一起学习，从而更自然地整合负向反馈信息。</p>
+<p>(2) 采用事后过滤的方式<br>先给用户生成推荐列表，再从该推荐列表中过滤掉与负向反馈关联的或者相似的标的物。</p>
+<p>(3) 采用事前处理的方式<br>从待推荐的候选集中先将与负向反馈相关联或者相似的标的物剔除掉，然后再进行相关算法的推荐。</p>
+<ul>
+<li>兴趣随时间变化</li>
+</ul>
+<p>用户的兴趣不是一成不变的，一般用户的兴趣是随着时间变化的，那怎么在算法中整合用户的兴趣变化呢？可行的策略是对用户的兴趣根据时间衰减，最近的行为给予最大的权重。还可以分别给用户建立短期兴趣特征和长期兴趣特征，在推荐时既考虑短期兴趣又考虑长期兴趣，最终推荐列表中整合两部分的推荐结果。</p>
+<p>对于新闻资讯等这类时效性强的产品，能够整合用户的实时兴趣变化可以大大提升用户体验，这也是现在信息流类推荐产品大行其道的原因。</p>
+<ul>
+<li>数据清洗</li>
+</ul>
+<p>基于内容的推荐算法依赖于标的物相关的描述信息，这些信息更多的是以文本的形式存在，这就涉及到自然语言处理了，文本中可能会存在很多歧义、符号、脏数据，我们需要事先对数据进行很好的处理，才能让后续的推荐算法产生好的效果。</p>
+<ul>
+<li>加速计算与节省资源</li>
+</ul>
+<p>在实际推荐算法落地时，我们会事先为每个标的物计算N(=50)个最相似的标的物，事先将计算好的标的物存起来，减少时间和空间成本，方便后续更好地做推荐。同时也可以利用各种分布式计算平台和快速查询平台(如Spark、FAISS库等)加速计算过程。另外，算法开发过程中尽量做到模块化，对业务做抽象封装，这可以大大提升开发效率，并且可能会节省很多资源。</p>
+<ul>
+<li>怎么解决基于内容的推荐越推越窄的问题</li>
+</ul>
+<p>前面提到基于内容的推荐存在越推越窄的缺点，那怎么避免或者减弱这种影响呢？当然用协同过滤等其他算法是一个有效的方法。另外，我们可以给用户做兴趣探索，为用户推荐兴趣之外的特征关联的标的物，通过用户的反馈来拓展用户兴趣空间，这类方法就是强化学习中的EE方法。如果我们构造了标的物的知识图谱系统，我们就可以通过图谱拓展标的物更远的联系，通过长线的相关性来做推荐，同样可以有效解决越推越窄的问题。</p>
+<ul>
+<li><p>工程落地技术选型<br>本篇文章主要讲的是基于内容的推荐系统的算法实现原理，具体工程实践时，需要考虑到数据处理、模型训练、分布式计算等技术，当前很多开源方案可以使用，常用的如Spark mllib，scikit-learn，Tensorflow，pytorch，gensim等，这些工具都封装了很多数据处理、特征提取、机器学习算法，我们可以基于第二节的算法思路来落地实现。</p>
+</li>
+<li><p>业务的安全性<br>除了技术外，在推荐产品落地中还需要考虑推荐的标的物的安全性，避免推荐反动、色情、标题党、低俗内容，这些就需要基于NLP或者CV技术对文本或者视频进行分析过滤。如果是UGC平台型的产品，还需要考虑怎么激励优质内容创作者，让好的内容得到更多的分发机会，同时对产生劣质内容的创作者采取一定的惩罚措施，比如限制发文频率、禁止一段时间的发文权限等。</p>
+</li>
+</ul>
+<hr>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-8 - 协同过滤</title>
+    <url>/ai/ml-system/recommender/8-collaborative-filter/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>协同过滤利用了用户对标的物的行为相似性来推荐。</p>
+<a id="more"></a>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>协同过滤<a href="#refer-1"><sup>1</sup></a> <a href="#refer-24"><sup>24</sup></a>（Collaborative Filter，CF）主要用于召回，主要分为ItemCF和UserCF。</p>
 <p>协同过滤的核心是怎么计算标的物之间的相似度以及用户之间的相似度。我们可以采用非常朴素的思想来计算相似度。我们将用户对标的物的评分(或者隐式反馈，如点击、收藏等)构建如下用户行为矩阵(见下面图2)，矩阵的某个元素代表某个用户对某个标的物的评分(如果是隐式反馈，值为1)，如果某个用户对某个标的物未产生行为，值为0。其中行向量代表某个用户对所有标的物的评分向量，列向量代表所有用户对某个标的物的评分向量。有了行向量和列向量，我们就可以计算用户与用户之间、标的物与标的物之间的相似度了。具体来说，行向量之间的相似度就是用户之间的相似度，列向量之间的相似度就是标的物之间的相似度。</p>
 <p>为了避免误解，这里简单解释一下隐式反馈，只要不是用户直接评分的操作行为都算隐式反馈，包括浏览、点击、播放、收藏、评论、点赞、转发等等。有很多隐式反馈是可以间接获得评分的，后面会讲解。如果不间接获得评分，就用0、1表示是否操作过。</p>
 <p>在真实业务场景中用户数和标的物数一般都是很大的(用户数可能是百万、千万、亿级，标的物可能是十万、百万、千万级)，而每个用户只会操作过有限个标的物，所以用户行为矩阵是稀疏矩阵。正因为矩阵是稀疏的，会方便我们进行相似度计算及为用户做推荐。</p>
@@ -2428,157 +2780,38 @@ sim(u, s) = \sum_{s_i \in S} score(u, s_i) * sim(s_i, s)</script><p>实际应用
 <p>用户<script type="math/tex">u</script>对标的物s的喜好度<script type="math/tex">sim(u,s)</script>可以采用如下公式计算，其中<script type="math/tex">U</script>是与该用户最相似的用户集合(我们可以基于用户相似度找到与某用户最相似的K个用户)，<script type="math/tex">score(u_i, s)</script>是用户<script type="math/tex">u_i</script>对标的物s的喜好度(对于隐式反馈为1，而对于非隐式反馈，该值为用户对标的物的评分)，<script type="math/tex">sim(u, u_i)</script>是用户<script type="math/tex">u_i</script>与用户<script type="math/tex">u</script>的相似度。</p>
 <script type="math/tex; mode=display">
 sim(u, s) = \sum_{u_i \in U} sim(u, u_i) * score(u_i, s)</script><p>有了用户对每个标的物的评分，基于评分降序排列，就可以取topN推荐给用户了。</p>
-<h2 id="离线协同过滤算法的工程实现"><a href="#离线协同过滤算法的工程实现" class="headerlink" title="离线协同过滤算法的工程实现"></a>离线协同过滤算法的工程实现</h2><p>虽然协同过滤算法原理非常简单，但是在大规模用户及海量标的物的场景下，单机是难以解决计算问题的，我们必须借助分布式技术来实现，让整个算法可以应对大规模数据的挑战。在本节，我们基于主流的Spark分布式计算平台相关的技术来详细讲解协同过滤算法的离线(批处理)实现思路，供大家参考(读者可以阅读参考文献1、2、3、4了解协同过滤算法原理及工业应用)，同时会在下一节讲解在近实时场景下怎么在工程上实现协同过滤算法。</p>
+<h1 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h1><p>虽然协同过滤算法原理非常简单，但是在大规模用户及海量标的物的场景下，单机是难以解决计算问题的，我们必须借助分布式技术来实现，让整个算法可以应对大规模数据的挑战。在本节，我们基于主流的Spark分布式计算平台相关的技术来详细讲解协同过滤算法的离线(批处理)实现思路，供大家参考(读者可以阅读参考文献1、2、3、4了解协同过滤算法原理及工业应用)，同时会在下一节讲解在近实时场景下怎么在工程上实现协同过滤算法。</p>
 <p>在这里我们只讲解基于标的物的协同过滤算法的工程实现方案，基于用户的协同过滤思路完全一样，不再赘述。</p>
 <p>为了简单起见，我们可以将推荐过程拆解为2个阶段，先计算相似度，再为用户推荐。下面分别介绍这两个步骤怎么工程实现。</p>
 <ul>
 <li>计算topK相似度</li>
 </ul>
 <p>本步骤我们计算出任意两个标的物之间的相似度，有了任意两个标的物之间的相似度，那么我们就可以为每个标的物计算出与它最相似的K个标的物了。</p>
-<h2 id="FM（Factorization-Machines）"><a href="#FM（Factorization-Machines）" class="headerlink" title="FM（Factorization Machines）"></a>FM（Factorization Machines）</h2><ol>
-<li>FM能处理数据高度稀疏场景，SVM则不能；</li>
-<li>FM具有线性的计算复杂度，而SVM依赖于support vector。</li>
-<li>FM能够在任意的实数特征向量中生效。</li>
-</ol>
-<h2 id="MF-Matrix-Factorization"><a href="#MF-Matrix-Factorization" class="headerlink" title="MF(Matrix Factorization)"></a>MF(Matrix Factorization)</h2><p>矩阵分解<a href="#refer-2"><sup>2</sup></a>主要使用的是特征分解和奇异值分解（SVD）。</p>
-<p>SVD++ BiasSVD</p>
-<h1 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h1><ul>
-<li>查表（MySQL）</li>
-<li>向量召回</li>
-<li><p>Elastic Search</p>
-</li>
-<li><p>缓存（Redis）</p>
-</li>
-</ul>
 <hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://lumingdong.cn/cooperative-recommendation-algorithms.html" target="_blank" rel="noopener">基于协同的推荐算法</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://blog.csdn.net/GFDGFHSDS/article/details/104775336" target="_blank" rel="noopener">推荐系统之LFM算法详解</a></li>
-<li>[3] <span id="refer-3"></span> <a href="https://blog.csdn.net/u012151283/article/details/77716085" target="_blank" rel="noopener">矩阵分解(MF,SVD)和协同过滤(CF)</a></li>
-<li>[4] <span id="refer-4"></span> <a href="https://zh.wikipedia.org/zh-hans/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3" target="_blank" rel="noopener">矩阵分解 - 维基百科</a></li>
-<li>[5] <span id="refer-5"></span> <a href="https://blog.csdn.net/jamexfx/article/details/93780308" target="_blank" rel="noopener">推荐系统面试题之机器学习（一）树模型</a></li>
-<li>[6] <span id="refer-6"></span> <a href="https://zhuanlan.zhihu.com/p/36335867" target="_blank" rel="noopener">决策树的进化史 - 知乎</a></li>
-<li>[7] <span id="refer-7"></span> <a href="https://scikit-learn.org/stable/modules/tree.html" target="_blank" rel="noopener">1.10. Decision Trees — scikit-learn 0.24.2 documentation</a></li>
-<li>[8] <span id="refer-8"></span> <a href="https://cuijiahua.com/blog/2017/11/ml_2_decision_tree_1.html" target="_blank" rel="noopener">机器学习实战教程（二）：决策树基础篇之让我们从相亲说起</a></li>
-<li>[9] <span id="refer-9"></span> <a href="https://blog.csdn.net/manduner/article/details/90516561" target="_blank" rel="noopener">决策树常见的面试点整理</a></li>
-<li>[10] <span id="refer-10"></span> <a href="https://blog.csdn.net/weixin_39946355/article/details/111668238" target="_blank" rel="noopener">l2的最优回归_机器学习（七）：数据预处理—特征选择-L1、L2正则化</a></li>
-<li>[11] <span id="refer-11"></span> <a href="https://blog.csdn.net/jinping_shi/article/details/52433975" target="_blank" rel="noopener">机器学习中正则化项L1和L2的直观理解</a></li>
-<li>[12] <span id="refer-12"></span> <a href="https://blog.csdn.net/sinat_27784071/article/details/84347642" target="_blank" rel="noopener">降低过拟合风险的方法</a></li>
-<li>[13] <span id="refer-13"></span> <a href="https://blog.csdn.net/weixin_43216017/article/details/87534496" target="_blank" rel="noopener">决策树的剪枝：REP/PEP/CCP算法</a></li>
-<li>[14] <span id="refer-14"></span> <a href="https://easyai.tech/ai-definition/" target="_blank" rel="noopener">AI 知识库</a></li>
-<li>[15] <span id="refer-15"></span> <a href="https://cloud.tencent.com/developer/article/1150805" target="_blank" rel="noopener">树算法对比：RF、GBDT、XGBoost</a></li>
-<li>[16] <span id="refer-16"></span> <a href="https://zhuanlan.zhihu.com/p/34679467" target="_blank" rel="noopener">RF、GBDT、XGBoost常见面试题整理</a></li>
-<li>[17] <span id="refer-17"></span> <a href="https://zhuanlan.zhihu.com/p/348776985" target="_blank" rel="noopener">GBDT理解难点———拟合负梯度</a></li>
-<li>[18] <span id="refer-18"></span> <a href="https://www.cnblogs.com/wkang/p/10091790.html" target="_blank" rel="noopener">从零开始学推荐系统一：基于邻域的算法</a></li>
-<li>[19] <span id="refer-19"></span> <a href="https://zhuanlan.zhihu.com/p/115690499" target="_blank" rel="noopener">深入理解推荐系统：召回</a></li>
-<li>[20] <span id="refer-20"></span> <a href="https://zhuanlan.zhihu.com/p/80068528" target="_blank" rel="noopener">基于内容的推荐算法</a></li>
-<li>[21] <span id="refer-21"></span> <a href="https://zhuanlan.zhihu.com/p/80069337" target="_blank" rel="noopener">协同过滤推荐算法</a></li>
-</ul>
 ]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>推理优化</tag>
+        <tag>推荐系统</tag>
       </tags>
   </entry>
   <entry>
-    <title>机器学习系统 4-1 - 打分</title>
-    <url>/ai/ml-system/recommender/5-rank/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>多feature打分，准而精</p>
+    <title>机器学习系统 4-9 - 矩阵分解</title>
+    <url>/ai/ml-system/recommender/9-matrix-factorization/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>矩阵分解将用户行为矩阵分解为两个低秩矩阵的乘积，本质上是一种嵌入(Embedding)方法。</p>
 <a id="more"></a>
-<h1 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h1><h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 4-7 - 树模型</title>
-    <url>/ai/ml-system/recommender/6-ab-test/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>AB Test</p>
-<a id="more"></a>
-<ul>
-<li>ExperimentRoom</li>
-<li>ExperimentLayer</li>
-<li>ExperimentGroup</li>
-<li>Experiment</li>
-</ul>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>矩阵分解<a href="#refer-2"><sup>2</sup></a>主要使用的是特征分解和奇异值分解（SVD）。</p>
+<p>SVD++ BiasSVD</p>
+<p>—</p>
 ]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 4-1 - AB测试</title>
-    <url>/ai/ml-system/recommender/7-tree/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>树模型以决策树为基本原型。</p>
-<a id="more"></a>
-<p>树模型<a href="#refer-5"><sup>5</sup></a> <a href="#refer-6"><sup>6</sup></a></p>
-<h2 id="DT"><a href="#DT" class="headerlink" title="DT"></a>DT</h2><p>决策树是一种基本的分类和回归方法。和我们之前学过的逻辑斯特回归，线性回归等算法不同，他们要么只能做回归要么只能做分类，而决策树既可以做分类也可以做回归。主要包括：ID3，C4.5，CART。</p>
-<p>物理含义：表示定义在特征空间上的条件概率分布，也就是把<script type="math/tex">P(y)</script>转化为<script type="math/tex">P(y|X)</script>。同时也可以理解为 if-then 规则的集合。如下图左图所示。</p>
-<p>几何含义： “分而治之”的思想，即把特征空间划分为一系列的矩形区域，然后再每一个区域拟合一个简单的模型。如下图右图所示。本文将用决策树的几何含义对决策树进行讲解。</p>
-<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>原因：<br>在决策树构建的过程中，对决策树的生长没有进行合理的限制（剪枝）；<br>样本中有一些噪声数据，没有对噪声数据进行有效的剔除；<br>在构建决策树过程中使用了较多的输出变量，变量较多也容易产生过拟合。<br>解决办法：<br>选择合理的参数进行剪枝，可以分为预剪枝和后剪枝，我们一般采用后剪枝的方法；<br>利用K−folds交叉验证，将训练集分为K份，然后进行K次交叉验证，每次使用K−1份作为训练样本数据集，另外一份作为测试集；<br>减少特征，计算每一个特征和响应变量的相关性，常见得为皮尔逊相关系数，将相关性较小的变量剔除；当然还有一些其他的方法来进行特征筛选，比如基于决策树的特征筛选，通过正则化的方式来进行特征选取等（决策的正则化，例如，L1和L2正则，具体是对谁的正则呢？怎样正则的呢？）。</p>
-<h3 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h3><p>预剪枝：在决策树生成初期就已经设置了决策树的参数，决策树构建过程中，满足参数条件就提前停止决策树的生成。<br>后剪枝：后剪枝是一种全局的优化方法，它是在决策树完全建立之后再返回去对决策树进行剪枝。<br>参数：树的高度、叶子节点的数目、最大叶子节点数、限制不纯度。</p>
-<p>预剪枝使得决策树的很多分支都没有“展开”，这不仅降低了过拟合的风险，还显著减少了决策树的训练时间开销和测试时间开销。但是，另一方面，因为预剪枝是基于“贪心”的，所以，虽然当前划分不能提升泛华性能，但是基于该划分的后续划分却有可能导致性能提升，因此预剪枝决策树有可能带来欠拟合的风险。</p>
-<p>后剪枝决策树通常比预剪枝决策树保留了更多的分支，一般情形下，后剪枝决策树的欠拟合风险小，泛华性能往往也要优于预剪枝决策树。但后剪枝过程是在构建完全决策树之后进行的，并且要自底向上的对树中的所有非叶结点进行逐一考察，因此其训练时间开销要比未剪枝决策树和预剪枝决策树都大得多。</p>
-<ul>
-<li>REP-错误率降低剪枝</li>
-<li>PEP-悲观剪枝<a href="#refer-13"><sup>13</sup></a></li>
-<li>CCP-代价复杂度剪枝<a href="#refer-13"><sup>13</sup></a></li>
-</ul>
-<p>后剪枝会减少欠拟合的风险，但训练时间相对于预剪枝会长很多。</p>
-<p>REP方法是通过一个新的验证集来纠正树的过拟合问题。对于决策树中的每一个非叶子节点的子树，我们将它替换成一个叶子节点，该叶子节点的类别用大多数原则来确定，这样就产生了一个新的相对简化决策树，然后比较这两个决策树在验证集中的表现。如果新的决策树在验证集中的正确率较高，那么该子树就可以替换成叶子节点，从而达到决策树剪枝的目的。该算法是从下往上依次遍历所有的子树，直至没有任何子树可以替换使得在验证集上的表现得以改进时，算法就可以终止。</p>
-<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>ID3以信息增益作为特征划分依据。信息增益表示由于得知特征a的信息后儿时的数据集D的分类不确定性减少的程度，后面部分越小,减小的程度越小,增益越大。选择划分后信息增益大的作为划分特征，说明使用该特征后划分得到的子集纯度越高，即不确定性越小。因此我们总是选择当前使得信息增益最大的特征来划分数据集。缺点是信息增益偏向取值较多的特征（原因：当特征的取值较多时，根据此特征划分更容易得到纯度更高的子集，因此划分后的熵更低，即不确定性更低，因此信息增益更大）</p>
-<p>C4.5以信息增益率作为特征划分依据。可以利用连续特征，同时还增加了处理缺失值的方法和剪枝。需要注意的是，C4.5使用信息增益比对特征进行选择又会出现对特征取值较少的特征有偏好的问题。因此 C4.5 并不是直接用增益率最大的特征进行划分，而是使用一个启发式方法：先从候选划分特征中找到信息增益高于平均值的特征，再从中选择增益率最高的。C4.5处理连续特征方法是首先对连续特征进行排序，然后选择相邻值得中点作为分割点，需要注意的是，C4.5处理连续值是二分，并且该连续特征在接下来也可以继续使用。其余就和处理离散特征没有太大的区别了。</p>
-<p>CART以基尼系数作为特征划分依据。无论是 ID3 还是 C4.5 都会涉及大量的对数运算。CART 分类树算法使用基尼系数，基尼系数代表了模型的不纯度，基尼系数越小，则不纯度越低，特征越好。</p>
-<script type="math/tex; mode=display">
-Gini(p) = \sum_{k=1}^{K} p_{k} (1-p_{k}) = 1 - \sum_{k=1}^{K} p_{k}^2</script><p>如果是二类分类问题，计算就更加简单了，如果属于第一个样本输出的概率是 p，则基尼系数的表达式为：</p>
-<script type="math/tex; mode=display">
-Gini(p) = 2p(1 - p)</script><p>对于个给定的样本D，假设有 K 个类别, 第 k 个类别的数量为 <script type="math/tex">C_{k}</script> ,则样本 D 的基尼系数表达式为：</p>
-<script type="math/tex; mode=display">
-Gini(D) = 1 - \sum_{k=1}^{K} (\frac{|C_k|}{|D|})^2</script><p>特别的，对于样本 D，如果根据特征 A 的某个值 a，把 D 分成 D1 和 D2 两部分，则在特征 A 的条件下，D 的基尼系数表达式为：</p>
-<script type="math/tex; mode=display">
-Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
-<li>采用基尼系数可以降低计算量</li>
-<li>连续值处理：其思想和 C4.5 是相同的，都是将连续的特征离散化。唯一的区别在于在选择划分点时的度量方式不同，C4.5 使用的是信息增益比，则 CART 分类树使用的是基尼系数。</li>
-<li>采用二叉树：ID3 或者 C4.5采用的是多叉树；CART树采用的是二叉树。在 ID3 或者 C4.5 的一棵子树中，离散特征只会参与一层节点的建立；CART树中离散的特征可能参与多层节点的建立。</li>
-</ul>
-<h2 id="Random-Forest"><a href="#Random-Forest" class="headerlink" title="Random Forest"></a>Random Forest</h2><p>随机森林是集成学习中的Bagging方法。提到随机森林，就不得不提Bagging，Bagging可以简单的理解为：放回抽样，多数表决（分类）或简单平均（回归）,同时Bagging的基学习器之间属于并列生成，不存在强依赖关系。</p>
-<p>Random Forest（随机森林）是Bagging的扩展变体，它在以决策树 为基学习器构建Bagging集成的基础上，进一步在决策树的训练过程中引入了随机特征选择，因此可以概括RF包括四个部分：1、随机选择样本（放回抽样）；2、随机选择特征；3、构建决策树；4、随机森林投票（平均）。 </p>
-<p>RF和Bagging对比：RF的起始性能较差，特别当只有一个基学习器时，随着学习器数目增多，随机森林通常会收敛到更低的泛化误差。随机森林的训练效率也会高于Bagging，因为在单个决策树的构建中，Bagging使用的是‘确定性’决策树，在选择特征划分结点时，要对所有的特征进行考虑，而随机森林使用的是‘随机性’特征数，只需考虑特征的子集。</p>
-<h2 id="GBDT"><a href="#GBDT" class="headerlink" title="GBDT"></a>GBDT</h2><p>GBDT是集成学习中的Boosting方法。提GBDT之前，谈一下Boosting，Boosting是一种与Bagging很类似的技术。不论是Boosting还是Bagging，所使用的多个分类器类型都是一致的。但是在前者当中，不同的分类器是通过串行训练而获得的，每个新分类器都根据已训练的分类器的性能来进行训练。Boosting是通过关注被已有分类器错分的那些数据来获得新的分类器。 </p>
-<p>GBDT与传统的Boosting区别较大，它的每一次计算都是为了减少上一次的残差，而为了消除残差，我们可以在残差减小的梯度方向上建立模型,所以说，在GradientBoost中，每个新的模型的建立是为了使得之前的模型的残差往梯度下降的方法，与传统的Boosting中关注正确错误的样本加权有着很大的区别。 </p>
-<p>在GradientBoosting算法中，关键就是利用损失函数的负梯度方向在当前模型的值作为残差的近似值，进而拟合一棵CART回归树。 </p>
-<p>GBDT的会累加所有树的结果，而这种累加是无法通过分类完成的，因此GBDT的树都是CART回归树，而不是分类树（尽管GBDT调整后也可以用于分类但不代表GBDT的树为分类树）。</p>
-<p>GBDT的性能在RF的基础上又有一步提升，因此其优点也很明显，1、它能灵活的处理各种类型的数据；2、在相对较少的调参时间下，预测的准确度较高。 </p>
-<p>当然由于它是Boosting，因此基学习器之前存在串行关系，难以并行训练数据。</p>
-<h2 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h2><p>XGBoost的性能在GBDT上又有一步提升，而其性能也能通过各种比赛管窥一二。坊间对XGBoost最大的认知在于其能够自动地运用CPU的多线程进行并行计算，同时在算法精度上也进行了精度的提高。 </p>
-<p>由于GBDT在合理的参数设置下，往往要生成一定数量的树才能达到令人满意的准确率，在数据集较复杂时，模型可能需要几千次迭代运算。但是XGBoost利用并行的CPU更好的解决了这个问题。 </p>
-<p>其实XGBoost和GBDT的差别也较大，这一点也同样体现在其性能表现上，详见XGBoost与GBDT的区别。</p>
-<ul>
-<li>与GBDT的区别</li>
-</ul>
-<p>传统的GBDT以CART树作为基学习器，XGBoost还支持线性分类器，这个时候XGBoost相当于L1和L2正则化的逻辑斯蒂回归（分类）或者线性回归（回归）；传统的GBDT在优化的时候只用到一阶导数信息，XGBoost则对代价函数进行了二阶泰勒展开，得到一阶和二阶导数；</p>
-<p>XGBoost在代价函数中加入了正则项，用于控制模型的复杂度。从权衡方差偏差来看，它降低了模型的方差，使学习出来的模型更加简单，放置过拟合，这也是XGBoost优于传统GBDT的一个特性；shrinkage（缩减），相当于学习速率（XGBoost中的eta）。XGBoost在进行完一次迭代时，会将叶子节点的权值乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。（GBDT也有学习速率）；</p>
-<p>列抽样。XGBoost借鉴了随机森林的做法，支持列抽样，不仅防止过 拟合，还能减少计算；</p>
-<p>对缺失值的处理。对于特征的值有缺失的样本，XGBoost还可以自动 学习出它的分裂方向；</p>
-<p>XGBoost工具支持并行。Boosting不是一种串行的结构吗？怎么并行的？注意XGBoost的并行不是tree粒度的并行，XGBoost也是一次迭代完才能进行下一次迭代的（第t次迭代的代价函数里包含了前面t-1次迭代的预测值）。XGBoost的并行是在特征粒度上的。我们知道，决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），XGBoost在训练之前，预先对数据进行了排序，然后保存为block结构，后面的迭代 中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
+        <tag>推荐系统</tag>
       </tags>
   </entry>
   <entry>
@@ -2591,6 +2824,84 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <h2 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h2><p>提供Jupyter Notebook界面，调试训练模型。</p>
 <h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>提供分布式/硬件加速训练和调参功能。</p>
 <h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><p>提供模型在线服务或批处理功能。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 3-2 - 数据预处理</title>
+    <url>/ai/ml-system/system/2-data-preprocess/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 3-3 - 实验</title>
+    <url>/ai/ml-system/system/3-experiment/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 3-4 - 训练</title>
+    <url>/ai/ml-system/system/4-training/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 3-4 - 训练</title>
+    <url>/ai/ml-system/system/5-automl/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 3-4 - 模型服务</title>
+    <url>/ai/ml-system/system/6-serving/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 3-7 - Kubeflow</title>
+    <url>/ai/ml-system/system/7-kubeflow/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
 ]]></content>
       <categories>
         <category>机器学习</category>

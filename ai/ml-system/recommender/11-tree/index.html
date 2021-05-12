@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>机器学习系统 4-1 - ab测试 | KLEON</title>
+  <title>机器学习系统 4-11 - 树模型 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -22,16 +22,16 @@
   
   
   <meta name="description" content="树模型以决策树为基本原型。">
-<meta name="keywords" content="机器学习,推理优化">
+<meta name="keywords" content="机器学习,推荐系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习系统 4-1 - AB测试">
-<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/recommender/7-tree/index.html">
+<meta property="og:title" content="机器学习系统 4-11 - 树模型">
+<meta property="og:url" content="https://blog.kleon.space/ai/ml-system/recommender/11-tree/index.html">
 <meta property="og:site_name" content="KLEON">
 <meta property="og:description" content="树模型以决策树为基本原型。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-05-02T12:24:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习系统 4-1 - AB测试">
+<meta name="twitter:title" content="机器学习系统 4-11 - 树模型">
 <meta name="twitter:description" content="树模型以决策树为基本原型。">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
@@ -156,7 +156,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-ai/ml-system/recommender/7-tree" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-ai/ml-system/recommender/11-tree" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      机器学习系统 4-1 - AB测试
+      机器学习系统 4-11 - 树模型
     </h1>
   
 
@@ -232,6 +232,7 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <p>列抽样。XGBoost借鉴了随机森林的做法，支持列抽样，不仅防止过 拟合，还能减少计算；</p>
 <p>对缺失值的处理。对于特征的值有缺失的样本，XGBoost还可以自动 学习出它的分裂方向；</p>
 <p>XGBoost工具支持并行。Boosting不是一种串行的结构吗？怎么并行的？注意XGBoost的并行不是tree粒度的并行，XGBoost也是一次迭代完才能进行下一次迭代的（第t次迭代的代价函数里包含了前面t-1次迭代的预测值）。XGBoost的并行是在特征粒度上的。我们知道，决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），XGBoost在训练之前，预先对数据进行了排序，然后保存为block结构，后面的迭代 中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行。</p>
+<hr>
 
       
     </div>
@@ -242,7 +243,7 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 
       
   <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推理优化/">推理优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推荐系统/">推荐系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
       
             
@@ -253,19 +254,19 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
     
 <nav id="article-nav">
   
-    <a href="/ai/ml-system/recommender/6-ab-test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/ai/ml-system/recommender/10-factor-machine/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          机器学习系统 4-7 - 树模型
+          机器学习系统 4-10 - 因子分解机
         
       </div>
     </a>
   
   
-    <a href="/ai/ml-system/recommender/5-rank/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ai/ml-system/recommender/12-deep-model/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">机器学习系统 4-1 - 打分</div>
+      <div class="article-nav-title">机器学习系统 4-11 - 深度模型</div>
     </a>
   
 </nav>

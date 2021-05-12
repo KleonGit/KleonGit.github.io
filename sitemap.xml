@@ -2,35 +2,105 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/ai/ml-system/big-data/1-overview/</loc>
+    
+    <lastmod>2021-05-12T12:58:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-05-12T00:45:14.929Z</lastmod>
+    <lastmod>2021-05-12T12:54:47.105Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-05-12T00:45:14.913Z</lastmod>
+    <lastmod>2021-05-12T12:54:47.089Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-05-12T00:45:14.913Z</lastmod>
+    <lastmod>2021-05-12T12:54:47.089Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-05-12T00:45:14.913Z</lastmod>
+    <lastmod>2021-05-12T12:54:47.089Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/10-factor-machine/</loc>
+    
+    <lastmod>2021-05-12T12:24:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/8-collaborative-filter/</loc>
+    
+    <lastmod>2021-05-12T12:24:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/9-matrix-factorization/</loc>
+    
+    <lastmod>2021-05-12T12:24:56.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/ai/ml-system/recommender/4-recall/</loc>
+    
+    <lastmod>2021-05-10T08:44:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/system/2-data-preprocess/</loc>
+    
+    <lastmod>2021-05-10T08:44:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/system/3-experiment/</loc>
+    
+    <lastmod>2021-05-10T08:44:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/system/4-training/</loc>
+    
+    <lastmod>2021-05-10T08:44:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/system/5-automl/</loc>
+    
+    <lastmod>2021-05-10T08:44:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/system/6-serving/</loc>
+    
+    <lastmod>2021-05-10T08:44:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/system/7-kubeflow/</loc>
     
     <lastmod>2021-05-10T08:44:26.000Z</lastmod>
     
@@ -51,6 +121,20 @@
   </url>
   
   <url>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/11-tree/</loc>
+    
+    <lastmod>2021-05-02T12:24:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/12-deep-model/</loc>
+    
+    <lastmod>2021-05-02T12:24:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/ai/ml-system/recommender/5-rank/</loc>
     
     <lastmod>2021-05-02T12:24:56.000Z</lastmod>
@@ -65,7 +149,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/ai/ml-system/recommender/7-tree/</loc>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/7-content-based/</loc>
     
     <lastmod>2021-05-02T12:24:56.000Z</lastmod>
     
