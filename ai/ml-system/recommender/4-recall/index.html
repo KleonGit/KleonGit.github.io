@@ -262,9 +262,16 @@ TF-IDF(t_k, d_j) = TF(t_k, d_j) * IDF(t_k)</script><p>有了基于TF-IDF计算�
 <p>b. 利用LDA算法构建文章(标的物)的主题</p>
 <p>c. 利用doc2vec算法构建文本相似度</p>
 <p>Word2Vec, CBOW, Skipgram</p>
-<h2 id="基于用户及标的物特征表示为用户推荐标的物"><a href="#基于用户及标的物特征表示为用户推荐标的物" class="headerlink" title="基于用户及标的物特征表示为用户推荐标的物"></a>基于用户及标的物特征表示为用户推荐标的物</h2><h1 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h1><p>协同过滤<a href="#refer-1"><sup>1</sup></a>（Collaborative Filter，CF）主要用于召回，主要分为ItemCF和UserCF。</p>
-<h2 id="ItemCF"><a href="#ItemCF" class="headerlink" title="ItemCF"></a>ItemCF</h2><p>给用户推荐和他兴趣相似的其他用户喜欢的物品。</p>
-<p>实际应用中，采用一个session 内的用户行为来计算 两个商品的pair对。</p>
+<h2 id="基于用户及标的物特征表示为用户推荐标的物"><a href="#基于用户及标的物特征表示为用户推荐标的物" class="headerlink" title="基于用户及标的物特征表示为用户推荐标的物"></a>基于用户及标的物特征表示为用户推荐标的物</h2><h1 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h1><p>协同过滤<a href="#refer-1"><sup>1</sup></a> <a href="#refer-21"><sup>21</sup></a>（Collaborative Filter，CF）主要用于召回，主要分为ItemCF和UserCF。</p>
+<p>协同过滤的核心是怎么计算标的物之间的相似度以及用户之间的相似度。我们可以采用非常朴素的思想来计算相似度。我们将用户对标的物的评分(或者隐式反馈，如点击、收藏等)构建如下用户行为矩阵(见下面图2)，矩阵的某个元素代表某个用户对某个标的物的评分(如果是隐式反馈，值为1)，如果某个用户对某个标的物未产生行为，值为0。其中行向量代表某个用户对所有标的物的评分向量，列向量代表所有用户对某个标的物的评分向量。有了行向量和列向量，我们就可以计算用户与用户之间、标的物与标的物之间的相似度了。具体来说，行向量之间的相似度就是用户之间的相似度，列向量之间的相似度就是标的物之间的相似度。</p>
+<p>为了避免误解，这里简单解释一下隐式反馈，只要不是用户直接评分的操作行为都算隐式反馈，包括浏览、点击、播放、收藏、评论、点赞、转发等等。有很多隐式反馈是可以间接获得评分的，后面会讲解。如果不间接获得评分，就用0、1表示是否操作过。</p>
+<p>在真实业务场景中用户数和标的物数一般都是很大的(用户数可能是百万、千万、亿级，标的物可能是十万、百万、千万级)，而每个用户只会操作过有限个标的物，所以用户行为矩阵是稀疏矩阵。正因为矩阵是稀疏的，会方便我们进行相似度计算及为用户做推荐。</p>
+<p>相似度的计算可以采用cosine余弦相似度算法来计算，可以是行或列的相似度：</p>
+<script type="math/tex; mode=display">
+sim(v_1, v_2) = \frac{v_1 * v_2}{||v_1|| \times ||v_2||}</script><h2 id="基于标的物的协同过滤"><a href="#基于标的物的协同过滤" class="headerlink" title="基于标的物的协同过滤"></a>基于标的物的协同过滤</h2><p>类似地，通过将用户操作过的标的物最相似的标的物推荐给用户，这就是基于标的物的协同过滤的核心思想。</p>
+<p>用户u对标的物<script type="math/tex">s</script>的喜好度<script type="math/tex">sim(u,s)</script>可以采用如下公式计算，其中<script type="math/tex">S</script>是所有用户操作过的标的物的列表，<script type="math/tex">score(u, s_i)</script>是用户<script type="math/tex">u</script>对标的物<script type="math/tex">s_i</script>的喜好度，<script type="math/tex">sim(s_i, s)</script>是标的物，<script type="math/tex">s_i</script>与<script type="math/tex">s</script>的相似度。</p>
+<script type="math/tex; mode=display">
+sim(u, s) = \sum_{s_i \in S} score(u, s_i) * sim(s_i, s)</script><p>实际应用中，采用一个session 内的用户行为来计算 两个商品的pair对。</p>
 <p>modified 算法<br>余弦相似度过于粗暴，容易出现哈利波特效应，改良版将会降低热门用户对商品的权重</p>
 <ol>
 <li>wbcos i2i (weighted bin)</li>
@@ -285,7 +292,17 @@ TF-IDF(t_k, d_j) = TF(t_k, d_j) * IDF(t_k)</script><p>有了基于TF-IDF计算�
 <li>分别预测ctr，cvr<br>类似于线上rank,这里采用左i的feature和右i的feature，模型可采用现有rank模型，（gbdt，lr，dnn皆可）</li>
 <li>一步到位<br>利用pairwise或者listwise 作为损失函数<br>将gmv或者点击率转化为预测目标，label为多分类，指标为ndcg.</li>
 </ol>
-<h2 id="UserCF"><a href="#UserCF" class="headerlink" title="UserCF"></a>UserCF</h2><p>给用户推荐和他之前喜欢的物品相关的物品。</p>
+<h2 id="基于用户的协同过滤"><a href="#基于用户的协同过滤" class="headerlink" title="基于用户的协同过滤"></a>基于用户的协同过滤</h2><p>根据上面算法思想的介绍，我们可以将与该用户最相似的用户喜欢的标的物推荐给该用户。这就是基于用户的协同过滤的核心思想。</p>
+<p>用户<script type="math/tex">u</script>对标的物s的喜好度<script type="math/tex">sim(u,s)</script>可以采用如下公式计算，其中<script type="math/tex">U</script>是与该用户最相似的用户集合(我们可以基于用户相似度找到与某用户最相似的K个用户)，<script type="math/tex">score(u_i, s)</script>是用户<script type="math/tex">u_i</script>对标的物s的喜好度(对于隐式反馈为1，而对于非隐式反馈，该值为用户对标的物的评分)，<script type="math/tex">sim(u, u_i)</script>是用户<script type="math/tex">u_i</script>与用户<script type="math/tex">u</script>的相似度。</p>
+<script type="math/tex; mode=display">
+sim(u, s) = \sum_{u_i \in U} sim(u, u_i) * score(u_i, s)</script><p>有了用户对每个标的物的评分，基于评分降序排列，就可以取topN推荐给用户了。</p>
+<h2 id="离线协同过滤算法的工程实现"><a href="#离线协同过滤算法的工程实现" class="headerlink" title="离线协同过滤算法的工程实现"></a>离线协同过滤算法的工程实现</h2><p>虽然协同过滤算法原理非常简单，但是在大规模用户及海量标的物的场景下，单机是难以解决计算问题的，我们必须借助分布式技术来实现，让整个算法可以应对大规模数据的挑战。在本节，我们基于主流的Spark分布式计算平台相关的技术来详细讲解协同过滤算法的离线(批处理)实现思路，供大家参考(读者可以阅读参考文献1、2、3、4了解协同过滤算法原理及工业应用)，同时会在下一节讲解在近实时场景下怎么在工程上实现协同过滤算法。</p>
+<p>在这里我们只讲解基于标的物的协同过滤算法的工程实现方案，基于用户的协同过滤思路完全一样，不再赘述。</p>
+<p>为了简单起见，我们可以将推荐过程拆解为2个阶段，先计算相似度，再为用户推荐。下面分别介绍这两个步骤怎么工程实现。</p>
+<ul>
+<li>计算topK相似度</li>
+</ul>
+<p>本步骤我们计算出任意两个标的物之间的相似度，有了任意两个标的物之间的相似度，那么我们就可以为每个标的物计算出与它最相似的K个标的物了。</p>
 <h2 id="FM（Factorization-Machines）"><a href="#FM（Factorization-Machines）" class="headerlink" title="FM（Factorization Machines）"></a>FM（Factorization Machines）</h2><ol>
 <li>FM能处理数据高度稀疏场景，SVM则不能；</li>
 <li>FM具有线性的计算复杂度，而SVM依赖于support vector。</li>
@@ -323,6 +340,7 @@ TF-IDF(t_k, d_j) = TF(t_k, d_j) * IDF(t_k)</script><p>有了基于TF-IDF计算�
 <li>[18] <span id="refer-18"></span> <a href="https://www.cnblogs.com/wkang/p/10091790.html" target="_blank" rel="noopener">从零开始学推荐系统一：基于邻域的算法</a></li>
 <li>[19] <span id="refer-19"></span> <a href="https://zhuanlan.zhihu.com/p/115690499" target="_blank" rel="noopener">深入理解推荐系统：召回</a></li>
 <li>[20] <span id="refer-20"></span> <a href="https://zhuanlan.zhihu.com/p/80068528" target="_blank" rel="noopener">基于内容的推荐算法</a></li>
+<li>[21] <span id="refer-21"></span> <a href="https://zhuanlan.zhihu.com/p/80069337" target="_blank" rel="noopener">协同过滤推荐算法</a></li>
 </ul>
 
       
@@ -371,7 +389,7 @@ TF-IDF(t_k, d_j) = TF(t_k, d_j) * IDF(t_k)</script><p>有了基于TF-IDF计算�
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于内容（标签）"><span class="nav-number">2.</span> <span class="nav-text">基于内容（标签）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于用户和标的物特征为用户推荐的核心思想"><span class="nav-number">2.1.</span> <span class="nav-text">基于用户和标的物特征为用户推荐的核心思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于用户信息及用户操作行为构建用户特征表示"><span class="nav-number">2.2.</span> <span class="nav-text">基于用户信息及用户操作行为构建用户特征表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于标的物信息构建标的物特征表示"><span class="nav-number">2.3.</span> <span class="nav-text">基于标的物信息构建标的物特征表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于用户及标的物特征表示为用户推荐标的物"><span class="nav-number">2.4.</span> <span class="nav-text">基于用户及标的物特征表示为用户推荐标的物</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协同过滤"><span class="nav-number">3.</span> <span class="nav-text">协同过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ItemCF"><span class="nav-number">3.1.</span> <span class="nav-text">ItemCF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UserCF"><span class="nav-number">3.2.</span> <span class="nav-text">UserCF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FM（Factorization-Machines）"><span class="nav-number">3.3.</span> <span class="nav-text">FM（Factorization Machines）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MF-Matrix-Factorization"><span class="nav-number">3.4.</span> <span class="nav-text">MF(Matrix Factorization)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工程"><span class="nav-number">4.</span> <span class="nav-text">工程</span></a></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于内容（标签）"><span class="nav-number">2.</span> <span class="nav-text">基于内容（标签）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于用户和标的物特征为用户推荐的核心思想"><span class="nav-number">2.1.</span> <span class="nav-text">基于用户和标的物特征为用户推荐的核心思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于用户信息及用户操作行为构建用户特征表示"><span class="nav-number">2.2.</span> <span class="nav-text">基于用户信息及用户操作行为构建用户特征表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于标的物信息构建标的物特征表示"><span class="nav-number">2.3.</span> <span class="nav-text">基于标的物信息构建标的物特征表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于用户及标的物特征表示为用户推荐标的物"><span class="nav-number">2.4.</span> <span class="nav-text">基于用户及标的物特征表示为用户推荐标的物</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协同过滤"><span class="nav-number">3.</span> <span class="nav-text">协同过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于标的物的协同过滤"><span class="nav-number">3.1.</span> <span class="nav-text">基于标的物的协同过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于用户的协同过滤"><span class="nav-number">3.2.</span> <span class="nav-text">基于用户的协同过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#离线协同过滤算法的工程实现"><span class="nav-number">3.3.</span> <span class="nav-text">离线协同过滤算法的工程实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FM（Factorization-Machines）"><span class="nav-number">3.4.</span> <span class="nav-text">FM（Factorization Machines）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MF-Matrix-Factorization"><span class="nav-number">3.5.</span> <span class="nav-text">MF(Matrix Factorization)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工程"><span class="nav-number">4.</span> <span class="nav-text">工程</span></a></li></ol>
     
     </div>
   </aside>
