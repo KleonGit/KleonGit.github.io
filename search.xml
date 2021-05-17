@@ -2252,8 +2252,23 @@
       </tags>
   </entry>
   <entry>
-    <title>机器学习系统 4-10 - 因子分解机</title>
-    <url>/ai/ml-system/recommender/10-factor-machine/</url>
+    <title>机器学习系统 4-10 - 逻辑回归</title>
+    <url>/ai/ml-system/recommender/10-logistic-regression/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Logistic Regression</p>
+<a id="more"></a>
+<p>—</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-11 - 因子分解机</title>
+    <url>/ai/ml-system/recommender/11-factor-machine/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>因子分解机</p>
 <a id="more"></a>
 <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><ol>
@@ -2272,8 +2287,51 @@
       </tags>
   </entry>
   <entry>
-    <title>机器学习系统 4-11 - 树模型</title>
-    <url>/ai/ml-system/recommender/11-tree/</url>
+    <title>机器学习系统 4-12 - GBDR+LR</title>
+    <url>/ai/ml-system/recommender/12-gbdt-lr/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>GBDT+LR</p>
+<a id="more"></a>
+<p>—</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-13 - 深度学习模型</title>
+    <url>/ai/ml-system/recommender/13-deep-model/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>深度模型主要是在深度学习后崛起的，主要通过深度学习网络做了自动特征交叉。</p>
+<a id="more"></a>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><ul>
+<li>AutoRec</li>
+<li>Deep Crossing</li>
+<li>NeuralCF</li>
+<li>PNN</li>
+<li>WDL</li>
+<li>FNN</li>
+<li>DeepFM</li>
+<li>NFM</li>
+<li>AFM</li>
+<li>DIN</li>
+<li>DIEN</li>
+<li>DRN</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-15 - 树模型</title>
+    <url>/ai/ml-system/recommender/15-tree/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>树模型以决策树为基本原型。</p>
 <a id="more"></a>
 <p>树模型<a href="#refer-5"><sup>5</sup></a> <a href="#refer-6"><sup>6</sup></a></p>
@@ -2327,27 +2385,6 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <p>对缺失值的处理。对于特征的值有缺失的样本，XGBoost还可以自动 学习出它的分裂方向；</p>
 <p>XGBoost工具支持并行。Boosting不是一种串行的结构吗？怎么并行的？注意XGBoost的并行不是tree粒度的并行，XGBoost也是一次迭代完才能进行下一次迭代的（第t次迭代的代价函数里包含了前面t-1次迭代的预测值）。XGBoost的并行是在特征粒度上的。我们知道，决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），XGBoost在训练之前，预先对数据进行了排序，然后保存为block结构，后面的迭代 中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行。</p>
 <hr>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 4-12 - 深度学习模型</title>
-    <url>/ai/ml-system/recommender/12-deep-model/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>深度模型主要是在深度学习后崛起的，主要通过深度学习网络做了自动特征交叉。</p>
-<a id="more"></a>
-<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><ul>
-<li>WDL</li>
-<li>FNN</li>
-<li>PNN</li>
-<li>DeepFM</li>
-<li>DIN</li>
-</ul>
 ]]></content>
       <categories>
         <category>机器学习</category>
@@ -2427,8 +2464,7 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <h2 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h2><p>可以从高位功率谱密度系数提取特征向量。</p>
 <h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><p>用户和物品数量可能相当大，可以使用矩阵分解、单值分解、神经协同过滤、神经因式分解机等得到向量。物品的嵌入位置表达了物品属性，位置接近的嵌入位置代表用户更相似的兴趣度。</p>
 <h3 id="神经协同过滤"><a href="#神经协同过滤" class="headerlink" title="神经协同过滤"></a>神经协同过滤</h3><h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p>Video2Vec</p>
-<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>Node2Vec</p>
-<p>Graph2Vec</p>
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>DeepWalk<br>Node2Vec<br>EGES<br>GraphSage<br>DCN</p>
 <hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://cloud.google.com/architecture/overview-extracting-and-serving-feature-embeddings-for-machine-learning?hl=zh-cn" target="_blank" rel="noopener">概述：提取和提供用于机器学习的特征嵌入  |  云架构中心  |  Google Cloud</a></li>
@@ -2472,6 +2508,7 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <h1 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h1><h2 id="查表"><a href="#查表" class="headerlink" title="查表"></a>查表</h2><p>离线将i2i或u2i关系计算并存到数据源，在线服务从数据源读取。数据源是数据库，比如MySQL，PostgreSQL，Redis，HBase等。</p>
 <p>对于新商品或新用户需要有兜底方案，比如热门商品。</p>
 <h2 id="向量召回-1"><a href="#向量召回-1" class="headerlink" title="向量召回"></a>向量召回</h2><p>离线或在线计算item embedding和user embedding间距离最近的embedding，通常不直接计算相似度，而是通过向量召回引擎如faiss<a href="#refer-28"><sup>28</sup></a>。</p>
+<p>局部敏感哈希。</p>
 <hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://lumingdong.cn/cooperative-recommendation-algorithms.html" target="_blank" rel="noopener">基于协同的推荐算法</a></li>

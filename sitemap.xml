@@ -4,28 +4,28 @@
   <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-05-14T07:23:49.004Z</lastmod>
+    <lastmod>2021-05-17T06:53:19.238Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-05-14T07:23:48.988Z</lastmod>
+    <lastmod>2021-05-17T06:53:19.222Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-05-14T07:23:48.988Z</lastmod>
+    <lastmod>2021-05-17T06:53:19.222Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-05-14T07:23:48.988Z</lastmod>
+    <lastmod>2021-05-17T06:53:19.222Z</lastmod>
     
   </url>
   
@@ -37,7 +37,21 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/ai/ml-system/recommender/10-factor-machine/</loc>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/10-logistic-regression/</loc>
+    
+    <lastmod>2021-05-12T12:24:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/11-factor-machine/</loc>
+    
+    <lastmod>2021-05-12T12:24:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/12-gbdt-lr/</loc>
     
     <lastmod>2021-05-12T12:24:56.000Z</lastmod>
     
@@ -121,14 +135,14 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/ai/ml-system/recommender/11-tree/</loc>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/13-deep-model/</loc>
     
     <lastmod>2021-05-02T12:24:56.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/ai/ml-system/recommender/12-deep-model/</loc>
+    <loc>https://blog.kleon.space/ai/ml-system/recommender/15-tree/</loc>
     
     <lastmod>2021-05-02T12:24:56.000Z</lastmod>
     
