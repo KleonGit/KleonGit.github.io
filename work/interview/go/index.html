@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>烤面筋 - go | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="基础问题">
+<meta name="keywords" content="面筋">
+<meta property="og:type" content="article">
+<meta property="og:title" content="烤面筋 - Go">
+<meta property="og:url" content="https://blog.kleon.space/work/interview/go/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="基础问题">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-05-18T19:23:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="烤面筋 - Go">
+<meta name="twitter:description" content="基础问题">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-work/interview/go" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      烤面筋 - Go
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-04-26T18:23:19.000Z" itemprop="datePublished">四月 26, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-05-18T19:23:19.000Z" itemprop="datePublished">五月 18, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基础问题</p>
+<a id="more"></a>
+<h1 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h1><p>golang context的理解，context主要用于父子任务之间的同步取消信号，本质上是一种协程调度的方式。另外在使用context时有两点值得注意：上游任务仅仅使用context通知下游任务不再需要，但不会直接干涉和中断下游任务的执行，由下游任务自行决定后续的处理操作，也就是说context的取消操作是无侵入的；context是线程安全的，因为context本身是不可变的（immutable），因此可以放心地在多个协程中传递使用。</p>
+<p>Context的用法</p>
+<h1 id="切片和数组"><a href="#切片和数组" class="headerlink" title="切片和数组"></a>切片和数组</h1><p>slice和array</p>
+<p>扩容机制</p>
+<p>slice，len，cap，共享，扩容</p>
+<h1 id="CPS和PMG-🌟"><a href="#CPS和PMG-🌟" class="headerlink" title="CPS和PMG 🌟"></a>CPS和PMG 🌟</h1><p>channel，process</p>
+<p>CPS</p>
+<p>M-G-P模型</p>
+<p>GMP 调度模型</p>
+<p>Goroutine/Processor/M Thread</p>
+<p><a href="https://learnku.com/articles/41728" target="_blank" rel="noopener">https://learnku.com/articles/41728</a></p>
+<h1 id="逃逸分析-🌟"><a href="#逃逸分析-🌟" class="headerlink" title="逃逸分析 🌟"></a>逃逸分析 🌟</h1><p>逃逸分配在堆上，否则分配到栈上。</p>
+<p>写一个</p>
+<h1 id="sync-Map"><a href="#sync-Map" class="headerlink" title="sync.Map"></a>sync.Map</h1><p>原生map非线程安全，加锁以及sync.Map{}的实现</p>
+<p>优点：是官方出的，是亲儿子；通过空间换时间的方式；读写分离；<br>缺点：不适用于大量写的场景，这样会导致read map读不到数据而进一步加锁读取，同时dirty map也会一直晋升为read map，整体性能较差。<br>适用场景：大量读，少量写</p>
+<p>这个实现类似于一个线程安全的 map[interface{}]interface{} . 这个map的优化主要适用了以下场景：</p>
+<p>（1）给定key的键值对只写了一次，但是读了很多次，比如在只增长的缓存中；</p>
+<p>（2）当多个goroutine读取、写入和覆盖的key值不相交时。</p>
+<p><a href="https://github.com/orcaman/concurrent-map" target="_blank" rel="noopener">https://github.com/orcaman/concurrent-map</a></p>
+<h1 id="sync-WaitGroup"><a href="#sync-WaitGroup" class="headerlink" title="sync.WaitGroup"></a>sync.WaitGroup</h1><h1 id="sync-RWMutex"><a href="#sync-RWMutex" class="headerlink" title="sync.RWMutex"></a>sync.RWMutex</h1><h1 id="channel"><a href="#channel" class="headerlink" title="channel"></a>channel</h1><p>channel no buffer以及buffer的区别<br>channel一定记得close。</p>
+<h1 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a>goroutine</h1><p>goroutine记得return或者中断，不然容易造成goroutine占用大量CPU。</p>
+<ol>
+<li>主动自己退出： 经过多少时间后主动退出（channel） func main() { var wg sync. WaitGroup quit := time. …</li>
+<li>外部被动退出： 我们可以通过外部操作接收信号方式来退出： func main() { var wg sync.</li>
+</ol>
+<h1 id="goroutine泄露，或是内存泄漏"><a href="#goroutine泄露，或是内存泄漏" class="headerlink" title="goroutine泄露，或是内存泄漏"></a>goroutine泄露，或是内存泄漏</h1><h1 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h1><p>interface nil 比较</p>
+<h1 id="init"><a href="#init" class="headerlink" title="init"></a>init</h1><p>init函数先于main函数自动执行，不能被其他函数调用； … 每个包可以有多个init函数； 包的每个源文件也可以有多个init函数，这点比较特殊； 同一个包的init执行顺序，golang没有明确定义，编程时要注意程序不要依赖这个执行顺序。</p>
+<p>go init 的执行顺序，注意是不按导入规则的（这里是编译时按文件名的顺序执行的）</p>
+<h1 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h1><p>go中多个defer的执行顺序, FILO</p>
+<h1 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h1><p>从slice创建slice的时候，注意原slice的操作可能导致底层数组变化。</p>
+<p>如果你要创建一个很长的slice，尽量创建成一个slice里存引用，这样可以分批释放，避免gc在低配机器上stop the world</p>
+<h1 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h1><h1 id="优劣"><a href="#优劣" class="headerlink" title="优劣"></a>优劣</h1><p>优势：容易学习，生产力，并发，动态语法。劣势：包管理，错误处理，缺乏框架。</p>
+<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><p>beego<br>go-micro<br>gin</p>
+<h1 id="GC-🌟"><a href="#GC-🌟" class="headerlink" title="GC 🌟"></a>GC 🌟</h1><p>优缺点</p>
+<p>三色并发标记法</p>
+<p><a href="https://juejin.cn/post/6844903793855987719" target="_blank" rel="noopener">https://juejin.cn/post/6844903793855987719</a></p>
+<h1 id="Go内存模型-tcmalloc"><a href="#Go内存模型-tcmalloc" class="headerlink" title="Go内存模型(tcmalloc)"></a>Go内存模型(tcmalloc)</h1><h1 id="recover"><a href="#recover" class="headerlink" title="recover"></a>recover</h1><h1 id="sql-pool"><a href="#sql-pool" class="headerlink" title="sql pool"></a>sql pool</h1><h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>语言基础是否学习完整？<br>例：除了 mutex 以外还有那些方式安全读写共享变量？</p>
+<p>语言基础是否足够扎实？<br>例：无缓冲 chan 的发送和接收是否同步？</p>
+<p>语言细节是否有过了解？<br>例：golang 采用什么并发模型？体现在哪里？</p>
+<p>语言生态是否进行关注？<br>例：在 Vendor 特性之前包管理工具是怎么实现的？</p>
+<p>考察基础经验，<br>例：说说 golang 中常用的并发模式？</p>
+<p>考察实际经验，例：JSON 标准库对 nil slice 和 空 slice 的处理是一致的吗？</p>
+<p>考察学习历程，例：学习 Go 的主要途径？读过那些书？</p>
+<h1 id="go-defer-for-defer"><a href="#go-defer-for-defer" class="headerlink" title="go defer / for defer"></a>go defer / for defer</h1><h1 id="select"><a href="#select" class="headerlink" title="select"></a>select</h1><h1 id="map"><a href="#map" class="headerlink" title="map"></a>map</h1><p>顺序读取</p>
+<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><h1 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h1><h1 id="大文件排序"><a href="#大文件排序" class="headerlink" title="大文件排序"></a>大文件排序</h1>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/面筋/">面筋</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面筋/">面筋</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/work/interview/general/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          烤面筋 - 通用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/work/interview/recommender/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">烤面筋 - AI</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Context"><span class="nav-number">1.</span> <span class="nav-text">Context</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#切片和数组"><span class="nav-number">2.</span> <span class="nav-text">切片和数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CPS和PMG-🌟"><span class="nav-number">3.</span> <span class="nav-text">CPS和PMG 🌟</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逃逸分析-🌟"><span class="nav-number">4.</span> <span class="nav-text">逃逸分析 🌟</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sync-Map"><span class="nav-number">5.</span> <span class="nav-text">sync.Map</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sync-WaitGroup"><span class="nav-number">6.</span> <span class="nav-text">sync.WaitGroup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sync-RWMutex"><span class="nav-number">7.</span> <span class="nav-text">sync.RWMutex</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#channel"><span class="nav-number">8.</span> <span class="nav-text">channel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#goroutine"><span class="nav-number">9.</span> <span class="nav-text">goroutine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#goroutine泄露，或是内存泄漏"><span class="nav-number">10.</span> <span class="nav-text">goroutine泄露，或是内存泄漏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#interface"><span class="nav-number">11.</span> <span class="nav-text">interface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#init"><span class="nav-number">12.</span> <span class="nav-text">init</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#defer"><span class="nav-number">13.</span> <span class="nav-text">defer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Slice"><span class="nav-number">14.</span> <span class="nav-text">Slice</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Socket"><span class="nav-number">15.</span> <span class="nav-text">Socket</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优劣"><span class="nav-number">16.</span> <span class="nav-text">优劣</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#框架"><span class="nav-number">17.</span> <span class="nav-text">框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GC-🌟"><span class="nav-number">18.</span> <span class="nav-text">GC 🌟</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go内存模型-tcmalloc"><span class="nav-number">19.</span> <span class="nav-text">Go内存模型(tcmalloc)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#recover"><span class="nav-number">20.</span> <span class="nav-text">recover</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-pool"><span class="nav-number">21.</span> <span class="nav-text">sql pool</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多态"><span class="nav-number">22.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#go-defer-for-defer"><span class="nav-number">23.</span> <span class="nav-text">go defer / for defer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#select"><span class="nav-number">24.</span> <span class="nav-text">select</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#map"><span class="nav-number">25.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#set"><span class="nav-number">26.</span> <span class="nav-text">set</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息队列"><span class="nav-number">27.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大文件排序"><span class="nav-number">28.</span> <span class="nav-text">大文件排序</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

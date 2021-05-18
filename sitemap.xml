@@ -2,30 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/work/interview/go/</loc>
+    
+    <lastmod>2021-05-18T19:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/database/</loc>
+    
+    <lastmod>2021-05-18T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-05-17T06:53:19.238Z</lastmod>
+    <lastmod>2021-05-18T12:55:47.838Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-05-17T06:53:19.222Z</lastmod>
+    <lastmod>2021-05-18T12:55:47.826Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-05-17T06:53:19.222Z</lastmod>
+    <lastmod>2021-05-18T12:55:47.826Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-05-17T06:53:19.222Z</lastmod>
+    <lastmod>2021-05-18T12:55:47.826Z</lastmod>
     
   </url>
   
@@ -198,7 +212,7 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/work/interview/cs/</loc>
+    <loc>https://blog.kleon.space/work/interview/backend/</loc>
     
     <lastmod>2021-04-26T18:23:19.000Z</lastmod>
     

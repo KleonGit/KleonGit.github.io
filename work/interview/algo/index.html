@@ -182,16 +182,7 @@ var themeMenus = {};
       
         <p>计算机算法</p>
 <a id="more"></a>
-<ul>
-<li>找第K大数</li>
-<li>捡石头</li>
-<li>100盏灯</li>
-<li>红黑树</li>
-<li>AVL树</li>
-<li>N个数取M个</li>
-<li>两数之和</li>
-</ul>
-<p>哈希法</p>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><h1 id="找第K大数"><a href="#找第K大数" class="headerlink" title="找第K大数"></a>找第K大数</h1><h1 id="捡石头"><a href="#捡石头" class="headerlink" title="捡石头"></a>捡石头</h1><h1 id="100盏灯"><a href="#100盏灯" class="headerlink" title="100盏灯"></a>100盏灯</h1><h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h1 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h1><h1 id="N个数取M个"><a href="#N个数取M个" class="headerlink" title="N个数取M个"></a>N个数取M个</h1><h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p>哈希法</p>
 <p>双指针法：<br><a href="https://segmentfault.com/a/1190000023552474" target="_blank" rel="noopener">https://segmentfault.com/a/1190000023552474</a></p>
 <ul>
 <li>不增加额外空间旋转方阵</li>
@@ -215,7 +206,41 @@ var themeMenus = {};
 <li>二叉树序列化和反序列化+校验</li>
 </ul>
 <p>BFS，层序遍历重建二叉树</p>
-
+<ul>
+<li>行列都是有序的二维数组，查找k是否存在,时间复杂度</li>
+</ul>
+<p>二分查找：O(log2（max(m,n)))</p>
+<ul>
+<li>有序数组，有2N+1个数，其中N个数成对出现，仅1个数单独出现，找出那个单独出现的数.,时间复杂度</li>
+</ul>
+<p>O(log2（2N))二分查找，查找中间位置的数相等值是在左边还是右边？左边则再左子数组继续查找，右边则在右子数组继续查找。</p>
+<ul>
+<li>100亿个数求top100,时间复杂度</li>
+</ul>
+<p>分组查找或bitmap</p>
+<ul>
+<li>100亿个数和100亿个数求交集，时间复杂度</li>
+</ul>
+<p>全排列问题，自己找去</p>
+<ul>
+<li>hash算法实现(类似crc32或者murmur)，保证随机性和均匀性，减少哈希冲突</li>
+</ul>
+<p>考的是hash算法的了解，需要知道一些经典哈希算法实现。</p>
+<ul>
+<li>动规 100个球，一次只能拿2-5个，你先拿，我后拿，怎么保证你能拿到最后一个球</li>
+</ul>
+<p>一次2-5，去掉先手，最后回合剩余7个即可保证拿到最后一个球。因此，先手拿2个，每一回合保证拿掉球的总数为7，即可。（100-2）/7=14回合。</p>
+<ul>
+<li>正整数数组，求和为sum的组合 换零钱，1,5,10元都很充足，给你N元去换零钱，多少种换法</li>
+</ul>
+<p>算法题给定一个有n个正整数的数组A和一个整数sum,求选择数组A中部分数字和为sum的方案数，动态规划法。</p>
+<h1 id="图的最短路径"><a href="#图的最短路径" class="headerlink" title="图的最短路径"></a>图的最短路径</h1><p>迪杰斯特拉（Dijkstra）算法</p>
+<p><a href="https://www.cxyxiaowu.com/1172.html" target="_blank" rel="noopener">https://www.cxyxiaowu.com/1172.html</a></p>
+<h1 id="链表有环"><a href="#链表有环" class="headerlink" title="链表有环"></a>链表有环</h1><p>给定一个链表如何判断一个有环</p>
+<p>快慢指针相遇</p>
+<h1 id="TOPK"><a href="#TOPK" class="headerlink" title="TOPK"></a>TOPK</h1><p>给定一个长度为n的数组，让求第K大的数，我说用维护最小堆，以及最小堆如何维护的</p>
+<h1 id="回文数"><a href="#回文数" class="headerlink" title="回文数"></a>回文数</h1><p>给定一个数字，求是否是回文数？</p>
+<h1 id="接雨水"><a href="#接雨水" class="headerlink" title="接雨水"></a>接雨水</h1><h1 id="topK，100万，找钱100"><a href="#topK，100万，找钱100" class="headerlink" title="topK，100万，找钱100"></a>topK，100万，找钱100</h1><h1 id="求第K大的数"><a href="#求第K大的数" class="headerlink" title="求第K大的数"></a>求第K大的数</h1><h1 id="给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort-二分）"><a href="#给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort-二分）" class="headerlink" title="给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort+二分）"></a>给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort+二分）</h1><h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h1><h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h1><h1 id="链表求和"><a href="#链表求和" class="headerlink" title="链表求和"></a>链表求和</h1><h1 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a>最小覆盖子串</h1><h1 id="最大交换"><a href="#最大交换" class="headerlink" title="最大交换"></a>最大交换</h1><h1 id="把一个方程式设计成树"><a href="#把一个方程式设计成树" class="headerlink" title="把一个方程式设计成树"></a>把一个方程式设计成树</h1><h1 id="LRU缓存"><a href="#LRU缓存" class="headerlink" title="LRU缓存"></a>LRU缓存</h1>
       
     </div>
     <footer class="entry-meta entry-footer">
@@ -246,9 +271,9 @@ var themeMenus = {};
     </a>
   
   
-    <a href="/work/interview/cs/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/work/interview/database/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">烤面筋 - 原理</div>
+      <div class="article-nav-title">烤面筋 - 数据库</div>
     </a>
   
 </nav>
@@ -262,7 +287,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav">无</ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-number">1.</span> <span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#找第K大数"><span class="nav-number">2.</span> <span class="nav-text">找第K大数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#捡石头"><span class="nav-number">3.</span> <span class="nav-text">捡石头</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#100盏灯"><span class="nav-number">4.</span> <span class="nav-text">100盏灯</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树"><span class="nav-number">5.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AVL树"><span class="nav-number">6.</span> <span class="nav-text">AVL树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#N个数取M个"><span class="nav-number">7.</span> <span class="nav-text">N个数取M个</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两数之和"><span class="nav-number">8.</span> <span class="nav-text">两数之和</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图的最短路径"><span class="nav-number">9.</span> <span class="nav-text">图的最短路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表有环"><span class="nav-number">10.</span> <span class="nav-text">链表有环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TOPK"><span class="nav-number">11.</span> <span class="nav-text">TOPK</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回文数"><span class="nav-number">12.</span> <span class="nav-text">回文数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接雨水"><span class="nav-number">13.</span> <span class="nav-text">接雨水</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#topK，100万，找钱100"><span class="nav-number">14.</span> <span class="nav-text">topK，100万，找钱100</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求第K大的数"><span class="nav-number">15.</span> <span class="nav-text">求第K大的数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort-二分）"><span class="nav-number">16.</span> <span class="nav-text">给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort+二分）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反转链表"><span class="nav-number">17.</span> <span class="nav-text">反转链表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三数之和"><span class="nav-number">18.</span> <span class="nav-text">三数之和</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表求和"><span class="nav-number">19.</span> <span class="nav-text">链表求和</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最小覆盖子串"><span class="nav-number">20.</span> <span class="nav-text">最小覆盖子串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最大交换"><span class="nav-number">21.</span> <span class="nav-text">最大交换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#把一个方程式设计成树"><span class="nav-number">22.</span> <span class="nav-text">把一个方程式设计成树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LRU缓存"><span class="nav-number">23.</span> <span class="nav-text">LRU缓存</span></a></li></ol>
     
     </div>
   </aside>
