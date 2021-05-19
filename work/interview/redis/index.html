@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+
+  <!-- PACE Progress Bar START -->
+  
+    <script src="/lib/pace/pace.min.js"></script>
+    <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  
+  
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>烤面筋 - redis | KLEON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="AI,IT">
+  
+  
+  
+  
+  <meta name="description" content="Redis">
+<meta name="keywords" content="面筋">
+<meta property="og:type" content="article">
+<meta property="og:title" content="烤面筋 - Redis">
+<meta property="og:url" content="https://blog.kleon.space/work/interview/redis/index.html">
+<meta property="og:site_name" content="KLEON">
+<meta property="og:description" content="Redis">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-05-19T18:23:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="烤面筋 - Redis">
+<meta name="twitter:description" content="Redis">
+  
+    <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  <!-- 
+    <link href="//fonts.loli.net/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   -->
+  <!-- <link href="https://fonts.loli.net/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.loli.net/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style> -->
+    
+  <!-- <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.loli.net/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all"> -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/hiero.css">
+  <link rel="stylesheet" href="/css/glyphs.css">
+  
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-0123456789ABCDEF",
+          enable_page_level_ads: true
+      });
+  </script>
+  
+</head>
+</html>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "首页"; 
+
+  themeMenus["/archives"] = "归档"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="KLEON" rel="home"> KLEON </a>
+            
+          </h1>
+
+          
+            <div class="site-description">Think About The Big Map</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
+
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-work/interview/redis" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      烤面筋 - Redis
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	发布于 <time datetime="2021-04-26T18:23:19.000Z" itemprop="datePublished">四月 26, 2021</time>
+	&nbsp;&nbsp;
+	更新于 <time datetime="2021-05-19T18:23:19.000Z" itemprop="datePublished">五月 19, 2021</time>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Redis</p>
+<a id="more"></a>
+<p><a href="https://juejin.cn/post/6844904127055527950" target="_blank" rel="noopener">https://juejin.cn/post/6844904127055527950</a></p>
+<p><a href="https://www.runoob.com/redis/redis-commands.html" target="_blank" rel="noopener">https://www.runoob.com/redis/redis-commands.html</a></p>
+<h1 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h1><ul>
+<li>string：字符串</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SET runoobkey redis</span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; GET runoobkey</span><br><span class="line">&quot;redis&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>list：列表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; LPUSH runoobkey redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; LPUSH runoobkey mongodb</span><br><span class="line">(integer) 2</span><br><span class="line">redis 127.0.0.1:6379&gt; LPUSH runoobkey mysql</span><br><span class="line">(integer) 3</span><br><span class="line">redis 127.0.0.1:6379&gt; LRANGE runoobkey 0 10</span><br><span class="line"></span><br><span class="line">1) &quot;mysql&quot;</span><br><span class="line">2) &quot;mongodb&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; LPOP runoobkey </span><br><span class="line">redis 127.0.0.1:6379&gt; RPOP runoobkey </span><br><span class="line">redis 127.0.0.1:6379&gt; LLEN runoobkey</span><br><span class="line"></span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>hash：散列表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt;  HMSET runoobkey name &quot;redis tutorial&quot; description &quot;redis basic commands for caching&quot; likes 20 visitors 23000</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt;  HGETALL runoobkey</span><br><span class="line">1) &quot;name&quot;</span><br><span class="line">2) &quot;redis tutorial&quot;</span><br><span class="line">3) &quot;description&quot;</span><br><span class="line">4) &quot;redis basic commands for caching&quot;</span><br><span class="line">5) &quot;likes&quot;</span><br><span class="line">6) &quot;20&quot;</span><br><span class="line">7) &quot;visitors&quot;</span><br><span class="line">8) &quot;23000&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>set：无序集合</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; SADD runoobkey redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; SADD runoobkey mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; SADD runoobkey mysql</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; SADD runoobkey mysql</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; SMEMBERS runoobkey</span><br><span class="line"></span><br><span class="line">1) &quot;mysql&quot;</span><br><span class="line">2) &quot;mongodb&quot;</span><br><span class="line">3) &quot;redis&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>zset：有序集合</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 1 redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 2 mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 3 mysql</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 3 mysql</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 4 mysql</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; ZRANGE runoobkey 0 10 WITHSCORES</span><br><span class="line"></span><br><span class="line">1) &quot;redis&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">3) &quot;mongodb&quot;</span><br><span class="line">4) &quot;2&quot;</span><br><span class="line">5) &quot;mysql&quot;</span><br><span class="line">6) &quot;4&quot;</span><br></pre></td></tr></table></figure>
+<p><a href="https://juejin.cn/post/6844903856313368589" target="_blank" rel="noopener">https://juejin.cn/post/6844903856313368589</a></p>
+<h1 id="pipline"><a href="#pipline" class="headerlink" title="pipline"></a>pipline</h1><p>pipeline的作用是将一批命令进行打包，然后发送给服务器，服务器执行完按顺序打包返回。</p>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>redis事务就是一次性、顺序性、排他性的执行一个队列中的一系列命令。</p>
+<h1 id="备份-aof-rdb-原理，哪些参数可调"><a href="#备份-aof-rdb-原理，哪些参数可调" class="headerlink" title="备份(aof/rdb)原理，哪些参数可调"></a>备份(aof/rdb)原理，哪些参数可调</h1><p>RDB是根据指定的规则定时将内存中的数据备份到硬盘上，AOF是在每次执行命令后命令本身记录下来，所以RDB的备份文件是一个二进制文件，而AOF的备份文件是一个文本文件。至于调参，网上可找。</p>
+<h1 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h1><p>redis网络模型，网上找，需要理解。</p>
+<p><a href="https://segmentfault.com/a/1190000039223696" target="_blank" rel="noopener">https://segmentfault.com/a/1190000039223696</a></p>
+<h1 id="为什么单线程就能hold住几万qps"><a href="#为什么单线程就能hold住几万qps" class="headerlink" title="为什么单线程就能hold住几万qps"></a>为什么单线程就能hold住几万qps</h1><p>I/O复用，Reactor 设计模式</p>
+<p>redis为什么这么快，我说了（内存，单线程避免切换，最后才是大头，多路复用IO的底层原理，就是epoll）</p>
+<h1 id="热点key怎么处理"><a href="#热点key怎么处理" class="headerlink" title="热点key怎么处理"></a>热点key怎么处理</h1><p>1、热key加载到系统内存中，直接从系统内存中取，而不走到redis层。<br>2、redis集群，热点备份分布到集群中，避免单台redis集中访问。</p>
+<h1 id="一致性hash解决什么问题"><a href="#一致性hash解决什么问题" class="headerlink" title="一致性hash解决什么问题"></a>一致性hash解决什么问题</h1><p>redis集群和负载均衡</p>
+<h1 id="redis集群-主从，高可用，扩展节点"><a href="#redis集群-主从，高可用，扩展节点" class="headerlink" title="redis集群(主从，高可用，扩展节点)"></a>redis集群(主从，高可用，扩展节点)</h1><h1 id="redis内存满了"><a href="#redis内存满了" class="headerlink" title="redis内存满了"></a>redis内存满了</h1><p><a href="https://juejin.cn/post/6844904166154846221" target="_blank" rel="noopener">https://juejin.cn/post/6844904166154846221</a></p>
+<p>maxmemory</p>
+<h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><ul>
+<li>缓存</li>
+<li>session</li>
+<li>消息队列</li>
+</ul>
+<h1 id="redis-setnx-expire-有什么缺点，如何优化。"><a href="#redis-setnx-expire-有什么缺点，如何优化。" class="headerlink" title="redis setnx + expire 有什么缺点，如何优化。"></a>redis setnx + expire 有什么缺点，如何优化。</h1><h1 id="B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树。"><a href="#B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树。" class="headerlink" title="B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树。"></a>B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树。</h1><h1 id="redis-集群是怎么实现的，说一下一致性-hash。"><a href="#redis-集群是怎么实现的，说一下一致性-hash。" class="headerlink" title="redis 集群是怎么实现的，说一下一致性 hash。"></a>redis 集群是怎么实现的，说一下一致性 hash。</h1><h1 id="redis-的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。"><a href="#redis-的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。" class="headerlink" title="redis 的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。"></a>redis 的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。</h1>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/面筋/">面筋</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面筋/">面筋</a></li></ul>
+
+      
+            
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/work/interview/mysql/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          烤面筋 - MySQL
+        
+      </div>
+    </a>
+  
+  
+    <a href="/work/interview/third-party/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">烤面筋 - 链接</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pipline"><span class="nav-number">2.</span> <span class="nav-text">pipline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">3.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备份-aof-rdb-原理，哪些参数可调"><span class="nav-number">4.</span> <span class="nav-text">备份(aof/rdb)原理，哪些参数可调</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络模型"><span class="nav-number">5.</span> <span class="nav-text">网络模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么单线程就能hold住几万qps"><span class="nav-number">6.</span> <span class="nav-text">为什么单线程就能hold住几万qps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#热点key怎么处理"><span class="nav-number">7.</span> <span class="nav-text">热点key怎么处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一致性hash解决什么问题"><span class="nav-number">8.</span> <span class="nav-text">一致性hash解决什么问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis集群-主从，高可用，扩展节点"><span class="nav-number">9.</span> <span class="nav-text">redis集群(主从，高可用，扩展节点)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis内存满了"><span class="nav-number">10.</span> <span class="nav-text">redis内存满了</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用途"><span class="nav-number">11.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-setnx-expire-有什么缺点，如何优化。"><span class="nav-number">12.</span> <span class="nav-text">redis setnx + expire 有什么缺点，如何优化。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树。"><span class="nav-number">13.</span> <span class="nav-text">B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-集群是怎么实现的，说一下一致性-hash。"><span class="nav-number">14.</span> <span class="nav-text">redis 集群是怎么实现的，说一下一致性 hash。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。"><span class="nav-number">15.</span> <span class="nav-text">redis 的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018-2021 KLEON All Rights Reserved.
+      </div>
+      <div class="site-count">
+          
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

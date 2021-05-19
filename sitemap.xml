@@ -4,42 +4,91 @@
   <url>
     <loc>https://blog.kleon.space/work/interview/go/</loc>
     
-    <lastmod>2021-05-18T19:23:19.000Z</lastmod>
+    <lastmod>2021-05-19T19:23:19.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/work/interview/database/</loc>
+    <loc>https://blog.kleon.space/work/interview/algo/</loc>
     
-    <lastmod>2021-05-18T18:23:19.000Z</lastmod>
+    <lastmod>2021-05-19T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/general/</loc>
+    
+    <lastmod>2021-05-19T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/mysql/</loc>
+    
+    <lastmod>2021-05-19T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/redis/</loc>
+    
+    <lastmod>2021-05-19T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/third-party/</loc>
+    
+    <lastmod>2021-05-19T18:23:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/recommender/</loc>
+    
+    <lastmod>2021-05-19T12:51:37.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-05-18T12:55:47.838Z</lastmod>
+    <lastmod>2021-05-19T11:52:53.292Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-05-18T12:55:47.826Z</lastmod>
+    <lastmod>2021-05-19T11:52:53.276Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-05-18T12:55:47.826Z</lastmod>
+    <lastmod>2021-05-19T11:52:53.276Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-05-18T12:55:47.826Z</lastmod>
+    <lastmod>2021-05-19T11:52:53.276Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/backend/</loc>
+    
+    <lastmod>2021-05-19T08:00:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/work/interview/middleware/</loc>
+    
+    <lastmod>2021-05-19T08:00:00.000Z</lastmod>
     
   </url>
   
@@ -135,13 +184,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/work/interview/recommender/</loc>
-    
-    <lastmod>2021-05-02T12:51:37.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.kleon.space/ai/ml-system/recommender/2-feature-engineer/</loc>
     
     <lastmod>2021-05-02T12:31:14.000Z</lastmod>
@@ -201,34 +243,6 @@
     <loc>https://blog.kleon.space/cs/algo/greedy/</loc>
     
     <lastmod>2021-04-27T09:00:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/work/interview/algo/</loc>
-    
-    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/work/interview/backend/</loc>
-    
-    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/work/interview/general/</loc>
-    
-    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.kleon.space/work/interview/third-party/</loc>
-    
-    <lastmod>2021-04-26T18:23:19.000Z</lastmod>
     
   </url>
   
