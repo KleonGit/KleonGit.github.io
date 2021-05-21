@@ -193,8 +193,31 @@ var themeMenus = {};
 <li>使用<strong>关键零件</strong>和<strong>非关键零件</strong>组成<strong>飞船</strong>，完成游戏</li>
 </ul>
 <h2 id="地图、房间、环境"><a href="#地图、房间、环境" class="headerlink" title="地图、房间、环境"></a>地图、房间、环境</h2><ul>
-<li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N必须为奇数，M与N由星球属性随机，范围(8-16)</li>
+<li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N取决于星球属性，初始建议M(横)N(纵)为12x7</li>
 <li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动</li>
+<li>地图横向为经度，纵向为纬度<ul>
+<li>温度/视野随经度循环变化，左移或右移取决于星球属性</li>
+<li>移动时间以进入房间次数（N）为准，N取决于星球属性</li>
+<li></li>
+</ul>
+</li>
+<li>房间分为<strong>普通房间</strong>和<strong>专用房间</strong>，<strong>专用房间</strong>可由多个房间拼接而成。</li>
+<li>地图形状未探索时不可知，探索后计入地图</li>
+<li>专用房间包括：<ul>
+<li>起始房间，飞船坠毁点，需要回到此处完成游戏</li>
+<li>Boss房间，Boss掉落关键零件和大量材料，地图中最后一个Boss掉落周目关键道具，提升环境适应性，可进入更多房间</li>
+<li>挑战房间，精英敌人或某种挑战</li>
+<li>奖励房间，提供材料，回血道具，武器</li>
+<li>商店房间，售卖材料，回血道具，武器</li>
+<li>不可入房间，计入房间进入次数，但场景显示为探索后退回<ul>
+<li>永久不可入房间（某周目不可入）</li>
+<li>因环境导致的临时不可入房间</li>
+</ul>
+</li>
+<li>关键进展房间，用于剧情碎片收集</li>
+<li>隐藏房间</li>
+</ul>
+</li>
 </ul>
 <p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
 <h2 id="材料、武器、零件"><a href="#材料、武器、零件" class="headerlink" title="材料、武器、零件"></a>材料、武器、零件</h2><ul>
