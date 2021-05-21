@@ -231,7 +231,8 @@ var themeMenus = {};
 </ul>
 <p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
 <h2 id="房间"><a href="#房间" class="headerlink" title="房间"></a>房间</h2><h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>以角色为一个单位方格为基准，标准房间单位为16x9，占据横向显示设备（PC/手机），组合房间的长宽分别为N倍，如Boss房长宽分别为基准房间的2倍。</p>
-<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门生成于标准房间的四边中点处，一个房间最多有四个门。</p>
+<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门生成于标准房间的四边56544，一个房间最多有四个门。</p>
+<p>隐藏房间只有一个门可入。</p>
 <h3 id="障碍物"><a href="#障碍物" class="headerlink" title="障碍物"></a>障碍物</h3><p>障碍物以单元格为基准随机生成，障碍物分为：</p>
 <ul>
 <li>不可重叠可破环障碍物，拥有可破坏次数N，被攻击N次（次数变为0）后障碍物消除<ul>
@@ -252,7 +253,7 @@ var themeMenus = {};
 </ul>
 <p>障碍物转化路径</p>
 <ol>
-<li>初始按星球属性随机和房间预设生成，比如水(10%),土(90%)</li>
+<li>首次进入时按星球属性随机和房间预设生成，比如水(10%),土(90%)</li>
 <li>根据预设房间属性生成障碍物<ul>
 <li>比如土转变为岩石容器(5%),巨型岩石(5%)</li>
 <li>水转变为冰块容器(5%),巨型冰块(5%)</li>
@@ -269,14 +270,47 @@ var themeMenus = {};
 </ul>
 </li>
 </ol>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
+<h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><h3 id="普通敌人"><a href="#普通敌人" class="headerlink" title="普通敌人"></a>普通敌人</h3><p>在每次进入时按难度因子<script type="math/tex">D</script>，温度<script type="math/tex">T</script>，星球属性<script type="math/tex">P</script>，纬度<script type="math/tex">A</script>生成。</p>
+<p>怪物总数量约束：</p>
+<script type="math/tex; mode=display">
+A_{normal} = random(max(D-3, 1), D+3)</script><p>怪物可组合类型</p>
+<ul>
+<li>属性<ul>
+<li>普通</li>
+<li>电磁</li>
+<li>灼烧</li>
+<li>冰冻</li>
+</ul>
+</li>
+<li>攻击距离<ul>
+<li>random(1,2,4)</li>
+</ul>
+</li>
+<li>适合温度<ul>
+<li>50%T，25%T-1，25%T+1</li>
+<li>在适合温度时，获得额外伤害</li>
+</ul>
+</li>
+</ul>
+<p>伤害</p>
+<script type="math/tex; mode=display">
+D_{total} = D_{normal} + D_{attribute} + D_{temp}</script><p>普通伤害</p>
+<script type="math/tex; mode=display">
+D_{normal} = random(max(D-3, 1), D+3)</script><p>属性伤害</p>
+<script type="math/tex; mode=display">
+D_{attribute} = random(1, 10)\frac{D}{10}</script><p>温度契合伤害</p>
+<script type="math/tex; mode=display">
+D_{temp} = 10\frac{D}{10}</script><h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
+<script type="math/tex; mode=display">
+A_{special} = random(0, [\frac{D - 8}{5})</script><p>伤害较普通怪x3</p>
+<h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
 <p>可变因子包括：</p>
 <ul>
 <li>温度，影响地形，能力，敌人生成</li>
 <li>光照，影响视野，敌人生成</li>
 <li>水分布，影响地形，一周目不可下水，可能转变为冰山</li>
 </ul>
-<p>环境按等级取整到：</p>
+<p>环境温度<script type="math/tex">T</script>按等级取整到：</p>
 <ul>
 <li>3 岩浆白昼，不可入</li>
 <li>2 极端炎热，地表生成岩浆池</li>
@@ -286,7 +320,10 @@ var themeMenus = {};
 <li>-2 极端严寒，全部水结冰，生成冰山</li>
 <li>-3 寒冰黑夜，不可入</li>
 </ul>
-<h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
+<p>当前经度温度<script type="math/tex">T_{longitude}</script>按0 - -3 - 0 - 3 - 0均匀分布<br>按进入房间次数<script type="math/tex">N=3</script>，左移/右一(自转，一颗星球二选一)一个标准房间</p>
+<p>当前房间温度<script type="math/tex">T_{room}</script>随纬度<script type="math/tex">A</script>和当前经度温度<script type="math/tex">T_{longitude}</script>变化公式</p>
+<script type="math/tex; mode=display">
+T_{room} = T_{longitude}\frac{90 - |A|}{90} + 2\frac{A}{90}  A \in [0, 90)</script><h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
 <li>收集<strong>材料</strong>，材料可用于<ul>
 <li>制作<strong>武器</strong></li>
 <li>强化<strong>武器</strong></li>
@@ -404,7 +441,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图"><span class="nav-number">3.2.</span> <span class="nav-text">地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#房间"><span class="nav-number">3.3.</span> <span class="nav-text">房间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺寸"><span class="nav-number">3.3.1.</span> <span class="nav-text">尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">3.3.2.</span> <span class="nav-text">门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障碍物"><span class="nav-number">3.3.3.</span> <span class="nav-text">障碍物</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.4.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.5.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.6.</span> <span class="nav-text">武器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本约束"><span class="nav-number">3.6.1.</span> <span class="nav-text">基本约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#武器组合类型"><span class="nav-number">3.6.2.</span> <span class="nav-text">武器组合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击属性"><span class="nav-number">3.6.2.1.</span> <span class="nav-text">攻击属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊技能"><span class="nav-number">3.6.2.2.</span> <span class="nav-text">特殊技能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强化属性"><span class="nav-number">3.6.2.3.</span> <span class="nav-text">强化属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.7.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.8.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死亡后成长"><span class="nav-number">3.9.</span> <span class="nav-text">死亡后成长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊道具（永久）"><span class="nav-number">3.10.</span> <span class="nav-text">特殊道具（永久）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后期"><span class="nav-number">3.11.</span> <span class="nav-text">后期</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图"><span class="nav-number">3.2.</span> <span class="nav-text">地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#房间"><span class="nav-number">3.3.</span> <span class="nav-text">房间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺寸"><span class="nav-number">3.3.1.</span> <span class="nav-text">尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">3.3.2.</span> <span class="nav-text">门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障碍物"><span class="nav-number">3.3.3.</span> <span class="nav-text">障碍物</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#敌人"><span class="nav-number">3.4.</span> <span class="nav-text">敌人</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通敌人"><span class="nav-number">3.4.1.</span> <span class="nav-text">普通敌人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精英怪"><span class="nav-number">3.4.2.</span> <span class="nav-text">精英怪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boss"><span class="nav-number">3.4.3.</span> <span class="nav-text">Boss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.5.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.6.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.7.</span> <span class="nav-text">武器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本约束"><span class="nav-number">3.7.1.</span> <span class="nav-text">基本约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#武器组合类型"><span class="nav-number">3.7.2.</span> <span class="nav-text">武器组合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击属性"><span class="nav-number">3.7.2.1.</span> <span class="nav-text">攻击属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊技能"><span class="nav-number">3.7.2.2.</span> <span class="nav-text">特殊技能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强化属性"><span class="nav-number">3.7.2.3.</span> <span class="nav-text">强化属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.8.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.9.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死亡后成长"><span class="nav-number">3.10.</span> <span class="nav-text">死亡后成长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊道具（永久）"><span class="nav-number">3.11.</span> <span class="nav-text">特殊道具（永久）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后期"><span class="nav-number">3.12.</span> <span class="nav-text">后期</span></a></li></ol></li></ol>
     
     </div>
   </aside>
