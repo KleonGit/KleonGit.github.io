@@ -192,13 +192,17 @@ var themeMenus = {};
 <h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
 <li>使用<strong>关键零件</strong>和<strong>非关键零件</strong>组成<strong>飞船</strong>，完成游戏</li>
 </ul>
-<h2 id="地图、房间、环境"><a href="#地图、房间、环境" class="headerlink" title="地图、房间、环境"></a>地图、房间、环境</h2><ul>
+<h2 id="地图、房间"><a href="#地图、房间" class="headerlink" title="地图、房间"></a>地图、房间</h2><ul>
 <li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N取决于星球属性，初始建议M(横)N(纵)为12x7</li>
-<li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动</li>
+<li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动<ul>
+<li>左右直接回绕</li>
+<li>上下并不直接回绕，极点附近向上/下与当前纬度+星球总纬度/2的房间相连</li>
+</ul>
+</li>
 <li>地图横向为经度，纵向为纬度<ul>
 <li>温度/视野随经度循环变化，左移或右移取决于星球属性</li>
 <li>移动时间以进入房间次数（N）为准，N取决于星球属性</li>
-<li></li>
+<li>温度变化率随纬度变化，从赤道到极点不断减弱</li>
 </ul>
 </li>
 <li>房间分为<strong>普通房间</strong>和<strong>专用房间</strong>，<strong>专用房间</strong>可由多个房间拼接而成。</li>
@@ -208,7 +212,7 @@ var themeMenus = {};
 <li>Boss房间，Boss掉落关键零件和大量材料，地图中最后一个Boss掉落周目关键道具，提升环境适应性，可进入更多房间</li>
 <li>挑战房间，精英敌人或某种挑战</li>
 <li>奖励房间，提供材料，回血道具，武器</li>
-<li>商店房间，售卖材料，回血道具，武器</li>
+<li>商店房间，消耗材料，制作回血道具，武器</li>
 <li>不可入房间，计入房间进入次数，但场景显示为探索后退回<ul>
 <li>永久不可入房间（某周目不可入）</li>
 <li>因环境导致的临时不可入房间</li>
@@ -220,13 +224,21 @@ var themeMenus = {};
 </li>
 </ul>
 <p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
-<h2 id="材料、武器、零件"><a href="#材料、武器、零件" class="headerlink" title="材料、武器、零件"></a>材料、武器、零件</h2><ul>
-<li>收集<strong>材料</strong>，制作<strong>武器</strong>和<strong>非关键零件</strong></li>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><h2 id="材料、武器、零件、物品、消耗品"><a href="#材料、武器、零件、物品、消耗品" class="headerlink" title="材料、武器、零件、物品、消耗品"></a>材料、武器、零件、物品、消耗品</h2><ul>
+<li>收集<strong>材料</strong>，材料可用于<ul>
+<li>制作<strong>武器</strong></li>
+<li>强化<strong>武器</strong></li>
+<li>制作<strong>非关键零件</strong></li>
+<li>制作<strong>功能性物品</strong></li>
+<li>制作<strong>消耗品</strong></li>
+</ul>
+</li>
 <li>材料从敌人掉落或环境开采</li>
 <li>武器<strong>强度</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关，非关键零件<strong>质量</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关</li>
 <li>收集<strong>关键零件</strong>，和<strong>非关键零件</strong>制作<strong>飞船</strong></li>
+<li>材料简单分为<strong>金属</strong>与<strong>有机物</strong>，后期配方表可增加</li>
 </ul>
-<h2 id><a href="#" class="headerlink" title=" "></a> </h2>
+
       
     </div>
     <footer class="entry-meta entry-footer">
@@ -273,7 +285,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图、房间、环境"><span class="nav-number">3.2.</span> <span class="nav-text">地图、房间、环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料、武器、零件"><span class="nav-number">3.3.</span> <span class="nav-text">材料、武器、零件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">3.4.</span> <span class="nav-text"> </span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图、房间"><span class="nav-number">3.2.</span> <span class="nav-text">地图、房间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料、武器、零件、物品、消耗品"><span class="nav-number">3.4.</span> <span class="nav-text">材料、武器、零件、物品、消耗品</span></a></li></ol></li></ol>
     
     </div>
   </aside>
