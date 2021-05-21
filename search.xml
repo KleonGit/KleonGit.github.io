@@ -847,7 +847,21 @@
 <li>RogLike化的敌人生成，包括外观，行为，技能</li>
 <li>游戏时间相关的房间和敌人生成</li>
 </ul>
-<h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1>]]></content>
+<h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
+<li>使用<strong>关键零件</strong>和<strong>非关键零件</strong>组成<strong>飞船</strong>，完成游戏</li>
+</ul>
+<h2 id="地图、房间、环境"><a href="#地图、房间、环境" class="headerlink" title="地图、房间、环境"></a>地图、房间、环境</h2><ul>
+<li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N必须为奇数，M与N由星球属性随机，范围(8-16)</li>
+<li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动</li>
+</ul>
+<p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
+<h2 id="材料、武器、零件"><a href="#材料、武器、零件" class="headerlink" title="材料、武器、零件"></a>材料、武器、零件</h2><ul>
+<li>收集<strong>材料</strong>，制作<strong>武器</strong>和<strong>非关键零件</strong></li>
+<li>材料从敌人掉落或环境开采</li>
+<li>武器<strong>强度</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关，非关键零件<strong>质量</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关</li>
+<li>收集<strong>关键零件</strong>，和<strong>非关键零件</strong>制作<strong>飞船</strong></li>
+</ul>
+<h2 id><a href="#" class="headerlink" title=" "></a> </h2>]]></content>
       <categories>
         <category>游戏</category>
       </categories>
@@ -2968,6 +2982,20 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
       </tags>
   </entry>
   <entry>
+    <title>机器学习系统 4-5 - 排序</title>
+    <url>/ai/ml-system/recommender/5-rank/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>用尽量多且有效的feature排序，准而精</p>
+<a id="more"></a>
+<h1 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h1><h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 4-4 - 召回</title>
     <url>/ai/ml-system/recommender/4-recall/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>多种策略混合，快而全</p>
@@ -3030,20 +3058,6 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <li>[28] <span id="refer-28"></span> <a href="https://github.com/facebookresearch/faiss" target="_blank" rel="noopener">facebookresearch/faiss: A library for efficient similarity search and clustering of dense vectors.</a></li>
 </ul>
 ]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 4-5 - 排序</title>
-    <url>/ai/ml-system/recommender/5-rank/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>用尽量多且有效的feature排序，准而精</p>
-<a id="more"></a>
-<h1 id="Wide-amp-Deep"><a href="#Wide-amp-Deep" class="headerlink" title="Wide&amp;Deep"></a>Wide&amp;Deep</h1><h1 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h1>]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
