@@ -838,6 +838,25 @@
       </tags>
   </entry>
   <entry>
+    <title>Keep Moving策划</title>
+    <url>/game/keep-moving/design/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Keep Moving是一款高度Rogue Like化的外星主题的2D俯视角射击游戏</p>
+<a id="more"></a>
+<h1 id="背景设定"><a href="#背景设定" class="headerlink" title="背景设定"></a>背景设定</h1><p>玩家作为异星探险家，飞船<strong>解体</strong>坠毁，需要收集<strong>材料</strong>和<strong>零件</strong>重建飞船逃出生天。</p>
+<h1 id="核心特色"><a href="#核心特色" class="headerlink" title="核心特色"></a>核心特色</h1><ul>
+<li>RogLike化的敌人生成，包括外观，行为，技能</li>
+<li>游戏时间相关的房间和敌人生成</li>
+</ul>
+<h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1>]]></content>
+      <categories>
+        <category>游戏</category>
+      </categories>
+      <tags>
+        <tag>游戏</tag>
+        <tag>Keep Moving</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kubernetes系统实战 1 - 存储系统</title>
     <url>/k8s/in-action/1-storage-on-k8s/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
@@ -1292,7 +1311,32 @@
 <h2 id="client-长连接"><a href="#client-长连接" class="headerlink" title="client 长连接"></a>client 长连接</h2><h2 id="GET-vs-HEAD"><a href="#GET-vs-HEAD" class="headerlink" title="GET vs HEAD"></a>GET vs HEAD</h2><h2 id="401-vs-403"><a href="#401-vs-403" class="headerlink" title="401 vs 403"></a>401 vs 403</h2><h2 id="keep-alive"><a href="#keep-alive" class="headerlink" title="keep-alive"></a>keep-alive</h2><h2 id="HTTP-一次连接多次请求，不等后端返回"><a href="#HTTP-一次连接多次请求，不等后端返回" class="headerlink" title="HTTP 一次连接多次请求，不等后端返回"></a>HTTP 一次连接多次请求，不等后端返回</h2><h2 id="TCP-vs-UDP"><a href="#TCP-vs-UDP" class="headerlink" title="TCP vs UDP"></a>TCP vs UDP</h2><h2 id="time-wait"><a href="#time-wait" class="headerlink" title="time-wait"></a>time-wait</h2><h2 id="三次握手和四次挥手，说一下-time-wait。"><a href="#三次握手和四次挥手，说一下-time-wait。" class="headerlink" title="三次握手和四次挥手，说一下 time_wait。"></a>三次握手和四次挥手，说一下 time_wait。</h2><h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><h1 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h1><h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><h2 id="django-vs-flask"><a href="#django-vs-flask" class="headerlink" title="django vs flask"></a>django vs flask</h2><h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><h1 id="Web-Framework"><a href="#Web-Framework" class="headerlink" title="Web Framework"></a>Web Framework</h1><h1 id="Linux基本操作"><a href="#Linux基本操作" class="headerlink" title="Linux基本操作"></a>Linux基本操作</h1><p><a href="https://juejin.cn/post/6844904127059738637" target="_blank" rel="noopener">https://juejin.cn/post/6844904127059738637</a></p>
 <h2 id="git-基本操作"><a href="#git-基本操作" class="headerlink" title="git 基本操作"></a>git 基本操作</h2><p>git checkout -b<br>git rebase</p>
 <h2 id="less-more-sed"><a href="#less-more-sed" class="headerlink" title="less more sed"></a>less more sed</h2><h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h2><h2 id="linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程"><a href="#linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程" class="headerlink" title="linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程"></a>linux命令，查看端口占用，cpu负载，内存占用，如何发送信号给一个进程</h2><h1 id="函数式-面向对象-面向过程编程"><a href="#函数式-面向对象-面向过程编程" class="headerlink" title="函数式 面向对象 面向过程编程"></a>函数式 面向对象 面向过程编程</h1><h1 id="rust"><a href="#rust" class="headerlink" title="rust"></a>rust</h1><h1 id="API-安全"><a href="#API-安全" class="headerlink" title="API 安全"></a>API 安全</h1><h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p><a href="https://juejin.cn/post/6844904125721772039" target="_blank" rel="noopener">https://juejin.cn/post/6844904125721772039</a></p>
-<h1 id="oop的三大原则"><a href="#oop的三大原则" class="headerlink" title="oop的三大原则"></a>oop的三大原则</h1><h1 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h1><h2 id="海量评论系统"><a href="#海量评论系统" class="headerlink" title="海量评论系统"></a>海量评论系统</h2><h2 id="微信朋友圈系统"><a href="#微信朋友圈系统" class="headerlink" title="微信朋友圈系统"></a>微信朋友圈系统</h2><p>表结构， 基础功能，聊天列表</p>
+<h1 id="oop的三大原则"><a href="#oop的三大原则" class="headerlink" title="oop的三大原则"></a>oop的三大原则</h1><h1 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h1><h2 id="设计步骤"><a href="#设计步骤" class="headerlink" title="设计步骤"></a>设计步骤</h2><h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><ol>
+<li>谁会使用它？</li>
+<li>他们会怎样使用它？</li>
+<li>有多少用户？</li>
+<li>系统的作用是什么？</li>
+<li>系统的输入输出分别是什么？</li>
+<li>我们希望处理多少数据？</li>
+<li>我们希望每秒钟处理多少请求？</li>
+<li>我们希望的读写比率？</li>
+</ol>
+<h3 id="高层级设计"><a href="#高层级设计" class="headerlink" title="高层级设计"></a>高层级设计</h3><h3 id="核心组件"><a href="#核心组件" class="headerlink" title="核心组件"></a>核心组件</h3><h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><h2 id="可扩展性"><a href="#可扩展性" class="headerlink" title="可扩展性"></a>可扩展性</h2><ul>
+<li>垂直扩展（Vertical scaling）</li>
+<li>水平扩展（Horizontal scaling）</li>
+<li>缓存</li>
+<li>负载均衡</li>
+<li>数据库复制</li>
+<li>数据库分区</li>
+<li>异步</li>
+</ul>
+<h2 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h2><p>在一个分布式计算系统中，只能同时满足下列的两点:</p>
+<ul>
+<li>一致性 ─ 每次访问都能获得最新数据但可能会收到错误响应</li>
+<li>可用性 ─ 每次访问都能收到非错响应，但不保证获取到最新数据</li>
+<li>分区容错性 ─ 在任意分区网络故障的情况下系统仍能继续运行</li>
+</ul>
+<h2 id="海量评论系统"><a href="#海量评论系统" class="headerlink" title="海量评论系统"></a>海量评论系统</h2><h2 id="微信朋友圈系统"><a href="#微信朋友圈系统" class="headerlink" title="微信朋友圈系统"></a>微信朋友圈系统</h2><p>表结构， 基础功能，聊天列表</p>
 <h2 id="类似于设计一个长链接转短链接，不过需要考虑高并发，回答了分库分表。"><a href="#类似于设计一个长链接转短链接，不过需要考虑高并发，回答了分库分表。" class="headerlink" title="类似于设计一个长链接转短链接，不过需要考虑高并发，回答了分库分表。"></a>类似于设计一个长链接转短链接，不过需要考虑高并发，回答了分库分表。</h2><h2 id="设计一个海量日志写入系统"><a href="#设计一个海量日志写入系统" class="headerlink" title="设计一个海量日志写入系统"></a>设计一个海量日志写入系统</h2><h1 id="过程模拟"><a href="#过程模拟" class="headerlink" title="过程模拟"></a>过程模拟</h1><h2 id="打开一个-URL-的过程"><a href="#打开一个-URL-的过程" class="headerlink" title="打开一个 URL 的过程"></a>打开一个 URL 的过程</h2><h1 id="JD"><a href="#JD" class="headerlink" title="JD"></a>JD</h1><p>1、负责推荐、画像、搜索，广告、风控引擎等相关体系的服务接口开发；</p>
 <p>2、负责基础应用框架的维护和迭代，完善和优化服务治理系统，参与技术文档的编写；</p>
 <p>3、支持业务超过 10 个场景，高维度向量检索，支持特征检索，图像检索，embedding 向量检索等多种场景。</p>
@@ -1684,7 +1728,12 @@
 <p>3、采用单线程，避免了不必要的上下文切换和竞争条件，也不存在多进程或者多线程导致的切换而消耗 CPU，不用去考虑各种锁的问题，不存在加锁释放锁操作，没有因为可能出现死锁而导致的性能消耗；</p>
 <p>4、使用多路 I/O 复用模型，非阻塞 IO；</p>
 <p>5、使用底层模型不同，它们之间底层实现方式以及与客户端之间通信的应用协议不一样，Redis 直接自己构建了 VM 机制 ，因为一般的系统调用系统函数的话，会浪费一定的时间去移动和请求；</p>
-<h1 id="热点key怎么处理"><a href="#热点key怎么处理" class="headerlink" title="热点key怎么处理"></a>热点key怎么处理</h1><p>1、热key加载到系统内存中，直接从系统内存中取，而不走到redis层。<br>2、redis集群，热点备份分布到集群中，避免单台redis集中访问。</p>
+<h1 id="热点key怎么处理"><a href="#热点key怎么处理" class="headerlink" title="热点key怎么处理"></a>热点key怎么处理</h1><p>缓存中的一个Key(比如一个促销商品)，在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。</p>
+<ol>
+<li>热key加载到系统内存中，直接从系统内存中取，而不走到redis层。</li>
+<li>redis集群，热点备份分布到集群中，避免单台redis集中访问。</li>
+<li>对缓存查询加锁，如果KEY不存在，就加锁，然后查DB入缓存，然后解锁；其他进程如果发现有锁就等待，然后等解锁后返回数据或者进入DB查询</li>
+</ol>
 <h1 id="一致性hash解决什么问题"><a href="#一致性hash解决什么问题" class="headerlink" title="一致性hash解决什么问题"></a>一致性hash解决什么问题</h1><p>redis集群和负载均衡</p>
 <h1 id="redis集群-主从，高可用，扩展节点"><a href="#redis集群-主从，高可用，扩展节点" class="headerlink" title="redis集群(主从，高可用，扩展节点)"></a>redis集群(主从，高可用，扩展节点)</h1><h1 id="redis内存满了"><a href="#redis内存满了" class="headerlink" title="redis内存满了"></a>redis内存满了</h1><p><a href="https://juejin.cn/post/6844904166154846221" target="_blank" rel="noopener">https://juejin.cn/post/6844904166154846221</a></p>
 <p>maxmemory</p>
@@ -1696,7 +1745,18 @@
 <h2 id="消息队列-发布-订阅功能"><a href="#消息队列-发布-订阅功能" class="headerlink" title="消息队列(发布/订阅功能)"></a>消息队列(发布/订阅功能)</h2><p>List 是一个双向链表，可以通过 lpush 和 rpop 写入和读取消息。不过最好使用 Kafka、RabbitMQ 等消息中间件。</p>
 <h2 id="分布式锁实现"><a href="#分布式锁实现" class="headerlink" title="分布式锁实现"></a>分布式锁实现</h2><p>在分布式场景下，无法使用单机环境下的锁来对多个节点上的进程进行同步。可以使用 Redis 自带的 SETNX 命令实现分布式锁，除此之外，还可以使用官方提供的 RedLock 分布式锁实现。</p>
 <h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>Set 可以实现交集、并集等操作，从而实现共同好友等功能。ZSet 可以实现有序性操作，从而实现排行榜等功能。</p>
-<h1 id="redis-setnx-expire-有什么缺点，如何优化。"><a href="#redis-setnx-expire-有什么缺点，如何优化。" class="headerlink" title="redis setnx + expire 有什么缺点，如何优化。"></a>redis setnx + expire 有什么缺点，如何优化。</h1><h1 id="B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树。"><a href="#B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树。" class="headerlink" title="B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树。"></a>B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树。</h1><h1 id="redis-集群是怎么实现的，说一下一致性-hash。"><a href="#redis-集群是怎么实现的，说一下一致性-hash。" class="headerlink" title="redis 集群是怎么实现的，说一下一致性 hash。"></a>redis 集群是怎么实现的，说一下一致性 hash。</h1><h1 id="redis-的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。"><a href="#redis-的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。" class="headerlink" title="redis 的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。"></a>redis 的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。</h1><h1 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h1><h1 id="过期策略"><a href="#过期策略" class="headerlink" title="过期策略"></a>过期策略</h1><ul>
+<h1 id="redis-setnx-expire-有什么缺点，如何优化。"><a href="#redis-setnx-expire-有什么缺点，如何优化。" class="headerlink" title="redis setnx + expire 有什么缺点，如何优化。"></a>redis setnx + expire 有什么缺点，如何优化。</h1><h1 id="B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树。"><a href="#B-树-和-B-树的区别，为什么-mysql-要用-B-树，mongodb-要用-B-树。" class="headerlink" title="B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树。"></a>B 树 和 B+ 树的区别，为什么 mysql 要用 B+ 树，mongodb 要用 B 树。</h1><h1 id="redis-集群是怎么实现的，说一下一致性-hash。"><a href="#redis-集群是怎么实现的，说一下一致性-hash。" class="headerlink" title="redis 集群是怎么实现的，说一下一致性 hash。"></a>redis 集群是怎么实现的，说一下一致性 hash。</h1><h1 id="redis-的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。"><a href="#redis-的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。" class="headerlink" title="redis 的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。"></a>redis 的跳表知道吗，为什么不用红黑树。我回答了因为红黑树实现比跳表复杂。但是面试官不是很满意，后来查了一下是有这部分原因的。</h1><p>优点：</p>
+<ol>
+<li>实现比红黑树简单</li>
+<li>跟红黑树更方便的支持范围查询</li>
+<li>在并发环境下skiplist有另外一个优势，红黑树在插入和删除的时候可能需要做一些rebalance的操作，这样的操作可能会涉及到整个树的其他部分，而skiplist的操作显然更加局部性一些，锁需要盯住的节点更少，因此在这样的情况下性能好一些。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>内存占用比红黑树大（每个节点4指针）</li>
+<li>由于插入时是随机选择level，cache友好性不够好</li>
+</ol>
+<h1 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h1><h1 id="过期策略"><a href="#过期策略" class="headerlink" title="过期策略"></a>过期策略</h1><ul>
 <li><p>定时过期：每个设置过期时间的key都需要创建一个定时器，到过期时间就会立即清除。该策略可以立即清除过期的数据，对内存很友好；但是会占用大量的CPU资源去处理过期的数据，从而影响缓存的响应时间和吞吐量。</p>
 </li>
 <li><p>惰性过期：只有当访问一个key时，才会判断该key是否已过期，过期则清除。该策略可以最大化地节省CPU资源，却对内存非常不友好。极端情况可能出现大量的过期key没有再次被访问，从而不会被清除，占用大量内存。</p>
@@ -1719,6 +1779,16 @@
 <li>volatile-random：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，随机移除某个key。</li>
 <li>volatile-ttl：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，有更早过期时间的key优先移除。</li>
 </ul>
+<h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><ol>
+<li>从缓存取不到的数据，在数据库中也没有取到，这时也可以将key-value对写为key-null，缓存有效时间可以设置短点，如30秒（设置太长会导致正常情况也没法使用）。这样可以防止攻击用户反复用同一个id暴力攻击</li>
+<li>接口层增加校验，如用户鉴权校验，id做基础校验，id&lt;=0的直接拦截；</li>
+<li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的 bitmap 中，一个一定不存在的数据会被这个 bitmap 拦截掉，从而避免了对底层存储系统的查询压力</li>
+</ol>
+<h2 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h2><ol>
+<li>redis集群，将原来一个人干的工作，分发给多个人干</li>
+<li>缓存预热（关闭外网访问，先开启mysql，通过预热脚本将热点数据写入缓存中，启动缓存。开启外网服务）</li>
+<li>数据不要设置相同的生存时间，不然过期时，redis压力会大</li>
+</ol>
 ]]></content>
       <categories>
         <category>面筋</category>
