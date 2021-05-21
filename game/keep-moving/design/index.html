@@ -260,15 +260,35 @@ var themeMenus = {};
 <li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
 <li>材料简单分为<strong>金属</strong>与<strong>有机物</strong>，后期配方表可增加</li>
 </ul>
-<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><ul>
+<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
 <li>角色仅能携带一把武器</li>
 <li>武器会过热，需要充能</li>
 <li>武器有两种攻击模式，普通攻击和特殊攻击</li>
 <li>特殊攻击冷却时间较长</li>
 <li>武器可使用材料升级</li>
+<li>boss可掉落武器</li>
+<li>可能开出武器</li>
+<li>武器可分解回收一定数量的材料</li>
 </ul>
-<h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><ul>
-<li>能力强化</li>
+<h3 id="武器组合类型"><a href="#武器组合类型" class="headerlink" title="武器组合类型"></a>武器组合类型</h3><h4 id="攻击属性"><a href="#攻击属性" class="headerlink" title="攻击属性"></a>攻击属性</h4><ul>
+<li>电磁，持续伤害，有几率中断行动</li>
+<li>灼烧，</li>
+<li>冰冻，</li>
+</ul>
+<h4 id="特殊技能"><a href="#特殊技能" class="headerlink" title="特殊技能"></a>特殊技能</h4><ul>
+<li>引力场，爆炸点附近敌人减速</li>
+<li>爆炸物，爆炸点附近产生范围伤害</li>
+<li>机枪塔，爆炸点生成自动机枪塔，自动攻击附近敌人</li>
+</ul>
+<h4 id="强化属性"><a href="#强化属性" class="headerlink" title="强化属性"></a>强化属性</h4><ul>
+<li>射速</li>
+<li>充能时间</li>
+<li>基础伤害</li>
+</ul>
+<h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
+<ul>
+<li>最大血量</li>
+<li>连续冲刺次数</li>
 </ul>
 <h2 id="消耗品"><a href="#消耗品" class="headerlink" title="消耗品"></a>消耗品</h2><ul>
 <li>回复血量</li>
@@ -332,7 +352,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图、房间"><span class="nav-number">3.2.</span> <span class="nav-text">地图、房间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.4.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.5.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.6.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.7.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死亡后成长"><span class="nav-number">3.8.</span> <span class="nav-text">死亡后成长</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图、房间"><span class="nav-number">3.2.</span> <span class="nav-text">地图、房间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.4.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.5.</span> <span class="nav-text">武器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本约束"><span class="nav-number">3.5.1.</span> <span class="nav-text">基本约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#武器组合类型"><span class="nav-number">3.5.2.</span> <span class="nav-text">武器组合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击属性"><span class="nav-number">3.5.2.1.</span> <span class="nav-text">攻击属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊技能"><span class="nav-number">3.5.2.2.</span> <span class="nav-text">特殊技能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强化属性"><span class="nav-number">3.5.2.3.</span> <span class="nav-text">强化属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.6.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.7.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死亡后成长"><span class="nav-number">3.8.</span> <span class="nav-text">死亡后成长</span></a></li></ol></li></ol>
     
     </div>
   </aside>
