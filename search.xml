@@ -183,6 +183,109 @@
       </tags>
   </entry>
   <entry>
+    <title>算法基础 - 哈希表</title>
+    <url>/cs/algo/hash-table/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>哈希函数用于缩小映射空间，可能会发生碰撞，可用链表法或多哈希函数。</p>
+<a id="more"></a>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>常用数据结构：</p>
+<ul>
+<li>数组，有限确定项，比如字母串</li>
+<li>map，映射</li>
+<li>set，集合</li>
+</ul>
+<p>Go的map底层使用哈希表实现，set可通过将map的value置空实现。<br>C++的std::map/std::multimap由红黑树实现，std::unorderd_map由哈希表实现。</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="数组判断有效字母异位词"><a href="#数组判断有效字母异位词" class="headerlink" title="数组判断有效字母异位词"></a>数组判断有效字母异位词</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
+<ul>
+<li>数组直接存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isAnagram</span><span class="params">(s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a,b [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> s &#123;</span><br><span class="line">        a[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> t &#123;</span><br><span class="line">        b[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a==b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
+<ul>
+<li>数组直接存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canConstruct</span><span class="params">(ransomNote <span class="keyword">string</span>, magazine <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> r [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> magazine &#123;</span><br><span class="line">        r[c - <span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> ransomNote &#123;</span><br><span class="line">        <span class="keyword">if</span> r[c - <span class="string">'a'</span>] == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        r[c - <span class="string">'a'</span>]--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合判断数组相交"><a href="#集合判断数组相交" class="headerlink" title="集合判断数组相交"></a>集合判断数组相交</h2><p><img src="https://img.shields.io/badge/leetcode-349-blue.svg" alt> <a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a></p>
+<ul>
+<li>集合存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">Add</span><span class="params">(n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    s[n] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">And</span><span class="params">(t Set)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &gt; <span class="built_in">len</span>(t) &#123;</span><br><span class="line">        s, t = t, s</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> s &#123;</span><br><span class="line">        <span class="keyword">if</span> _, ok := t[k]; ok &#123;</span><br><span class="line">            ret = <span class="built_in">append</span>(ret, k)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">intersection</span><span class="params">(nums1 []<span class="keyword">int</span>, nums2 []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    a, b := Set&#123;&#125;, Set&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums1 &#123;</span><br><span class="line">        a.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums2 &#123;</span><br><span class="line">        b.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.And(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合判断快乐数"><a href="#集合判断快乐数" class="headerlink" title="集合判断快乐数"></a>集合判断快乐数</h2><p><img src="https://img.shields.io/badge/leetcode-202-blue.svg" alt> <a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a></p>
+<ul>
+<li>集合存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>算法基础 - 链表</title>
+    <url>/cs/algo/list/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>表是最基础的数据结构之一，存储线性数据，内存结构不连续。</p>
+<a id="more"></a>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>链表可通过自定义数据结构，使用指针或引用指向前后节点。</p>
+<p>Go提供了”container/list”<a href="#refer-1"><sup>1</sup></a>标准库实现双向链表。<br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"container/list"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// Create a new list and put some numbers in it.</span></span><br><span class="line">	l := list.New()</span><br><span class="line">	e4 := l.PushBack(<span class="number">4</span>)</span><br><span class="line">	e1 := l.PushFront(<span class="number">1</span>)</span><br><span class="line">	l.InsertBefore(<span class="number">3</span>, e4)</span><br><span class="line">	l.InsertAfter(<span class="number">2</span>, e1)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through list and print its contents.</span></span><br><span class="line">	<span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">		fmt.Println(e.Value)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><h2 id="虚拟头结点移除链表中指定元素"><a href="#虚拟头结点移除链表中指定元素" class="headerlink" title="虚拟头结点移除链表中指定元素"></a>虚拟头结点移除链表中指定元素</h2><p><img src="https://img.shields.io/badge/leetcode-203-blue.svg" alt> <a href="https://leetcode-cn.com/problems/remove-linked-list-elements/" target="_blank" rel="noopener">移除链表元素</a></p>
+<ul>
+<li>基本链表操作</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeElements</span><span class="params">(head *ListNode, val <span class="keyword">int</span>)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    vhead := &amp;ListNode&#123;<span class="number">0</span>,head&#125;</span><br><span class="line">    head = vhead</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> head != <span class="literal">nil</span> &amp;&amp; head.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> head.Next.Val == val &#123;</span><br><span class="line">            head.Next = head.Next.Next</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            head = head.Next</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> vhead.Next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现链表基本操作"><a href="#实现链表基本操作" class="headerlink" title="实现链表基本操作"></a>实现链表基本操作</h2><p><img src="https://img.shields.io/badge/leetcode-707-blue.svg" alt> <a href="https://leetcode-cn.com/problems/design-linked-list/" target="_blank" rel="noopener">设计链表</a></p>
+<ul>
+<li>单向链表</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span> &#123;</span><br><span class="line">	Val  <span class="keyword">int</span></span><br><span class="line">	Next *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyLinkedList <span class="keyword">struct</span> &#123;</span><br><span class="line">	size <span class="keyword">int</span></span><br><span class="line">	head *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Constructor</span><span class="params">()</span> <span class="title">MyLinkedList</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> MyLinkedList&#123;</span><br><span class="line">		<span class="number">0</span>,</span><br><span class="line">		&amp;Node&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">Get</span><span class="params">(index <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> || index &gt;= this.size &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	prev := this.head</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; index; i++ &#123;</span><br><span class="line">		prev = prev.Next</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> prev.Next.Val</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtHead</span><span class="params">(val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	this.AddAtIndex(<span class="number">0</span>, val)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Append a node of value val to the last element of the linked list. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtTail</span><span class="params">(val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	this.AddAtIndex(this.size, val)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtIndex</span><span class="params">(index <span class="keyword">int</span>, val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> || index &gt; this.size &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	prev := this.head</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; index; i++ &#123;</span><br><span class="line">		prev = prev.Next</span><br><span class="line">	&#125;</span><br><span class="line">	node := &amp;Node&#123;Val: val&#125;</span><br><span class="line">	node.Next = prev.Next</span><br><span class="line">	prev.Next = node</span><br><span class="line"></span><br><span class="line">	this.size++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Delete the index-th node in the linked list, if the index is valid. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">DeleteAtIndex</span><span class="params">(index <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> || index &gt;= this.size &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	prev := this.head</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; index; i++ &#123;</span><br><span class="line">		prev = prev.Next</span><br><span class="line">	&#125;</span><br><span class="line">	prev.Next = prev.Next.Next</span><br><span class="line"></span><br><span class="line">	this.size--</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyLinkedList object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * obj := Constructor();</span></span><br><span class="line"><span class="comment"> * param_1 := obj.Get(index);</span></span><br><span class="line"><span class="comment"> * obj.AddAtHead(val);</span></span><br><span class="line"><span class="comment"> * obj.AddAtTail(val);</span></span><br><span class="line"><span class="comment"> * obj.AddAtIndex(index,val);</span></span><br><span class="line"><span class="comment"> * obj.DeleteAtIndex(index);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>双向链表</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span> &#123;</span><br><span class="line">    Val <span class="keyword">int</span></span><br><span class="line">    Next *Node</span><br><span class="line">    Prev *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyLinkedList <span class="keyword">struct</span> &#123;</span><br><span class="line">    Head *Node</span><br><span class="line">    Tail *Node</span><br><span class="line">    Length <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Constructor</span><span class="params">()</span> <span class="title">MyLinkedList</span></span> &#123;</span><br><span class="line">    head := &amp;Node&#123;&#125;</span><br><span class="line">    tail := &amp;Node&#123;&#125;</span><br><span class="line">    head.Next = tail</span><br><span class="line">    tail.Prev = head</span><br><span class="line">    <span class="keyword">return</span> MyLinkedList&#123;</span><br><span class="line">        Head: head,</span><br><span class="line">        Tail: tail,</span><br><span class="line">        Length: <span class="number">0</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">Print</span><span class="params">(str <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"---%v---\n"</span>, str)</span><br><span class="line">    pt := this.Head</span><br><span class="line">    fmt.Printf(<span class="string">"head %v\n"</span>, pt)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= this.Length; i++&#123;</span><br><span class="line">        pt = pt.Next</span><br><span class="line">        fmt.Printf(<span class="string">"%v %v\n"</span>, i, pt)</span><br><span class="line">    &#125;</span><br><span class="line">    pt = pt.Next</span><br><span class="line">    fmt.Printf(<span class="string">"tail %v\n"</span>, pt)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">Get</span><span class="params">(index <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> index &gt;= this.Length &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line">    ret := this.Head</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= index; i++ &#123;</span><br><span class="line">        ret = ret.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret.Val</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtHead</span><span class="params">(val <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    node := &amp;Node&#123;</span><br><span class="line">        Val: val,</span><br><span class="line">        Next: this.Head.Next,</span><br><span class="line">        Prev: this.Head,</span><br><span class="line">    &#125;</span><br><span class="line">    this.Head.Next.Prev = node</span><br><span class="line">    this.Head.Next = node</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> this.Tail.Prev.Prev == <span class="literal">nil</span> &#123;</span><br><span class="line">        this.Tail.Prev = this.Head.Next</span><br><span class="line">    &#125;</span><br><span class="line">    this.Length++</span><br><span class="line">    <span class="comment">// this.Print("AddAtHead")</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Append a node of value val to the last element of the linked list. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtTail</span><span class="params">(val <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    node := &amp;Node&#123;</span><br><span class="line">        Val: val,</span><br><span class="line">        Next: this.Tail,</span><br><span class="line">        Prev: this.Tail.Prev,</span><br><span class="line">    &#125;</span><br><span class="line">    this.Tail.Prev.Next = node</span><br><span class="line">    this.Tail.Prev = node</span><br><span class="line">    <span class="keyword">if</span> this.Head.Next.Next == <span class="literal">nil</span> &#123;</span><br><span class="line">        this.Head.Next = this.Tail.Prev</span><br><span class="line">    &#125;</span><br><span class="line">    this.Length++</span><br><span class="line">    <span class="comment">// this.Print("AddAtTail")</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtIndex</span><span class="params">(index <span class="keyword">int</span>, val <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    <span class="keyword">if</span> index == this.Length &#123;</span><br><span class="line">        this.AddAtTail(val)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> &#123;</span><br><span class="line">        this.AddAtHead(val)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pt *Node</span><br><span class="line">    pt = this.Head</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= index; i++ &#123;</span><br><span class="line">        pt = pt.Next</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    node := &amp;Node&#123;</span><br><span class="line">        Val: val,</span><br><span class="line">        Next: pt,</span><br><span class="line">        Prev: pt.Prev,</span><br><span class="line">    &#125;</span><br><span class="line">    pt.Prev.Next = node</span><br><span class="line">    pt.Prev = node</span><br><span class="line">    this.Length++</span><br><span class="line">    <span class="comment">// this.Print("AddAtIndex")</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Delete the index-th node in the linked list, if the index is valid. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">DeleteAtIndex</span><span class="params">(index <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    <span class="keyword">if</span> index &gt;= this.Length &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> &#123;</span><br><span class="line">        index = this.Length + index</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pt *Node</span><br><span class="line">    pt = this.Head</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= index; i++ &#123;</span><br><span class="line">        pt = pt.Next</span><br><span class="line">    &#125;</span><br><span class="line">    pt.Prev.Next = pt.Next</span><br><span class="line">    pt.Next.Prev = pt.Prev</span><br><span class="line">    this.Length--</span><br><span class="line">    <span class="comment">// this.Print("DeleteAtIndex")</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyLinkedList object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * obj := Constructor();</span></span><br><span class="line"><span class="comment"> * param_1 := obj.Get(index);</span></span><br><span class="line"><span class="comment"> * obj.AddAtHead(val);</span></span><br><span class="line"><span class="comment"> * obj.AddAtTail(val);</span></span><br><span class="line"><span class="comment"> * obj.AddAtIndex(index,val);</span></span><br><span class="line"><span class="comment"> * obj.DeleteAtIndex(index);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p><img src="https://img.shields.io/badge/leetcode-206-blue.svg" alt> <a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">反转链表</a></p>
+<ul>
+<li>构建新链表</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverseList</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    pt := head</span><br><span class="line">    <span class="keyword">var</span> tail *ListNode</span><br><span class="line">    <span class="keyword">for</span> pt != <span class="literal">nil</span> &#123;</span><br><span class="line">        tail = &amp;ListNode&#123;</span><br><span class="line">            pt.Val,</span><br><span class="line">            tail,</span><br><span class="line">        &#125;</span><br><span class="line">        pt = pt.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tail</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>双指针法</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverseList</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> pre, temp *ListNode</span><br><span class="line">    cur := head</span><br><span class="line">    <span class="keyword">for</span> cur != <span class="literal">nil</span> &#123;</span><br><span class="line">        temp = cur.Next</span><br><span class="line">        cur.Next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = temp</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="环形链表的入环节点"><a href="#环形链表的入环节点" class="headerlink" title="环形链表的入环节点"></a>环形链表的入环节点</h2><p><img src="https://img.shields.io/badge/leetcode-141-blue.svg" alt> <a href="https://leetcode-cn.com/problems/linked-list-cycle/" target="_blank" rel="noopener">环形链表</a><br><img src="https://img.shields.io/badge/leetcode-142-blue.svg" alt> <a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">环形链表II</a></p>
+<ul>
+<li>快慢指针法</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">detectCycle</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    fast := head</span><br><span class="line">    slow := head</span><br><span class="line">    <span class="keyword">for</span> fast != <span class="literal">nil</span> &amp;&amp; fast.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">        slow = slow.Next</span><br><span class="line">        fast = fast.Next.Next</span><br><span class="line">        <span class="keyword">if</span> slow == fast &#123;</span><br><span class="line">            p1 := fast</span><br><span class="line">            p2 := head</span><br><span class="line">            <span class="keyword">for</span> p1 != p2 &#123;</span><br><span class="line">                p1 = p1.Next</span><br><span class="line">                p2 = p2.Next</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> p2</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="删除排序链表中的重复元素-II"><a href="#删除排序链表中的重复元素-II" class="headerlink" title="删除排序链表中的重复元素 II"></a>删除排序链表中的重复元素 II</h2><p><img src="https://img.shields.io/badge/leetcode-82-blue.svg" alt> <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/" target="_blank" rel="noopener">删除排序链表中的重复元素 II</a></p>
+<ul>
+<li>操作指针，开始指针，结束指针。注意绝对不重复的条件是开始指针和结束指针相邻且不相等。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteDuplicates</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> head == <span class="literal">nil</span> || head.Next == <span class="literal">nil</span> &#123; <span class="keyword">return</span> head &#125;</span><br><span class="line">    vhead := &amp;ListNode&#123;Next:head&#125;</span><br><span class="line">    cur := vhead</span><br><span class="line">    start := vhead.Next</span><br><span class="line">    end := vhead.Next.Next</span><br><span class="line">    <span class="keyword">for</span> start != <span class="literal">nil</span> &amp;&amp; end != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> start.Val != end.Val &#123;</span><br><span class="line">            <span class="keyword">if</span> end == start.Next &#123;</span><br><span class="line">                cur = cur.Next</span><br><span class="line">            &#125;</span><br><span class="line">            start = end</span><br><span class="line">            end = end.Next</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            end = end.Next</span><br><span class="line">            cur.Next = end</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> vhead.Next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://golang.org/pkg/container/list/" target="_blank" rel="noopener">Package list</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法基础 - 贪心法</title>
     <url>/cs/algo/greedy/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>贪心法用来解可由局部最优推出全局最优的问题。</p>
@@ -303,109 +406,6 @@
 </ul>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">minCameraCover</span><span class="params">(root *TreeNode)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> traverse <span class="function"><span class="keyword">func</span> <span class="params">(node *TreeNode)</span> <span class="title">int</span></span></span><br><span class="line">    traverse = <span class="function"><span class="keyword">func</span> <span class="params">(node *TreeNode)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> node == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        left := traverse(node.Left)</span><br><span class="line">        right := traverse(node.Right)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> left == <span class="number">2</span> &amp;&amp; right == <span class="number">2</span> &#123; <span class="keyword">return</span> <span class="number">0</span> &#125;</span><br><span class="line">        <span class="keyword">if</span> left == <span class="number">0</span> || right == <span class="number">0</span> &#123; </span><br><span class="line">            count++</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> left == <span class="number">1</span> || right == <span class="number">1</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> traverse(root) == <span class="number">0</span> &#123;</span><br><span class="line">        count++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>数据结构</tag>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法基础 - 哈希表</title>
-    <url>/cs/algo/hash-table/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>哈希函数用于缩小映射空间，可能会发生碰撞，可用链表法或多哈希函数。</p>
-<a id="more"></a>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>常用数据结构：</p>
-<ul>
-<li>数组，有限确定项，比如字母串</li>
-<li>map，映射</li>
-<li>set，集合</li>
-</ul>
-<p>Go的map底层使用哈希表实现，set可通过将map的value置空实现。<br>C++的std::map/std::multimap由红黑树实现，std::unorderd_map由哈希表实现。</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="数组判断有效字母异位词"><a href="#数组判断有效字母异位词" class="headerlink" title="数组判断有效字母异位词"></a>数组判断有效字母异位词</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
-<ul>
-<li>数组直接存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isAnagram</span><span class="params">(s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a,b [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> s &#123;</span><br><span class="line">        a[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> t &#123;</span><br><span class="line">        b[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a==b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
-<ul>
-<li>数组直接存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canConstruct</span><span class="params">(ransomNote <span class="keyword">string</span>, magazine <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> r [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> magazine &#123;</span><br><span class="line">        r[c - <span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> ransomNote &#123;</span><br><span class="line">        <span class="keyword">if</span> r[c - <span class="string">'a'</span>] == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        r[c - <span class="string">'a'</span>]--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="集合判断数组相交"><a href="#集合判断数组相交" class="headerlink" title="集合判断数组相交"></a>集合判断数组相交</h2><p><img src="https://img.shields.io/badge/leetcode-349-blue.svg" alt> <a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a></p>
-<ul>
-<li>集合存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">Add</span><span class="params">(n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    s[n] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">And</span><span class="params">(t Set)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &gt; <span class="built_in">len</span>(t) &#123;</span><br><span class="line">        s, t = t, s</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> s &#123;</span><br><span class="line">        <span class="keyword">if</span> _, ok := t[k]; ok &#123;</span><br><span class="line">            ret = <span class="built_in">append</span>(ret, k)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">intersection</span><span class="params">(nums1 []<span class="keyword">int</span>, nums2 []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    a, b := Set&#123;&#125;, Set&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums1 &#123;</span><br><span class="line">        a.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums2 &#123;</span><br><span class="line">        b.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.And(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="集合判断快乐数"><a href="#集合判断快乐数" class="headerlink" title="集合判断快乐数"></a>集合判断快乐数</h2><p><img src="https://img.shields.io/badge/leetcode-202-blue.svg" alt> <a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a></p>
-<ul>
-<li>集合存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>数据结构</tag>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法基础 - 链表</title>
-    <url>/cs/algo/list/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>表是最基础的数据结构之一，存储线性数据，内存结构不连续。</p>
-<a id="more"></a>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>链表可通过自定义数据结构，使用指针或引用指向前后节点。</p>
-<p>Go提供了”container/list”<a href="#refer-1"><sup>1</sup></a>标准库实现双向链表。<br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"container/list"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">// Create a new list and put some numbers in it.</span></span><br><span class="line">	l := list.New()</span><br><span class="line">	e4 := l.PushBack(<span class="number">4</span>)</span><br><span class="line">	e1 := l.PushFront(<span class="number">1</span>)</span><br><span class="line">	l.InsertBefore(<span class="number">3</span>, e4)</span><br><span class="line">	l.InsertAfter(<span class="number">2</span>, e1)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Iterate through list and print its contents.</span></span><br><span class="line">	<span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">		fmt.Println(e.Value)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><h2 id="虚拟头结点移除链表中指定元素"><a href="#虚拟头结点移除链表中指定元素" class="headerlink" title="虚拟头结点移除链表中指定元素"></a>虚拟头结点移除链表中指定元素</h2><p><img src="https://img.shields.io/badge/leetcode-203-blue.svg" alt> <a href="https://leetcode-cn.com/problems/remove-linked-list-elements/" target="_blank" rel="noopener">移除链表元素</a></p>
-<ul>
-<li>基本链表操作</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeElements</span><span class="params">(head *ListNode, val <span class="keyword">int</span>)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    vhead := &amp;ListNode&#123;<span class="number">0</span>,head&#125;</span><br><span class="line">    head = vhead</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> head != <span class="literal">nil</span> &amp;&amp; head.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> head.Next.Val == val &#123;</span><br><span class="line">            head.Next = head.Next.Next</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            head = head.Next</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> vhead.Next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="实现链表基本操作"><a href="#实现链表基本操作" class="headerlink" title="实现链表基本操作"></a>实现链表基本操作</h2><p><img src="https://img.shields.io/badge/leetcode-707-blue.svg" alt> <a href="https://leetcode-cn.com/problems/design-linked-list/" target="_blank" rel="noopener">设计链表</a></p>
-<ul>
-<li>单向链表</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span> &#123;</span><br><span class="line">	Val  <span class="keyword">int</span></span><br><span class="line">	Next *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyLinkedList <span class="keyword">struct</span> &#123;</span><br><span class="line">	size <span class="keyword">int</span></span><br><span class="line">	head *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Constructor</span><span class="params">()</span> <span class="title">MyLinkedList</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> MyLinkedList&#123;</span><br><span class="line">		<span class="number">0</span>,</span><br><span class="line">		&amp;Node&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">Get</span><span class="params">(index <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> || index &gt;= this.size &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	prev := this.head</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; index; i++ &#123;</span><br><span class="line">		prev = prev.Next</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> prev.Next.Val</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtHead</span><span class="params">(val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	this.AddAtIndex(<span class="number">0</span>, val)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Append a node of value val to the last element of the linked list. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtTail</span><span class="params">(val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	this.AddAtIndex(this.size, val)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtIndex</span><span class="params">(index <span class="keyword">int</span>, val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> || index &gt; this.size &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	prev := this.head</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; index; i++ &#123;</span><br><span class="line">		prev = prev.Next</span><br><span class="line">	&#125;</span><br><span class="line">	node := &amp;Node&#123;Val: val&#125;</span><br><span class="line">	node.Next = prev.Next</span><br><span class="line">	prev.Next = node</span><br><span class="line"></span><br><span class="line">	this.size++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Delete the index-th node in the linked list, if the index is valid. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">DeleteAtIndex</span><span class="params">(index <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> || index &gt;= this.size &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	prev := this.head</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; index; i++ &#123;</span><br><span class="line">		prev = prev.Next</span><br><span class="line">	&#125;</span><br><span class="line">	prev.Next = prev.Next.Next</span><br><span class="line"></span><br><span class="line">	this.size--</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyLinkedList object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * obj := Constructor();</span></span><br><span class="line"><span class="comment"> * param_1 := obj.Get(index);</span></span><br><span class="line"><span class="comment"> * obj.AddAtHead(val);</span></span><br><span class="line"><span class="comment"> * obj.AddAtTail(val);</span></span><br><span class="line"><span class="comment"> * obj.AddAtIndex(index,val);</span></span><br><span class="line"><span class="comment"> * obj.DeleteAtIndex(index);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>双向链表</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span> &#123;</span><br><span class="line">    Val <span class="keyword">int</span></span><br><span class="line">    Next *Node</span><br><span class="line">    Prev *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyLinkedList <span class="keyword">struct</span> &#123;</span><br><span class="line">    Head *Node</span><br><span class="line">    Tail *Node</span><br><span class="line">    Length <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Constructor</span><span class="params">()</span> <span class="title">MyLinkedList</span></span> &#123;</span><br><span class="line">    head := &amp;Node&#123;&#125;</span><br><span class="line">    tail := &amp;Node&#123;&#125;</span><br><span class="line">    head.Next = tail</span><br><span class="line">    tail.Prev = head</span><br><span class="line">    <span class="keyword">return</span> MyLinkedList&#123;</span><br><span class="line">        Head: head,</span><br><span class="line">        Tail: tail,</span><br><span class="line">        Length: <span class="number">0</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">Print</span><span class="params">(str <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"---%v---\n"</span>, str)</span><br><span class="line">    pt := this.Head</span><br><span class="line">    fmt.Printf(<span class="string">"head %v\n"</span>, pt)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= this.Length; i++&#123;</span><br><span class="line">        pt = pt.Next</span><br><span class="line">        fmt.Printf(<span class="string">"%v %v\n"</span>, i, pt)</span><br><span class="line">    &#125;</span><br><span class="line">    pt = pt.Next</span><br><span class="line">    fmt.Printf(<span class="string">"tail %v\n"</span>, pt)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">Get</span><span class="params">(index <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> index &gt;= this.Length &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line">    ret := this.Head</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= index; i++ &#123;</span><br><span class="line">        ret = ret.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret.Val</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtHead</span><span class="params">(val <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    node := &amp;Node&#123;</span><br><span class="line">        Val: val,</span><br><span class="line">        Next: this.Head.Next,</span><br><span class="line">        Prev: this.Head,</span><br><span class="line">    &#125;</span><br><span class="line">    this.Head.Next.Prev = node</span><br><span class="line">    this.Head.Next = node</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> this.Tail.Prev.Prev == <span class="literal">nil</span> &#123;</span><br><span class="line">        this.Tail.Prev = this.Head.Next</span><br><span class="line">    &#125;</span><br><span class="line">    this.Length++</span><br><span class="line">    <span class="comment">// this.Print("AddAtHead")</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Append a node of value val to the last element of the linked list. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtTail</span><span class="params">(val <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    node := &amp;Node&#123;</span><br><span class="line">        Val: val,</span><br><span class="line">        Next: this.Tail,</span><br><span class="line">        Prev: this.Tail.Prev,</span><br><span class="line">    &#125;</span><br><span class="line">    this.Tail.Prev.Next = node</span><br><span class="line">    this.Tail.Prev = node</span><br><span class="line">    <span class="keyword">if</span> this.Head.Next.Next == <span class="literal">nil</span> &#123;</span><br><span class="line">        this.Head.Next = this.Tail.Prev</span><br><span class="line">    &#125;</span><br><span class="line">    this.Length++</span><br><span class="line">    <span class="comment">// this.Print("AddAtTail")</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">AddAtIndex</span><span class="params">(index <span class="keyword">int</span>, val <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    <span class="keyword">if</span> index == this.Length &#123;</span><br><span class="line">        this.AddAtTail(val)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> &#123;</span><br><span class="line">        this.AddAtHead(val)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pt *Node</span><br><span class="line">    pt = this.Head</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= index; i++ &#123;</span><br><span class="line">        pt = pt.Next</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    node := &amp;Node&#123;</span><br><span class="line">        Val: val,</span><br><span class="line">        Next: pt,</span><br><span class="line">        Prev: pt.Prev,</span><br><span class="line">    &#125;</span><br><span class="line">    pt.Prev.Next = node</span><br><span class="line">    pt.Prev = node</span><br><span class="line">    this.Length++</span><br><span class="line">    <span class="comment">// this.Print("AddAtIndex")</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** Delete the index-th node in the linked list, if the index is valid. */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *MyLinkedList)</span> <span class="title">DeleteAtIndex</span><span class="params">(index <span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    <span class="keyword">if</span> index &gt;= this.Length &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> &#123;</span><br><span class="line">        index = this.Length + index</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pt *Node</span><br><span class="line">    pt = this.Head</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= index; i++ &#123;</span><br><span class="line">        pt = pt.Next</span><br><span class="line">    &#125;</span><br><span class="line">    pt.Prev.Next = pt.Next</span><br><span class="line">    pt.Next.Prev = pt.Prev</span><br><span class="line">    this.Length--</span><br><span class="line">    <span class="comment">// this.Print("DeleteAtIndex")</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your MyLinkedList object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * obj := Constructor();</span></span><br><span class="line"><span class="comment"> * param_1 := obj.Get(index);</span></span><br><span class="line"><span class="comment"> * obj.AddAtHead(val);</span></span><br><span class="line"><span class="comment"> * obj.AddAtTail(val);</span></span><br><span class="line"><span class="comment"> * obj.AddAtIndex(index,val);</span></span><br><span class="line"><span class="comment"> * obj.DeleteAtIndex(index);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p><img src="https://img.shields.io/badge/leetcode-206-blue.svg" alt> <a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">反转链表</a></p>
-<ul>
-<li>构建新链表</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverseList</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    pt := head</span><br><span class="line">    <span class="keyword">var</span> tail *ListNode</span><br><span class="line">    <span class="keyword">for</span> pt != <span class="literal">nil</span> &#123;</span><br><span class="line">        tail = &amp;ListNode&#123;</span><br><span class="line">            pt.Val,</span><br><span class="line">            tail,</span><br><span class="line">        &#125;</span><br><span class="line">        pt = pt.Next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tail</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>双指针法</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverseList</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> pre, temp *ListNode</span><br><span class="line">    cur := head</span><br><span class="line">    <span class="keyword">for</span> cur != <span class="literal">nil</span> &#123;</span><br><span class="line">        temp = cur.Next</span><br><span class="line">        cur.Next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = temp</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="环形链表的入环节点"><a href="#环形链表的入环节点" class="headerlink" title="环形链表的入环节点"></a>环形链表的入环节点</h2><p><img src="https://img.shields.io/badge/leetcode-141-blue.svg" alt> <a href="https://leetcode-cn.com/problems/linked-list-cycle/" target="_blank" rel="noopener">环形链表</a><br><img src="https://img.shields.io/badge/leetcode-142-blue.svg" alt> <a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">环形链表II</a></p>
-<ul>
-<li>快慢指针法</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">detectCycle</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    fast := head</span><br><span class="line">    slow := head</span><br><span class="line">    <span class="keyword">for</span> fast != <span class="literal">nil</span> &amp;&amp; fast.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">        slow = slow.Next</span><br><span class="line">        fast = fast.Next.Next</span><br><span class="line">        <span class="keyword">if</span> slow == fast &#123;</span><br><span class="line">            p1 := fast</span><br><span class="line">            p2 := head</span><br><span class="line">            <span class="keyword">for</span> p1 != p2 &#123;</span><br><span class="line">                p1 = p1.Next</span><br><span class="line">                p2 = p2.Next</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> p2</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="删除排序链表中的重复元素-II"><a href="#删除排序链表中的重复元素-II" class="headerlink" title="删除排序链表中的重复元素 II"></a>删除排序链表中的重复元素 II</h2><p><img src="https://img.shields.io/badge/leetcode-82-blue.svg" alt> <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/" target="_blank" rel="noopener">删除排序链表中的重复元素 II</a></p>
-<ul>
-<li>操作指针，开始指针，结束指针。注意绝对不重复的条件是开始指针和结束指针相邻且不相等。</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteDuplicates</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> head == <span class="literal">nil</span> || head.Next == <span class="literal">nil</span> &#123; <span class="keyword">return</span> head &#125;</span><br><span class="line">    vhead := &amp;ListNode&#123;Next:head&#125;</span><br><span class="line">    cur := vhead</span><br><span class="line">    start := vhead.Next</span><br><span class="line">    end := vhead.Next.Next</span><br><span class="line">    <span class="keyword">for</span> start != <span class="literal">nil</span> &amp;&amp; end != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> start.Val != end.Val &#123;</span><br><span class="line">            <span class="keyword">if</span> end == start.Next &#123;</span><br><span class="line">                cur = cur.Next</span><br><span class="line">            &#125;</span><br><span class="line">            start = end</span><br><span class="line">            end = end.Next</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            end = end.Next</span><br><span class="line">            cur.Next = end</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> vhead.Next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://golang.org/pkg/container/list/" target="_blank" rel="noopener">Package list</a></li>
-</ul>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -547,6 +547,234 @@
         <tag>算法</tag>
         <tag>数据结构</tag>
         <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Keep Moving策划</title>
+    <url>/game/keep-moving/design/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Keep Moving是一款高度Rogue Like化的外星主题的2D俯视角射击游戏</p>
+<a id="more"></a>
+<h1 id="背景设定"><a href="#背景设定" class="headerlink" title="背景设定"></a>背景设定</h1><p>玩家作为异星探险家，飞船<strong>解体</strong>坠毁，需要收集<strong>材料</strong>和<strong>零件</strong>重建飞船逃出生天。</p>
+<h1 id="核心特色"><a href="#核心特色" class="headerlink" title="核心特色"></a>核心特色</h1><ul>
+<li>RogLike化的敌人生成，包括外观，行为，技能</li>
+<li>游戏时间相关的房间和敌人生成</li>
+</ul>
+<h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
+<li>使用<strong>关键零件</strong>和<strong>材料</strong>组成<strong>飞船</strong>，完成游戏</li>
+</ul>
+<h2 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h2><ul>
+<li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N取决于星球属性，初始建议M(横)N(纵)为12x7</li>
+<li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动<ul>
+<li>左右直接回绕</li>
+<li>上下并不直接回绕，极点附近向上/下与当前纬度+星球总纬度/2的房间相连</li>
+</ul>
+</li>
+<li>地图横向为经度，纵向为纬度<ul>
+<li>温度/视野随经度循环变化，左移或右移取决于星球属性</li>
+<li>移动时间以进入房间次数（N）为准，N取决于星球属性</li>
+<li>温度变化率随纬度变化，从赤道到极点不断减弱</li>
+</ul>
+</li>
+<li>房间分为<strong>普通房间</strong>和<strong>专用房间</strong>，<strong>专用房间</strong>可由多个房间拼接而成。</li>
+<li>地图形状未探索时不可知，探索后计入地图</li>
+<li>地表障碍物为tile-based</li>
+<li>专用房间包括：<ul>
+<li>起始房间，飞船坠毁点，需要回到此处完成游戏</li>
+<li>Boss房间，Boss掉落关键零件和大量材料，地图中最后一个Boss掉落周目关键道具，提升环境适应性，可进入更多房间</li>
+<li>挑战房间，精英敌人或某种挑战</li>
+<li>奖励房间，提供材料，回血道具，武器</li>
+<li>商店房间，消耗材料，制作回血道具，武器</li>
+<li>不可入房间，计入房间进入次数，但场景显示为探索后退回</li>
+<li>关键进展房间，用于剧情碎片收集</li>
+<li>隐藏房间</li>
+</ul>
+</li>
+<li>不可入房间分为永久不可入房间(某周目不可入)和因环境导致的临时不可入房间<ul>
+<li>海洋房间，完全是水，但在温度-1/-2时可进入</li>
+<li>岩浆白昼，极端炎热，光照为无穷大</li>
+<li>寒冰黑夜，极端寒冷，光照为0</li>
+<li>山脉高原，完全障碍地形</li>
+<li>无尽深渊，完全障碍地形</li>
+</ul>
+</li>
+<li>Boss难度按第一次进入Boss房为准，难度随已击杀boss递增</li>
+</ul>
+<p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
+<h2 id="房间"><a href="#房间" class="headerlink" title="房间"></a>房间</h2><h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>以角色为一个单位方格为基准，标准房间单位为16x9，占据横向显示设备（PC/手机），组合房间的长宽分别为N倍，如Boss房长宽分别为基准房间的2倍。</p>
+<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门生成于标准房间的四边中点处，一个房间最多有四个门。</p>
+<h3 id="障碍物"><a href="#障碍物" class="headerlink" title="障碍物"></a>障碍物</h3><p>障碍物以单元格为基准随机生成，障碍物分为：</p>
+<ul>
+<li>不可重叠可破环障碍物，拥有可破坏次数N，被攻击N次（次数变为0）后障碍物消除<ul>
+<li>岩石容器，拥有1次可破坏次数</li>
+<li>巨型岩石，拥有3次可破坏次数</li>
+<li>冰块容器，拥有1次可破坏次数</li>
+<li>巨型冰块，拥有3次可破坏次数</li>
+</ul>
+</li>
+<li>不可重叠不可破坏障碍物<ul>
+<li>水坑，在没有水肺前不可进入</li>
+</ul>
+</li>
+<li>可重叠不可破坏障碍物<ul>
+<li>岩浆池，可重叠，重叠超过0.5s后造成持续伤害</li>
+</ul>
+</li>
+</ul>
+<p>障碍物转化路径</p>
+<ol>
+<li>初始按星球属性随机和房间预设生成，比如水(10%),土(90%)</li>
+<li>根据预设房间属性生成障碍物<ul>
+<li>比如土转变为岩石容器(5%),巨型岩石(5%)</li>
+<li>水转变为冰块容器(5%),巨型冰块(5%)</li>
+</ul>
+</li>
+<li>根据温度调整形态<ul>
+<li>3 100%转变为岩浆池</li>
+<li>2 水/巨型冰块/冰块容器先转变为土，土/巨型岩石/岩石容器转变为岩浆池(25%)</li>
+<li>1 水/冰转变为土</li>
+<li>0 不做处理</li>
+<li>-1 水转变为冰面(30%)/冰容器(10%)</li>
+<li>-2 水转变为冰面(60%)/巨型冰块(30%)/冰容器(10%)</li>
+<li>-3 水转变为冰面(30%)/巨型冰块(60%)/冰容器(10%)</li>
+</ul>
+</li>
+</ol>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
+<p>可变因子包括：</p>
+<ul>
+<li>温度，影响地形，能力，敌人生成</li>
+<li>光照，影响视野，敌人生成</li>
+<li>水分布，影响地形，一周目不可下水，可能转变为冰山</li>
+</ul>
+<p>环境按等级取整到：</p>
+<ul>
+<li>3 岩浆白昼，不可入</li>
+<li>2 极端炎热，地表生成岩浆池</li>
+<li>1 热，地表无水</li>
+<li>0 正常，地表有液态水</li>
+<li>-1 冷，部分水结冰</li>
+<li>-2 极端严寒，全部水结冰，生成冰山</li>
+<li>-3 寒冰黑夜，不可入</li>
+</ul>
+<h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
+<li>收集<strong>材料</strong>，材料可用于<ul>
+<li>制作<strong>武器</strong></li>
+<li>强化<strong>武器</strong></li>
+<li>制作<strong>功能性物品</strong></li>
+<li>制作<strong>消耗品</strong></li>
+</ul>
+</li>
+<li>材料从敌人掉落或环境开采</li>
+<li>武器<strong>强度</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关，非关键零件<strong>质量</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关</li>
+<li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
+<li>材料简单分为<strong>金属</strong>与<strong>有机物</strong>，后期配方表可增加</li>
+</ul>
+<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
+<li>角色仅能携带一把武器</li>
+<li>武器会过热，需要充能</li>
+<li>武器有两种攻击模式，普通攻击和特殊攻击</li>
+<li>特殊攻击冷却时间较长</li>
+<li>武器可使用材料升级</li>
+<li>boss可掉落武器</li>
+<li>可能开出武器</li>
+<li>武器可分解回收一定数量的材料</li>
+</ul>
+<h3 id="武器组合类型"><a href="#武器组合类型" class="headerlink" title="武器组合类型"></a>武器组合类型</h3><h4 id="攻击属性"><a href="#攻击属性" class="headerlink" title="攻击属性"></a>攻击属性</h4><ul>
+<li>电磁，持续伤害，有几率中断行动</li>
+<li>灼烧，</li>
+<li>冰冻，</li>
+</ul>
+<h4 id="特殊技能"><a href="#特殊技能" class="headerlink" title="特殊技能"></a>特殊技能</h4><ul>
+<li>引力场，爆炸点附近敌人减速</li>
+<li>爆炸物，爆炸点附近产生范围伤害</li>
+<li>机枪塔，爆炸点生成自动机枪塔，自动攻击附近敌人</li>
+</ul>
+<h4 id="强化属性"><a href="#强化属性" class="headerlink" title="强化属性"></a>强化属性</h4><ul>
+<li>射速</li>
+<li>充能时间</li>
+<li>基础伤害</li>
+</ul>
+<h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
+<ul>
+<li>最大血量</li>
+<li>连续冲刺次数</li>
+</ul>
+<h2 id="消耗品"><a href="#消耗品" class="headerlink" title="消耗品"></a>消耗品</h2><ul>
+<li>回复血量</li>
+</ul>
+<h2 id="死亡后成长"><a href="#死亡后成长" class="headerlink" title="死亡后成长"></a>死亡后成长</h2><ul>
+<li>普通死亡</li>
+</ul>
+<p>嘲讽</p>
+<ul>
+<li>打败boss后</li>
+</ul>
+<p>非常嘲讽</p>
+<ul>
+<li>通关后</li>
+</ul>
+<p>极度嘲讽</p>
+<h2 id="特殊道具（永久）"><a href="#特殊道具（永久）" class="headerlink" title="特殊道具（永久）"></a>特殊道具（永久）</h2><ul>
+<li>水肺（一周目通关后获得）</li>
+</ul>
+<p>可下水，有时间限制（氧气）</p>
+<ul>
+<li>照明取暖弹（二周目通关后获得）</li>
+</ul>
+<p>可进入寒冰黑夜，定时发射照明弹扩大视野，有时间限制（过冷）</p>
+<ul>
+<li>隔热墨镜（三周目通关后获得）</li>
+</ul>
+<p>可进入岩浆白昼，有时间限制（过热）</p>
+<h2 id="后期"><a href="#后期" class="headerlink" title="后期"></a>后期</h2><p>可选择探索不同难度的星系，每次探索必坠毁（TAT）</p>
+]]></content>
+      <categories>
+        <category>游戏</category>
+      </categories>
+      <tags>
+        <tag>游戏</tag>
+        <tag>Keep Moving</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes系统实战 1 - 存储系统</title>
+    <url>/k8s/in-action/1-storage-on-k8s/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
+<a id="more"></a>
+<blockquote>
+<p>需要<a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">Kubernetes基本知识</a></p>
+</blockquote>
+<h1 id="本地存储-local-path"><a href="#本地存储-local-path" class="headerlink" title="本地存储 local-path"></a>本地存储 local-path</h1><p>可以用<a href="https://github.com/rancher/local-path-provisioner" target="_blank" rel="noopener">local-path-storage</a>部署基于本地存储的StorageClass。方便灵活，但没有冗余存储，如果Node节点挂掉，相关的PV都会丢失，需要及时备份。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https://github.com/rancher/local-path-provisioner/blob/master/deploy/local-path-storage.yaml</span><br></pre></td></tr></table></figure>
+<h1 id="对象存储-MinIO"><a href="#对象存储-MinIO" class="headerlink" title="对象存储 MinIO"></a>对象存储 MinIO</h1><p>MinIO支持S3，可通过Helm Chart<a href="https://docs.min.io/cn/deploy-minio-on-kubernetes.html" target="_blank" rel="noopener">部署服务</a>。</p>
+<p>添加MinIO Repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm repo add minio https://helm.min.io/</span><br></pre></td></tr></table></figure></p>
+<p>默认部署单节点服务。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm install minio/minio</span><br></pre></td></tr></table></figure></p>
+<p>分布式服务通过纠删码(EC，Erasure Code)保证高可靠性，需要多节点集群，准备可用的动态存储(longhorn、rook、openebs等)。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">helm install minio \                                                                        </span><br><span class="line">  --namespace minio --create-namespace \</span><br><span class="line">  --set mode=distributed \</span><br><span class="line">  --set replicas=4 \</span><br><span class="line">  --set persistence.size=10Gi \</span><br><span class="line">  minio/minio</span><br></pre></td></tr></table></figure></p>
+<p>可以使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Operator</a>管理租户。</p>
+<p>安装<a href="https://docs.minio.io/docs/minio-client-quickstart-guide" target="_blank" rel="noopener">MinIO客户端</a>访问bucket。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://blade-opt.oss-cn-hangzhou.aliyuncs.com/mc</span><br><span class="line">chmod +x mc</span><br></pre></td></tr></table></figure>
+<p>Retreive Keys<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export MINIO_ACCESS_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.accesskey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br><span class="line">export MINIO_SECRET_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.secretkey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br></pre></td></tr></table></figure></p>
+<p>集群内设置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mc alias set k8s http://minio.minio.svc:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY</span><br></pre></td></tr></table></figure></p>
+<p>可通过<code>~/.mc/config.json</code>修改配置，先执行<code>mc config host</code>。</p>
+<p>基本操作<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">mc mb k8s/test</span><br><span class="line">echo "Hello MinIO" &gt; /tmp/minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">mc ls k8s</span><br><span class="line">mc ls k8s/test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Copy</span></span><br><span class="line">mc cp /tmp/minio k8s/test</span><br><span class="line">mc cp k8s/test/minio .</span><br><span class="line">cat minio</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello MinIO</span></span><br><span class="line">rm minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">mc rm k8s/test/minio</span><br><span class="line">mc rb k8s/test</span><br></pre></td></tr></table></figure></p>
+<h1 id="分布式文件系统-对象存储-Rook-Ceph"><a href="#分布式文件系统-对象存储-Rook-Ceph" class="headerlink" title="分布式文件系统/对象存储 Rook-Ceph"></a>分布式文件系统/对象存储 Rook-Ceph</h1><blockquote>
+<p>需要集群<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes" target="_blank" rel="noopener">配置CSI</a>，如果是云上集群，不要申请FlexVolume。</p>
+</blockquote>
+<p>Ceph支持分布式块存储、文件系统以及对象存储。机器需要有未分配或未使用的磁盘，至少需要三个节点保持健康。</p>
+<p><a href="(https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md">安装Cephfs</a>)支持分布式文件系统。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone --single-branch --branch release-1.5 https://github.com/rook/rook</span><br><span class="line">cd rook/cluster/examples/kubernetes/ceph</span><br><span class="line">kubectl apply -f common.yaml</span><br><span class="line">kubectl apply -f crds.yaml</span><br><span class="line">kubectl apply -f operator.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait until operator is running</span></span><br><span class="line">kubectl apply -f cluster.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install Cephfs</span></span><br><span class="line">kubectl apply -f filesystem.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Install StorageClass rook-cephfs</span></span><br><span class="line">kubectl apply -f csi/cephfs/storageclass.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mark rook-cephfs as the default storage class</span></span><br><span class="line">kubectl annotate sc rook-cephfs storageclass.kubernetes.io/is-default-class="true"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install toolbox to check status</span></span><br><span class="line">kubectl apply -f toolbox.yaml</span><br><span class="line">kubectl -n rook-ceph exec -it $(kubectl get pods -l=app=rook-ceph-tools -n rook-ceph -o jsonpath='&#123;.items[0].metadata.name&#125;') bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph status</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph -s </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph df</span></span><br></pre></td></tr></table></figure>
+<p>安装ceph-rgw支持S3对象存储，MinIO Alternative</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f object.yaml</span><br><span class="line">kubectl apply -f object-user.yaml</span><br><span class="line">kubectl get svc rook-ceph-rgw-my-store -n rook-ceph</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get Bucket Config</span></span><br><span class="line">export AWS_HOST=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.Endpoint&#125;' | base64 --decode)</span><br><span class="line">export AWS_ACCESS_KEY_ID=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.AccessKey&#125;' | base64 --decode)</span><br><span class="line">export AWS_SECRET_ACCESS_KEY=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.SecretKey&#125;' | base64 --decode)</span><br></pre></td></tr></table></figure>
+<p>集群内配置好上述环境变量，使用<a href="https://github.com/s3tools/s3cmd" target="_blank" rel="noopener">s3cmd</a>测试bucket读写，可参考<a href="https://zhuanlan.zhihu.com/p/107083375" target="_blank" rel="noopener">文章</a>。可以使用<code>s3cmd --configure</code>详细配置，选择http，不要配置host_bucket。默认域名是<code>rook-ceph-rgw-my-store.rook-ceph.svc</code>(service-name.namespace.svc)。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">s3cmd mb s3://test</span><br><span class="line">echo "Hello Rook" &gt; /tmp/rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">s3cmd ls</span><br><span class="line">s3cmd ls s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Put</span></span><br><span class="line">s3cmd put /tmp/rook s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get</span></span><br><span class="line">s3cmd get s3://test/rook .</span><br><span class="line">cat rook</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello Rook</span></span><br><span class="line">rm rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">s3cmd rm s3://test/rook</span><br><span class="line">s3cmd rb s3://test</span><br></pre></td></tr></table></figure>
+<p>安装ceph-dashboard (Optional)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Either Use HTTP Port 7000</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yq w -i cluster.yaml spec.dashboard.ssl <span class="literal">false</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl apply -f dashboard-external-http.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Or Use HTTPS Port 8443</span></span><br><span class="line">kubectl apply -f dashboard-external-http.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Username: admin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Password:</span></span><br><span class="line">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="&#123;['data']['password']&#125;" | base64 --decode &amp;&amp; echo</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -835,195 +1063,6 @@
       <tags>
         <tag>算法</tag>
         <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Keep Moving策划</title>
-    <url>/game/keep-moving/design/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Keep Moving是一款高度Rogue Like化的外星主题的2D俯视角射击游戏</p>
-<a id="more"></a>
-<h1 id="背景设定"><a href="#背景设定" class="headerlink" title="背景设定"></a>背景设定</h1><p>玩家作为异星探险家，飞船<strong>解体</strong>坠毁，需要收集<strong>材料</strong>和<strong>零件</strong>重建飞船逃出生天。</p>
-<h1 id="核心特色"><a href="#核心特色" class="headerlink" title="核心特色"></a>核心特色</h1><ul>
-<li>RogLike化的敌人生成，包括外观，行为，技能</li>
-<li>游戏时间相关的房间和敌人生成</li>
-</ul>
-<h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
-<li>使用<strong>关键零件</strong>和<strong>材料</strong>组成<strong>飞船</strong>，完成游戏</li>
-</ul>
-<h2 id="地图、房间"><a href="#地图、房间" class="headerlink" title="地图、房间"></a>地图、房间</h2><ul>
-<li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N取决于星球属性，初始建议M(横)N(纵)为12x7</li>
-<li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动<ul>
-<li>左右直接回绕</li>
-<li>上下并不直接回绕，极点附近向上/下与当前纬度+星球总纬度/2的房间相连</li>
-</ul>
-</li>
-<li>地图横向为经度，纵向为纬度<ul>
-<li>温度/视野随经度循环变化，左移或右移取决于星球属性</li>
-<li>移动时间以进入房间次数（N）为准，N取决于星球属性</li>
-<li>温度变化率随纬度变化，从赤道到极点不断减弱</li>
-</ul>
-</li>
-<li>房间分为<strong>普通房间</strong>和<strong>专用房间</strong>，<strong>专用房间</strong>可由多个房间拼接而成。</li>
-<li>地图形状未探索时不可知，探索后计入地图</li>
-<li>地表障碍物为tile-based</li>
-<li>专用房间包括：<ul>
-<li>起始房间，飞船坠毁点，需要回到此处完成游戏</li>
-<li>Boss房间，Boss掉落关键零件和大量材料，地图中最后一个Boss掉落周目关键道具，提升环境适应性，可进入更多房间</li>
-<li>挑战房间，精英敌人或某种挑战</li>
-<li>奖励房间，提供材料，回血道具，武器</li>
-<li>商店房间，消耗材料，制作回血道具，武器</li>
-<li>不可入房间，计入房间进入次数，但场景显示为探索后退回</li>
-<li>关键进展房间，用于剧情碎片收集</li>
-<li>隐藏房间</li>
-</ul>
-</li>
-<li>不可入房间分为永久不可入房间(某周目不可入)和因环境导致的临时不可入房间<ul>
-<li>海洋房间，完全是水，但在温度-1/-2时可进入</li>
-<li>岩浆白昼，极端炎热，光照为无穷大</li>
-<li>寒冰黑夜，极端寒冷，光照为0</li>
-<li>山脉高原，完全障碍地形</li>
-<li>无尽深渊，完全障碍地形</li>
-</ul>
-</li>
-<li>Boss难度按第一次进入Boss房为准，难度随已击杀boss递增</li>
-</ul>
-<p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
-<p>可变因子包括：</p>
-<ul>
-<li>温度，影响地形，能力，敌人生成</li>
-<li>光照，影响视野，敌人生成</li>
-<li>水分布，影响地形，一周目不可下水，可能转变为冰山</li>
-</ul>
-<p>环境按等级取整到：</p>
-<ul>
-<li>3 岩浆白昼，不可入</li>
-<li>2 极端炎热，地表生成岩浆池</li>
-<li>1 热，地表无水</li>
-<li>0 正常，地表有液态水</li>
-<li>-1 冷，部分水结冰</li>
-<li>-2 极端严寒，全部水结冰，生成冰山</li>
-<li>-3 寒冰黑夜，不可入</li>
-</ul>
-<h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
-<li>收集<strong>材料</strong>，材料可用于<ul>
-<li>制作<strong>武器</strong></li>
-<li>强化<strong>武器</strong></li>
-<li>制作<strong>功能性物品</strong></li>
-<li>制作<strong>消耗品</strong></li>
-</ul>
-</li>
-<li>材料从敌人掉落或环境开采</li>
-<li>武器<strong>强度</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关，非关键零件<strong>质量</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关</li>
-<li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
-<li>材料简单分为<strong>金属</strong>与<strong>有机物</strong>，后期配方表可增加</li>
-</ul>
-<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
-<li>角色仅能携带一把武器</li>
-<li>武器会过热，需要充能</li>
-<li>武器有两种攻击模式，普通攻击和特殊攻击</li>
-<li>特殊攻击冷却时间较长</li>
-<li>武器可使用材料升级</li>
-<li>boss可掉落武器</li>
-<li>可能开出武器</li>
-<li>武器可分解回收一定数量的材料</li>
-</ul>
-<h3 id="武器组合类型"><a href="#武器组合类型" class="headerlink" title="武器组合类型"></a>武器组合类型</h3><h4 id="攻击属性"><a href="#攻击属性" class="headerlink" title="攻击属性"></a>攻击属性</h4><ul>
-<li>电磁，持续伤害，有几率中断行动</li>
-<li>灼烧，</li>
-<li>冰冻，</li>
-</ul>
-<h4 id="特殊技能"><a href="#特殊技能" class="headerlink" title="特殊技能"></a>特殊技能</h4><ul>
-<li>引力场，爆炸点附近敌人减速</li>
-<li>爆炸物，爆炸点附近产生范围伤害</li>
-<li>机枪塔，爆炸点生成自动机枪塔，自动攻击附近敌人</li>
-</ul>
-<h4 id="强化属性"><a href="#强化属性" class="headerlink" title="强化属性"></a>强化属性</h4><ul>
-<li>射速</li>
-<li>充能时间</li>
-<li>基础伤害</li>
-</ul>
-<h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
-<ul>
-<li>最大血量</li>
-<li>连续冲刺次数</li>
-</ul>
-<h2 id="消耗品"><a href="#消耗品" class="headerlink" title="消耗品"></a>消耗品</h2><ul>
-<li>回复血量</li>
-</ul>
-<h2 id="死亡后成长"><a href="#死亡后成长" class="headerlink" title="死亡后成长"></a>死亡后成长</h2><ul>
-<li>普通死亡</li>
-</ul>
-<p>嘲讽</p>
-<ul>
-<li>打败boss后</li>
-</ul>
-<p>非常嘲讽</p>
-<ul>
-<li>通关后</li>
-</ul>
-<p>极度嘲讽</p>
-<h2 id="特殊道具（永久）"><a href="#特殊道具（永久）" class="headerlink" title="特殊道具（永久）"></a>特殊道具（永久）</h2><ul>
-<li>水肺（一周目通关后获得）</li>
-</ul>
-<p>可下水，有时间限制（氧气）</p>
-<ul>
-<li>照明取暖弹（二周目通关后获得）</li>
-</ul>
-<p>可进入寒冰黑夜，定时发射照明弹扩大视野，有时间限制（过冷）</p>
-<ul>
-<li>隔热墨镜（三周目通关后获得）</li>
-</ul>
-<p>可进入岩浆白昼，有时间限制（过热）</p>
-<h2 id="后期"><a href="#后期" class="headerlink" title="后期"></a>后期</h2><p>可选择探索不同难度的星系，每次探索必坠毁（TAT）</p>
-]]></content>
-      <categories>
-        <category>游戏</category>
-      </categories>
-      <tags>
-        <tag>游戏</tag>
-        <tag>Keep Moving</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes系统实战 1 - 存储系统</title>
-    <url>/k8s/in-action/1-storage-on-k8s/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
-<a id="more"></a>
-<blockquote>
-<p>需要<a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">Kubernetes基本知识</a></p>
-</blockquote>
-<h1 id="本地存储-local-path"><a href="#本地存储-local-path" class="headerlink" title="本地存储 local-path"></a>本地存储 local-path</h1><p>可以用<a href="https://github.com/rancher/local-path-provisioner" target="_blank" rel="noopener">local-path-storage</a>部署基于本地存储的StorageClass。方便灵活，但没有冗余存储，如果Node节点挂掉，相关的PV都会丢失，需要及时备份。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https://github.com/rancher/local-path-provisioner/blob/master/deploy/local-path-storage.yaml</span><br></pre></td></tr></table></figure>
-<h1 id="对象存储-MinIO"><a href="#对象存储-MinIO" class="headerlink" title="对象存储 MinIO"></a>对象存储 MinIO</h1><p>MinIO支持S3，可通过Helm Chart<a href="https://docs.min.io/cn/deploy-minio-on-kubernetes.html" target="_blank" rel="noopener">部署服务</a>。</p>
-<p>添加MinIO Repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm repo add minio https://helm.min.io/</span><br></pre></td></tr></table></figure></p>
-<p>默认部署单节点服务。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm install minio/minio</span><br></pre></td></tr></table></figure></p>
-<p>分布式服务通过纠删码(EC，Erasure Code)保证高可靠性，需要多节点集群，准备可用的动态存储(longhorn、rook、openebs等)。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">helm install minio \                                                                        </span><br><span class="line">  --namespace minio --create-namespace \</span><br><span class="line">  --set mode=distributed \</span><br><span class="line">  --set replicas=4 \</span><br><span class="line">  --set persistence.size=10Gi \</span><br><span class="line">  minio/minio</span><br></pre></td></tr></table></figure></p>
-<p>可以使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Operator</a>管理租户。</p>
-<p>安装<a href="https://docs.minio.io/docs/minio-client-quickstart-guide" target="_blank" rel="noopener">MinIO客户端</a>访问bucket。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://blade-opt.oss-cn-hangzhou.aliyuncs.com/mc</span><br><span class="line">chmod +x mc</span><br></pre></td></tr></table></figure>
-<p>Retreive Keys<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export MINIO_ACCESS_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.accesskey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br><span class="line">export MINIO_SECRET_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.secretkey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br></pre></td></tr></table></figure></p>
-<p>集群内设置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mc alias set k8s http://minio.minio.svc:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY</span><br></pre></td></tr></table></figure></p>
-<p>可通过<code>~/.mc/config.json</code>修改配置，先执行<code>mc config host</code>。</p>
-<p>基本操作<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">mc mb k8s/test</span><br><span class="line">echo "Hello MinIO" &gt; /tmp/minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">mc ls k8s</span><br><span class="line">mc ls k8s/test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Copy</span></span><br><span class="line">mc cp /tmp/minio k8s/test</span><br><span class="line">mc cp k8s/test/minio .</span><br><span class="line">cat minio</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello MinIO</span></span><br><span class="line">rm minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">mc rm k8s/test/minio</span><br><span class="line">mc rb k8s/test</span><br></pre></td></tr></table></figure></p>
-<h1 id="分布式文件系统-对象存储-Rook-Ceph"><a href="#分布式文件系统-对象存储-Rook-Ceph" class="headerlink" title="分布式文件系统/对象存储 Rook-Ceph"></a>分布式文件系统/对象存储 Rook-Ceph</h1><blockquote>
-<p>需要集群<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes" target="_blank" rel="noopener">配置CSI</a>，如果是云上集群，不要申请FlexVolume。</p>
-</blockquote>
-<p>Ceph支持分布式块存储、文件系统以及对象存储。机器需要有未分配或未使用的磁盘，至少需要三个节点保持健康。</p>
-<p><a href="(https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md">安装Cephfs</a>)支持分布式文件系统。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone --single-branch --branch release-1.5 https://github.com/rook/rook</span><br><span class="line">cd rook/cluster/examples/kubernetes/ceph</span><br><span class="line">kubectl apply -f common.yaml</span><br><span class="line">kubectl apply -f crds.yaml</span><br><span class="line">kubectl apply -f operator.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait until operator is running</span></span><br><span class="line">kubectl apply -f cluster.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install Cephfs</span></span><br><span class="line">kubectl apply -f filesystem.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Install StorageClass rook-cephfs</span></span><br><span class="line">kubectl apply -f csi/cephfs/storageclass.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mark rook-cephfs as the default storage class</span></span><br><span class="line">kubectl annotate sc rook-cephfs storageclass.kubernetes.io/is-default-class="true"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install toolbox to check status</span></span><br><span class="line">kubectl apply -f toolbox.yaml</span><br><span class="line">kubectl -n rook-ceph exec -it $(kubectl get pods -l=app=rook-ceph-tools -n rook-ceph -o jsonpath='&#123;.items[0].metadata.name&#125;') bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph status</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph -s </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph df</span></span><br></pre></td></tr></table></figure>
-<p>安装ceph-rgw支持S3对象存储，MinIO Alternative</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f object.yaml</span><br><span class="line">kubectl apply -f object-user.yaml</span><br><span class="line">kubectl get svc rook-ceph-rgw-my-store -n rook-ceph</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get Bucket Config</span></span><br><span class="line">export AWS_HOST=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.Endpoint&#125;' | base64 --decode)</span><br><span class="line">export AWS_ACCESS_KEY_ID=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.AccessKey&#125;' | base64 --decode)</span><br><span class="line">export AWS_SECRET_ACCESS_KEY=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.SecretKey&#125;' | base64 --decode)</span><br></pre></td></tr></table></figure>
-<p>集群内配置好上述环境变量，使用<a href="https://github.com/s3tools/s3cmd" target="_blank" rel="noopener">s3cmd</a>测试bucket读写，可参考<a href="https://zhuanlan.zhihu.com/p/107083375" target="_blank" rel="noopener">文章</a>。可以使用<code>s3cmd --configure</code>详细配置，选择http，不要配置host_bucket。默认域名是<code>rook-ceph-rgw-my-store.rook-ceph.svc</code>(service-name.namespace.svc)。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">s3cmd mb s3://test</span><br><span class="line">echo "Hello Rook" &gt; /tmp/rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">s3cmd ls</span><br><span class="line">s3cmd ls s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Put</span></span><br><span class="line">s3cmd put /tmp/rook s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get</span></span><br><span class="line">s3cmd get s3://test/rook .</span><br><span class="line">cat rook</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello Rook</span></span><br><span class="line">rm rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">s3cmd rm s3://test/rook</span><br><span class="line">s3cmd rb s3://test</span><br></pre></td></tr></table></figure>
-<p>安装ceph-dashboard (Optional)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Either Use HTTP Port 7000</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yq w -i cluster.yaml spec.dashboard.ssl <span class="literal">false</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl apply -f dashboard-external-http.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Or Use HTTPS Port 8443</span></span><br><span class="line">kubectl apply -f dashboard-external-http.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Username: admin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Password:</span></span><br><span class="line">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="&#123;['data']['password']&#125;" | base64 --decode &amp;&amp; echo</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -1779,34 +1818,6 @@
       </tags>
   </entry>
   <entry>
-    <title>烤面筋 - 链接</title>
-    <url>/work/interview/third-party/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>第三方链接统计</p>
-<a id="more"></a>
-<p><a href="https://zhuanlan.zhihu.com/p/43661309" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43661309</a></p>
-<p>CF,MF,Graph Embedding,LR,JVM,Quick Sort,Coroutine,Thread,Process,HashMap,RB-Tree,AVL-Tree</p>
-<p><a href="https://blog.csdn.net/v_JULY_v/article/details/108292943" target="_blank" rel="noopener">https://blog.csdn.net/v_JULY_v/article/details/108292943</a></p>
-<p>ML</p>
-<p><a href="https://www.sohu.com/a/446356680_100205241" target="_blank" rel="noopener">https://www.sohu.com/a/446356680_100205241</a></p>
-<p>Wide&amp;Deep,Join Training,Ensemble Training,DeepFM,Collaborative Knowledge Based Embedding,Knowledge Graph,Feature Engineer,</p>
-<p><a href="https://blog.csdn.net/abcdefg90876/article/details/107373650" target="_blank" rel="noopener">https://blog.csdn.net/abcdefg90876/article/details/107373650</a></p>
-<p>LSTM,SVM,GBDT,轮流捡石头,100盏灯问题,Overfitting,Dropout,Python,List,Mimimum Window Substring</p>
-<p><a href="https://www.nowcoder.com/discuss/442650?type=2&amp;channel=-2&amp;source_id=discuss_center_discuss_hot" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/442650?type=2&amp;channel=-2&amp;source_id=discuss_center_discuss_hot</a></p>
-<p>LR,L1 Norm,L2 Norm,Gradient Descendant,Momentum,Adam,XGB,Loss Function,FM,LR,Softmax,Sigmoid,TF SourceCode,Open Source,XGBoost,C++,AUC,XGB并行,模型优化算法,RMSprop,Adgrad,GMM,EM,Process,Thread,User Space,Kernel Space,</p>
-<p><a href="https://www.nowcoder.com/discuss/596829?type=2" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/596829?type=2</a></p>
-<p>XGB,GBDT,Recall,Rank,Recommender System Design,XGB,GBDT,LGBM,L1,L2,LR,SVM,XGB,Adam,SGD,Xavier,Loss,Recommender System Index,GBDT,LSTM,Train/Validation/Test Dataset,FM,FFM,XGB,GBDT,ETL,Feature Engineer,DIN,DICE,Dataset,Hyperparameter Search,Django,Flask,Nginx,Apache,CSRF,ORM reverse,Overfitting,LR,Tree,NN,Tuning,Data Lacking,XGB,GBDT,Softmax,LR,Classifier,Regression,DQN,Data Skew,Quantization,CNN,Recall,L2R,PS,Distributed Training,Tree Regression,XGB,GBDT,Softmax Overflow,Overfitting,HDFS,Fine Tune,Flink,Storm,Spark,Spark for Training,Kafka,Kafka Topic,Data Skew,W&amp;D,L2R,Lambda MART,Lambda Rank,NDCG,Position Bias,Cold Start,LSTM,LSTM Unit,Concave Optimization,SGD,OU,Replay Buffer,Sliding,LSTM,Layer,Unit,Data EDA,CNN,Tuning,FM,FFM,Postion Bias,Recommender System Index,Recommend Flow Orthogonal,DIN,Attention,XGB,Distributed XGB,Streaming,Flink,Spark,</p>
-<p><a href="https://www.nowcoder.com/discuss/458758?channel=-1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/458758?channel=-1</a></p>
-<p>Cache,HashMap,Guava Cache,</p>
-<hr>
-]]></content>
-      <categories>
-        <category>面筋</category>
-      </categories>
-      <tags>
-        <tag>面筋</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>烤面筋 - Redis</title>
     <url>/work/interview/redis/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Redis</p>
@@ -1946,6 +1957,34 @@
 <li>缓存预热（关闭外网访问，先开启mysql，通过预热脚本将热点数据写入缓存中，启动缓存。开启外网服务）</li>
 <li>数据不要设置相同的生存时间，不然过期时，redis压力会大</li>
 </ol>
+]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>烤面筋 - 链接</title>
+    <url>/work/interview/third-party/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>第三方链接统计</p>
+<a id="more"></a>
+<p><a href="https://zhuanlan.zhihu.com/p/43661309" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43661309</a></p>
+<p>CF,MF,Graph Embedding,LR,JVM,Quick Sort,Coroutine,Thread,Process,HashMap,RB-Tree,AVL-Tree</p>
+<p><a href="https://blog.csdn.net/v_JULY_v/article/details/108292943" target="_blank" rel="noopener">https://blog.csdn.net/v_JULY_v/article/details/108292943</a></p>
+<p>ML</p>
+<p><a href="https://www.sohu.com/a/446356680_100205241" target="_blank" rel="noopener">https://www.sohu.com/a/446356680_100205241</a></p>
+<p>Wide&amp;Deep,Join Training,Ensemble Training,DeepFM,Collaborative Knowledge Based Embedding,Knowledge Graph,Feature Engineer,</p>
+<p><a href="https://blog.csdn.net/abcdefg90876/article/details/107373650" target="_blank" rel="noopener">https://blog.csdn.net/abcdefg90876/article/details/107373650</a></p>
+<p>LSTM,SVM,GBDT,轮流捡石头,100盏灯问题,Overfitting,Dropout,Python,List,Mimimum Window Substring</p>
+<p><a href="https://www.nowcoder.com/discuss/442650?type=2&amp;channel=-2&amp;source_id=discuss_center_discuss_hot" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/442650?type=2&amp;channel=-2&amp;source_id=discuss_center_discuss_hot</a></p>
+<p>LR,L1 Norm,L2 Norm,Gradient Descendant,Momentum,Adam,XGB,Loss Function,FM,LR,Softmax,Sigmoid,TF SourceCode,Open Source,XGBoost,C++,AUC,XGB并行,模型优化算法,RMSprop,Adgrad,GMM,EM,Process,Thread,User Space,Kernel Space,</p>
+<p><a href="https://www.nowcoder.com/discuss/596829?type=2" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/596829?type=2</a></p>
+<p>XGB,GBDT,Recall,Rank,Recommender System Design,XGB,GBDT,LGBM,L1,L2,LR,SVM,XGB,Adam,SGD,Xavier,Loss,Recommender System Index,GBDT,LSTM,Train/Validation/Test Dataset,FM,FFM,XGB,GBDT,ETL,Feature Engineer,DIN,DICE,Dataset,Hyperparameter Search,Django,Flask,Nginx,Apache,CSRF,ORM reverse,Overfitting,LR,Tree,NN,Tuning,Data Lacking,XGB,GBDT,Softmax,LR,Classifier,Regression,DQN,Data Skew,Quantization,CNN,Recall,L2R,PS,Distributed Training,Tree Regression,XGB,GBDT,Softmax Overflow,Overfitting,HDFS,Fine Tune,Flink,Storm,Spark,Spark for Training,Kafka,Kafka Topic,Data Skew,W&amp;D,L2R,Lambda MART,Lambda Rank,NDCG,Position Bias,Cold Start,LSTM,LSTM Unit,Concave Optimization,SGD,OU,Replay Buffer,Sliding,LSTM,Layer,Unit,Data EDA,CNN,Tuning,FM,FFM,Postion Bias,Recommender System Index,Recommend Flow Orthogonal,DIN,Attention,XGB,Distributed XGB,Streaming,Flink,Spark,</p>
+<p><a href="https://www.nowcoder.com/discuss/458758?channel=-1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/458758?channel=-1</a></p>
+<p>Cache,HashMap,Guava Cache,</p>
+<hr>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -3528,19 +3567,6 @@ sim(u, s) = \sum_{u_i \in U} sim(u, u_i) * score(u_i, s)</script><p>有了用户
       </tags>
   </entry>
   <entry>
-    <title>机器学习系统 3-3 - 实验</title>
-    <url>/ai/ml-system/system/3-experiment/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>机器学习系统 3-4 - 训练</title>
     <url>/ai/ml-system/system/4-training/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
@@ -3556,6 +3582,19 @@ sim(u, s) = \sum_{u_i \in U} sim(u, u_i) * score(u_i, s)</script><p>有了用户
   <entry>
     <title>机器学习系统 3-4 - 训练</title>
     <url>/ai/ml-system/system/5-automl/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 3-3 - 实验</title>
+    <url>/ai/ml-system/system/3-experiment/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><a id="more"></a>
 ]]></content>
       <categories>

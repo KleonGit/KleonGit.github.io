@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.kleon.space/game/keep-moving/design/</loc>
-    
-    <lastmod>2021-05-21T14:00:01.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-05-21T09:04:14.583Z</lastmod>
+    <lastmod>2021-05-21T15:44:01.753Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-05-21T09:04:14.563Z</lastmod>
+    <lastmod>2021-05-21T15:44:01.737Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-05-21T09:04:14.563Z</lastmod>
+    <lastmod>2021-05-21T15:44:01.737Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-05-21T09:04:14.563Z</lastmod>
+    <lastmod>2021-05-21T15:44:01.737Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/game/keep-moving/design/</loc>
+    
+    <lastmod>2021-05-21T14:00:01.000Z</lastmod>
     
   </url>
   
@@ -65,14 +65,14 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/work/interview/third-party/</loc>
+    <loc>https://blog.kleon.space/work/interview/redis/</loc>
     
     <lastmod>2021-05-19T18:23:19.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/work/interview/redis/</loc>
+    <loc>https://blog.kleon.space/work/interview/third-party/</loc>
     
     <lastmod>2021-05-19T18:23:19.000Z</lastmod>
     
@@ -156,13 +156,6 @@
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/ai/ml-system/system/3-experiment/</loc>
-    
-    <lastmod>2021-05-10T08:44:26.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.kleon.space/ai/ml-system/system/4-training/</loc>
     
     <lastmod>2021-05-10T08:44:26.000Z</lastmod>
@@ -171,6 +164,13 @@
   
   <url>
     <loc>https://blog.kleon.space/ai/ml-system/system/5-automl/</loc>
+    
+    <lastmod>2021-05-10T08:44:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/ai/ml-system/system/3-experiment/</loc>
     
     <lastmod>2021-05-10T08:44:26.000Z</lastmod>
     

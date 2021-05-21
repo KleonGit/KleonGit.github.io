@@ -192,7 +192,7 @@ var themeMenus = {};
 <h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
 <li>使用<strong>关键零件</strong>和<strong>材料</strong>组成<strong>飞船</strong>，完成游戏</li>
 </ul>
-<h2 id="地图、房间"><a href="#地图、房间" class="headerlink" title="地图、房间"></a>地图、房间</h2><ul>
+<h2 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h2><ul>
 <li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N取决于星球属性，初始建议M(横)N(纵)为12x7</li>
 <li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动<ul>
 <li>左右直接回绕</li>
@@ -230,6 +230,45 @@ var themeMenus = {};
 <li>Boss难度按第一次进入Boss房为准，难度随已击杀boss递增</li>
 </ul>
 <p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
+<h2 id="房间"><a href="#房间" class="headerlink" title="房间"></a>房间</h2><h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>以角色为一个单位方格为基准，标准房间单位为16x9，占据横向显示设备（PC/手机），组合房间的长宽分别为N倍，如Boss房长宽分别为基准房间的2倍。</p>
+<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门生成于标准房间的四边中点处，一个房间最多有四个门。</p>
+<h3 id="障碍物"><a href="#障碍物" class="headerlink" title="障碍物"></a>障碍物</h3><p>障碍物以单元格为基准随机生成，障碍物分为：</p>
+<ul>
+<li>不可重叠可破环障碍物，拥有可破坏次数N，被攻击N次（次数变为0）后障碍物消除<ul>
+<li>岩石容器，拥有1次可破坏次数</li>
+<li>巨型岩石，拥有3次可破坏次数</li>
+<li>冰块容器，拥有1次可破坏次数</li>
+<li>巨型冰块，拥有3次可破坏次数</li>
+</ul>
+</li>
+<li>不可重叠不可破坏障碍物<ul>
+<li>水坑，在没有水肺前不可进入</li>
+</ul>
+</li>
+<li>可重叠不可破坏障碍物<ul>
+<li>岩浆池，可重叠，重叠超过0.5s后造成持续伤害</li>
+</ul>
+</li>
+</ul>
+<p>障碍物转化路径</p>
+<ol>
+<li>初始按星球属性随机和房间预设生成，比如水(10%),土(90%)</li>
+<li>根据预设房间属性生成障碍物<ul>
+<li>比如土转变为岩石容器(5%),巨型岩石(5%)</li>
+<li>水转变为冰块容器(5%),巨型冰块(5%)</li>
+</ul>
+</li>
+<li>根据温度调整形态<ul>
+<li>3 100%转变为岩浆池</li>
+<li>2 水/巨型冰块/冰块容器先转变为土，土/巨型岩石/岩石容器转变为岩浆池(25%)</li>
+<li>1 水/冰转变为土</li>
+<li>0 不做处理</li>
+<li>-1 水转变为冰面(30%)/冰容器(10%)</li>
+<li>-2 水转变为冰面(60%)/巨型冰块(30%)/冰容器(10%)</li>
+<li>-3 水转变为冰面(30%)/巨型冰块(60%)/冰容器(10%)</li>
+</ul>
+</li>
+</ol>
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
 <p>可变因子包括：</p>
 <ul>
@@ -365,7 +404,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图、房间"><span class="nav-number">3.2.</span> <span class="nav-text">地图、房间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.4.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.5.</span> <span class="nav-text">武器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本约束"><span class="nav-number">3.5.1.</span> <span class="nav-text">基本约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#武器组合类型"><span class="nav-number">3.5.2.</span> <span class="nav-text">武器组合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击属性"><span class="nav-number">3.5.2.1.</span> <span class="nav-text">攻击属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊技能"><span class="nav-number">3.5.2.2.</span> <span class="nav-text">特殊技能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强化属性"><span class="nav-number">3.5.2.3.</span> <span class="nav-text">强化属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.6.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.7.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死亡后成长"><span class="nav-number">3.8.</span> <span class="nav-text">死亡后成长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊道具（永久）"><span class="nav-number">3.9.</span> <span class="nav-text">特殊道具（永久）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后期"><span class="nav-number">3.10.</span> <span class="nav-text">后期</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图"><span class="nav-number">3.2.</span> <span class="nav-text">地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#房间"><span class="nav-number">3.3.</span> <span class="nav-text">房间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺寸"><span class="nav-number">3.3.1.</span> <span class="nav-text">尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">3.3.2.</span> <span class="nav-text">门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障碍物"><span class="nav-number">3.3.3.</span> <span class="nav-text">障碍物</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.4.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.5.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.6.</span> <span class="nav-text">武器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本约束"><span class="nav-number">3.6.1.</span> <span class="nav-text">基本约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#武器组合类型"><span class="nav-number">3.6.2.</span> <span class="nav-text">武器组合类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击属性"><span class="nav-number">3.6.2.1.</span> <span class="nav-text">攻击属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊技能"><span class="nav-number">3.6.2.2.</span> <span class="nav-text">特殊技能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强化属性"><span class="nav-number">3.6.2.3.</span> <span class="nav-text">强化属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.7.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.8.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死亡后成长"><span class="nav-number">3.9.</span> <span class="nav-text">死亡后成长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊道具（永久）"><span class="nav-number">3.10.</span> <span class="nav-text">特殊道具（永久）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后期"><span class="nav-number">3.11.</span> <span class="nav-text">后期</span></a></li></ol></li></ol>
     
     </div>
   </aside>
