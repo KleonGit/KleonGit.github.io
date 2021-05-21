@@ -190,7 +190,7 @@ var themeMenus = {};
 <li>游戏时间相关的房间和敌人生成</li>
 </ul>
 <h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
-<li>使用<strong>关键零件</strong>和<strong>非关键零件</strong>组成<strong>飞船</strong>，完成游戏</li>
+<li>使用<strong>关键零件</strong>和<strong>材料</strong>组成<strong>飞船</strong>，完成游戏</li>
 </ul>
 <h2 id="地图、房间"><a href="#地图、房间" class="headerlink" title="地图、房间"></a>地图、房间</h2><ul>
 <li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N取决于星球属性，初始建议M(横)N(纵)为12x7</li>
@@ -207,37 +207,84 @@ var themeMenus = {};
 </li>
 <li>房间分为<strong>普通房间</strong>和<strong>专用房间</strong>，<strong>专用房间</strong>可由多个房间拼接而成。</li>
 <li>地图形状未探索时不可知，探索后计入地图</li>
+<li>地表障碍物为tile-based</li>
 <li>专用房间包括：<ul>
 <li>起始房间，飞船坠毁点，需要回到此处完成游戏</li>
 <li>Boss房间，Boss掉落关键零件和大量材料，地图中最后一个Boss掉落周目关键道具，提升环境适应性，可进入更多房间</li>
 <li>挑战房间，精英敌人或某种挑战</li>
 <li>奖励房间，提供材料，回血道具，武器</li>
 <li>商店房间，消耗材料，制作回血道具，武器</li>
-<li>不可入房间，计入房间进入次数，但场景显示为探索后退回<ul>
-<li>永久不可入房间（某周目不可入）</li>
-<li>因环境导致的临时不可入房间</li>
-</ul>
-</li>
+<li>不可入房间，计入房间进入次数，但场景显示为探索后退回</li>
 <li>关键进展房间，用于剧情碎片收集</li>
 <li>隐藏房间</li>
 </ul>
 </li>
+<li>不可入房间分为永久不可入房间(某周目不可入)和因环境导致的临时不可入房间<ul>
+<li>海洋房间，完全是水，但在温度-1/-2时可进入</li>
+<li>岩浆白昼，极端炎热，光照为无穷大</li>
+<li>寒冰黑夜，极端寒冷，光照为0</li>
+<li>山脉高原，完全障碍地形</li>
+<li>无尽深渊，完全障碍地形</li>
+</ul>
+</li>
+<li>Boss难度按第一次进入Boss房为准，难度随已击杀boss递增</li>
 </ul>
 <p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><h2 id="材料、武器、零件、物品、消耗品"><a href="#材料、武器、零件、物品、消耗品" class="headerlink" title="材料、武器、零件、物品、消耗品"></a>材料、武器、零件、物品、消耗品</h2><ul>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
+<p>可变因子包括：</p>
+<ul>
+<li>温度，影响地形，能力，敌人生成</li>
+<li>光照，影响视野，敌人生成</li>
+<li>水分布，影响地形，一周目不可下水，可能转变为冰山</li>
+</ul>
+<p>环境按等级取整到：</p>
+<ul>
+<li>3 岩浆白昼，不可入</li>
+<li>2 极端炎热，地表生成岩浆池</li>
+<li>1 热，地表无水</li>
+<li>0 正常，地表有液态水</li>
+<li>-1 冷，部分水结冰</li>
+<li>-2 极端严寒，全部水结冰，生成冰山</li>
+<li>-3 寒冰黑夜，不可入</li>
+</ul>
+<h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
 <li>收集<strong>材料</strong>，材料可用于<ul>
 <li>制作<strong>武器</strong></li>
 <li>强化<strong>武器</strong></li>
-<li>制作<strong>非关键零件</strong></li>
 <li>制作<strong>功能性物品</strong></li>
 <li>制作<strong>消耗品</strong></li>
 </ul>
 </li>
 <li>材料从敌人掉落或环境开采</li>
 <li>武器<strong>强度</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关，非关键零件<strong>质量</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关</li>
-<li>收集<strong>关键零件</strong>，和<strong>非关键零件</strong>制作<strong>飞船</strong></li>
+<li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
 <li>材料简单分为<strong>金属</strong>与<strong>有机物</strong>，后期配方表可增加</li>
 </ul>
+<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><ul>
+<li>角色仅能携带一把武器</li>
+<li>武器会过热，需要充能</li>
+<li>武器有两种攻击模式，普通攻击和特殊攻击</li>
+<li>特殊攻击冷却时间较长</li>
+<li>武器可使用材料升级</li>
+</ul>
+<h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><ul>
+<li>能力强化</li>
+</ul>
+<h2 id="消耗品"><a href="#消耗品" class="headerlink" title="消耗品"></a>消耗品</h2><ul>
+<li>回复血量</li>
+</ul>
+<h2 id="死亡后成长"><a href="#死亡后成长" class="headerlink" title="死亡后成长"></a>死亡后成长</h2><ul>
+<li>普通死亡</li>
+</ul>
+<p>嘲讽</p>
+<ul>
+<li>打败boss后</li>
+</ul>
+<p>非常嘲讽</p>
+<ul>
+<li>通关后</li>
+</ul>
+<p>极度嘲讽</p>
 
       
     </div>
@@ -285,7 +332,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图、房间"><span class="nav-number">3.2.</span> <span class="nav-text">地图、房间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料、武器、零件、物品、消耗品"><span class="nav-number">3.4.</span> <span class="nav-text">材料、武器、零件、物品、消耗品</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图、房间"><span class="nav-number">3.2.</span> <span class="nav-text">地图、房间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.4.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.5.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.6.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.7.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死亡后成长"><span class="nav-number">3.8.</span> <span class="nav-text">死亡后成长</span></a></li></ol></li></ol>
     
     </div>
   </aside>
