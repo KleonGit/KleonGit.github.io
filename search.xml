@@ -911,7 +911,7 @@
 </ul>
 <p>障碍物转化路径</p>
 <ol>
-<li>首次进入时按星球属性随机和房间预设生成，比如水(10%),土(90%)</li>
+<li>首次进入房间时按星球属性随机和房间预设生成，比如水(10%),土(90%)，如果水含量大于75%，则全部置为水</li>
 <li>根据预设房间属性生成障碍物<ul>
 <li>比如土转变为岩石容器(5%),巨型岩石(5%)</li>
 <li>水转变为冰块容器(5%),巨型冰块(5%)</li>
@@ -944,6 +944,10 @@ A_{normal} = random(max(D-3, 1), D+3)</script><p>怪物可组合类型</p>
 <li>random(1,2,4)</li>
 </ul>
 </li>
+<li>视野半径<ul>
+<li>random(4,8,12)</li>
+</ul>
+</li>
 <li>适合温度<ul>
 <li>50%T，25%T-1，25%T+1</li>
 <li>在适合温度时，获得额外伤害</li>
@@ -961,7 +965,9 @@ D_{attribute} = random(1, 10)\frac{D}{10}</script><p>温度契合伤害</p>
 D_{temp} = 10\frac{D}{10}</script><h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
 <script type="math/tex; mode=display">
 A_{special} = random(0, [\frac{D - 8}{5})</script><p>伤害较普通怪x3</p>
-<h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
+<h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><p>Boss难度与本周目Boss击杀次数相关。</p>
+<p>Boss难度影响弹幕密度，攻击速度和伤害。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
 <p>可变因子包括：</p>
 <ul>
 <li>温度，影响地形，能力，敌人生成</li>
@@ -981,7 +987,11 @@ A_{special} = random(0, [\frac{D - 8}{5})</script><p>伤害较普通怪x3</p>
 <p>当前经度温度<script type="math/tex">T_{longitude}</script>按0 - -3 - 0 - 3 - 0均匀分布<br>按进入房间次数<script type="math/tex">N=3</script>，左移/右一(自转，一颗星球二选一)一个标准房间</p>
 <p>当前房间温度<script type="math/tex">T_{room}</script>随纬度<script type="math/tex">A</script>和当前经度温度<script type="math/tex">T_{longitude}</script>变化公式</p>
 <script type="math/tex; mode=display">
-T_{room} = T_{longitude}\frac{90 - |A|}{90} + 2\frac{A}{90}  A \in [0, 90)</script><h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
+T_{room} = T_{longitude}\frac{90 - |A|}{90} + 2\frac{A}{90}  A \in [0, 90)</script><p>光照强度<script type="math/tex">L</script>和温度的关系：</p>
+<script type="math/tex; mode=display">
+L = T+3</script><p>光照强度<script type="math/tex">L</script>影响视野半径<script type="math/tex">r_{view}</script>，<script type="math/tex">r_{base}</script>为基础视野8，<script type="math/tex">r_{equip}</script>为装备带来的视野加成<script type="math/tex">(4-12)</script></p>
+<script type="math/tex; mode=display">
+r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
 <li>收集<strong>材料</strong>，材料可用于<ul>
 <li>制作<strong>武器</strong></li>
 <li>强化<strong>武器</strong></li>
@@ -1014,31 +1024,37 @@ T_{room} = T_{longitude}\frac{90 - |A|}{90} + 2\frac{A}{90}  A \in [0, 90)</scri
 <li>爆炸物，爆炸点附近产生范围伤害</li>
 <li>机枪塔，爆炸点生成自动机枪塔，自动攻击附近敌人</li>
 </ul>
-<h4 id="强化属性"><a href="#强化属性" class="headerlink" title="强化属性"></a>强化属性</h4><ul>
+<h4 id="武器强化属性"><a href="#武器强化属性" class="headerlink" title="武器强化属性"></a>武器强化属性</h4><ul>
 <li>射速</li>
 <li>充能时间</li>
 <li>基础伤害</li>
 </ul>
 <h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
 <ul>
-<li>最大血量</li>
-<li>连续冲刺次数</li>
+<li>最大血量 <script type="math/tex">[0.75,0.8,0.85,0.9,0.95,1.05,1.1,1.15,1.2,1.25]</script></li>
+<li>连续冲刺次数 <script type="math/tex">[-1,1]</script></li>
+<li>视野 <script type="math/tex">[-2,2]</script></li>
+<li>移速 <script type="math/tex">[0.8,0.9,1.1,1.2]</script></li>
 </ul>
+<p>一个物品随机1-3个属性，每个属性随机区间</p>
 <h2 id="消耗品"><a href="#消耗品" class="headerlink" title="消耗品"></a>消耗品</h2><ul>
-<li>回复血量</li>
+<li>小号医疗包 10%</li>
+<li>中号医疗包 25%</li>
+<li>大号医疗包 50%</li>
+<li>再生组织 复活1次</li>
 </ul>
-<h2 id="死亡后成长"><a href="#死亡后成长" class="headerlink" title="死亡后成长"></a>死亡后成长</h2><ul>
+<h2 id="成长"><a href="#成长" class="headerlink" title="成长"></a>成长</h2><ul>
 <li>普通死亡</li>
 </ul>
-<p>嘲讽</p>
+<p>嘲讽，可以选择重置星球属性或沿用当前星球属性</p>
 <ul>
 <li>打败boss后</li>
 </ul>
-<p>非常嘲讽</p>
+<p>非常嘲讽，获得消耗品，物品，或武器</p>
 <ul>
 <li>通关后</li>
 </ul>
-<p>极度嘲讽</p>
+<p>极度嘲讽，获得特殊道具</p>
 <h2 id="特殊道具（永久）"><a href="#特殊道具（永久）" class="headerlink" title="特殊道具（永久）"></a>特殊道具（永久）</h2><ul>
 <li>水肺（一周目通关后获得）</li>
 </ul>
@@ -2425,6 +2441,57 @@ T_{room} = T_{longitude}\frac{90 - |A|}{90} + 2\frac{A}{90}  A \in [0, 90)</scri
       </tags>
   </entry>
   <entry>
+    <title>机器学习系统 1-6 - 后端硬件软件栈</title>
+    <url>/ai/ml-system/hardware-backend/6-software-stack-overview/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>没有软件支持的硬件就是一块砖，围绕硬件编写通用且易用的软件栈所需的资源以及重要性不亚于硬件开发。</p>
+<a id="more"></a>
+<p>在硬件工程师主导的团队中，可能会忽视软件的作用以及开发工作量。</p>
+<p>因为从硬件的角度来看，软硬件接口的抽象非常明确：</p>
+<ul>
+<li>寄存器表</li>
+<li>数据</li>
+<li>指令</li>
+</ul>
+<p>后端硬件通常暴露一组控制寄存器，上层软件通过驱动读写寄存器，完成初始化，复位，状态监测等操作。</p>
+<p>后端硬件和主控CPU通过主存交换数据和指令，硬件指令解析器读取指令并发出相应的信号影响控制流和数据流。</p>
+<p>然而软件工程需要在软硬件接口之上做多层封装，提供不同层次的接口抽象，满足不同需求的用户。</p>
+<h1 id="驱动（Driver）"><a href="#驱动（Driver）" class="headerlink" title="驱动（Driver）"></a>驱动（Driver）</h1><p>软件层最底层的封装，与操作系统耦合，提供最基本的硬件控制接口，基本和软硬件接口一致，比如读写寄存器表，读写存储器数据等。</p>
+<p>但通常处于安全性考虑，驱动不会直接提供上面的功能，而是进一步封装，提供执行特定功能的接口。一个接口中，可能执行多个寄存器和存储器读写操作。</p>
+<p>除此之外，驱动运行于操作系统层，天然具备跨进程的能力，因此在驱动也会负责跨进程的硬件状态管理，比如内存管理，指令调度等。</p>
+<h1 id="运行时（Runtime）"><a href="#运行时（Runtime）" class="headerlink" title="运行时（Runtime）"></a>运行时（Runtime）</h1><p>用户使用驱动可以最大程度的控制硬件逻辑，但相应的所需要编写的代码量相当可观，因此，驱动层之上还会封装runtime。</p>
+<p>runtime通常提供更高层次的抽象接口，进一步屏蔽硬件初始化，上下文（context）管理，设备管理，以及指令/数据的显示加载读取等操作。</p>
+<p>总体上来看，runtime的性能相较驱动没有太多损失，但易用性大为提升，错误反馈和排查功能也更为友好。</p>
+<p>因此，如果不是对硬件控制有特别高的需求，会使用runtime接口编程。</p>
+<h1 id="计算库（Libraries）"><a href="#计算库（Libraries）" class="headerlink" title="计算库（Libraries）"></a>计算库（Libraries）</h1><p>编写硬件指令，由其是高效的硬件指令需要对硬件结构有深刻的理解，但是手工编写硬件指令对更高层的用户（比如算法工程师）来说是不够友好并且困难的。</p>
+<p>因此后端硬件官方或第三方通常会提供特定领域计算库，提供常见计算pattern的接口，内置凝结了工程师智慧的手工优化代码，比如CuDNN，MKL-DNN等面向深度学习的计算库。</p>
+<p>一般来说，硬件厂商提供的计算库性能高于第三方开发的计算库，毕竟对于硬件结构的理解更深入。但是第三方在应用上的创新速度远快于硬件厂商的响应速度，各家厂商对于应用的参与和主导程度也会影响计算库的迭代速度和易用性，比如NVIDIA和Intel。</p>
+<h1 id="计算框架（Framework）"><a href="#计算框架（Framework）" class="headerlink" title="计算框架（Framework）"></a>计算框架（Framework）</h1><p>计算库提供了特定计算pattern的优化指令，尤其是对计算密集型算子，提高了硬件利用率。但对于一个特定应用来说，还需要足够灵活和高效的计算框架的支持。</p>
+<p>对于深度学习应用，计算框架（比如Tensorflow和PyTorch等训练框架）提供了算子级别的抽象，使用Python定义DSL，让用户灵活构建计算图，并提供了反向梯度计算，方便训练。</p>
+<p>服务框架用来将训练后的模型部署为在线服务，供业务应用调用，通常使用训练框架的计算核心，但是更注重面向网络接口的高可用，高并发等特性。</p>
+<p>后端硬件通常只能支持主流框架全部算子的子集，需要接入框架提高可用性，否则，整个计算图都能在专用硬件上运行的概率不会太高。接入过程主要考虑调度，算子融合，以及常规的编译优化手段。</p>
+<h1 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h1><p>业务应用通常使用微服务架构，各个模块间相互独立。业务应用负责处理数据处理，格式转换，模型调用等任务。</p>
+<p>业务应用从前端被动获取数据（比如用户的行为数据），或者从数据库/数据仓库中取数据，通过RPC<a href="#refer-1"><sup>1</sup></a>或HTTP调用机器学习模型在线服务，根据服务返回结果（比如物品推荐的打分）执行数据处理操作（比如筛选排列返回给前端的物品呈现顺序），优化某项业务指标（比如点击率或观看时长）。</p>
+<p>机器学习服务有SaaS<a href="#refer-2"><sup>2</sup></a>化的趋势，对小微用户来说，招聘全职的算法工程师和平台工程师的风险偏高，且限于技术深度相对不可控。SaaS服务提供了更高层的使用接口，甚至是无代码操作方式，标准化托管用户的数据收集、处理、分析流程，根据用户的不同需要（比如推荐、风险控制、用户增长等）提供不同类型的服务。</p>
+<h1 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h1><p>基于数据分析的业务决策已经被实践证明在优化某些特定业务指标时效果明显，但数据分析逐步普及的趋势下，似乎陷入了电影院困境，大家被迫要用数据分析来决策。</p>
+<p>数字化确实能带来效率提升，紧随其后的大数据计算利用机器学习在试图在微观层面上找到一些可以带来收益的价值，也就是所谓的挖掘数据中的金子。</p>
+<p>智能化是在数据、算力双双获得爆发性增长后的趋势，但目前的智能化仍然只能看做大数据分析的进一步发展形态，依赖算力和数据规模暴力拟合。</p>
+<p>因此而消耗的能源和人类时间，给环境造成的影响是否真正创造了等量的价值呢？</p>
+<p>正如模型训练步长过小容易陷入局部最优解，依赖于一个个AB Test做出的短期决策是否对长期价值有贡献呢？</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="noopener">Remote procedure call</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/Software_as_a_service" target="_blank" rel="noopener">Software as a service</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>FPGA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 1-7 - 后端硬件驱动</title>
     <url>/ai/ml-system/hardware-backend/7-driver/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>驱动是对硬件接口的抽象和封装，设计时需要充分考虑分层和解耦。</p>
@@ -2468,57 +2535,6 @@ T_{room} = T_{longitude}\frac{90 - |A|}{90} + 2\frac{A}{90}  A \in [0, 90)</scri
 <hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Device_driver" target="_blank" rel="noopener">Intermediate representation</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>FPGA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 1-6 - 后端硬件软件栈</title>
-    <url>/ai/ml-system/hardware-backend/6-software-stack-overview/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>没有软件支持的硬件就是一块砖，围绕硬件编写通用且易用的软件栈所需的资源以及重要性不亚于硬件开发。</p>
-<a id="more"></a>
-<p>在硬件工程师主导的团队中，可能会忽视软件的作用以及开发工作量。</p>
-<p>因为从硬件的角度来看，软硬件接口的抽象非常明确：</p>
-<ul>
-<li>寄存器表</li>
-<li>数据</li>
-<li>指令</li>
-</ul>
-<p>后端硬件通常暴露一组控制寄存器，上层软件通过驱动读写寄存器，完成初始化，复位，状态监测等操作。</p>
-<p>后端硬件和主控CPU通过主存交换数据和指令，硬件指令解析器读取指令并发出相应的信号影响控制流和数据流。</p>
-<p>然而软件工程需要在软硬件接口之上做多层封装，提供不同层次的接口抽象，满足不同需求的用户。</p>
-<h1 id="驱动（Driver）"><a href="#驱动（Driver）" class="headerlink" title="驱动（Driver）"></a>驱动（Driver）</h1><p>软件层最底层的封装，与操作系统耦合，提供最基本的硬件控制接口，基本和软硬件接口一致，比如读写寄存器表，读写存储器数据等。</p>
-<p>但通常处于安全性考虑，驱动不会直接提供上面的功能，而是进一步封装，提供执行特定功能的接口。一个接口中，可能执行多个寄存器和存储器读写操作。</p>
-<p>除此之外，驱动运行于操作系统层，天然具备跨进程的能力，因此在驱动也会负责跨进程的硬件状态管理，比如内存管理，指令调度等。</p>
-<h1 id="运行时（Runtime）"><a href="#运行时（Runtime）" class="headerlink" title="运行时（Runtime）"></a>运行时（Runtime）</h1><p>用户使用驱动可以最大程度的控制硬件逻辑，但相应的所需要编写的代码量相当可观，因此，驱动层之上还会封装runtime。</p>
-<p>runtime通常提供更高层次的抽象接口，进一步屏蔽硬件初始化，上下文（context）管理，设备管理，以及指令/数据的显示加载读取等操作。</p>
-<p>总体上来看，runtime的性能相较驱动没有太多损失，但易用性大为提升，错误反馈和排查功能也更为友好。</p>
-<p>因此，如果不是对硬件控制有特别高的需求，会使用runtime接口编程。</p>
-<h1 id="计算库（Libraries）"><a href="#计算库（Libraries）" class="headerlink" title="计算库（Libraries）"></a>计算库（Libraries）</h1><p>编写硬件指令，由其是高效的硬件指令需要对硬件结构有深刻的理解，但是手工编写硬件指令对更高层的用户（比如算法工程师）来说是不够友好并且困难的。</p>
-<p>因此后端硬件官方或第三方通常会提供特定领域计算库，提供常见计算pattern的接口，内置凝结了工程师智慧的手工优化代码，比如CuDNN，MKL-DNN等面向深度学习的计算库。</p>
-<p>一般来说，硬件厂商提供的计算库性能高于第三方开发的计算库，毕竟对于硬件结构的理解更深入。但是第三方在应用上的创新速度远快于硬件厂商的响应速度，各家厂商对于应用的参与和主导程度也会影响计算库的迭代速度和易用性，比如NVIDIA和Intel。</p>
-<h1 id="计算框架（Framework）"><a href="#计算框架（Framework）" class="headerlink" title="计算框架（Framework）"></a>计算框架（Framework）</h1><p>计算库提供了特定计算pattern的优化指令，尤其是对计算密集型算子，提高了硬件利用率。但对于一个特定应用来说，还需要足够灵活和高效的计算框架的支持。</p>
-<p>对于深度学习应用，计算框架（比如Tensorflow和PyTorch等训练框架）提供了算子级别的抽象，使用Python定义DSL，让用户灵活构建计算图，并提供了反向梯度计算，方便训练。</p>
-<p>服务框架用来将训练后的模型部署为在线服务，供业务应用调用，通常使用训练框架的计算核心，但是更注重面向网络接口的高可用，高并发等特性。</p>
-<p>后端硬件通常只能支持主流框架全部算子的子集，需要接入框架提高可用性，否则，整个计算图都能在专用硬件上运行的概率不会太高。接入过程主要考虑调度，算子融合，以及常规的编译优化手段。</p>
-<h1 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h1><p>业务应用通常使用微服务架构，各个模块间相互独立。业务应用负责处理数据处理，格式转换，模型调用等任务。</p>
-<p>业务应用从前端被动获取数据（比如用户的行为数据），或者从数据库/数据仓库中取数据，通过RPC<a href="#refer-1"><sup>1</sup></a>或HTTP调用机器学习模型在线服务，根据服务返回结果（比如物品推荐的打分）执行数据处理操作（比如筛选排列返回给前端的物品呈现顺序），优化某项业务指标（比如点击率或观看时长）。</p>
-<p>机器学习服务有SaaS<a href="#refer-2"><sup>2</sup></a>化的趋势，对小微用户来说，招聘全职的算法工程师和平台工程师的风险偏高，且限于技术深度相对不可控。SaaS服务提供了更高层的使用接口，甚至是无代码操作方式，标准化托管用户的数据收集、处理、分析流程，根据用户的不同需要（比如推荐、风险控制、用户增长等）提供不同类型的服务。</p>
-<h1 id="影响"><a href="#影响" class="headerlink" title="影响"></a>影响</h1><p>基于数据分析的业务决策已经被实践证明在优化某些特定业务指标时效果明显，但数据分析逐步普及的趋势下，似乎陷入了电影院困境，大家被迫要用数据分析来决策。</p>
-<p>数字化确实能带来效率提升，紧随其后的大数据计算利用机器学习在试图在微观层面上找到一些可以带来收益的价值，也就是所谓的挖掘数据中的金子。</p>
-<p>智能化是在数据、算力双双获得爆发性增长后的趋势，但目前的智能化仍然只能看做大数据分析的进一步发展形态，依赖算力和数据规模暴力拟合。</p>
-<p>因此而消耗的能源和人类时间，给环境造成的影响是否真正创造了等量的价值呢？</p>
-<p>正如模型训练步长过小容易陷入局部最优解，依赖于一个个AB Test做出的短期决策是否对长期价值有贡献呢？</p>
-<hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="noopener">Remote procedure call</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/Software_as_a_service" target="_blank" rel="noopener">Software as a service</a></li>
 </ul>
 ]]></content>
       <categories>
