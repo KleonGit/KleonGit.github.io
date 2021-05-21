@@ -963,6 +963,19 @@
 <li>通关后</li>
 </ul>
 <p>极度嘲讽</p>
+<h2 id="特殊道具（永久）"><a href="#特殊道具（永久）" class="headerlink" title="特殊道具（永久）"></a>特殊道具（永久）</h2><ul>
+<li>水肺（一周目通关后获得）</li>
+</ul>
+<p>可下水，有时间限制（氧气）</p>
+<ul>
+<li>照明取暖弹（二周目通关后获得）</li>
+</ul>
+<p>可进入寒冰黑夜，定时发射照明弹扩大视野，有时间限制（过冷）</p>
+<ul>
+<li>隔热墨镜（三周目通关后获得）</li>
+</ul>
+<p>可进入岩浆白昼，有时间限制（过热）</p>
+<h2 id="后期"><a href="#后期" class="headerlink" title="后期"></a>后期</h2><p>可选择探索不同难度的星系，每次探索必坠毁（TAT）</p>
 ]]></content>
       <categories>
         <category>游戏</category>
@@ -1766,6 +1779,34 @@
       </tags>
   </entry>
   <entry>
+    <title>烤面筋 - 链接</title>
+    <url>/work/interview/third-party/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>第三方链接统计</p>
+<a id="more"></a>
+<p><a href="https://zhuanlan.zhihu.com/p/43661309" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43661309</a></p>
+<p>CF,MF,Graph Embedding,LR,JVM,Quick Sort,Coroutine,Thread,Process,HashMap,RB-Tree,AVL-Tree</p>
+<p><a href="https://blog.csdn.net/v_JULY_v/article/details/108292943" target="_blank" rel="noopener">https://blog.csdn.net/v_JULY_v/article/details/108292943</a></p>
+<p>ML</p>
+<p><a href="https://www.sohu.com/a/446356680_100205241" target="_blank" rel="noopener">https://www.sohu.com/a/446356680_100205241</a></p>
+<p>Wide&amp;Deep,Join Training,Ensemble Training,DeepFM,Collaborative Knowledge Based Embedding,Knowledge Graph,Feature Engineer,</p>
+<p><a href="https://blog.csdn.net/abcdefg90876/article/details/107373650" target="_blank" rel="noopener">https://blog.csdn.net/abcdefg90876/article/details/107373650</a></p>
+<p>LSTM,SVM,GBDT,轮流捡石头,100盏灯问题,Overfitting,Dropout,Python,List,Mimimum Window Substring</p>
+<p><a href="https://www.nowcoder.com/discuss/442650?type=2&amp;channel=-2&amp;source_id=discuss_center_discuss_hot" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/442650?type=2&amp;channel=-2&amp;source_id=discuss_center_discuss_hot</a></p>
+<p>LR,L1 Norm,L2 Norm,Gradient Descendant,Momentum,Adam,XGB,Loss Function,FM,LR,Softmax,Sigmoid,TF SourceCode,Open Source,XGBoost,C++,AUC,XGB并行,模型优化算法,RMSprop,Adgrad,GMM,EM,Process,Thread,User Space,Kernel Space,</p>
+<p><a href="https://www.nowcoder.com/discuss/596829?type=2" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/596829?type=2</a></p>
+<p>XGB,GBDT,Recall,Rank,Recommender System Design,XGB,GBDT,LGBM,L1,L2,LR,SVM,XGB,Adam,SGD,Xavier,Loss,Recommender System Index,GBDT,LSTM,Train/Validation/Test Dataset,FM,FFM,XGB,GBDT,ETL,Feature Engineer,DIN,DICE,Dataset,Hyperparameter Search,Django,Flask,Nginx,Apache,CSRF,ORM reverse,Overfitting,LR,Tree,NN,Tuning,Data Lacking,XGB,GBDT,Softmax,LR,Classifier,Regression,DQN,Data Skew,Quantization,CNN,Recall,L2R,PS,Distributed Training,Tree Regression,XGB,GBDT,Softmax Overflow,Overfitting,HDFS,Fine Tune,Flink,Storm,Spark,Spark for Training,Kafka,Kafka Topic,Data Skew,W&amp;D,L2R,Lambda MART,Lambda Rank,NDCG,Position Bias,Cold Start,LSTM,LSTM Unit,Concave Optimization,SGD,OU,Replay Buffer,Sliding,LSTM,Layer,Unit,Data EDA,CNN,Tuning,FM,FFM,Postion Bias,Recommender System Index,Recommend Flow Orthogonal,DIN,Attention,XGB,Distributed XGB,Streaming,Flink,Spark,</p>
+<p><a href="https://www.nowcoder.com/discuss/458758?channel=-1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/458758?channel=-1</a></p>
+<p>Cache,HashMap,Guava Cache,</p>
+<hr>
+]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>烤面筋 - Redis</title>
     <url>/work/interview/redis/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Redis</p>
@@ -1905,34 +1946,6 @@
 <li>缓存预热（关闭外网访问，先开启mysql，通过预热脚本将热点数据写入缓存中，启动缓存。开启外网服务）</li>
 <li>数据不要设置相同的生存时间，不然过期时，redis压力会大</li>
 </ol>
-]]></content>
-      <categories>
-        <category>面筋</category>
-      </categories>
-      <tags>
-        <tag>面筋</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>烤面筋 - 链接</title>
-    <url>/work/interview/third-party/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>第三方链接统计</p>
-<a id="more"></a>
-<p><a href="https://zhuanlan.zhihu.com/p/43661309" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43661309</a></p>
-<p>CF,MF,Graph Embedding,LR,JVM,Quick Sort,Coroutine,Thread,Process,HashMap,RB-Tree,AVL-Tree</p>
-<p><a href="https://blog.csdn.net/v_JULY_v/article/details/108292943" target="_blank" rel="noopener">https://blog.csdn.net/v_JULY_v/article/details/108292943</a></p>
-<p>ML</p>
-<p><a href="https://www.sohu.com/a/446356680_100205241" target="_blank" rel="noopener">https://www.sohu.com/a/446356680_100205241</a></p>
-<p>Wide&amp;Deep,Join Training,Ensemble Training,DeepFM,Collaborative Knowledge Based Embedding,Knowledge Graph,Feature Engineer,</p>
-<p><a href="https://blog.csdn.net/abcdefg90876/article/details/107373650" target="_blank" rel="noopener">https://blog.csdn.net/abcdefg90876/article/details/107373650</a></p>
-<p>LSTM,SVM,GBDT,轮流捡石头,100盏灯问题,Overfitting,Dropout,Python,List,Mimimum Window Substring</p>
-<p><a href="https://www.nowcoder.com/discuss/442650?type=2&amp;channel=-2&amp;source_id=discuss_center_discuss_hot" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/442650?type=2&amp;channel=-2&amp;source_id=discuss_center_discuss_hot</a></p>
-<p>LR,L1 Norm,L2 Norm,Gradient Descendant,Momentum,Adam,XGB,Loss Function,FM,LR,Softmax,Sigmoid,TF SourceCode,Open Source,XGBoost,C++,AUC,XGB并行,模型优化算法,RMSprop,Adgrad,GMM,EM,Process,Thread,User Space,Kernel Space,</p>
-<p><a href="https://www.nowcoder.com/discuss/596829?type=2" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/596829?type=2</a></p>
-<p>XGB,GBDT,Recall,Rank,Recommender System Design,XGB,GBDT,LGBM,L1,L2,LR,SVM,XGB,Adam,SGD,Xavier,Loss,Recommender System Index,GBDT,LSTM,Train/Validation/Test Dataset,FM,FFM,XGB,GBDT,ETL,Feature Engineer,DIN,DICE,Dataset,Hyperparameter Search,Django,Flask,Nginx,Apache,CSRF,ORM reverse,Overfitting,LR,Tree,NN,Tuning,Data Lacking,XGB,GBDT,Softmax,LR,Classifier,Regression,DQN,Data Skew,Quantization,CNN,Recall,L2R,PS,Distributed Training,Tree Regression,XGB,GBDT,Softmax Overflow,Overfitting,HDFS,Fine Tune,Flink,Storm,Spark,Spark for Training,Kafka,Kafka Topic,Data Skew,W&amp;D,L2R,Lambda MART,Lambda Rank,NDCG,Position Bias,Cold Start,LSTM,LSTM Unit,Concave Optimization,SGD,OU,Replay Buffer,Sliding,LSTM,Layer,Unit,Data EDA,CNN,Tuning,FM,FFM,Postion Bias,Recommender System Index,Recommend Flow Orthogonal,DIN,Attention,XGB,Distributed XGB,Streaming,Flink,Spark,</p>
-<p><a href="https://www.nowcoder.com/discuss/458758?channel=-1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/458758?channel=-1</a></p>
-<p>Cache,HashMap,Guava Cache,</p>
-<hr>
 ]]></content>
       <categories>
         <category>面筋</category>
