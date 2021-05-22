@@ -280,41 +280,39 @@ var themeMenus = {};
 <p>水含量<script type="math/tex">D_{water}</script>：</p>
 <script type="math/tex; mode=display">
 D_{water} = random(0, 1) + A_{water}</script><h3 id="连通性检查"><a href="#连通性检查" class="headerlink" title="连通性检查"></a>连通性检查</h3><p>原型后再看</p>
-<h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><h3 id="普通敌人"><a href="#普通敌人" class="headerlink" title="普通敌人"></a>普通敌人</h3><p>在每次进入时按难度因子<script type="math/tex">D</script>，温度<script type="math/tex">T</script>，星球属性<script type="math/tex">P</script>，纬度<script type="math/tex">A</script>生成。</p>
+<h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><h3 id="普通敌人"><a href="#普通敌人" class="headerlink" title="普通敌人"></a>普通敌人</h3><p>在每次进入时按难度因子<script type="math/tex">N</script>生成。</p>
 <p>怪物总数量约束：</p>
 <script type="math/tex; mode=display">
-A_{normal} = random(max(D-3, 1), D+3)</script><p>怪物可组合类型</p>
+A_{normal} = random(max(N-3, 1), N+3)</script><p>怪物可组合类型</p>
 <ul>
-<li>属性<ul>
-<li>普通</li>
-<li>电磁</li>
-<li>灼烧</li>
-<li>冰冻</li>
+<li>移动速度 Speed<ul>
+<li>random(1,2,4,8)</li>
 </ul>
 </li>
-<li>攻击距离<ul>
-<li><script type="math/tex; mode=display">random(1,2,4)</script></li>
-</ul>
-</li>
-<li>视野半径<ul>
-<li><script type="math/tex; mode=display">random(4,8,12)</script></li>
+<li>视野半径 ViewRadius<ul>
+<li>random(4,8,12)</li>
 </ul>
 </li>
 <li>适合温度<ul>
 <li>50%T，25%T-1，25%T+1</li>
-<li>在适合温度时，获得额外伤害</li>
+<li>在适合温度时，基础属性(Speed，ViewRadius)x2</li>
 </ul>
 </li>
 </ul>
-<p>伤害</p>
+<p>普通敌人武器</p>
+<p>容量</p>
+<script type="math/tex; mode=display">
+Bullets = random(3, max(3, N/2))</script><p>射速</p>
+<script type="math/tex; mode=display">
+AttackInterval = random(0.5, 1.5) * ln(N + 2) * Speed_{base}</script><p>充能</p>
+<script type="math/tex; mode=display">
+RechargeTime = random(0.8, 1.2) * ln(N + 2) * RechargeTime_{base}</script><p>普通敌人子弹伤害</p>
 <script type="math/tex; mode=display">
 D_{total} = D_{normal} + D_{attribute} + D_{temp}</script><p>普通伤害</p>
 <script type="math/tex; mode=display">
 D_{normal} = random(max(D-3, 1), D+3)</script><p>属性伤害</p>
 <script type="math/tex; mode=display">
-D_{attribute} = D * random(0.1, 1)</script><p>温度契合伤害</p>
-<script type="math/tex; mode=display">
-D_{temp} = D * random(0.5, 1.5)</script><h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
+D_{attribute} = D * random(0.1, 1)</script><h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
 <script type="math/tex; mode=display">
 A_{special} = random(0, [\frac{D - 8}{5}])</script><p>伤害较普通怪x3</p>
 <h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><p>Boss难度与本周目Boss击杀次数相关。</p>
@@ -362,7 +360,7 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 <li>特殊弹夹容量SpecialBullets，同上，初始为1</li>
 <li>射速AttackInterval，最小攻击间隔时间</li>
 <li>充能时间RechargeTime</li>
-<li>同时发射的子弹数量ConcurrentBullet</li>
+<li>同时发射的子弹数量ConcurrentBullets</li>
 <li>攻击距离Range，子弹按鼠标/虚拟键盘指示方向发射</li>
 </ul>
 <p>以上属性均可强化</p>
