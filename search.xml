@@ -850,15 +850,19 @@
 <h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
 <li>使用<strong>关键零件</strong>和<strong>材料</strong>组成<strong>飞船</strong>，完成游戏</li>
 </ul>
+<h2 id="星球属性"><a href="#星球属性" class="headerlink" title="星球属性"></a>星球属性</h2><p>汇总参数，详细看下文解释</p>
+<p>宽 Width <script type="math/tex">W</script><br>高 Height <script type="math/tex">H</script><br>自转方向 SpinDirection <script type="math/tex">Spin</script><br>水量修正 WaterAdjustment <script type="math/tex">A_{water}</script> </p>
+<h2 id="运行参数"><a href="#运行参数" class="headerlink" title="运行参数"></a>运行参数</h2><p>汇总参数，详细看下文解释</p>
+<p>进入房间次数 RoomEntranceCount <script type="math/tex">N</script><br>Boss BossKilledCount <script type="math/tex">B</script><br>含水量 WaterDistribution <script type="math/tex">D_{water}</script><br>普通怪物总数量 EnemyNormalCount <script type="math/tex">A_{normal}</script><br>精英怪物总数量 EnemySpecialCount <script type="math/tex">A_{special}</script></p>
 <h2 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h2><ul>
-<li>地图可划分为基本的<strong>房间</strong>，由MxN个房间构成，M与N取决于星球属性，初始建议M(横)N(纵)为12x7</li>
+<li>地图可划分为基本的<strong>房间</strong>，由WxH个房间构成，W与H取决于星球属性，初始建议W(横)H(纵)为12x7</li>
 <li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动<ul>
 <li>左右直接回绕</li>
 <li>上下并不直接回绕，极点附近向上/下与当前纬度+星球总纬度/2的房间相连</li>
 </ul>
 </li>
 <li>地图横向为经度，纵向为纬度<ul>
-<li>温度/视野随经度循环变化，左移或右移取决于星球属性</li>
+<li>温度/亮度随经度循环变化，左移或右移取决于星球属性（自转方向）</li>
 <li>移动时间以进入房间次数（N）为准，N取决于星球属性</li>
 <li>温度变化率随纬度变化，从赤道到极点不断减弱</li>
 </ul>
@@ -888,9 +892,13 @@
 <li>Boss难度按第一次进入Boss房为准，难度随已击杀boss递增</li>
 </ul>
 <p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
-<h2 id="房间"><a href="#房间" class="headerlink" title="房间"></a>房间</h2><h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>以角色为一个单位方格为基准，标准房间单位为16x9，占据横向显示设备（PC/手机），组合房间的长宽分别为N倍，如Boss房长宽分别为基准房间的2倍。</p>
-<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门生成于标准房间的四边56544，一个房间最多有四个门。</p>
-<p>隐藏房间只有一个门可入。</p>
+<h2 id="房间"><a href="#房间" class="headerlink" title="房间"></a>房间</h2><h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>以角色为一个单位方格为基准，标准房间单位为16x9，占据横向显示设备（PC/手机），组合房间为基准房间的倍数，如Boss房长宽分别为基准房间的2倍。</p>
+<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门生成于房间的四边，一个房间最多有四个门，门在两个房间中一定是成对连通的</p>
+<p>按顺序从(0,0)开始生成门。</p>
+<p>按如下优先级修正门：</p>
+<ul>
+<li>隐藏房间只有一个门可入。</li>
+</ul>
 <h3 id="障碍物"><a href="#障碍物" class="headerlink" title="障碍物"></a>障碍物</h3><p>障碍物以单元格为基准随机生成，障碍物分为：</p>
 <ul>
 <li>不可重叠可破环障碍物，拥有可破坏次数N，被攻击N次（次数变为0）后障碍物消除<ul>
@@ -909,8 +917,7 @@
 </ul>
 </li>
 </ul>
-<p>障碍物转化路径</p>
-<ol>
+<h3 id="障碍物转化路径"><a href="#障碍物转化路径" class="headerlink" title="障碍物转化路径"></a>障碍物转化路径</h3><ol>
 <li>首次进入房间时按星球属性随机和房间预设生成，比如水(10%),土(90%)，如果水含量大于75%，则全部置为水</li>
 <li>根据预设房间属性生成障碍物<ul>
 <li>比如土转变为岩石容器(5%),巨型岩石(5%)</li>
@@ -922,12 +929,15 @@
 <li>2 水/巨型冰块/冰块容器先转变为土，土/巨型岩石/岩石容器转变为岩浆池(25%)</li>
 <li>1 水/冰转变为土</li>
 <li>0 不做处理</li>
-<li>-1 水转变为冰面(30%)/冰容器(10%)</li>
+<li>-1 水转变为冰面(30%)/冰容器(10%)，冰面会使所有移动物打滑，具有抗性物品的除外</li>
 <li>-2 水转变为冰面(60%)/巨型冰块(30%)/冰容器(10%)</li>
 <li>-3 水转变为冰面(30%)/巨型冰块(60%)/冰容器(10%)</li>
 </ul>
 </li>
 </ol>
+<p>水含量<script type="math/tex">D_{water}</script>：</p>
+<script type="math/tex; mode=display">
+D_{water} = random(0, 1) + A_{water}</script><h3 id="连通性检查"><a href="#连通性检查" class="headerlink" title="连通性检查"></a>连通性检查</h3><p>原型后再看</p>
 <h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><h3 id="普通敌人"><a href="#普通敌人" class="headerlink" title="普通敌人"></a>普通敌人</h3><p>在每次进入时按难度因子<script type="math/tex">D</script>，温度<script type="math/tex">T</script>，星球属性<script type="math/tex">P</script>，纬度<script type="math/tex">A</script>生成。</p>
 <p>怪物总数量约束：</p>
 <script type="math/tex; mode=display">
@@ -941,11 +951,11 @@ A_{normal} = random(max(D-3, 1), D+3)</script><p>怪物可组合类型</p>
 </ul>
 </li>
 <li>攻击距离<ul>
-<li>random(1,2,4)</li>
+<li><script type="math/tex; mode=display">random(1,2,4)</script></li>
 </ul>
 </li>
 <li>视野半径<ul>
-<li>random(4,8,12)</li>
+<li><script type="math/tex; mode=display">random(4,8,12)</script></li>
 </ul>
 </li>
 <li>适合温度<ul>
@@ -960,11 +970,11 @@ D_{total} = D_{normal} + D_{attribute} + D_{temp}</script><p>普通伤害</p>
 <script type="math/tex; mode=display">
 D_{normal} = random(max(D-3, 1), D+3)</script><p>属性伤害</p>
 <script type="math/tex; mode=display">
-D_{attribute} = random(1, 10)\frac{D}{10}</script><p>温度契合伤害</p>
+D_{attribute} = D * random(0.1, 1)</script><p>温度契合伤害</p>
 <script type="math/tex; mode=display">
-D_{temp} = 10\frac{D}{10}</script><h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
+D_{temp} = D * random(0.5, 1.5)</script><h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
 <script type="math/tex; mode=display">
-A_{special} = random(0, [\frac{D - 8}{5})</script><p>伤害较普通怪x3</p>
+A_{special} = random(0, [\frac{D - 8}{5}])</script><p>伤害较普通怪x3</p>
 <h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><p>Boss难度与本周目Boss击杀次数相关。</p>
 <p>Boss难度影响弹幕密度，攻击速度和伤害。</p>
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
@@ -972,7 +982,7 @@ A_{special} = random(0, [\frac{D - 8}{5})</script><p>伤害较普通怪x3</p>
 <ul>
 <li>温度，影响地形，能力，敌人生成</li>
 <li>光照，影响视野，敌人生成</li>
-<li>水分布，影响地形，一周目不可下水，可能转变为冰山</li>
+<li>水分布，影响地形，一周目不可下水，可能转变为冰障碍物</li>
 </ul>
 <p>环境温度<script type="math/tex">T</script>按等级取整到：</p>
 <ul>
@@ -981,13 +991,13 @@ A_{special} = random(0, [\frac{D - 8}{5})</script><p>伤害较普通怪x3</p>
 <li>1 热，地表无水</li>
 <li>0 正常，地表有液态水</li>
 <li>-1 冷，部分水结冰</li>
-<li>-2 极端严寒，全部水结冰，生成冰山</li>
+<li>-2 极端严寒，全部水结冰，生成冰障碍物</li>
 <li>-3 寒冰黑夜，不可入</li>
 </ul>
 <p>当前经度温度<script type="math/tex">T_{longitude}</script>按0 - -3 - 0 - 3 - 0均匀分布<br>按进入房间次数<script type="math/tex">N=3</script>，左移/右一(自转，一颗星球二选一)一个标准房间</p>
 <p>当前房间温度<script type="math/tex">T_{room}</script>随纬度<script type="math/tex">A</script>和当前经度温度<script type="math/tex">T_{longitude}</script>变化公式</p>
 <script type="math/tex; mode=display">
-T_{room} = T_{longitude}\frac{90 - |A|}{90} + 2\frac{A}{90}  A \in [0, 90)</script><p>光照强度<script type="math/tex">L</script>和温度的关系：</p>
+T_{room} = [T_{longitude}\frac{90 - |A|}{90} + 2\frac{A}{90}]  (A \in [0, 90))</script><p>光照强度<script type="math/tex">L</script>和温度的关系：</p>
 <script type="math/tex; mode=display">
 L = T+3</script><p>光照强度<script type="math/tex">L</script>影响视野半径<script type="math/tex">r_{view}</script>，<script type="math/tex">r_{base}</script>为基础视野8，<script type="math/tex">r_{equip}</script>为装备带来的视野加成<script type="math/tex">(4-12)</script></p>
 <script type="math/tex; mode=display">
@@ -1004,30 +1014,58 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 <li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
 <li>材料简单分为<strong>金属</strong>与<strong>有机物</strong>，后期配方表可增加</li>
 </ul>
-<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
+<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p>武器形态，先以广义的枪为原型，每把枪具有：</p>
+<ul>
+<li>弹夹容量Bullets，没有子弹限制，释放完弹夹容量的子弹后，再次射击会出发点充能补充</li>
+<li>特殊弹夹容量SpecialBullets，同上，初始为1</li>
+<li>射速AttackInterval，最小攻击间隔时间</li>
+<li>充能时间RechargeTime</li>
+<li>同时发射的子弹数量ConcurrentBullet</li>
+<li>攻击距离Range，子弹按鼠标/虚拟键盘指示方向发射</li>
+</ul>
+<p>以上属性均可强化</p>
+<h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
 <li>角色仅能携带一把武器</li>
 <li>武器会过热，需要充能</li>
-<li>武器有两种攻击模式，普通攻击和特殊攻击</li>
+<li>武器有两种攻击模式，普通攻击和特殊攻击，分别消耗对应子弹</li>
 <li>特殊攻击冷却时间较长</li>
 <li>武器可使用材料升级</li>
 <li>boss可掉落武器</li>
 <li>可能开出武器</li>
 <li>武器可分解回收一定数量的材料</li>
 </ul>
-<h3 id="武器组合类型"><a href="#武器组合类型" class="headerlink" title="武器组合类型"></a>武器组合类型</h3><h4 id="攻击属性"><a href="#攻击属性" class="headerlink" title="攻击属性"></a>攻击属性</h4><ul>
-<li>电磁，持续伤害，有几率中断行动</li>
-<li>灼烧，</li>
-<li>冰冻，</li>
+<h4 id="子弹属性"><a href="#子弹属性" class="headerlink" title="子弹属性"></a>子弹属性</h4><ul>
+<li>普通，不叠加任何伤害</li>
+<li>电磁，持续伤害(2/s)，对属性免疫无效，有几率(1%)中断行动</li>
+<li>灼烧，持续伤害，升高敌人感知温度1，可以消除温度契合伤害</li>
+<li>冰冻，持续伤害，降低敌人感知温度1，可以消除温度契合伤害</li>
+<li>爆炸，一次性额外伤害</li>
+<li>引力，有几率(5%)减速敌人N秒</li>
 </ul>
-<h4 id="特殊技能"><a href="#特殊技能" class="headerlink" title="特殊技能"></a>特殊技能</h4><ul>
-<li>引力场，爆炸点附近敌人减速</li>
+<p>可选择当前装备子弹类型，同一时间仅能使用一种普通子弹和一种特殊子弹</p>
+<p>子弹可强化属性</p>
+<ul>
+<li>属性槽SlotCount</li>
+<li>属性，随机转换所有属性槽属性</li>
+<li>持续时间</li>
+<li>各属性持续伤害</li>
+<li>触发几率</li>
+<li>一次性额外伤害</li>
+</ul>
+<h4 id="特殊子弹"><a href="#特殊子弹" class="headerlink" title="特殊子弹"></a>特殊子弹</h4><ul>
+<li>引力场，爆炸点范围内敌人减速</li>
+<li>闪电网，多个闪电点间形成闪电连，给予穿过的敌人持续伤害，离开则伤害中止</li>
+<li>火焰阱，持续伤害，升高范围内温度</li>
+<li>冰冻阱，持续伤害，降低范围内温度</li>
 <li>爆炸物，爆炸点附近产生范围伤害</li>
 <li>机枪塔，爆炸点生成自动机枪塔，自动攻击附近敌人</li>
 </ul>
-<h4 id="武器强化属性"><a href="#武器强化属性" class="headerlink" title="武器强化属性"></a>武器强化属性</h4><ul>
-<li>射速</li>
+<p>特殊子弹可强化</p>
+<ul>
 <li>充能时间</li>
-<li>基础伤害</li>
+<li>影响范围，半径</li>
+<li>持续时间</li>
+<li>最大并发数量</li>
 </ul>
 <h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
 <ul>
