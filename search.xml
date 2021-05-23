@@ -1137,9 +1137,44 @@ AttackInterval = random(1.5, 3.5) * ln(N + 3) * Speed_{base}</script><p>充能</
 <script type="math/tex; mode=display">
 RechargeTime = random(0.2, 0.6) * ln(N + 3) * RechargeTime_{base}</script><p>同时子弹数量</p>
 <script type="math/tex; mode=display">
-ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-1"><a href="#子弹-1" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性</p>
-<h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><p>Boss持有武器</p>
-<h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
+ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-1"><a href="#子弹-1" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带一枚子弹</p>
+<h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><ul>
+<li>血量</li>
+</ul>
+<script type="math/tex; mode=display">
+HP = random(3, 5) * ln(N + 3) * BossCount * HP_{base}</script><ul>
+<li>防御</li>
+</ul>
+<script type="math/tex; mode=display">
+Defence = random(3, 5) * ln(N + 3) * BossCount * Defence_{base}</script><ul>
+<li>移动速度</li>
+</ul>
+<script type="math/tex; mode=display">
+Speed = random(3, 5) * ln(N + 3) * BossCount * Speed_{base}</script><ul>
+<li>视野半径</li>
+</ul>
+<script type="math/tex; mode=display">
+ViewRadius = random(3, 5) * ln(N + 3) * BossCount * ViewRadius_{base}</script><ul>
+<li><p>适合温度</p>
+<ul>
+<li>100% T</li>
+<li>在适合温度时，基础属性随机一个x3</li>
+</ul>
+</li>
+<li><p>属性免疫 随机3个</p>
+</li>
+</ul>
+<p>属性池 [无x3,其他属性]</p>
+<h4 id="武器-3"><a href="#武器-3" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
+<script type="math/tex; mode=display">
+Bullets = random(3, max(3, N)) * BossCount</script><p>射速</p>
+<script type="math/tex; mode=display">
+AttackInterval = random(1.5, 3.5) * ln(N + 3) * BossCount * Speed_{base}</script><p>充能</p>
+<script type="math/tex; mode=display">
+RechargeTime = random(0.2, 0.6) * ln(N + 3) * BossCount * RechargeTime_{base}</script><p>同时子弹数量</p>
+<script type="math/tex; mode=display">
+ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-2"><a href="#子弹-2" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带BossCount * 3枚子弹，随机切换</p>
+<h2 id="武器-4"><a href="#武器-4" class="headerlink" title="武器"></a>武器</h2><h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
 <ul>
 <li>最大血量 <script type="math/tex">[0.75,0.8,0.85,0.9,0.95,1.05,1.1,1.15,1.2,1.25]</script></li>
 <li>连续冲刺次数 <script type="math/tex">[-1,1]</script></li>
@@ -2154,6 +2189,32 @@ ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-1"><a href="#子弹-1
       </categories>
       <tags>
         <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 5-1 - 数据系统</title>
+    <url>/ai/ml-system/big-data/1-overview/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>高效稳健的数据系统是保障各项业务运行的基石。</p>
+<a id="more"></a>
+<p>数据系统主要可以划分为：</p>
+<ul>
+<li>分布式文件系统，如HDFS。</li>
+<li>数据收集，包括移动端埋点，服务端日志，第三方数据等</li>
+<li>数据仓库，长期保存结构化数据，Hive，提供数据清洗，特征工程等功能。</li>
+<li>数据湖，长期保存非结构化数据，如S3,Minio。</li>
+<li>数据库，线上服务使用的数据源，按性能分关系型（MySQL，PostgreSQL），键值型（Redis内存），文档型（MongoDB，CouchBase内存），列存储（HBase）。</li>
+<li>消息队列，模块解耦，如Kafka。</li>
+<li>日志系统，ELK（ElasticSearch, LogStash, Kibana）。</li>
+<li>计算引擎，按功能分实时（Flink，Spark Streaming），离线（Spark，Hadoop）。</li>
+<li>ETL，日志抽取。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>大数据</tag>
       </tags>
   </entry>
   <entry>
@@ -3766,32 +3827,6 @@ sim(u, s) = \sum_{u_i \in U} sim(u, u_i) * score(u_i, s)</script><p>有了用户
       <tags>
         <tag>机器学习</tag>
         <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 5-1 - 数据系统</title>
-    <url>/ai/ml-system/big-data/1-overview/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>高效稳健的数据系统是保障各项业务运行的基石。</p>
-<a id="more"></a>
-<p>数据系统主要可以划分为：</p>
-<ul>
-<li>分布式文件系统，如HDFS。</li>
-<li>数据收集，包括移动端埋点，服务端日志，第三方数据等</li>
-<li>数据仓库，长期保存结构化数据，Hive，提供数据清洗，特征工程等功能。</li>
-<li>数据湖，长期保存非结构化数据，如S3,Minio。</li>
-<li>数据库，线上服务使用的数据源，按性能分关系型（MySQL，PostgreSQL），键值型（Redis内存），文档型（MongoDB，CouchBase内存），列存储（HBase）。</li>
-<li>消息队列，模块解耦，如Kafka。</li>
-<li>日志系统，ELK（ElasticSearch, LogStash, Kibana）。</li>
-<li>计算引擎，按功能分实时（Flink，Spark Streaming），离线（Spark，Hadoop）。</li>
-<li>ETL，日志抽取。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>大数据</tag>
       </tags>
   </entry>
 </search>
