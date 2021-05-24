@@ -317,19 +317,7 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 <li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
 <li>材料简单分为<strong>金属M</strong>与<strong>有机物O</strong></li>
 </ul>
-<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p>武器形态，先以广义的枪为原型，每把枪具有：</p>
-<ul>
-<li>弹夹容量Bullets，没有子弹限制，释放完弹夹容量的子弹后，再次射击会出发点充能补充</li>
-<li>特殊弹夹容量SpecialBullets，同上，初始为1</li>
-<li>最小攻击间隔时间AttackInterval</li>
-<li>充能时间RechargeTime</li>
-<li>同时发射的子弹数量ConcurrentBullets</li>
-<li>攻击距离AttackRadius，子弹按鼠标/虚拟键盘指示方向发射</li>
-<li>子弹散射角度SpreadAngle</li>
-<li>子弹偏转角度RandomErrorAngle +-5</li>
-</ul>
-<p>以上属性均可强化</p>
-<h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
+<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
 <li>角色仅能携带一把武器</li>
 <li>武器会过热，需要充能</li>
 <li>武器有两种攻击模式，普通攻击和特殊攻击，分别消耗对应子弹</li>
@@ -337,9 +325,38 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 <li>武器可使用材料升级</li>
 <li>boss可掉落武器</li>
 <li>可能开出武器</li>
-<li>武器可分解回收一定数量的材料</li>
+<li>武器可分解回收一定数量的材料（不可分解）</li>
 </ul>
-<h4 id="子弹类型（deprecated）"><a href="#子弹类型（deprecated）" class="headerlink" title="子弹类型（deprecated）"></a>子弹类型（deprecated）</h4><ul>
+<h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p>武器形态，先以广义的枪为原型，每把枪具有：</p>
+<ul>
+<li>弹夹容量Bullets，没有子弹限制，释放完弹夹容量的子弹后，再次射击会出发点充能补充</li>
+<li>特殊弹夹容量SpecialBullets，同上，初始为1</li>
+<li>最小攻击间隔时间AttackInterval</li>
+<li>充能时间RechargeTime</li>
+<li>同时发射的子弹数量ConcurrentBullets</li>
+<li>攻击距离AttackRadius，子弹按鼠标/虚拟键盘指示方向发射 不存在这种东西</li>
+<li>子弹散射角度SpreadAngle，当ConcurrentBullets &gt; 1时</li>
+<li>子弹偏转角度RandomErrorAngle</li>
+</ul>
+<p>以上属性均可强化（不能强化）</p>
+<h3 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h3><p><a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">https://www.desmos.com/calculator</a></p>
+<script type="math/tex; mode=display">
+Bullets_{base} = [max(0, ln(O))]</script><script type="math/tex; mode=display">
+Bullets = max(random(Bullets_{base} - 2, Bullets_{base} + 2), 1)</script><script type="math/tex; mode=display">
+AttackInterval_{base} = 0.5</script><script type="math/tex; mode=display">
+AttackInterval = AttackInterval_{base} * random(0.5, 1.5) * \frac{1}{\sqrt{3}{O}}</script><script type="math/tex; mode=display">
+RechargeTime_{base} = 2</script><script type="math/tex; mode=display">
+RechargeTime = RechargeTime_{base} * random(0.5, 1.5) * \frac{1}{ln(O)}</script><script type="math/tex; mode=display">
+ConcurrentBullets_{base} = [max(0, log_{10}(O))]</script><script type="math/tex; mode=display">
+ConcurrentBullets = max(random(ConcurrentBullets_{base} - 1, ConcurrentBullets_{base} + 1), 1)</script><script type="math/tex; mode=display">
+AttackRadius_{base} = [max(100, \sqrt{2}{O})]</script><script type="math/tex; mode=display">
+AttackRadius = random(0.5, 1.5) * AttackRadius_{base}</script><script type="math/tex; mode=display">
+SpreadAngle = random(-\pi, \pi)</script><script type="math/tex; mode=display">
+RandomErrorAngle_{base} = min(\frac{\pi}{6}, \frac{1}{ln(O + 1)})</script><script type="math/tex; mode=display">
+RandomErrorAngle = random(0.5, 1.5) * RandomErrorAngle_{base}</script><h3 id="强化（去掉）"><a href="#强化（去掉）" class="headerlink" title="强化（去掉）"></a>强化（去掉）</h3><p>付定额花费摇彩票</p>
+<script type="math/tex; mode=display">
+Bullets_{new} = Bulletes_{new} * random()</script><h2 id="子弹"><a href="#子弹" class="headerlink" title="子弹"></a>子弹</h2><p>一次使用一种子弹类型，最多携带2枚子弹（一周目）</p>
+<h2 id="子弹类型（deprecated）"><a href="#子弹类型（deprecated）" class="headerlink" title="子弹类型（deprecated）"></a>子弹类型（deprecated）</h2><ul>
 <li>普通，不叠加任何伤害</li>
 <li>电磁，持续伤害(2/s)，对属性免疫无效，有几率(1%)中断行动</li>
 <li>灼烧，持续伤害，升高敌人感知温度1，可以消除温度契合伤害</li>
@@ -348,9 +365,11 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 <li>引力，有几率(5%)减速敌人N秒</li>
 </ul>
 <p>可选择当前装备子弹类型，同一时间仅能使用一种普通子弹和一种特殊子弹</p>
-<h4 id="子弹属性"><a href="#子弹属性" class="headerlink" title="子弹属性"></a>子弹属性</h4><p>子弹随机N个属性槽，服从泊松分布</p>
+<h2 id="子弹属性"><a href="#子弹属性" class="headerlink" title="子弹属性"></a>子弹属性</h2><p>子弹随机N个属性槽，服从泊松分布</p>
+<p>触发事件击中敌人后触发</p>
 <ul>
-<li>触发事件持续时间 Persistance</li>
+<li>触发事件持续时间 Persistence</li>
+<li>触发事件最大可叠加 MaxStack</li>
 <li>触发间隔 Interval</li>
 <li>触发几率 Probability</li>
 <li>触发行为 Event<ul>
@@ -372,11 +391,64 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 </li>
 <li>触发行为持续时间 Time</li>
 <li>飞行速度 Speed</li>
+<li>存活时间 LiveTime</li>
 <li>子弹半径 Radius</li>
+<li>一次性伤害 Damage</li>
 </ul>
 <p>比如：</p>
 <p>一次性伤害<br>Persistance = 0<br>Interval = 0<br>Probability = 1<br>Event = 伤害，Damage</p>
-<h4 id="特殊子弹"><a href="#特殊子弹" class="headerlink" title="特殊子弹"></a>特殊子弹</h4><ul>
+<h2 id="合成-1"><a href="#合成-1" class="headerlink" title="合成"></a>合成</h2><p>固定开销摇彩票</p>
+<script type="math/tex; mode=display">
+M_{cost} = M_{base} * 2^BossKillCount</script><p>子弹最大属性槽</p>
+<script type="math/tex; mode=display">
+BulletSlot = BossKillCount + 1</script><p>子弹速度正态分布</p>
+<script type="math/tex; mode=display">
+BulletSpeed = random.normal(\mu=800, \sigma=200)</script><p>子弹存活时间正态分布</p>
+<script type="math/tex; mode=display">
+BulletLiveTime = random.normal(\mu=1, \sigma=0.2)</script><p>子弹半径正态分布</p>
+<script type="math/tex; mode=display">
+BulletRadius = random.normal(\mu=100, \sigma=10)</script><p>基础伤害正态分布</p>
+<script type="math/tex; mode=display">
+BulletDamage = max(random.normal(\mu=BossKillCount + 1, \sigma=0.3), 0) * BulletDamage_{base}</script><p>触发几率</p>
+<script type="math/tex; mode=display">
+Probability = max(random.normal(\mu=0.15, \sigma=0.05), 0.01)</script><p>触发事件持续时间</p>
+<script type="math/tex; mode=display">
+Persitence = max(random.normal(\mu=3, \sigma=1), 0)</script><p>触发间隔，用于持续性事件，如持续伤害</p>
+<script type="math/tex; mode=display">
+Interval = max(random.normal(\mu=1, \sigma=0.2), 0.1)</script><p>触发属性列表，每一个占用属性槽：</p>
+<ul>
+<li>加速比例 SpeedUp</li>
+</ul>
+<script type="math/tex; mode=display">
+SpeedUp = random.normal(\mu=1, \sigma=0.1)</script><ul>
+<li>感知温度</li>
+</ul>
+<script type="math/tex; mode=display">
+T = [random.normal(\mu=0, \sigma=0.5)]</script><ul>
+<li>持续伤害，也可能是持续增益</li>
+</ul>
+<script type="math/tex; mode=display">
+Damage = random.normal(\mu=0, \sigma=(BossKilledCount+1) * 10)</script><ul>
+<li>防御</li>
+</ul>
+<script type="math/tex; mode=display">
+DefenceUp = random.normal(\mu=1, \sigma=0.1)</script><ul>
+<li>武器容量增减</li>
+</ul>
+<script type="math/tex; mode=display">
+BulletsChange = [random.normal(\mu=0, \sigma=1)]</script><ul>
+<li>射速变化比例</li>
+</ul>
+<script type="math/tex; mode=display">
+AttackIntervalUp = random.normal(\mu=1, \sigma=0.2)</script><ul>
+<li>充能时间</li>
+</ul>
+<script type="math/tex; mode=display">
+RechargeTimeUp = random.normal(\mu=1, \sigma=0.2)</script><ul>
+<li>同时子弹数量</li>
+</ul>
+<script type="math/tex; mode=display">
+ConcurrentBullets = random(-1, 0, 1)</script><h2 id="特殊子弹"><a href="#特殊子弹" class="headerlink" title="特殊子弹"></a>特殊子弹</h2><ul>
 <li>引力场，爆炸点范围内敌人减速</li>
 <li>闪电网，多个闪电点间形成闪电连，给予穿过的敌人持续伤害，离开则伤害中止</li>
 <li>火焰阱，持续伤害，升高范围内温度</li>
@@ -407,19 +479,19 @@ A_{normal} = random(max(N-3, 1), N+3)</script><p>怪物可组合类型</p>
 <li>血量</li>
 </ul>
 <script type="math/tex; mode=display">
-HP = random(0.5, 1.5) * ln(N + 3) * HP_{base}</script><ul>
+HP = random(0.5, 1.5) * ln(N) * HP_{base}</script><ul>
 <li>防御</li>
 </ul>
 <script type="math/tex; mode=display">
-Defence = random(0.5, 1.5) * ln(N + 3) * Defence_{base}</script><ul>
+Defence = random(0.5, 1.5) * ln(N) * Defence_{base}</script><ul>
 <li>移动速度</li>
 </ul>
 <script type="math/tex; mode=display">
-Speed = random(0.5, 1.5) * ln(N + 3) * Speed_{base}</script><ul>
+Speed = random(0.5, 1.5) * ln(N) * Speed_{base}</script><ul>
 <li>视野半径</li>
 </ul>
 <script type="math/tex; mode=display">
-ViewRadius = random(0.5, 1.5) * ln(N + 3) * ViewRadius_{base}</script><ul>
+ViewRadius = random(0.5, 1.5) * ln(N) * ViewRadius_{base}</script><ul>
 <li><p>适合温度</p>
 <ul>
 <li>50%T，25%T-1，25%T+1</li>
@@ -432,15 +504,15 @@ ViewRadius = random(0.5, 1.5) * ln(N + 3) * ViewRadius_{base}</script><ul>
 <p>属性池 [无x10,其他属性]</p>
 <h4 id="武器-1"><a href="#武器-1" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
 <script type="math/tex; mode=display">
-Bullets = random(3, max(3, N/2))</script><p>射速</p>
+Bullets = random(3, max(3, [ln(N)]))</script><p>射速</p>
 <script type="math/tex; mode=display">
-AttackInterval = random(0.5, 1.5) * ln(N + 3) * AttackInterval_{base}</script><p>充能</p>
+AttackInterval = random(0.5, 1.5) * ln(N) * AttackInterval_{base}</script><p>充能</p>
 <script type="math/tex; mode=display">
-RechargeTime = random(0.8, 1.2) * ln(N + 3) * RechargeTime_{base}</script><p>同时子弹数量</p>
+RechargeTime = random(0.8, 1.2) * ln(N) * RechargeTime_{base}</script><p>同时子弹数量</p>
 <script type="math/tex; mode=display">
 ConcurrentBullets = 1</script><p>攻击半径</p>
 <script type="math/tex; mode=display">
-AttackRadius = random(0.8, 1.2) * ln(N + 3) * AttackRadius</script><h4 id="子弹"><a href="#子弹" class="headerlink" title="子弹"></a>子弹</h4><p>携带一枚子弹</p>
+AttackRadius = random(0.8, 1.2) * ln(N) * AttackRadius</script><h4 id="子弹-1"><a href="#子弹-1" class="headerlink" title="子弹"></a>子弹</h4><p>携带一枚子弹</p>
 <p>子弹属性SlotCount = 1，随机一个属性</p>
 <h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
 <script type="math/tex; mode=display">
@@ -448,19 +520,19 @@ A_{special} = random(0, [\frac{D - 8}{5}])</script><ul>
 <li>血量</li>
 </ul>
 <script type="math/tex; mode=display">
-HP = random(1.5, 3.5) * ln(N + 3) * HP_{base}</script><ul>
+HP = random(1.5, 3.5) * ln(N) * HP_{base}</script><ul>
 <li>防御</li>
 </ul>
 <script type="math/tex; mode=display">
-Defence = random(1.5, 3.5) * ln(N + 3) * Defence_{base}</script><ul>
+Defence = random(1.5, 3.5) * ln(N) * Defence_{base}</script><ul>
 <li>移动速度</li>
 </ul>
 <script type="math/tex; mode=display">
-Speed = random(1.5, 3.5) * ln(N + 3) * Speed_{base}</script><ul>
+Speed = random(1.5, 3.5) * ln(N) * Speed_{base}</script><ul>
 <li>视野半径</li>
 </ul>
 <script type="math/tex; mode=display">
-ViewRadius = random(1.5, 3.5) * ln(N + 3) * ViewRadius_{base}</script><ul>
+ViewRadius = random(1.5, 3.5) * ln(N) * ViewRadius_{base}</script><ul>
 <li><p>适合温度</p>
 <ul>
 <li>50%T，25%T-1，25%T+1</li>
@@ -475,28 +547,28 @@ ViewRadius = random(1.5, 3.5) * ln(N + 3) * ViewRadius_{base}</script><ul>
 <script type="math/tex; mode=display">
 Bullets = random(3, max(3, N))</script><p>射速</p>
 <script type="math/tex; mode=display">
-AttackInterval = random(1.5, 3.5) * ln(N + 3) * Speed_{base}</script><p>充能</p>
+AttackInterval = random(1.5, 3.5) * ln(N) * Speed_{base}</script><p>充能</p>
 <script type="math/tex; mode=display">
-RechargeTime = random(0.2, 0.6) * ln(N + 3) * RechargeTime_{base}</script><p>同时子弹数量</p>
+RechargeTime = random(0.2, 0.6) * ln(N) * RechargeTime_{base}</script><p>同时子弹数量</p>
 <script type="math/tex; mode=display">
-ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-1"><a href="#子弹-1" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带一枚子弹</p>
+ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-2"><a href="#子弹-2" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带一枚子弹</p>
 <h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><ul>
 <li>血量</li>
 </ul>
 <script type="math/tex; mode=display">
-HP = random(3, 5) * ln(N + 3) * BossCount * HP_{base}</script><ul>
+HP = random(3, 5) * ln(N) * BossCount * HP_{base}</script><ul>
 <li>防御</li>
 </ul>
 <script type="math/tex; mode=display">
-Defence = random(3, 5) * ln(N + 3) * BossCount * Defence_{base}</script><ul>
+Defence = random(3, 5) * ln(N) * BossCount * Defence_{base}</script><ul>
 <li>移动速度</li>
 </ul>
 <script type="math/tex; mode=display">
-Speed = random(3, 5) * ln(N + 3) * BossCount * Speed_{base}</script><ul>
+Speed = random(3, 5) * ln(N) * BossCount * Speed_{base}</script><ul>
 <li>视野半径</li>
 </ul>
 <script type="math/tex; mode=display">
-ViewRadius = random(3, 5) * ln(N + 3) * BossCount * ViewRadius_{base}</script><ul>
+ViewRadius = random(3, 5) * ln(N) * BossCount * ViewRadius_{base}</script><ul>
 <li><p>适合温度</p>
 <ul>
 <li>100% T</li>
@@ -511,11 +583,11 @@ ViewRadius = random(3, 5) * ln(N + 3) * BossCount * ViewRadius_{base}</script><u
 <script type="math/tex; mode=display">
 Bullets = random(3, max(3, N)) * BossCount</script><p>射速</p>
 <script type="math/tex; mode=display">
-AttackInterval = random(1.5, 3.5) * ln(N + 3) * BossCount * Speed_{base}</script><p>充能</p>
+AttackInterval = random(1.5, 3.5) * ln(N) * BossCount * Speed_{base}</script><p>充能</p>
 <script type="math/tex; mode=display">
-RechargeTime = random(0.2, 0.6) * ln(N + 3) * BossCount * RechargeTime_{base}</script><p>同时子弹数量</p>
+RechargeTime = random(0.2, 0.6) * ln(N) * BossCount * RechargeTime_{base}</script><p>同时子弹数量</p>
 <script type="math/tex; mode=display">
-ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-2"><a href="#子弹-2" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带BossCount * 3枚子弹，随机切换</p>
+ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a href="#子弹-3" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带BossCount * 3枚子弹，随机切换</p>
 <h2 id="武器-4"><a href="#武器-4" class="headerlink" title="武器"></a>武器</h2><h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
 <ul>
 <li>最大血量 <script type="math/tex">[0.75,0.8,0.85,0.9,0.95,1.05,1.1,1.15,1.2,1.25]</script></li>
@@ -602,7 +674,7 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-2"><a hre
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#星球属性"><span class="nav-number">3.2.</span> <span class="nav-text">星球属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行参数"><span class="nav-number">3.3.</span> <span class="nav-text">运行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图"><span class="nav-number">3.4.</span> <span class="nav-text">地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#房间"><span class="nav-number">3.5.</span> <span class="nav-text">房间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺寸"><span class="nav-number">3.5.1.</span> <span class="nav-text">尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">3.5.2.</span> <span class="nav-text">门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障碍物"><span class="nav-number">3.5.3.</span> <span class="nav-text">障碍物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障碍物转化路径"><span class="nav-number">3.5.4.</span> <span class="nav-text">障碍物转化路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.6.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.7.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.8.</span> <span class="nav-text">武器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本属性"><span class="nav-number">3.8.1.</span> <span class="nav-text">基本属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本约束"><span class="nav-number">3.8.2.</span> <span class="nav-text">基本约束</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#子弹类型（deprecated）"><span class="nav-number">3.8.2.1.</span> <span class="nav-text">子弹类型（deprecated）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子弹属性"><span class="nav-number">3.8.2.2.</span> <span class="nav-text">子弹属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊子弹"><span class="nav-number">3.8.2.3.</span> <span class="nav-text">特殊子弹</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#敌人"><span class="nav-number">3.9.</span> <span class="nav-text">敌人</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征"><span class="nav-number">3.9.1.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通敌人"><span class="nav-number">3.9.2.</span> <span class="nav-text">普通敌人</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#武器-1"><span class="nav-number">3.9.2.1.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子弹"><span class="nav-number">3.9.2.2.</span> <span class="nav-text">子弹</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精英怪"><span class="nav-number">3.9.3.</span> <span class="nav-text">精英怪</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#武器-2"><span class="nav-number">3.9.3.1.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子弹-1"><span class="nav-number">3.9.3.2.</span> <span class="nav-text">子弹</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boss"><span class="nav-number">3.9.4.</span> <span class="nav-text">Boss</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#武器-3"><span class="nav-number">3.9.4.1.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子弹-2"><span class="nav-number">3.9.4.2.</span> <span class="nav-text">子弹</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器-4"><span class="nav-number">3.10.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.11.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.12.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成长"><span class="nav-number">3.13.</span> <span class="nav-text">成长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊道具（永久）"><span class="nav-number">3.14.</span> <span class="nav-text">特殊道具（永久）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后期"><span class="nav-number">3.15.</span> <span class="nav-text">后期</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景设定"><span class="nav-number">1.</span> <span class="nav-text">背景设定</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心特色"><span class="nav-number">2.</span> <span class="nav-text">核心特色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心玩法"><span class="nav-number">3.</span> <span class="nav-text">核心玩法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#星球属性"><span class="nav-number">3.2.</span> <span class="nav-text">星球属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行参数"><span class="nav-number">3.3.</span> <span class="nav-text">运行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图"><span class="nav-number">3.4.</span> <span class="nav-text">地图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#房间"><span class="nav-number">3.5.</span> <span class="nav-text">房间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尺寸"><span class="nav-number">3.5.1.</span> <span class="nav-text">尺寸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">3.5.2.</span> <span class="nav-text">门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障碍物"><span class="nav-number">3.5.3.</span> <span class="nav-text">障碍物</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障碍物转化路径"><span class="nav-number">3.5.4.</span> <span class="nav-text">障碍物转化路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">3.6.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#材料"><span class="nav-number">3.7.</span> <span class="nav-text">材料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器"><span class="nav-number">3.8.</span> <span class="nav-text">武器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本约束"><span class="nav-number">3.8.1.</span> <span class="nav-text">基本约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本属性"><span class="nav-number">3.8.2.</span> <span class="nav-text">基本属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合成"><span class="nav-number">3.8.3.</span> <span class="nav-text">合成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强化（去掉）"><span class="nav-number">3.8.4.</span> <span class="nav-text">强化（去掉）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子弹"><span class="nav-number">3.9.</span> <span class="nav-text">子弹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子弹类型（deprecated）"><span class="nav-number">3.10.</span> <span class="nav-text">子弹类型（deprecated）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子弹属性"><span class="nav-number">3.11.</span> <span class="nav-text">子弹属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合成-1"><span class="nav-number">3.12.</span> <span class="nav-text">合成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊子弹"><span class="nav-number">3.13.</span> <span class="nav-text">特殊子弹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#敌人"><span class="nav-number">3.14.</span> <span class="nav-text">敌人</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征"><span class="nav-number">3.14.1.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通敌人"><span class="nav-number">3.14.2.</span> <span class="nav-text">普通敌人</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#武器-1"><span class="nav-number">3.14.2.1.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子弹-1"><span class="nav-number">3.14.2.2.</span> <span class="nav-text">子弹</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精英怪"><span class="nav-number">3.14.3.</span> <span class="nav-text">精英怪</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#武器-2"><span class="nav-number">3.14.3.1.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子弹-2"><span class="nav-number">3.14.3.2.</span> <span class="nav-text">子弹</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boss"><span class="nav-number">3.14.4.</span> <span class="nav-text">Boss</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#武器-3"><span class="nav-number">3.14.4.1.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子弹-3"><span class="nav-number">3.14.4.2.</span> <span class="nav-text">子弹</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#武器-4"><span class="nav-number">3.15.</span> <span class="nav-text">武器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能性物品"><span class="nav-number">3.16.</span> <span class="nav-text">功能性物品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消耗品"><span class="nav-number">3.17.</span> <span class="nav-text">消耗品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成长"><span class="nav-number">3.18.</span> <span class="nav-text">成长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊道具（永久）"><span class="nav-number">3.19.</span> <span class="nav-text">特殊道具（永久）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后期"><span class="nav-number">3.20.</span> <span class="nav-text">后期</span></a></li></ol></li></ol>
     
     </div>
   </aside>

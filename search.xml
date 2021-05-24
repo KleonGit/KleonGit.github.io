@@ -3,29 +3,29 @@
   <entry>
     <title>机器学习系统 0-0 - 总览</title>
     <url>/ai/ml-system/0-overview/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习<a href="#refer-1"><sup>1</sup></a>模型对应一类用于从数据中提取模式与特征的人工智能子领域算法。机器学习系统用于更便捷地、更高效地、更自动化地构建机器学习模型，与数据分析系统整合。</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习<a href="#refer-1"><sup>1</sup></a>模型对应一类用于从数据中提取模式与特征的人工智能子领域算法。机器学习系统是数据分析系统的拓展，用于自动化地构建机器学习模型。</p>
 <a id="more"></a>
-<p>机器学习是数据分析的延展，得益于算法改进（Algorithm)，数据快速增加（Big Data），算力提升（Computing Power），发掘了依赖数据统计理论的业务价值，深度学习模型被大规模应用。</p>
+<p>得益于算法改进（Algorithm)，数据快速增加（Big Data），算力提升（Computing Power），发掘了依赖数据统计理论的业务价值，深度学习模型被大规模应用。</p>
 <p>随之而来的，是对快捷便利地构建部署模型的需求，从实验室的原型验证逐步过渡到成熟的大规模机器学习系统。</p>
 <h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p><img src="/images/ml-system.svg" alt="机器学习系统整体架构"></p>
 <p>机器学习系统根据构建阶段可以分为：</p>
 <ul>
 <li><strong>数据管理</strong></li>
 </ul>
-<p>机器学习的核心是数据，这些数据通常来自业务系统的数据仓库，通过ETL<a href="#refer-2"><sup>2</sup></a>系统清洗提取后组织成统一的结构化数据。</p>
+<p>机器学习的核心是数据，这些数据通常来自业务系统的数据仓库，通过ETL<a href="#refer-2"><sup>2</sup></a>系统清洗提取后组织成统一的结构化数据，再经预处理、特征工程转变为模型所需的特征。</p>
 <p>数据管理子系统用来管理用户导入的结构化数据，称为数据集（Dataset）。通常数据管理子系统提供数据标注功能，由数据工程师或者众包人员标注。</p>
 <ul>
 <li><strong>模型开发</strong></li>
 </ul>
-<p>模型的开发与调试需要算法工程师参与，通常使用Python脚本或Jupyter Notebook。常用框架有Tensorflow<a href="#refer-3"><sup>3</sup></a> / PyTorch<a href="#refer-4"><sup>4</sup></a>。开发人员更注重IDE的便捷性，而小微开发者对算力价格更敏感。</p>
+<p>模型的开发与调试需要算法工程师参与，通常使用Python脚本或Jupyter环境。常用框架有Tensorflow<a href="#refer-3"><sup>3</sup></a>/PyTorch<a href="#refer-4"><sup>4</sup></a>。开发人员更注重IDE的便捷性，而小微开发者对算力价格更敏感。</p>
 <ul>
 <li><strong>模型训练</strong></li>
 </ul>
-<p>模型调试完成后需要大规模训练，通常会调整超参同时启动多个训练任务，这需要大量的算力，通常需要使用分布式训练系统。常用框架有PS（Parameter Server） / All Reduce / Horovod。同时，训练任务的实时参数需要及时(比如通过Tensorboard)反馈给算法工程师，以便调整训练参数。</p>
+<p>模型调试完成后需要大规模训练，通常会调整超参同时启动多个训练任务，这需要大量的算力，通常需要使用分布式训练系统。常用框架有PS(Parameter Server)。同时，训练任务的实时参数需要及时(比如通过Tensorboard)反馈给算法工程师，以便调整训练参数。</p>
 <ul>
 <li><strong>模型部署</strong></li>
 </ul>
-<p>模型训练完成后，挑选精度/计算量符合业务需求的模型优化部署。模型部署系统需要支持多种标准模型，并且提供后端服务直接调用的接口，注重高吞吐、低延时。常用框架有Tensorflow Serving / TorchServe / Neuropod。在模型部署前，可以有针对地优化模型，以达到提高计算效率，降低推理延迟，节约计算成本等目的。</p>
+<p>模型训练完成后，挑选精度/计算量符合业务需求的模型优化部署。模型部署系统需要支持多种标准模型，并且提供后端服务直接调用的接口，注重高吞吐、低延时。常用框架有Tensorflow Serving / TorchServe / Neuropod。在模型部署前，可以有针对地<strong>优化</strong>模型，以达到提高计算效率，降低推理延迟，节约计算成本等目的。</p>
 <p>模型开发人员在首次开发新模型的过程中，需要手动完成模型的训练和部署。之后可以构建自动化训练部署的流水线（蓝色循环），定期或按特定条件触发。</p>
 <p>我的经历是从后端硬件加速器入手，逐步扩展到后端硬件软件栈，模型推理优化，到机器学习系统的架构与产品。从下一节开始，我会逐一展开讨论。</p>
 <hr>
@@ -975,19 +975,7 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 <li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
 <li>材料简单分为<strong>金属M</strong>与<strong>有机物O</strong></li>
 </ul>
-<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p>武器形态，先以广义的枪为原型，每把枪具有：</p>
-<ul>
-<li>弹夹容量Bullets，没有子弹限制，释放完弹夹容量的子弹后，再次射击会出发点充能补充</li>
-<li>特殊弹夹容量SpecialBullets，同上，初始为1</li>
-<li>最小攻击间隔时间AttackInterval</li>
-<li>充能时间RechargeTime</li>
-<li>同时发射的子弹数量ConcurrentBullets</li>
-<li>攻击距离AttackRadius，子弹按鼠标/虚拟键盘指示方向发射</li>
-<li>子弹散射角度SpreadAngle</li>
-<li>子弹偏转角度RandomErrorAngle +-5</li>
-</ul>
-<p>以上属性均可强化</p>
-<h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
+<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
 <li>角色仅能携带一把武器</li>
 <li>武器会过热，需要充能</li>
 <li>武器有两种攻击模式，普通攻击和特殊攻击，分别消耗对应子弹</li>
@@ -995,9 +983,38 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 <li>武器可使用材料升级</li>
 <li>boss可掉落武器</li>
 <li>可能开出武器</li>
-<li>武器可分解回收一定数量的材料</li>
+<li>武器可分解回收一定数量的材料（不可分解）</li>
 </ul>
-<h4 id="子弹类型（deprecated）"><a href="#子弹类型（deprecated）" class="headerlink" title="子弹类型（deprecated）"></a>子弹类型（deprecated）</h4><ul>
+<h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p>武器形态，先以广义的枪为原型，每把枪具有：</p>
+<ul>
+<li>弹夹容量Bullets，没有子弹限制，释放完弹夹容量的子弹后，再次射击会出发点充能补充</li>
+<li>特殊弹夹容量SpecialBullets，同上，初始为1</li>
+<li>最小攻击间隔时间AttackInterval</li>
+<li>充能时间RechargeTime</li>
+<li>同时发射的子弹数量ConcurrentBullets</li>
+<li>攻击距离AttackRadius，子弹按鼠标/虚拟键盘指示方向发射 不存在这种东西</li>
+<li>子弹散射角度SpreadAngle，当ConcurrentBullets &gt; 1时</li>
+<li>子弹偏转角度RandomErrorAngle</li>
+</ul>
+<p>以上属性均可强化（不能强化）</p>
+<h3 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h3><p><a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">https://www.desmos.com/calculator</a></p>
+<script type="math/tex; mode=display">
+Bullets_{base} = [max(0, ln(O))]</script><script type="math/tex; mode=display">
+Bullets = max(random(Bullets_{base} - 2, Bullets_{base} + 2), 1)</script><script type="math/tex; mode=display">
+AttackInterval_{base} = 0.5</script><script type="math/tex; mode=display">
+AttackInterval = AttackInterval_{base} * random(0.5, 1.5) * \frac{1}{\sqrt{3}{O}}</script><script type="math/tex; mode=display">
+RechargeTime_{base} = 2</script><script type="math/tex; mode=display">
+RechargeTime = RechargeTime_{base} * random(0.5, 1.5) * \frac{1}{ln(O)}</script><script type="math/tex; mode=display">
+ConcurrentBullets_{base} = [max(0, log_{10}(O))]</script><script type="math/tex; mode=display">
+ConcurrentBullets = max(random(ConcurrentBullets_{base} - 1, ConcurrentBullets_{base} + 1), 1)</script><script type="math/tex; mode=display">
+AttackRadius_{base} = [max(100, \sqrt{2}{O})]</script><script type="math/tex; mode=display">
+AttackRadius = random(0.5, 1.5) * AttackRadius_{base}</script><script type="math/tex; mode=display">
+SpreadAngle = random(-\pi, \pi)</script><script type="math/tex; mode=display">
+RandomErrorAngle_{base} = min(\frac{\pi}{6}, \frac{1}{ln(O + 1)})</script><script type="math/tex; mode=display">
+RandomErrorAngle = random(0.5, 1.5) * RandomErrorAngle_{base}</script><h3 id="强化（去掉）"><a href="#强化（去掉）" class="headerlink" title="强化（去掉）"></a>强化（去掉）</h3><p>付定额花费摇彩票</p>
+<script type="math/tex; mode=display">
+Bullets_{new} = Bulletes_{new} * random()</script><h2 id="子弹"><a href="#子弹" class="headerlink" title="子弹"></a>子弹</h2><p>一次使用一种子弹类型，最多携带2枚子弹（一周目）</p>
+<h2 id="子弹类型（deprecated）"><a href="#子弹类型（deprecated）" class="headerlink" title="子弹类型（deprecated）"></a>子弹类型（deprecated）</h2><ul>
 <li>普通，不叠加任何伤害</li>
 <li>电磁，持续伤害(2/s)，对属性免疫无效，有几率(1%)中断行动</li>
 <li>灼烧，持续伤害，升高敌人感知温度1，可以消除温度契合伤害</li>
@@ -1006,9 +1023,11 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 <li>引力，有几率(5%)减速敌人N秒</li>
 </ul>
 <p>可选择当前装备子弹类型，同一时间仅能使用一种普通子弹和一种特殊子弹</p>
-<h4 id="子弹属性"><a href="#子弹属性" class="headerlink" title="子弹属性"></a>子弹属性</h4><p>子弹随机N个属性槽，服从泊松分布</p>
+<h2 id="子弹属性"><a href="#子弹属性" class="headerlink" title="子弹属性"></a>子弹属性</h2><p>子弹随机N个属性槽，服从泊松分布</p>
+<p>触发事件击中敌人后触发</p>
 <ul>
-<li>触发事件持续时间 Persistance</li>
+<li>触发事件持续时间 Persistence</li>
+<li>触发事件最大可叠加 MaxStack</li>
 <li>触发间隔 Interval</li>
 <li>触发几率 Probability</li>
 <li>触发行为 Event<ul>
@@ -1030,11 +1049,64 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 </li>
 <li>触发行为持续时间 Time</li>
 <li>飞行速度 Speed</li>
+<li>存活时间 LiveTime</li>
 <li>子弹半径 Radius</li>
+<li>一次性伤害 Damage</li>
 </ul>
 <p>比如：</p>
 <p>一次性伤害<br>Persistance = 0<br>Interval = 0<br>Probability = 1<br>Event = 伤害，Damage</p>
-<h4 id="特殊子弹"><a href="#特殊子弹" class="headerlink" title="特殊子弹"></a>特殊子弹</h4><ul>
+<h2 id="合成-1"><a href="#合成-1" class="headerlink" title="合成"></a>合成</h2><p>固定开销摇彩票</p>
+<script type="math/tex; mode=display">
+M_{cost} = M_{base} * 2^BossKillCount</script><p>子弹最大属性槽</p>
+<script type="math/tex; mode=display">
+BulletSlot = BossKillCount + 1</script><p>子弹速度正态分布</p>
+<script type="math/tex; mode=display">
+BulletSpeed = random.normal(\mu=800, \sigma=200)</script><p>子弹存活时间正态分布</p>
+<script type="math/tex; mode=display">
+BulletLiveTime = random.normal(\mu=1, \sigma=0.2)</script><p>子弹半径正态分布</p>
+<script type="math/tex; mode=display">
+BulletRadius = random.normal(\mu=100, \sigma=10)</script><p>基础伤害正态分布</p>
+<script type="math/tex; mode=display">
+BulletDamage = max(random.normal(\mu=BossKillCount + 1, \sigma=0.3), 0) * BulletDamage_{base}</script><p>触发几率</p>
+<script type="math/tex; mode=display">
+Probability = max(random.normal(\mu=0.15, \sigma=0.05), 0.01)</script><p>触发事件持续时间</p>
+<script type="math/tex; mode=display">
+Persitence = max(random.normal(\mu=3, \sigma=1), 0)</script><p>触发间隔，用于持续性事件，如持续伤害</p>
+<script type="math/tex; mode=display">
+Interval = max(random.normal(\mu=1, \sigma=0.2), 0.1)</script><p>触发属性列表，每一个占用属性槽：</p>
+<ul>
+<li>加速比例 SpeedUp</li>
+</ul>
+<script type="math/tex; mode=display">
+SpeedUp = random.normal(\mu=1, \sigma=0.1)</script><ul>
+<li>感知温度</li>
+</ul>
+<script type="math/tex; mode=display">
+T = [random.normal(\mu=0, \sigma=0.5)]</script><ul>
+<li>持续伤害，也可能是持续增益</li>
+</ul>
+<script type="math/tex; mode=display">
+Damage = random.normal(\mu=0, \sigma=(BossKilledCount+1) * 10)</script><ul>
+<li>防御</li>
+</ul>
+<script type="math/tex; mode=display">
+DefenceUp = random.normal(\mu=1, \sigma=0.1)</script><ul>
+<li>武器容量增减</li>
+</ul>
+<script type="math/tex; mode=display">
+BulletsChange = [random.normal(\mu=0, \sigma=1)]</script><ul>
+<li>射速变化比例</li>
+</ul>
+<script type="math/tex; mode=display">
+AttackIntervalUp = random.normal(\mu=1, \sigma=0.2)</script><ul>
+<li>充能时间</li>
+</ul>
+<script type="math/tex; mode=display">
+RechargeTimeUp = random.normal(\mu=1, \sigma=0.2)</script><ul>
+<li>同时子弹数量</li>
+</ul>
+<script type="math/tex; mode=display">
+ConcurrentBullets = random(-1, 0, 1)</script><h2 id="特殊子弹"><a href="#特殊子弹" class="headerlink" title="特殊子弹"></a>特殊子弹</h2><ul>
 <li>引力场，爆炸点范围内敌人减速</li>
 <li>闪电网，多个闪电点间形成闪电连，给予穿过的敌人持续伤害，离开则伤害中止</li>
 <li>火焰阱，持续伤害，升高范围内温度</li>
@@ -1065,19 +1137,19 @@ A_{normal} = random(max(N-3, 1), N+3)</script><p>怪物可组合类型</p>
 <li>血量</li>
 </ul>
 <script type="math/tex; mode=display">
-HP = random(0.5, 1.5) * ln(N + 3) * HP_{base}</script><ul>
+HP = random(0.5, 1.5) * ln(N) * HP_{base}</script><ul>
 <li>防御</li>
 </ul>
 <script type="math/tex; mode=display">
-Defence = random(0.5, 1.5) * ln(N + 3) * Defence_{base}</script><ul>
+Defence = random(0.5, 1.5) * ln(N) * Defence_{base}</script><ul>
 <li>移动速度</li>
 </ul>
 <script type="math/tex; mode=display">
-Speed = random(0.5, 1.5) * ln(N + 3) * Speed_{base}</script><ul>
+Speed = random(0.5, 1.5) * ln(N) * Speed_{base}</script><ul>
 <li>视野半径</li>
 </ul>
 <script type="math/tex; mode=display">
-ViewRadius = random(0.5, 1.5) * ln(N + 3) * ViewRadius_{base}</script><ul>
+ViewRadius = random(0.5, 1.5) * ln(N) * ViewRadius_{base}</script><ul>
 <li><p>适合温度</p>
 <ul>
 <li>50%T，25%T-1，25%T+1</li>
@@ -1090,15 +1162,15 @@ ViewRadius = random(0.5, 1.5) * ln(N + 3) * ViewRadius_{base}</script><ul>
 <p>属性池 [无x10,其他属性]</p>
 <h4 id="武器-1"><a href="#武器-1" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
 <script type="math/tex; mode=display">
-Bullets = random(3, max(3, N/2))</script><p>射速</p>
+Bullets = random(3, max(3, [ln(N)]))</script><p>射速</p>
 <script type="math/tex; mode=display">
-AttackInterval = random(0.5, 1.5) * ln(N + 3) * AttackInterval_{base}</script><p>充能</p>
+AttackInterval = random(0.5, 1.5) * ln(N) * AttackInterval_{base}</script><p>充能</p>
 <script type="math/tex; mode=display">
-RechargeTime = random(0.8, 1.2) * ln(N + 3) * RechargeTime_{base}</script><p>同时子弹数量</p>
+RechargeTime = random(0.8, 1.2) * ln(N) * RechargeTime_{base}</script><p>同时子弹数量</p>
 <script type="math/tex; mode=display">
 ConcurrentBullets = 1</script><p>攻击半径</p>
 <script type="math/tex; mode=display">
-AttackRadius = random(0.8, 1.2) * ln(N + 3) * AttackRadius</script><h4 id="子弹"><a href="#子弹" class="headerlink" title="子弹"></a>子弹</h4><p>携带一枚子弹</p>
+AttackRadius = random(0.8, 1.2) * ln(N) * AttackRadius</script><h4 id="子弹-1"><a href="#子弹-1" class="headerlink" title="子弹"></a>子弹</h4><p>携带一枚子弹</p>
 <p>子弹属性SlotCount = 1，随机一个属性</p>
 <h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
 <script type="math/tex; mode=display">
@@ -1106,19 +1178,19 @@ A_{special} = random(0, [\frac{D - 8}{5}])</script><ul>
 <li>血量</li>
 </ul>
 <script type="math/tex; mode=display">
-HP = random(1.5, 3.5) * ln(N + 3) * HP_{base}</script><ul>
+HP = random(1.5, 3.5) * ln(N) * HP_{base}</script><ul>
 <li>防御</li>
 </ul>
 <script type="math/tex; mode=display">
-Defence = random(1.5, 3.5) * ln(N + 3) * Defence_{base}</script><ul>
+Defence = random(1.5, 3.5) * ln(N) * Defence_{base}</script><ul>
 <li>移动速度</li>
 </ul>
 <script type="math/tex; mode=display">
-Speed = random(1.5, 3.5) * ln(N + 3) * Speed_{base}</script><ul>
+Speed = random(1.5, 3.5) * ln(N) * Speed_{base}</script><ul>
 <li>视野半径</li>
 </ul>
 <script type="math/tex; mode=display">
-ViewRadius = random(1.5, 3.5) * ln(N + 3) * ViewRadius_{base}</script><ul>
+ViewRadius = random(1.5, 3.5) * ln(N) * ViewRadius_{base}</script><ul>
 <li><p>适合温度</p>
 <ul>
 <li>50%T，25%T-1，25%T+1</li>
@@ -1133,28 +1205,28 @@ ViewRadius = random(1.5, 3.5) * ln(N + 3) * ViewRadius_{base}</script><ul>
 <script type="math/tex; mode=display">
 Bullets = random(3, max(3, N))</script><p>射速</p>
 <script type="math/tex; mode=display">
-AttackInterval = random(1.5, 3.5) * ln(N + 3) * Speed_{base}</script><p>充能</p>
+AttackInterval = random(1.5, 3.5) * ln(N) * Speed_{base}</script><p>充能</p>
 <script type="math/tex; mode=display">
-RechargeTime = random(0.2, 0.6) * ln(N + 3) * RechargeTime_{base}</script><p>同时子弹数量</p>
+RechargeTime = random(0.2, 0.6) * ln(N) * RechargeTime_{base}</script><p>同时子弹数量</p>
 <script type="math/tex; mode=display">
-ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-1"><a href="#子弹-1" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带一枚子弹</p>
+ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-2"><a href="#子弹-2" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带一枚子弹</p>
 <h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><ul>
 <li>血量</li>
 </ul>
 <script type="math/tex; mode=display">
-HP = random(3, 5) * ln(N + 3) * BossCount * HP_{base}</script><ul>
+HP = random(3, 5) * ln(N) * BossCount * HP_{base}</script><ul>
 <li>防御</li>
 </ul>
 <script type="math/tex; mode=display">
-Defence = random(3, 5) * ln(N + 3) * BossCount * Defence_{base}</script><ul>
+Defence = random(3, 5) * ln(N) * BossCount * Defence_{base}</script><ul>
 <li>移动速度</li>
 </ul>
 <script type="math/tex; mode=display">
-Speed = random(3, 5) * ln(N + 3) * BossCount * Speed_{base}</script><ul>
+Speed = random(3, 5) * ln(N) * BossCount * Speed_{base}</script><ul>
 <li>视野半径</li>
 </ul>
 <script type="math/tex; mode=display">
-ViewRadius = random(3, 5) * ln(N + 3) * BossCount * ViewRadius_{base}</script><ul>
+ViewRadius = random(3, 5) * ln(N) * BossCount * ViewRadius_{base}</script><ul>
 <li><p>适合温度</p>
 <ul>
 <li>100% T</li>
@@ -1169,11 +1241,11 @@ ViewRadius = random(3, 5) * ln(N + 3) * BossCount * ViewRadius_{base}</script><u
 <script type="math/tex; mode=display">
 Bullets = random(3, max(3, N)) * BossCount</script><p>射速</p>
 <script type="math/tex; mode=display">
-AttackInterval = random(1.5, 3.5) * ln(N + 3) * BossCount * Speed_{base}</script><p>充能</p>
+AttackInterval = random(1.5, 3.5) * ln(N) * BossCount * Speed_{base}</script><p>充能</p>
 <script type="math/tex; mode=display">
-RechargeTime = random(0.2, 0.6) * ln(N + 3) * BossCount * RechargeTime_{base}</script><p>同时子弹数量</p>
+RechargeTime = random(0.2, 0.6) * ln(N) * BossCount * RechargeTime_{base}</script><p>同时子弹数量</p>
 <script type="math/tex; mode=display">
-ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-2"><a href="#子弹-2" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带BossCount * 3枚子弹，随机切换</p>
+ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a href="#子弹-3" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带BossCount * 3枚子弹，随机切换</p>
 <h2 id="武器-4"><a href="#武器-4" class="headerlink" title="武器"></a>武器</h2><h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
 <ul>
 <li>最大血量 <script type="math/tex">[0.75,0.8,0.85,0.9,0.95,1.05,1.1,1.15,1.2,1.25]</script></li>
@@ -3122,26 +3194,6 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-2"><a hre
       </tags>
   </entry>
   <entry>
-    <title>机器学习系统 4-11 - 因子分解机</title>
-    <url>/ai/ml-system/recommender/11-factor-machine/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>因子分解机</p>
-<a id="more"></a>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><ol>
-<li>FM能处理数据高度稀疏场景，SVM则不能；</li>
-<li>FM具有线性的计算复杂度，而SVM依赖于support vector。</li>
-<li>FM能够在任意的实数特征向量中生效。</li>
-</ol>
-<p>—</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>机器学习系统 4-12 - GBDR+LR</title>
     <url>/ai/ml-system/recommender/12-gbdt-lr/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>GBDT+LR</p>
@@ -3175,6 +3227,26 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-2"><a hre
 <li>DIEN</li>
 <li>DRN</li>
 </ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-11 - 因子分解机</title>
+    <url>/ai/ml-system/recommender/11-factor-machine/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>因子分解机</p>
+<a id="more"></a>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><ol>
+<li>FM能处理数据高度稀疏场景，SVM则不能；</li>
+<li>FM具有线性的计算复杂度，而SVM依赖于support vector。</li>
+<li>FM能够在任意的实数特征向量中生效。</li>
+</ol>
+<p>—</p>
 ]]></content>
       <categories>
         <category>机器学习</category>
@@ -3313,9 +3385,9 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <a id="more"></a>
 <p>在常见的特征中，通常可以用分桶或OneHot编码转为特征，对于类别较多的特征或者非结构化特征，可以通过Embedding转换为紧凑的实值特征向量表示。</p>
 <h1 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h1><h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>词嵌入（Word Embedding）将每个单词表示为密集向量，嵌入的相似句子应该在空间上彼此接近。常用模型有神经网络模型（NNLM）、用于字词表示的全局向量（GloVe）、深层语境化词表示（ELMo）、Word2Vec等。</p>
-<h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><p>CBOW</p>
-<p>Skip-gram</p>
-<h2 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h2><p>使用大型图片数据集训练模型，常用的预训练模型有ResNet、Inception、NasNet、MobileNet等。最后使用不含Softmax分类器的模型作为特征向量，这类向量可以很好的描述图片基本属性。</p>
+<h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><p>Skip-gram: works well with a small amount of the training data, represents well even rare words or phrases.</p>
+<p>CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words.</p>
+<h3 id="Doc2Vec"><a href="#Doc2Vec" class="headerlink" title="Doc2Vec"></a>Doc2Vec</h3><h2 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h2><p>使用大型图片数据集训练模型，常用的预训练模型有ResNet、Inception、NasNet、MobileNet等。最后使用不含Softmax分类器的模型作为特征向量，这类向量可以很好的描述图片基本属性。</p>
 <h2 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h2><p>可以从高位功率谱密度系数提取特征向量。</p>
 <h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><p>用户和物品数量可能相当大，可以使用矩阵分解、单值分解、神经协同过滤、神经因式分解机等得到向量。物品的嵌入位置表达了物品属性，位置接近的嵌入位置代表用户更相似的兴趣度。</p>
 <h3 id="神经协同过滤"><a href="#神经协同过滤" class="headerlink" title="神经协同过滤"></a>神经协同过滤</h3><h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p>Video2Vec</p>
