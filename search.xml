@@ -998,22 +998,28 @@ r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#�
 </ul>
 <p>以上属性均可强化（不能强化）</p>
 <h3 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h3><p><a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">https://www.desmos.com/calculator</a></p>
+<p>弹夹容量</p>
 <script type="math/tex; mode=display">
 Bullets_{base} = [max(0, ln(O))]</script><script type="math/tex; mode=display">
-Bullets = max(random(Bullets_{base} - 2, Bullets_{base} + 2), 1)</script><script type="math/tex; mode=display">
-AttackInterval_{base} = 0.5</script><script type="math/tex; mode=display">
-AttackInterval = AttackInterval_{base} * random(0.5, 1.5) * \frac{1}{\sqrt{3}{O}}</script><script type="math/tex; mode=display">
-RechargeTime_{base} = 2</script><script type="math/tex; mode=display">
-RechargeTime = RechargeTime_{base} * random(0.5, 1.5) * \frac{1}{ln(O)}</script><script type="math/tex; mode=display">
-ConcurrentBullets_{base} = [max(0, log_{10}(O))]</script><script type="math/tex; mode=display">
-ConcurrentBullets = max(random(ConcurrentBullets_{base} - 1, ConcurrentBullets_{base} + 1), 1)</script><script type="math/tex; mode=display">
-AttackRadius_{base} = [max(100, \sqrt{2}{O})]</script><script type="math/tex; mode=display">
-AttackRadius = random(0.5, 1.5) * AttackRadius_{base}</script><script type="math/tex; mode=display">
-SpreadAngle = random(-\pi, \pi)</script><script type="math/tex; mode=display">
-RandomErrorAngle_{base} = min(\frac{\pi}{6}, \frac{1}{ln(O + 1)})</script><script type="math/tex; mode=display">
-RandomErrorAngle = random(0.5, 1.5) * RandomErrorAngle_{base}</script><h3 id="强化（去掉）"><a href="#强化（去掉）" class="headerlink" title="强化（去掉）"></a>强化（去掉）</h3><p>付定额花费摇彩票</p>
+Bullets = max(random(Bullets_{base} - 2, Bullets_{base} + 2), 1)</script><p>攻击间隔</p>
 <script type="math/tex; mode=display">
-Bullets_{new} = Bulletes_{new} * random()</script><h2 id="子弹"><a href="#子弹" class="headerlink" title="子弹"></a>子弹</h2><p>一次使用一种子弹类型，最多携带2枚子弹（一周目）</p>
+AttackInterval_{base} = 0.5</script><script type="math/tex; mode=display">
+AttackInterval = AttackInterval_{base} * random(0.5, 1.5) * \frac{1}{\sqrt[3]{O}}</script><p>充能时间</p>
+<script type="math/tex; mode=display">
+RechargeTime_{base} = 2</script><script type="math/tex; mode=display">
+RechargeTime = RechargeTime_{base} * random(0.5, 1.5) * \frac{1}{ln(O)}</script><p>同时子弹数量</p>
+<script type="math/tex; mode=display">
+ConcurrentBullets_{base} = [max(0, log_{10}(O))]</script><script type="math/tex; mode=display">
+ConcurrentBullets = max(random(ConcurrentBullets_{base} - 1, ConcurrentBullets_{base} + 1), 1)</script><p>攻击半径，不存在的</p>
+<script type="math/tex; mode=display">
+AttackRadius_{base} = [max(100, \sqrt{2}{O})]</script><script type="math/tex; mode=display">
+AttackRadius = random(0.5, 1.5) * AttackRadius_{base}</script><p>散射角</p>
+<script type="math/tex; mode=display">
+SpreadAngle = random(-\pi, \pi)</script><script type="math/tex; mode=display">
+RandomErrorAngle_{base} = min(\frac{\pi}{6}, \frac{1}{ln(O + 1)})</script><p>随机发射误差</p>
+<script type="math/tex; mode=display">
+RandomErrorAngle = random.normal(\mu=0, \sigma=1) * RandomErrorAngle_{base}</script><h3 id="强化（去掉）"><a href="#强化（去掉）" class="headerlink" title="强化（去掉）"></a>强化（去掉）</h3><p>付定额花费摇彩票</p>
+<h2 id="子弹"><a href="#子弹" class="headerlink" title="子弹"></a>子弹</h2><p>一次使用一种子弹类型，最多携带2枚子弹（一周目）</p>
 <h2 id="子弹类型（deprecated）"><a href="#子弹类型（deprecated）" class="headerlink" title="子弹类型（deprecated）"></a>子弹类型（deprecated）</h2><ul>
 <li>普通，不叠加任何伤害</li>
 <li>电磁，持续伤害(2/s)，对属性免疫无效，有几率(1%)中断行动</li>
@@ -1057,7 +1063,7 @@ Bullets_{new} = Bulletes_{new} * random()</script><h2 id="子弹"><a href="#子�
 <p>一次性伤害<br>Persistance = 0<br>Interval = 0<br>Probability = 1<br>Event = 伤害，Damage</p>
 <h2 id="合成-1"><a href="#合成-1" class="headerlink" title="合成"></a>合成</h2><p>固定开销摇彩票</p>
 <script type="math/tex; mode=display">
-M_{cost} = M_{base} * 2^BossKillCount</script><p>子弹最大属性槽</p>
+M_{cost} = M_{base} * 2^{BossKillCount}</script><p>子弹最大属性槽</p>
 <script type="math/tex; mode=display">
 BulletSlot = BossKillCount + 1</script><p>子弹速度正态分布</p>
 <script type="math/tex; mode=display">
@@ -3194,6 +3200,26 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
       </tags>
   </entry>
   <entry>
+    <title>机器学习系统 4-11 - 因子分解机</title>
+    <url>/ai/ml-system/recommender/11-factor-machine/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>因子分解机</p>
+<a id="more"></a>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><ol>
+<li>FM能处理数据高度稀疏场景，SVM则不能；</li>
+<li>FM具有线性的计算复杂度，而SVM依赖于support vector。</li>
+<li>FM能够在任意的实数特征向量中生效。</li>
+</ol>
+<p>—</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 4-12 - GBDR+LR</title>
     <url>/ai/ml-system/recommender/12-gbdt-lr/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>GBDT+LR</p>
@@ -3227,26 +3253,6 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>DIEN</li>
 <li>DRN</li>
 </ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 4-11 - 因子分解机</title>
-    <url>/ai/ml-system/recommender/11-factor-machine/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>因子分解机</p>
-<a id="more"></a>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><ol>
-<li>FM能处理数据高度稀疏场景，SVM则不能；</li>
-<li>FM具有线性的计算复杂度，而SVM依赖于support vector。</li>
-<li>FM能够在任意的实数特征向量中生效。</li>
-</ol>
-<p>—</p>
 ]]></content>
       <categories>
         <category>机器学习</category>
