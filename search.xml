@@ -314,55 +314,6 @@
       </tags>
   </entry>
   <entry>
-    <title>算法基础 - 哈希表</title>
-    <url>/cs/algo/hash-table/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>哈希函数用于缩小映射空间，可能会发生碰撞，可用链表法或多哈希函数。</p>
-<a id="more"></a>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>常用数据结构：</p>
-<ul>
-<li>数组，有限确定项，比如字母串</li>
-<li>map，映射</li>
-<li>set，集合</li>
-</ul>
-<p>Go的map底层使用哈希表实现，set可通过将map的value置空实现。<br>C++的std::map/std::multimap由红黑树实现，std::unorderd_map由哈希表实现。</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="数组判断有效字母异位词"><a href="#数组判断有效字母异位词" class="headerlink" title="数组判断有效字母异位词"></a>数组判断有效字母异位词</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
-<ul>
-<li>数组直接存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isAnagram</span><span class="params">(s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a,b [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> s &#123;</span><br><span class="line">        a[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> t &#123;</span><br><span class="line">        b[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a==b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
-<ul>
-<li>数组直接存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canConstruct</span><span class="params">(ransomNote <span class="keyword">string</span>, magazine <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> r [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> magazine &#123;</span><br><span class="line">        r[c - <span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> ransomNote &#123;</span><br><span class="line">        <span class="keyword">if</span> r[c - <span class="string">'a'</span>] == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        r[c - <span class="string">'a'</span>]--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="集合判断数组相交"><a href="#集合判断数组相交" class="headerlink" title="集合判断数组相交"></a>集合判断数组相交</h2><p><img src="https://img.shields.io/badge/leetcode-349-blue.svg" alt> <a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a></p>
-<ul>
-<li>集合存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">Add</span><span class="params">(n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    s[n] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">And</span><span class="params">(t Set)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &gt; <span class="built_in">len</span>(t) &#123;</span><br><span class="line">        s, t = t, s</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> s &#123;</span><br><span class="line">        <span class="keyword">if</span> _, ok := t[k]; ok &#123;</span><br><span class="line">            ret = <span class="built_in">append</span>(ret, k)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">intersection</span><span class="params">(nums1 []<span class="keyword">int</span>, nums2 []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    a, b := Set&#123;&#125;, Set&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums1 &#123;</span><br><span class="line">        a.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums2 &#123;</span><br><span class="line">        b.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.And(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="集合判断快乐数"><a href="#集合判断快乐数" class="headerlink" title="集合判断快乐数"></a>集合判断快乐数</h2><p><img src="https://img.shields.io/badge/leetcode-202-blue.svg" alt> <a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a></p>
-<ul>
-<li>集合存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>数据结构</tag>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>算法基础 - 链表</title>
     <url>/cs/algo/list/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>表是最基础的数据结构之一，存储线性数据，内存结构不连续。</p>
@@ -406,6 +357,55 @@
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://golang.org/pkg/container/list/" target="_blank" rel="noopener">Package list</a></li>
 </ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>算法基础 - 哈希表</title>
+    <url>/cs/algo/hash-table/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>哈希函数用于缩小映射空间，可能会发生碰撞，可用链表法或多哈希函数。</p>
+<a id="more"></a>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>常用数据结构：</p>
+<ul>
+<li>数组，有限确定项，比如字母串</li>
+<li>map，映射</li>
+<li>set，集合</li>
+</ul>
+<p>Go的map底层使用哈希表实现，set可通过将map的value置空实现。<br>C++的std::map/std::multimap由红黑树实现，std::unorderd_map由哈希表实现。</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="数组判断有效字母异位词"><a href="#数组判断有效字母异位词" class="headerlink" title="数组判断有效字母异位词"></a>数组判断有效字母异位词</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
+<ul>
+<li>数组直接存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isAnagram</span><span class="params">(s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a,b [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> s &#123;</span><br><span class="line">        a[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> t &#123;</span><br><span class="line">        b[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a==b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
+<ul>
+<li>数组直接存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canConstruct</span><span class="params">(ransomNote <span class="keyword">string</span>, magazine <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> r [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> magazine &#123;</span><br><span class="line">        r[c - <span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> ransomNote &#123;</span><br><span class="line">        <span class="keyword">if</span> r[c - <span class="string">'a'</span>] == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        r[c - <span class="string">'a'</span>]--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合判断数组相交"><a href="#集合判断数组相交" class="headerlink" title="集合判断数组相交"></a>集合判断数组相交</h2><p><img src="https://img.shields.io/badge/leetcode-349-blue.svg" alt> <a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a></p>
+<ul>
+<li>集合存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">Add</span><span class="params">(n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    s[n] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">And</span><span class="params">(t Set)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &gt; <span class="built_in">len</span>(t) &#123;</span><br><span class="line">        s, t = t, s</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> s &#123;</span><br><span class="line">        <span class="keyword">if</span> _, ok := t[k]; ok &#123;</span><br><span class="line">            ret = <span class="built_in">append</span>(ret, k)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">intersection</span><span class="params">(nums1 []<span class="keyword">int</span>, nums2 []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    a, b := Set&#123;&#125;, Set&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums1 &#123;</span><br><span class="line">        a.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums2 &#123;</span><br><span class="line">        b.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.And(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合判断快乐数"><a href="#集合判断快乐数" class="headerlink" title="集合判断快乐数"></a>集合判断快乐数</h2><p><img src="https://img.shields.io/badge/leetcode-202-blue.svg" alt> <a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a></p>
+<ul>
+<li>集合存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -2242,6 +2242,214 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
       </tags>
   </entry>
   <entry>
+    <title>烤面筋 - 简历</title>
+    <url>/work/interview/resume/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>202105 - 机器学习系统和解决方案</p>
+<a id="more"></a>
+<h1 id="个人简介"><a href="#个人简介" class="headerlink" title="个人简介"></a>个人简介</h1><h2 id="主要方向"><a href="#主要方向" class="headerlink" title="主要方向"></a>主要方向</h2><ul>
+<li>机器学习产品主要是什么？</li>
+</ul>
+<p>模型优化，推理服务，实验和训练相关的产品体验改进。</p>
+<ul>
+<li>推理性能优化的工作？</li>
+</ul>
+<p>主要是模型的编译优化，定制子图融合，推理服务优化。</p>
+<ul>
+<li>推荐系统解决方案？</li>
+</ul>
+<p>面向有一定埋点数据基础或已有清理后数据，希望机器学习算法提高转换率，点击率，用户召回率的的企业。</p>
+<p>包含了平台提供的算法库，包括Studio，EasyRec，GraphLearn等，和后端服务以及简易AB测试模块。</p>
+<h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><ul>
+<li>Python熟悉程度？常见问题？</li>
+</ul>
+<p>模型构建，模型优化SDK，脚本处理。</p>
+<ul>
+<li>Go熟悉程度？常见问题？</li>
+</ul>
+<p>云服务后端，推荐后端，机器学习产品（Notebook/EAS）后端。</p>
+<ul>
+<li>C++熟悉程度？常见问题？</li>
+</ul>
+<p>深度学习加速系统后端，Runtime，编译器，Tensorflow接入，自定义算子，TVM等。</p>
+<ul>
+<li>业余Dart做什么？</li>
+</ul>
+<p>主要是Flutter，业余做跨端应用，移动/桌面/Web。</p>
+<ul>
+<li>Rust有了解吗？主要创新是什么？</li>
+</ul>
+<p>Rust主要是为了取代C/C++，更干净标准的类型系统，加入了静态指针生命周期（所有权模型）检查，确保内存安全和多线程安全。</p>
+<ul>
+<li>技术驱动，主要关注什么技术？</li>
+</ul>
+<p>一个趋势是企业的数字化、自动化和智能化。前提就是有数据，数据的收集、处理、分析相关的技术，基于k8s的云原生技术，平台的搭建，机器学习技术，对数据的特征提取，优化业务目标。</p>
+<ul>
+<li>对云原生的理解？</li>
+</ul>
+<p>k8s的大规模使用带来的更精细粒度的云资源的调度，尤其是Serverless的形式，使得服务不需要过多关注底层资源管理调度。云原生就是以调度平台，微服务，容器的分布式系统为基础的应用开发，一是容器化无状态，二是直接定义使用云资源。</p>
+<ul>
+<li>关注产品，关注什么？</li>
+</ul>
+<p>数据产品，利用数据更好地提升用户体验，用户安全，提升业务目标。</p>
+<h1 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h1><h2 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h2><ul>
+<li>高性能计算系统的架构是什么？</li>
+</ul>
+<p>异构计算，基于FPGA的计算加速系统，报文解析，协议卸载，密集计算，键值存储，主存做base，FPGA做卸载。</p>
+<h1 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h1><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul>
+<li>推荐系统主要的工作是什么？</li>
+</ul>
+<p>外部客户推荐场景需求定制，数据清洗，特征工程，平台算法库构建模型，复用的模块化的推荐后端。</p>
+<ul>
+<li>主要有什么场景？用了什么模型？</li>
+</ul>
+<p>跨境电商广告落地页商品推荐，相似商品推荐，短视频视频CTR精排，游戏分发推荐。</p>
+<p>召回：i2i，向量。排序：GBDT+LR，WDN，DeepFM。</p>
+<ul>
+<li>数据处理用什么？</li>
+</ul>
+<p>Dataworks，把自研的ODPS数仓和机器学习等功能整合到了一起。数据处理主要在ODPS里，和Hive类似，清洗，特征工程。</p>
+<ul>
+<li>数据处理有哪些要注意的点？</li>
+</ul>
+<p>清洗，不同来源，不同日期的数据整合。缺失值填充，拼写错误纠正。</p>
+<ul>
+<li>特征工程要注意什么？一般用哪些特征？怎么构造特征？</li>
+</ul>
+<p>特征工程一般分User特征，Item特征，Context特征。</p>
+<p>User特征一般包括人口统计学特征，比如年龄，性别，职业，Session行为次数统计等。</p>
+<p>Item特征就包括属性，品类，描述，创建时间，交互次数等。</p>
+<p>Context特征比如IP，国家，地区，时间等，</p>
+<p>Numerical一般做归一化，统一尺度，加速收敛。如果是不涉及距离计算的模型就不需要归一化，比如树模型。</p>
+<p>Categorical用OneHot，Hash（压缩向量维度，函数固定，一致性强），Ordinal（大小关系），Binary（二进制编码，本质上是一种哈希）</p>
+<ul>
+<li>一般怎么利用特征？</li>
+</ul>
+<p>协同过滤</p>
+<p>Embedding</p>
+<p>Numerical一般不处理。</p>
+<p>Categorical一般就是OneHot Embedding，MatMul操作。MultiHot每列相加。</p>
+<p>长文本类型，一般用word2vec/doc2vec。</p>
+<p>行为序列，Graph Embedding，比如GraphSAGE。</p>
+<p>融合多向量，DSSM双塔模型。</p>
+<p>召回用向量召回。</p>
+<p>排序接排序模型</p>
+<ul>
+<li>Embedding训练的时候需要注意什么？</li>
+</ul>
+<p>Embedding收敛太慢，FM预训练。</p>
+<ul>
+<li>对向量召回的原理知道吗？</li>
+</ul>
+<p>局部敏感哈希。</p>
+<p>利用的特性是，高维空间中相近的向量v，在一维空间的投影也是相近的，远离的点有一定概率变成相近的。v通过随机k维映射向量。</p>
+<script type="math/tex; mode=display">
+h(v) = v \dot x</script><script type="math/tex; mode=display">
+h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平衡哈希函数数量、与（在两个哈希函数的同一个桶）或操作和计算开销。</p>
+<ul>
+<li>特征数量过多怎么办？</li>
+</ul>
+<p>外部客户一般是数据太少，特征不够。内部是尽量能多用特征，大规模分布式计算由平台支持。</p>
+<p>如果是成本限制，是寻找最优子集的过程。一般数据不够，特征太多，容易出现过拟合。</p>
+<p>一般思路是特征空间搜索，尝试不同的特征子集。暴力搜索的空间太大，主要有Filter（相关系数最高的），Wrapper（增量搜索），Embedded（L1正则）</p>
+<ul>
+<li>讲讲Word2Vec。</li>
+</ul>
+<p>Word2Vec是经典Google出品的经典Embedding模型。把高维词向量压缩到低维空间。常用的方法是CBOW(Continuous Bag-of-Words)和Skip-Gram，CBOW是用一个固定窗口的词预测中间的词，Skip-Gram是使用窗口中间的词预测其他词。</p>
+<ul>
+<li>说说Word2Vec负采样什么原理？</li>
+</ul>
+<p>由于原始词向量太大，误差的计算量太大通常用负采样方法。随机选择一小部分的negative words（比如选5个negative words）来更新对应的权重。</p>
+<p>一方面是将多分类问题转换成K+1个二分类问题，从而减少计算量，加快训练速度。</p>
+<p>另一方面是保证模型训练效果，因为目标词只跟相近的词有关，没有必要使用全部的单词作为负例来更新它们的权重。</p>
+<p><a href="https://blog.csdn.net/hfutzhouyonghang/article/details/97496048" target="_blank" rel="noopener">https://blog.csdn.net/hfutzhouyonghang/article/details/97496048</a></p>
+<ul>
+<li>CBOW和Skip-Gram优缺点分别是什么？</li>
+</ul>
+<p>Skip-Gram 在数据较少的情况下效果也不错，对出现频率不高的词效果更好，但训练时间长。</p>
+<p>CBOW 训练时间短，对高频词效果更好。</p>
+<ul>
+<li>讲讲Graph Embedding，训练会遇到什么问题。</li>
+</ul>
+<p>GraphSAGE</p>
+<ul>
+<li>讲讲你知道的排序模型。</li>
+</ul>
+<p>LR<br>MLR<br>FM<br>WDN，经典<br>DeepFM，FM和Deep结合<br>DCN<br>DIN<br>DIEN<br>语义</p>
+<ul>
+<li>讲讲Bert模型</li>
+</ul>
+<p>Bert文本模型，Transfomer基本单元，Encoder，Decoder。</p>
+<ul>
+<li>说说你们推荐系统后端的模块和主要功能</li>
+</ul>
+<p>召回，支持各类数据源的查表u2i/i2i，向量召回（Hologres数据库的向量引擎）。</p>
+<p>排序 EAS服务模型调用，TF、PyTorch、FM、PMML模型。</p>
+<p>AB 实验室，层，实验</p>
+<ul>
+<li>后端的QPS和RT有多少？怎么解决高并发的RT问题的</li>
+</ul>
+<p>场景不同，有业务波峰波谷，一般在几百QPS左右。</p>
+<p>RT根据业务控制到50ms以内，有些大batch的业务控制在150ms以内。</p>
+<p>优化方法：</p>
+<p>后端内多线程优化<br>水平自动扩容<br>网络数据序列化</p>
+<ul>
+<li>你写了SQL，了解MySQL吗？使用MySQL有哪些注意事项。</li>
+</ul>
+<p>不用外键。</p>
+<ul>
+<li>Redis使用有哪些注意事项。</li>
+</ul>
+<p>读雪崩。不统一设置过期时间。</p>
+<p>保护API，VPC内加白名单。后端限流。</p>
+<ul>
+<li>HBase的理解，有什么要注意的？</li>
+</ul>
+<p>HBase是建立在Hadoop文件系统之上的分布式面向列的数据库。基于Google的BigTable设计。</p>
+<ul>
+<li>用户增长方案指什么？</li>
+</ul>
+<p>用户的推广触达和召回。选出Top K触达概率更高的人群。</p>
+<h2 id="机器学习产品"><a href="#机器学习产品" class="headerlink" title="机器学习产品"></a>机器学习产品</h2><ul>
+<li>说说你的主要工作。</li>
+</ul>
+<p>简历里写了一部分。</p>
+<p>一个是Kubernetes化，服务迁移重构，围绕k8s和阿里云的基础设施的改造，资源、网络打通工作。</p>
+<p>一个是产品间打通，梳理产品关系，平台现有工具，通过统一镜像打通，提供自定义镜像的拓展能力。</p>
+<p>一个是推理优化服务的产品化，整合到各个产品中去。</p>
+<ul>
+<li>说说Kubernetes的基本理解。</li>
+</ul>
+<p>k8s统一了分布式资源调度模型，更精细的分配资源，扩展性强。</p>
+<ul>
+<li>私有化部署方案具体是什么？</li>
+</ul>
+<p>在私有云部署。</p>
+<h2 id="模型推理优化"><a href="#模型推理优化" class="headerlink" title="模型推理优化"></a>模型推理优化</h2><ul>
+<li>主要优化了什么业务模型？</li>
+</ul>
+<p>ResNet<br>LSTM<br>GRU<br>Bert<br>CTR</p>
+<ul>
+<li>TensorRT用的怎么样？</li>
+<li>MKL-DNN的了解？</li>
+<li>TVM上做了什么工作？</li>
+</ul>
+<h2 id="加速系统"><a href="#加速系统" class="headerlink" title="加速系统"></a>加速系统</h2><ul>
+<li>这是个硬件吗？</li>
+</ul>
+<p>FPGA原型，通用CNN硬件，推理加速引擎。</p>
+<ul>
+<li>具体加速了哪些模型？</li>
+</ul>
+<p>ResNet baseline<br>UNet<br>RCNN<br>CTR WDN</p>
+]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>烤面筋 - 链接</title>
     <url>/work/interview/third-party/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>第三方链接统计</p>
@@ -2507,52 +2715,6 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
       </tags>
   </entry>
   <entry>
-    <title>机器学习系统 1-3 - 后端硬件描述语言</title>
-    <url>/ai/ml-system/hardware-backend/3-hardware-description-language/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。</p>
-<a id="more"></a>
-<p>软件编程语言定义了一系列面向人类可读性的字符语法。人类使用软件编程语言编写描述机器如何处理信息的步骤的文本，简称为软件代码。使用编译软件使用指定指令集翻译成机器具体处理信息的指令，简称为程序。🤓</p>
-<p>类似的，在硬件设计中，硬件的结构决定了功能，因此也需要借助一种文本描述硬件结构，得名硬件（结构）描述语言。</p>
-<p>软件代码可以直接编译成程序运行，也可以直接和测试框架一起编译运行，测试功能正确性。</p>
-<p>而硬件描述语言（HDL，Hardware Description Language）——其中对应硬件结构（可综合）的合法语法——只是对硬件的结构描述，需要使用仿真器（Emulator）构造硬件结构。</p>
-<p>通常高效的仿真器会将硬件代码等价映射成软件代码（比如C++）编译后运行，提高仿真效率。</p>
-<p>就可综合语法部分看，HDL乏像软件语言中的抽象模型，以用于代码复用。但是HDL中的寄存器、线以及模型足以描述任何复杂的硬件。可以利用软件工具管理生成代码，减少一部分coding的工作量。</p>
-<p>比如使用脚本（Perl或者Python）管理模块，辅助连线，或者借用软件的OOP（Object Oriented Programming)模型，套壳做DSL（Domain Specific Language）（比如Chisel套在Scala里），借助套壳语言的语法和抽象简化硬件编码工作。</p>
-<p>除了可综合语法，HDL中还引入了测试语法用来提供仿真激励。为了改进HDL的测试方面的短板，更多语法和抽象被引入进来，以至于可以被称为一门新的语言（比如System Verilog<a href="#refer-1"><sup>1</sup></a>)。</p>
-<p>有趣的是，System Verilog可以被看作天然的并行语言，引入不少并发机制，比如channel，GoLang的并发机制里也有channel。</p>
-<p>硬件开发的主要工作量并不在前端编码（主要包括编写Verilog并做功能仿真），占大头的是仿真测试和优化。在一些非自主开发IP的流程中，前端的工作基本就是把买来的IP（比如ARM）集成连线，写一些胶水逻辑。在一些自主IP定制的流程中，比如RISC-V，主要的功能还是在拓展指令集，然后接着大量测试和优化。</p>
-<p>我曾经试图发明一门新的语言，使用现代语言的语法来改进Verilog。写好了词法Parser，拿到了AST，做了一些类型推断以及代码优化工作，可以生成Verilog。然而如果要用于生产，开发工作量是不小的。最终只是作为一个toy项目，帮我熟悉了一些编译器的知识。</p>
-<p>现在回过头来看，如果考虑写一门HDL的话，需要考虑几点：  </p>
-<ul>
-<li>是否可以适配已有工业流程？通常是生成Verilog和其他EDA流程对接。</li>
-<li>是否可以做到和Verilog可综合语法完全等价？需要形式化验证以及实际项目支持（比如Chisel傍上了RISC-V）。</li>
-<li>是否支持其他blackbox（加密IP网表，VHDL，Verilog，SystemVerilog仿真模型）联合仿真？</li>
-<li>是否能在保证仿真结果精度准确的情况下，提高仿真效率？只能粗粒度功能仿真就很鸡肋。</li>
-<li>是否可以引入稳定的自动优化？怀疑是否又必要，后期优化的时候基本会扣每个寄存器，后端流程也有大量优化。</li>
-<li>是否易学？过多的引入严格的抽象概念会大幅提高语言学习难度（用软件语言的角度类比，学go，可能3天上手写工程，学rust，学一个月可能还经常卡在工程编译上），HDL依赖惯性可能比软件语言要大的多。</li>
-</ul>
-<p>软件语言的迭代，引入了新的编程模型，新的内存管理机制，新的并行模型等等，实实在在地带来了极大的收益，大幅提高了并发性能，大幅减少了代码量，大幅降低了运行时排错的成本等等。</p>
-<p>最终决定新语言是否会被大规模使用的核心还是：<strong>开发学习使用新语言引入的成本是否带来了足够的生产力收益</strong>。</p>
-<p>HDL的核心功能还是描述硬件结构。</p>
-<p>如果高层语言可以直接生成Verilog，要么是面向FPGA的HLS<a href="#refer-2"><sup>2</sup></a>（High Level Synthesis），面向软件工程师的硬件加速，根本不关心生成的代码，生成的代码也不可读。</p>
-<p>要么是面向芯片的设计流程，语言本身最好能和硬件资源一一对应，所见即所得，否则就要生成可读的代码，让工程师检查。不过工程师既然都要人肉检查生成的代码了，再套一层壳就比较鸡肋了。</p>
-<p>HDL已经深深嵌入到整个芯片设计流程中，前端和后端都能统一，EDA工具掌管着优化，VCS和Verdi已经是测试的标准工具。相比软件语言，HDL是一个非常细分且小众的DSL。</p>
-<p>也许，之后会有新的HDL成为事实的工业界标准，但应该会是一个漫长的过程。</p>
-<hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/SystemVerilog" target="_blank" rel="noopener">System Verilog</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/High-level_synthesis" target="_blank" rel="noopener">High-level synthesis</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>FPGA</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>机器学习系统 1-4 - 后端硬件验证</title>
     <url>/ai/ml-system/hardware-backend/4-verification/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>仿真不是真，只不过是现实世界的一个有限切面。但仿真又是在进入现实世界前的必经试炼。</p>
@@ -2653,6 +2815,52 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://www.xilinx.com/products/silicon-devices/acap/versal.html" target="_blank" rel="noopener">Versal</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>FPGA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 1-3 - 后端硬件描述语言</title>
+    <url>/ai/ml-system/hardware-backend/3-hardware-description-language/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。</p>
+<a id="more"></a>
+<p>软件编程语言定义了一系列面向人类可读性的字符语法。人类使用软件编程语言编写描述机器如何处理信息的步骤的文本，简称为软件代码。使用编译软件使用指定指令集翻译成机器具体处理信息的指令，简称为程序。🤓</p>
+<p>类似的，在硬件设计中，硬件的结构决定了功能，因此也需要借助一种文本描述硬件结构，得名硬件（结构）描述语言。</p>
+<p>软件代码可以直接编译成程序运行，也可以直接和测试框架一起编译运行，测试功能正确性。</p>
+<p>而硬件描述语言（HDL，Hardware Description Language）——其中对应硬件结构（可综合）的合法语法——只是对硬件的结构描述，需要使用仿真器（Emulator）构造硬件结构。</p>
+<p>通常高效的仿真器会将硬件代码等价映射成软件代码（比如C++）编译后运行，提高仿真效率。</p>
+<p>就可综合语法部分看，HDL乏像软件语言中的抽象模型，以用于代码复用。但是HDL中的寄存器、线以及模型足以描述任何复杂的硬件。可以利用软件工具管理生成代码，减少一部分coding的工作量。</p>
+<p>比如使用脚本（Perl或者Python）管理模块，辅助连线，或者借用软件的OOP（Object Oriented Programming)模型，套壳做DSL（Domain Specific Language）（比如Chisel套在Scala里），借助套壳语言的语法和抽象简化硬件编码工作。</p>
+<p>除了可综合语法，HDL中还引入了测试语法用来提供仿真激励。为了改进HDL的测试方面的短板，更多语法和抽象被引入进来，以至于可以被称为一门新的语言（比如System Verilog<a href="#refer-1"><sup>1</sup></a>)。</p>
+<p>有趣的是，System Verilog可以被看作天然的并行语言，引入不少并发机制，比如channel，GoLang的并发机制里也有channel。</p>
+<p>硬件开发的主要工作量并不在前端编码（主要包括编写Verilog并做功能仿真），占大头的是仿真测试和优化。在一些非自主开发IP的流程中，前端的工作基本就是把买来的IP（比如ARM）集成连线，写一些胶水逻辑。在一些自主IP定制的流程中，比如RISC-V，主要的功能还是在拓展指令集，然后接着大量测试和优化。</p>
+<p>我曾经试图发明一门新的语言，使用现代语言的语法来改进Verilog。写好了词法Parser，拿到了AST，做了一些类型推断以及代码优化工作，可以生成Verilog。然而如果要用于生产，开发工作量是不小的。最终只是作为一个toy项目，帮我熟悉了一些编译器的知识。</p>
+<p>现在回过头来看，如果考虑写一门HDL的话，需要考虑几点：  </p>
+<ul>
+<li>是否可以适配已有工业流程？通常是生成Verilog和其他EDA流程对接。</li>
+<li>是否可以做到和Verilog可综合语法完全等价？需要形式化验证以及实际项目支持（比如Chisel傍上了RISC-V）。</li>
+<li>是否支持其他blackbox（加密IP网表，VHDL，Verilog，SystemVerilog仿真模型）联合仿真？</li>
+<li>是否能在保证仿真结果精度准确的情况下，提高仿真效率？只能粗粒度功能仿真就很鸡肋。</li>
+<li>是否可以引入稳定的自动优化？怀疑是否又必要，后期优化的时候基本会扣每个寄存器，后端流程也有大量优化。</li>
+<li>是否易学？过多的引入严格的抽象概念会大幅提高语言学习难度（用软件语言的角度类比，学go，可能3天上手写工程，学rust，学一个月可能还经常卡在工程编译上），HDL依赖惯性可能比软件语言要大的多。</li>
+</ul>
+<p>软件语言的迭代，引入了新的编程模型，新的内存管理机制，新的并行模型等等，实实在在地带来了极大的收益，大幅提高了并发性能，大幅减少了代码量，大幅降低了运行时排错的成本等等。</p>
+<p>最终决定新语言是否会被大规模使用的核心还是：<strong>开发学习使用新语言引入的成本是否带来了足够的生产力收益</strong>。</p>
+<p>HDL的核心功能还是描述硬件结构。</p>
+<p>如果高层语言可以直接生成Verilog，要么是面向FPGA的HLS<a href="#refer-2"><sup>2</sup></a>（High Level Synthesis），面向软件工程师的硬件加速，根本不关心生成的代码，生成的代码也不可读。</p>
+<p>要么是面向芯片的设计流程，语言本身最好能和硬件资源一一对应，所见即所得，否则就要生成可读的代码，让工程师检查。不过工程师既然都要人肉检查生成的代码了，再套一层壳就比较鸡肋了。</p>
+<p>HDL已经深深嵌入到整个芯片设计流程中，前端和后端都能统一，EDA工具掌管着优化，VCS和Verdi已经是测试的标准工具。相比软件语言，HDL是一个非常细分且小众的DSL。</p>
+<p>也许，之后会有新的HDL成为事实的工业界标准，但应该会是一个漫长的过程。</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/SystemVerilog" target="_blank" rel="noopener">System Verilog</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/High-level_synthesis" target="_blank" rel="noopener">High-level synthesis</a></li>
 </ul>
 ]]></content>
       <categories>
