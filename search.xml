@@ -314,6 +314,55 @@
       </tags>
   </entry>
   <entry>
+    <title>算法基础 - 哈希表</title>
+    <url>/cs/algo/hash-table/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>哈希函数用于缩小映射空间，可能会发生碰撞，可用链表法或多哈希函数。</p>
+<a id="more"></a>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>常用数据结构：</p>
+<ul>
+<li>数组，有限确定项，比如字母串</li>
+<li>map，映射</li>
+<li>set，集合</li>
+</ul>
+<p>Go的map底层使用哈希表实现，set可通过将map的value置空实现。<br>C++的std::map/std::multimap由红黑树实现，std::unorderd_map由哈希表实现。</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="数组判断有效字母异位词"><a href="#数组判断有效字母异位词" class="headerlink" title="数组判断有效字母异位词"></a>数组判断有效字母异位词</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
+<ul>
+<li>数组直接存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isAnagram</span><span class="params">(s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a,b [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> s &#123;</span><br><span class="line">        a[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> t &#123;</span><br><span class="line">        b[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a==b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
+<ul>
+<li>数组直接存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canConstruct</span><span class="params">(ransomNote <span class="keyword">string</span>, magazine <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> r [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> magazine &#123;</span><br><span class="line">        r[c - <span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> ransomNote &#123;</span><br><span class="line">        <span class="keyword">if</span> r[c - <span class="string">'a'</span>] == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        r[c - <span class="string">'a'</span>]--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合判断数组相交"><a href="#集合判断数组相交" class="headerlink" title="集合判断数组相交"></a>集合判断数组相交</h2><p><img src="https://img.shields.io/badge/leetcode-349-blue.svg" alt> <a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a></p>
+<ul>
+<li>集合存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">Add</span><span class="params">(n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    s[n] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">And</span><span class="params">(t Set)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &gt; <span class="built_in">len</span>(t) &#123;</span><br><span class="line">        s, t = t, s</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> s &#123;</span><br><span class="line">        <span class="keyword">if</span> _, ok := t[k]; ok &#123;</span><br><span class="line">            ret = <span class="built_in">append</span>(ret, k)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">intersection</span><span class="params">(nums1 []<span class="keyword">int</span>, nums2 []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    a, b := Set&#123;&#125;, Set&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums1 &#123;</span><br><span class="line">        a.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums2 &#123;</span><br><span class="line">        b.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.And(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合判断快乐数"><a href="#集合判断快乐数" class="headerlink" title="集合判断快乐数"></a>集合判断快乐数</h2><p><img src="https://img.shields.io/badge/leetcode-202-blue.svg" alt> <a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a></p>
+<ul>
+<li>集合存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法基础 - 链表</title>
     <url>/cs/algo/list/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>表是最基础的数据结构之一，存储线性数据，内存结构不连续。</p>
@@ -357,55 +406,6 @@
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://golang.org/pkg/container/list/" target="_blank" rel="noopener">Package list</a></li>
 </ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>数据结构</tag>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法基础 - 哈希表</title>
-    <url>/cs/algo/hash-table/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>哈希函数用于缩小映射空间，可能会发生碰撞，可用链表法或多哈希函数。</p>
-<a id="more"></a>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>常用数据结构：</p>
-<ul>
-<li>数组，有限确定项，比如字母串</li>
-<li>map，映射</li>
-<li>set，集合</li>
-</ul>
-<p>Go的map底层使用哈希表实现，set可通过将map的value置空实现。<br>C++的std::map/std::multimap由红黑树实现，std::unorderd_map由哈希表实现。</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="数组判断有效字母异位词"><a href="#数组判断有效字母异位词" class="headerlink" title="数组判断有效字母异位词"></a>数组判断有效字母异位词</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
-<ul>
-<li>数组直接存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isAnagram</span><span class="params">(s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a,b [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> s &#123;</span><br><span class="line">        a[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> t &#123;</span><br><span class="line">        b[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a==b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
-<ul>
-<li>数组直接存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canConstruct</span><span class="params">(ransomNote <span class="keyword">string</span>, magazine <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> r [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> magazine &#123;</span><br><span class="line">        r[c - <span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> ransomNote &#123;</span><br><span class="line">        <span class="keyword">if</span> r[c - <span class="string">'a'</span>] == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        r[c - <span class="string">'a'</span>]--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="集合判断数组相交"><a href="#集合判断数组相交" class="headerlink" title="集合判断数组相交"></a>集合判断数组相交</h2><p><img src="https://img.shields.io/badge/leetcode-349-blue.svg" alt> <a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a></p>
-<ul>
-<li>集合存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">Add</span><span class="params">(n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    s[n] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">And</span><span class="params">(t Set)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &gt; <span class="built_in">len</span>(t) &#123;</span><br><span class="line">        s, t = t, s</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> s &#123;</span><br><span class="line">        <span class="keyword">if</span> _, ok := t[k]; ok &#123;</span><br><span class="line">            ret = <span class="built_in">append</span>(ret, k)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">intersection</span><span class="params">(nums1 []<span class="keyword">int</span>, nums2 []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    a, b := Set&#123;&#125;, Set&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums1 &#123;</span><br><span class="line">        a.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums2 &#123;</span><br><span class="line">        b.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.And(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="集合判断快乐数"><a href="#集合判断快乐数" class="headerlink" title="集合判断快乐数"></a>集合判断快乐数</h2><p><img src="https://img.shields.io/badge/leetcode-202-blue.svg" alt> <a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a></p>
-<ul>
-<li>集合存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -1641,7 +1641,11 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>快慢指针相遇</p>
 <h1 id="TOPK"><a href="#TOPK" class="headerlink" title="TOPK"></a>TOPK</h1><p>给定一个长度为n的数组，让求第K大的数，我说用维护最小堆，以及最小堆如何维护的</p>
 <h1 id="回文数"><a href="#回文数" class="headerlink" title="回文数"></a>回文数</h1><p>给定一个数字，求是否是回文数？</p>
-<h1 id="接雨水"><a href="#接雨水" class="headerlink" title="接雨水"></a>接雨水</h1><h1 id="topK，100万，找钱100"><a href="#topK，100万，找钱100" class="headerlink" title="topK，100万，找钱100"></a>topK，100万，找钱100</h1><h1 id="求第K大的数"><a href="#求第K大的数" class="headerlink" title="求第K大的数"></a>求第K大的数</h1><h1 id="给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort-二分）"><a href="#给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort-二分）" class="headerlink" title="给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort+二分）"></a>给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort+二分）</h1><h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h1><h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h1><h1 id="链表求和"><a href="#链表求和" class="headerlink" title="链表求和"></a>链表求和</h1><h1 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a>最小覆盖子串</h1><h1 id="最大交换"><a href="#最大交换" class="headerlink" title="最大交换"></a>最大交换</h1><h1 id="把一个方程式设计成树"><a href="#把一个方程式设计成树" class="headerlink" title="把一个方程式设计成树"></a>把一个方程式设计成树</h1><h1 id="LRU缓存"><a href="#LRU缓存" class="headerlink" title="LRU缓存"></a>LRU缓存</h1>]]></content>
+<h1 id="接雨水"><a href="#接雨水" class="headerlink" title="接雨水"></a>接雨水</h1><h1 id="topK，100万，找钱100"><a href="#topK，100万，找钱100" class="headerlink" title="topK，100万，找钱100"></a>topK，100万，找钱100</h1><h1 id="求第K大的数"><a href="#求第K大的数" class="headerlink" title="求第K大的数"></a>求第K大的数</h1><h1 id="给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort-二分）"><a href="#给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort-二分）" class="headerlink" title="给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort+二分）"></a>给定两个无序集合，求其中一个集合中所有元素与另一个集合中所有元素差距的绝对值的最小值（sort+二分）</h1><h1 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h1><h1 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h1><h1 id="链表求和"><a href="#链表求和" class="headerlink" title="链表求和"></a>链表求和</h1><h1 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a>最小覆盖子串</h1><h1 id="最大交换"><a href="#最大交换" class="headerlink" title="最大交换"></a>最大交换</h1><h1 id="把一个方程式设计成树"><a href="#把一个方程式设计成树" class="headerlink" title="把一个方程式设计成树"></a>把一个方程式设计成树</h1><h1 id="LRU缓存"><a href="#LRU缓存" class="headerlink" title="LRU缓存"></a>LRU缓存</h1><h1 id="从无限的字符流中-随机选出-10-个字符"><a href="#从无限的字符流中-随机选出-10-个字符" class="headerlink" title="从无限的字符流中, 随机选出 10 个字符"></a>从无限的字符流中, 随机选出 10 个字符</h1><p>终于要讲到蓄水池采样算法（Reservoir Sampling）了。先说一下算法的过程：</p>
+<p>假设数据序列的规模为 𝑛，需要采样的数量的为 𝑘。</p>
+<p>首先构建一个可容纳 𝑘 个元素的数组，将序列的前 𝑘 个元素放入数组中。</p>
+<p>然后从第 𝑘+1 个元素开始，以 <script type="math/tex">\frac{k}{n}</script> 的概率来决定该元素是否被替换到数组中（数组中的元素被替换的概率是相同的）。 当遍历完所有元素之后，数组中剩下的元素即为所需采取的样本。</p>
+]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -1658,11 +1662,14 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>当有多个线程时，如果系统只有一个CPU，那么CPU不可能真正同时进行多个线程，CPU的运行时间会被划分成若干个时间段，每个时间段分配给各个线程去执行，一个时间段里某个线程运行时，其他线程处于挂起状态，这就是并发。并发解决了程序排队等待的问题，如果一个程序发生阻塞，其他程序仍然可以正常执行。</p>
 <p>并行：当操作系统有多个CPU时，一个CPU处理A线程，另一个CPU处理B线程，两个线程互相不抢占CPU资源，可以<strong>同时进行</strong>，这种方式成为并行。</p>
 <p>并发只是在宏观上给人感觉有多个程序在同时运行，但在实际的单CPU系统中，每一时刻只有一个程序在运行，微观上这些程序是分时交替执行。<br>在多CPU系统中，将这些并发执行的程序分配到不同的CPU上处理，每个CPU用来处理一个程序，这样多个程序便可以实现同时执行。</p>
-<h2 id="进程-线程-协程"><a href="#进程-线程-协程" class="headerlink" title="进程 线程 协程"></a>进程 线程 协程</h2><p>基本概念与对比</p>
-<p><a href="https://www.cnblogs.com/Survivalist/p/11527949.html" target="_blank" rel="noopener">https://www.cnblogs.com/Survivalist/p/11527949.html</a></p>
+<h2 id="进程-线程-协程"><a href="#进程-线程-协程" class="headerlink" title="进程 线程 协程"></a>进程 线程 协程</h2><h3 id="基本概念与对比"><a href="#基本概念与对比" class="headerlink" title="基本概念与对比"></a>基本概念与对比</h3><p><a href="https://www.cnblogs.com/Survivalist/p/11527949.html" target="_blank" rel="noopener">https://www.cnblogs.com/Survivalist/p/11527949.html</a></p>
+<p>超线程技术就是利用特殊的硬件指令，把一个物理芯片模拟成两个逻辑处理核心，让单个处理器都能使用线程级并行计算，进而兼容多线程操作系统和软件，减少了CPU的闲置时间，提高的CPU的运行效率。这种超线程技术(如双核四线程)由处理器硬件的决定，同时也需要操作系统的支持才能在计算机中表现出来。</p>
+<p>程序一般不会直接去使用内核线程，而是去使用内核线程的一种高级接口——轻量级进程（Lightweight Process，LWP），轻量级进程就是我们通常意义上所讲的线程，也被叫做用户线程。由于每个轻量级进程都由一个内核线程支持，因此只有先支持内核线程，才能有轻量级进程。用户线程与内核线程的对应关系有三种模型：一对一模型、多对一模型、多对多模型，在这以4个内核线程、3个用户线程为例对三种模型进行说明。</p>
 <p>context切换过程对比</p>
-<p>孤儿进程，僵尸进程</p>
+<h3 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h3><p>一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。孤儿进程将被init进程(进程号为1)所收养，并由init进程对它们完成状态收集工作。<br>由于孤儿进程会被init进程给收养，所以孤儿进程不会对系统造成危害</p>
 <p><a href="https://liubigbin.github.io/2016/03/11/Linux-%E4%B9%8B%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E3%80%81%E5%83%B5%E6%AD%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/" target="_blank" rel="noopener">https://liubigbin.github.io/2016/03/11/Linux-%E4%B9%8B%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E3%80%81%E5%83%B5%E6%AD%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/</a></p>
+<h3 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h3><p>一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵死进程。</p>
+<p>一个进程如果只复制fork子进程而不负责对子进程进行wait()或是waitpid()调用来释放其所占有资源的话，那么就会产生很多的僵死进程，如果要消灭系统中大量的僵死进程，只需要将其父进程杀死，此时所有的僵死进程就会编程孤儿进程，从而被init所收养，这样init就会释放所有的僵死进程所占有的资源，从而结束僵死进程。</p>
 <p>进程优先级 时间片调度</p>
 <p><a href="https://blog.csdn.net/weixin_44029810/article/details/107444546" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44029810/article/details/107444546</a></p>
 <h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><p><a href="https://www.cnblogs.com/xiaolincoding/p/13675202.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaolincoding/p/13675202.html</a></p>
@@ -1707,6 +1714,36 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>Linux IO模式及 select、poll、epoll详解</p>
 <p><a href="https://segmentfault.com/a/1190000003063859" target="_blank" rel="noopener">https://segmentfault.com/a/1190000003063859</a></p>
 <p>IO multiplexing就是我们说的select，poll，epoll，有些地方也称这种IO方式为event driven IO。select/epoll的好处就在于单个process就可以同时处理多个网络连接的IO。它的基本原理就是select，poll，epoll这个function会不断的轮询所负责的所有socket，当某个socket有数据到达了，就通知用户进程。</p>
+<p>select，poll，epoll都是IO多路复用的机制。I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。但select，poll，epoll本质上都是同步I/O，因为他们都需要在读写事件就绪后自己负责进行读写，也就是说这个读写过程是阻塞的，而异步I/O则无需自己负责进行读写，异步I/O的实现会负责把数据从内核拷贝到用户空间。（这里啰嗦下）</p>
+<h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span> <span class="params">(<span class="keyword">int</span> n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>select 函数监视的文件描述符分3类，分别是writefds、readfds、和exceptfds。调用后select函数会阻塞，直到有描述副就绪（有数据 可读、可写、或者有except），或者超时（timeout指定等待时间，如果立即返回设为null即可），函数返回。当select函数返回后，可以 通过遍历fdset，来找到就绪的描述符。</p>
+<p>select目前几乎在所有的平台上支持，其良好跨平台支持也是它的一个优点。select的一 个缺点在于单个进程能够监视的文件描述符的数量存在最大限制，在Linux上一般为1024，可以通过修改宏定义甚至重新编译内核的方式提升这一限制，但 是这样也会造成效率的降低。</p>
+<h3 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poll</span> <span class="params">(struct pollfd *fds, <span class="keyword">unsigned</span> <span class="keyword">int</span> nfds, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>不同与select使用三个位图来表示三个fdset的方式，poll使用一个 pollfd的指针实现。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fd; <span class="comment">/* file descriptor */</span></span><br><span class="line">    short events; <span class="comment">/* requested events to watch */</span></span><br><span class="line">    short revents; <span class="comment">/* returned events witnessed */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>pollfd结构包含了要监视的event和发生的event，不再使用select“参数-值”传递的方式。同时，pollfd并没有最大数量限制（但是数量过大后性能也是会下降）。 和select函数一样，poll返回后，需要轮询pollfd来获取就绪的描述符。</p>
+<blockquote>
+<p>从上面看，select和poll都需要在返回后，通过遍历文件描述符来获取已经就绪的socket。事实上，同时连接的大量客户端在一时刻可能只有很少的处于就绪状态，因此随着监视的描述符数量的增长，其效率也会线性下降。</p>
+</blockquote>
+<h3 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h3><p>epoll是在2.6内核中提出的，是之前的select和poll的增强版本。相对于select和poll来说，epoll更加灵活，没有描述符限制。epoll使用一个文件描述符管理多个描述符，将用户关系的文件描述符的事件存放到内核的一个事件表中，这样在用户空间和内核空间的copy只需一次。</p>
+<p>epoll操作过程需要三个接口，分别如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">int epoll_create(int size)；//创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大</span><br><span class="line">int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event * events, <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>int epoll_create(int size);<br>创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大，这个参数不同于select()中的第一个参数，给出最大监听的fd+1的值，参数size并不是限制了epoll所能监听的描述符最大个数，只是对内核初始分配内部数据结构的一个建议。<br>当创建好epoll句柄后，它就会占用一个fd值，在linux下如果查看/proc/进程id/fd/，是能够看到这个fd的，所以在使用完epoll后，必须调用close()关闭，否则可能导致fd被耗尽。</p>
+</li>
+<li><p>int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；<br>函数是对指定描述符fd执行op操作。</p>
+</li>
+</ol>
+<ul>
+<li>epfd：是epoll_create()的返回值。</li>
+<li>op：表示op操作，用三个宏来表示：添加EPOLL_CTL_ADD，删除EPOLL_CTL_DEL，修改EPOLL_CTL_MOD。分别添加、删除和修改对fd的监听事件。</li>
+<li>fd：是需要监听的fd（文件描述符）</li>
+<li>epoll_event：是告诉内核需要监听什么事，struct epoll_event结构如下：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> &#123;</span></span><br><span class="line">  <span class="keyword">__uint32_t</span> events;  <span class="comment">/* Epoll events */</span></span><br><span class="line">  <span class="keyword">epoll_data_t</span> data;  <span class="comment">/* User data variable */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//events可以是以下几个宏的集合：</span></span><br><span class="line">EPOLLIN ：表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；</span><br><span class="line">EPOLLOUT：表示对应的文件描述符可以写；</span><br><span class="line">EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；</span><br><span class="line">EPOLLERR：表示对应的文件描述符发生错误；</span><br><span class="line">EPOLLHUP：表示对应的文件描述符被挂断；</span><br><span class="line">EPOLLET： 将EPOLL设为边缘触发(Edge Triggered)模式，这是相对于水平触发(Level Triggered)来说的。</span><br><span class="line">EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里</span><br></pre></td></tr></table></figure>
+<ol>
+<li>int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);<br>等待epfd上的io事件，最多返回maxevents个事件。<br>参数events用来从内核得到事件的集合，maxevents告之内核这个events有多大，这个maxevents的值不能大于创建epoll_create()时的size，参数timeout是超时时间（毫秒，0会立即返回，-1将不确定，也有说法说是永久阻塞）。该函数返回需要处理的事件数目，如返回0表示已超时。</li>
+</ol>
 <h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><p>HashMap,Guava cache</p>
 <p><a href="https://blog.csdn.net/Box_clf/article/details/84404759" target="_blank" rel="noopener">https://blog.csdn.net/Box_clf/article/details/84404759</a></p>
 <p><a href="https://blog.csdn.net/zgsxhdzxl/article/details/104362897" target="_blank" rel="noopener">https://blog.csdn.net/zgsxhdzxl/article/details/104362897</a></p>
@@ -1788,7 +1825,32 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>多线程写稀疏矩阵*稠密矩阵</li>
 </ul>
 <p><a href="https://www.licc.tech/article?id=63" target="_blank" rel="noopener">https://www.licc.tech/article?id=63</a><br>在Eigen中实现稀疏矩阵的多线程乘法</p>
+<h1 id="云，中间件，系统"><a href="#云，中间件，系统" class="headerlink" title="云，中间件，系统"></a>云，中间件，系统</h1><p><a href="http://blog.itpub.net/31555484/viewspace-2650133/" target="_blank" rel="noopener">http://blog.itpub.net/31555484/viewspace-2650133/</a></p>
 ]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>烤面筋 - C++</title>
+    <url>/work/interview/c++/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基础问题</p>
+<a id="more"></a>]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>烤面筋 - Dart</title>
+    <url>/work/interview/dart/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基础问题</p>
+<a id="more"></a>]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -1830,14 +1892,40 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>CSP(communicating sequential processes)</p>
 <p>GPM</p>
 <p>Goroutine/Processor/M Thread</p>
-<p><a href="https://learnku.com/articles/41728" target="_blank" rel="noopener">https://learnku.com/articles/41728</a></p>
 <p><a href="https://my.oschina.net/aom/blog/4279175" target="_blank" rel="noopener">https://my.oschina.net/aom/blog/4279175</a></p>
+<p>Processor（P）：</p>
+<p>根据用户设置的 GoMAXPROCS 值来创建一批小车(P)。</p>
+<p>Goroutine(G)：</p>
+<p>通过 Go 关键字就是用来创建一个 Goroutine，也就相当于制造一块砖(G)，然后将这块砖(G)放入当前这辆小车(P)中。</p>
+<p>Machine (M)：</p>
+<p>地鼠(M)不能通过外部创建出来，只能砖(G)太多了，地鼠(M)又太少了，实在忙不过来，刚好还有空闲的小车(P)没有使用，那就从别处再借些地鼠(M)过来直到把小车(P)用完为止。</p>
+<p>这里有一个地鼠(M)不够用，从别处借地鼠(M)的过程，这个过程就是创建一个内核线程(M)。</p>
+<p>需要注意的是：地鼠(M) 如果没有小车(P)是没办法运砖的，小车(P)的数量决定了能够干活的地鼠(M)数量，在 Go 程序里面对应的是活动线程数；</p>
+<p>P 代表可以“并行”运行的逻辑处理器，每个 P 都被分配到一个系统线程 M，G 代表 Go 协程。</p>
+<p>Go 调度器中有两个不同的运行队列：全局运行队列(GRQ)和本地运行队列(LRQ)。</p>
+<p>每个 P 都有一个 LRQ，用于管理分配给在 P 的上下文中执行的 Goroutines，这些 Goroutine 轮流被和 P 绑定的 M 进行上下文切换。GRQ 适用于尚未分配给 P 的 Goroutines。</p>
+<p>从上图可以看出，G 的数量可以远远大于 M 的数量，换句话说，Go 程序可以利用少量的内核级线程来支撑大量 Goroutine 的并发。多个 Goroutine 通过用户级别的上下文切换来共享内核线程 M 的计算资源，但对于操作系统来说并没有线程上下文切换产生的性能损耗。</p>
+<p>调度策略：</p>
+<ol>
+<li>任务窃取（work-stealing），每个P的G不均衡，可以从GRQ或LRQ中获取G执行。</li>
+<li>减少阻塞<ol>
+<li>由于原子、互斥量或通道操作调用导致 Goroutine 阻塞，调度器将把当前阻塞的 Goroutine 切换出去，重新调度 LRQ 上的其他 Goroutine；</li>
+<li>由于网络请求和 IO 操作导致 Goroutine 阻塞，Go 程序提供了<strong>网络轮询器（NetPoller）</strong>来处理网络请求和 IO 操作的问题，其后台通过 kqueue（MacOS），epoll（Linux）或 iocp（Windows）来实现 IO 多路复用。</li>
+<li>当调用一些系统方法（比如文件IO）的时候，如果系统方法调用的时候发生阻塞，这种情况下，网络轮询器（NetPoller）无法使用，而进行系统调用的 Goroutine 将阻塞当前 M。调度器介入后：识别出 G1 已导致 M1 阻塞，此时，调度器将 M1 与 P 分离，同时也将 G1 带走。然后调度器引入新的 M2 来服务 P。此时，可以从 LRQ 中选择 G2 并在 M2 上进行上下文切换。阻塞的系统调用完成后：G1 可以移回 LRQ 并再次由 P 执行。如果这种情况再次发生，M1 将被放在旁边以备将来重复使用。</li>
+<li>如果在 Goroutine 去执行一个 sleep 操作，导致 M 被阻塞了。Go 程序后台有一个监控线程 sysmon，它监控那些长时间运行的 G 任务然后设置可以强占的标识符，别的 Goroutine 就可以抢先进来执行。只要下次这个 Goroutine 进行函数调用，那么就会被强占，同时也会保护现场，然后重新放入 P 的本地队列里面等待下次执行。</li>
+</ol>
+</li>
+</ol>
 <p>底层复用多路IO，调度器分离阻塞G</p>
 <p><a href="https://segmentfault.com/a/1190000022871460" target="_blank" rel="noopener">https://segmentfault.com/a/1190000022871460</a></p>
 <p>goroutine的保存和恢复只需要三个寄存器：程序计数器、栈指针和DX寄存器。因为goroutine之间共享堆空间，不共享栈空间，所以只需把goroutine的栈指针和程序执行到那里的信息保存和恢复即可，花费很低。</p>
 <p>当线程阻塞时，其它的线程进可能被执行，这叫做线程的切换。切换的时候，调度器需要保存当前阻塞的线程的状态，恢复要执行的线程状态，包括所有的寄存器，16个通用寄存器、程序计数器、栈指针、段寄存器、16个XMM寄存器、FP协处理器、16个 AVX寄存器、所有的MSR等等</p>
 <p><a href="https://developer.aliyun.com/article/611313" target="_blank" rel="noopener">https://developer.aliyun.com/article/611313</a></p>
 <p>Do not communicate by sharing memory; instead, share memory by communicating.</p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>kernel threads, user threads, and fibers</p>
+<p>kernel thread是由操作系统内核支持的线程,也是基本意义上的线程,kernel thread切换由内核完成.一般程序不会直接使用kernel thread,而是使用kernel thread的一种高级接口-轻量级进程(Light Weight Process)一个LWP对应于一个kernel thread.</p>
+<p>user thread指不需要内核支持而在用户程序中实现的线程,它不依赖于内核,用户自己实现user thread的创建,同步,调度,管理等功能.这里一个LWP对应多个user thread,简单点说 一个进程拥有多个LWP,一个LWP又拥有多个user thread.,这里的用户一般指的是编程语言</p>
+<p>Go使用了user thread的线程模型,在Go中称之为goroutine,这是Go称为并发型语言的基础.<br>Go语言中有逻辑处理器(Logic Processor)的概念,,通过它完成user thread的调度.</p>
 <h1 id="逃逸分析-🌟"><a href="#逃逸分析-🌟" class="headerlink" title="逃逸分析 🌟"></a>逃逸分析 🌟</h1><p>逃逸分配在堆上，否则分配到栈上。</p>
 <p>写一个</p>
 <h1 id="sync-Map"><a href="#sync-Map" class="headerlink" title="sync.Map"></a>sync.Map</h1><p>原生map非线程安全，加锁以及sync.Map{}的实现</p>
@@ -1863,6 +1951,27 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <h1 id="GC-🌟"><a href="#GC-🌟" class="headerlink" title="GC 🌟"></a>GC 🌟</h1><p>优缺点</p>
 <p>三色并发标记法</p>
 <p><a href="https://juejin.cn/post/6844903793855987719" target="_blank" rel="noopener">https://juejin.cn/post/6844903793855987719</a></p>
+<ol>
+<li>程序创建的对象都标记为白色。</li>
+<li>gc开始：扫描所有可直接到达的对象，标记为灰色</li>
+<li>从灰色对象中找到其引用对象标记为灰色，把灰色对象本身标记为黑色</li>
+<li>监视对象中的内存修改，并持续上一步的操作，直到灰色标记的对象不存在</li>
+<li>gc回收白色对象。</li>
+<li>最后，将所有黑色对象变为白色，并重复以上所有过程。</li>
+</ol>
+<p>Go是如何解决标记-清除(mark and sweep)算法中的卡顿(stw，stop the world)问题的呢？</p>
+<ol>
+<li>STW，stop the world；让程序暂停，程序出现卡顿。</li>
+<li>标记需要扫描整个heap</li>
+<li>清除数据会产生heap碎片</li>
+</ol>
+<p>标记-清除(mark and sweep)算法的STW(stop the world)操作，就是runtime把所有的线程全部冻结掉，所有的线程全部冻结意味着用户逻辑是暂停的。这样所有的对象都不会被修改了，这时候去扫描是绝对安全的。<br>Go如何减短这个过程呢？标记-清除(mark and sweep)算法包含两部分逻辑：标记和清除。<br>我们知道Golang三色标记法中最后只剩下的黑白两种对象，黑色对象是程序恢复后接着使用的对象，如果不碰触黑色对象，只清除白色的对象，肯定不会影响程序逻辑。所以：清除操作和用户逻辑可以并发。<br>标记操作和用户逻辑也是并发的，用户逻辑会时常生成对象或者改变对象的引用，那么标记和用户逻辑如何并发呢？</p>
+<p>process新生成对象的时候，GC该如何操作呢？不会乱吗？<br>我们看如下图，在此状态下：process程序又新生成了一个对象，我们设想会变成这样：</p>
+<p>但是这样显然是不对的，因为按照三色标记法的步骤，这样新生成的对象A最后会被清除掉，这样会影响程序逻辑。</p>
+<p>Golang为了解决这个问题，引入了写屏障这个机制。 写屏障：该屏障之前的写操作和之后的写操作相比，先被系统其它组件感知。 通俗的讲：就是在gc跑的过程中，可以监控对象的内存修改，并对对象进行重新标记。(实际上也是超短暂的stw，然后对对象进行标记)</p>
+<p>那么，灰色或者黑色对象的引用改为白色对象的时候，Golang是该如何操作的？<br>看如下图，一个黑色对象引用了曾经标记的白色对象。</p>
+<p>这时候，写屏障机制被触发，向GC发送信号，GC重新扫描对象并标位灰色。</p>
+<p>因此，gc一旦开始，无论是创建对象还是对象的引用改变，都会先变为灰色。</p>
 <h1 id="Go内存模型-tcmalloc"><a href="#Go内存模型-tcmalloc" class="headerlink" title="Go内存模型(tcmalloc)"></a>Go内存模型(tcmalloc)</h1><h1 id="recover"><a href="#recover" class="headerlink" title="recover"></a>recover</h1><h1 id="sql-pool"><a href="#sql-pool" class="headerlink" title="sql pool"></a>sql pool</h1><h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p>语言基础是否学习完整？<br>例：除了 mutex 以外还有那些方式安全读写共享变量？</p>
 <p>语言基础是否足够扎实？<br>例：无缓冲 chan 的发送和接收是否同步？</p>
 <p>语言细节是否有过了解？<br>例：golang 采用什么并发模型？体现在哪里？</p>
@@ -1871,7 +1980,102 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>考察实际经验，例：JSON 标准库对 nil slice 和 空 slice 的处理是一致的吗？</p>
 <p>考察学习历程，例：学习 Go 的主要途径？读过那些书？</p>
 <h1 id="go-defer-for-defer"><a href="#go-defer-for-defer" class="headerlink" title="go defer / for defer"></a>go defer / for defer</h1><h1 id="select"><a href="#select" class="headerlink" title="select"></a>select</h1><h1 id="map"><a href="#map" class="headerlink" title="map"></a>map</h1><p>顺序读取</p>
-<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><h1 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h1><h1 id="大文件排序"><a href="#大文件排序" class="headerlink" title="大文件排序"></a>大文件排序</h1>]]></content>
+<h1 id="set"><a href="#set" class="headerlink" title="set"></a>set</h1><h1 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h1><h1 id="大文件排序"><a href="#大文件排序" class="headerlink" title="大文件排序"></a>大文件排序</h1><h1 id="Go-for-range-闭包"><a href="#Go-for-range-闭包" class="headerlink" title="Go for range 闭包"></a>Go for range 闭包</h1><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> ss [<span class="number">5</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一种情况，很正常，输出0，1，2，3，4</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> ss &#123;</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种情况，典型的Go语言闭包，它捕获了变量i，但是要注意的是它持有的是引用不是拷贝，当for循环结束时，i=4</span></span><br><span class="line"><span class="comment">//所以闭包输出的结果都是4</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> ss &#123;</span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第三种情况，这种情况下的闭包，它并没有捕获变量i，而是通过传参的方式，这种情况下它得到的是拷贝</span></span><br><span class="line"><span class="comment">//所以其结果是4，3，2，1，0</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> ss &#123;</span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>烤面筋 - Kubernetes</title>
+    <url>/work/interview/kubernetes/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>k8s基本常识</p>
+<a id="more"></a>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p><a href="https://segmentfault.com/a/1190000039334395" target="_blank" rel="noopener">https://segmentfault.com/a/1190000039334395</a></p>
+<p><a href="https://www.kubernetes.org.cn/5578.html" target="_blank" rel="noopener">https://www.kubernetes.org.cn/5578.html</a></p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>apiserver、controller、kubelet、scheduler </p>
+<h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p><a href="https://draveness.me/kubernetes-pod/" target="_blank" rel="noopener">https://draveness.me/kubernetes-pod/</a></p>
+<p><a href="https://kubernetes.io/zh/docs/concepts/workloads/pods/" target="_blank" rel="noopener">https://kubernetes.io/zh/docs/concepts/workloads/pods/</a></p>
+<p>Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。</p>
+<p>Pod （就像在鲸鱼荚或者豌豆荚中）是一组（一个或多个） 容器； 这些容器共享存储、网络、以及怎样运行这些容器的声明。 Pod 中的内容总是并置（colocated）的并且一同调度，在共享的上下文中运行。 Pod 所建模的是特定于应用的“逻辑主机”，其中包含一个或多个应用容器， 这些容器是相对紧密的耦合在一起的。 在非云环境中，在相同的物理机或虚拟机上运行的应用类似于 在同一逻辑主机上运行的云应用。</p>
+<p>Pod共享网络、存储以及 CPU、内存、进程命名空间等资源。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">shareProcessNamespace:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>Pod生命周期：</p>
+<ol>
+<li>Create</li>
+<li>Probe</li>
+<li>Running</li>
+<li>Shutdown</li>
+<li>Restart</li>
+</ol>
+<p>当 Pod 被创建之后，就会进入健康检查状态，当 Kubernetes 确定当前 Pod 已经能够接受外部的请求时，才会将流量打到新的 Pod 上并继续对外提供服务，在这期间如果发生了错误就可能会触发重启机制，在 Pod 被删除之前都会触发一个 PreStop 的钩子，其中的方法完成之后 Pod 才会被删除。</p>
+<p>LivenessProbe ReadinessProbe</p>
+<ul>
+<li>exec</li>
+<li>httpGet</li>
+<li>tcpSocket</li>
+</ul>
+<h2 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h2><p><a href="https://kubernetes.io/zh/docs/concepts/services-networking/service/" target="_blank" rel="noopener">https://kubernetes.io/zh/docs/concepts/services-networking/service/</a></p>
+<p>将运行在一组 Pods 上的应用程序公开为网络服务的抽象方法。<br>使用 Kubernetes，你无需修改应用程序即可使用不熟悉的服务发现机制。 Kubernetes 为 Pods 提供自己的 IP 地址，并为一组 Pod 提供相同的 DNS 名， 并且可以在它们之间进行负载均衡。</p>
+<p>在 Kubernetes 中创建一个新的 Service 对象需要两大模块同时协作，其中一个模块是控制器，它需要在每次客户端创建新的 Service 对象时，生成其他用于暴露一组 Pod 的 Kubernetes 对象，也就是 Endpoint 对象；另一个模块是 kube-proxy，它运行在 Kubernetes 集群中的每一个节点上，会根据 Service 和 Endpoint 的变动改变节点上 iptables 或者 ipvs 中保存的规则。</p>
+<h3 id="ServiceController"><a href="#ServiceController" class="headerlink" title="ServiceController"></a>ServiceController</h3><p>每当有服务被创建或者销毁时，Informer 都会通知 ServiceController，它会将这些任务投入工作队列中并由其本身启动的 Worker 协程消费。ServiceController 主要处理的还是与 LoadBalancer 相关的逻辑。</p>
+<h3 id="EndpointController"><a href="#EndpointController" class="headerlink" title="EndpointController"></a>EndpointController</h3><p>EndpointController 本身并没有通过 Informer 监听 Endpoint 资源的变动，但是它却同时订阅了 Service 和 Pod 资源的增删事件。</p>
+<p>对于每一个 Pod 都会生成一个新的 EndpointSubset，其中包含了 Pod 的 IP 地址和端口和 Service 的规格中指定的输入端口和目标端口，在最后 EndpointSubset 的数据会被重新打包并通过客户端创建一个新的 Endpoint 资源。</p>
+<h3 id="Kube-Proxy"><a href="#Kube-Proxy" class="headerlink" title="Kube-Proxy"></a>Kube-Proxy</h3><p>在整个集群中另一个订阅 Service 对象变动的组件就是 kube-proxy 了，每当 kube-proxy 在新的节点上启动时都会初始化一个 ServiceConfig 对象，就像介绍 iptables 代理模式时提到的，这个对象会接受 Service 的变更事件。<br>这些变更事件都会被订阅了集群中对象变动的 ServiceConfig 和 EndpointConfig 对象推送给启动的 Proxier 实例。<br>收到事件变动的 Proxier 实例随后会根据启动时的配置更新 iptables 或者 ipvs 中的规则，这些应用最终会负责对进出的流量进行转发并完成一些负载均衡相关的任务。</p>
+<ul>
+<li>userspace 用户空间</li>
+</ul>
+<p>在用户空间模式中，如果一个连接被目标服务拒绝，我们的代理服务能够重新尝试连接其他的服务，除此之外用户空间模式并没有太多的优势。</p>
+<ul>
+<li>iptable 内核</li>
+</ul>
+<p>虽然相比于用户空间来说，直接运行在内核态的 iptables 能够增加代理的吞吐量，但是当集群中的节点数量非常多时，iptables 并不能达到生产级别的可用性要求，每次对规则进行匹配时都会遍历 iptables 中的所有 Service 链。</p>
+<p>规则的更新也不是增量式的，当集群中的 Service 达到 5,000 个，每增加一条规则都需要耗时 11min，当集群中的 Service 达到 20,000 个时，每增加一条规则都需要消耗 5h 的时间，这也就是告诉我们在大规模集群中使用 iptables 作为代理模式是完全不可用的。</p>
+<ul>
+<li>ipvs 内核，更快，更复杂</li>
+</ul>
+<p>ipvs 就是用于解决在大量 Service 时，iptables 规则同步变得不可用的性能问题。与 iptables 比较像的是，ipvs 的实现虽然也基于 netfilter 的钩子函数，但是它却使用哈希表作为底层的数据结构并且工作在内核态，这也就是说 ipvs 在重定向流量和同步代理规则有着更好的性能。</p>
+<p>除了能够提升性能之外，ipvs 也提供了多种类型的负载均衡算法，除了最常见的 Round-Robin 之外，还支持最小连接、目标哈希、最小延迟等算法，能够很好地提升负载均衡的效率。</p>
+<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><p><a href="https://draveness.me/kubernetes-volume/" target="_blank" rel="noopener">https://draveness.me/kubernetes-volume/</a></p>
+<ul>
+<li>Volume</li>
+<li>Persistent Volume</li>
+<li>Dynamic Volume Provisioning</li>
+</ul>
+<p>集群中的每一个卷在被 Pod 使用时都会经历四个操作，也就是附着（Attach）、挂载（Mount）、卸载（Unmount）和分离（Detach）。</p>
+<p>如果 Pod 中使用的是 EmptyDir、HostPath 这种类型的卷，那么这些卷并不会经历附着和分离的操作，它们只会被挂载和卸载到某一个的 Pod 中，不过如果使用的云服务商提供的存储服务，这些持久卷只有附着到某一个节点之后才可以被挂在到相应的目录下，不过在其他节点使用这些卷时，该存储资源也需要先与当前的节点分离。</p>
+<h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p>ReadWriteOnce 表示当前卷可以被一个节点使用读写模式挂载；<br>ReadOnlyMany 表示当前卷可以被多个节点使用只读模式挂载；<br>ReadWriteMany 表示当前卷可以被多个节点使用读写模式挂载；</p>
+<h3 id="回收"><a href="#回收" class="headerlink" title="回收"></a>回收</h3><p>Retain<br>Delete<br>Dynamic Provisioning</p>
+<h2 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h2><p><a href="https://kubernetes.io/zh/docs/concepts/workloads/controllers/statefulset/" target="_blank" rel="noopener">https://kubernetes.io/zh/docs/concepts/workloads/controllers/statefulset/</a></p>
+<p>StatefulSet 用来管理某 Pod 集合的部署和扩缩， 并为这些 Pod 提供持久存储和持久标识符。</p>
+<p>和 Deployment 类似， StatefulSet 管理基于相同容器规约的一组 Pod。但和 Deployment 不同的是， StatefulSet 为它们的每个 Pod 维护了一个有粘性的 ID。这些 Pod 是基于相同的规约来创建的， 但是不能相互替换：无论怎么调度，每个 Pod 都有一个永久不变的 ID。</p>
+<h3 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h3><p>RollingUpdate 更新策略对 StatefulSet 中的 Pod 执行自动的滚动更新。 在没有声明 .spec.updateStrategy 时，RollingUpdate 是默认配置。 当 StatefulSet 的 .spec.updateStrategy.type 被设置为 RollingUpdate 时， StatefulSet 控制器会删除和重建 StatefulSet 中的每个 Pod。 它将按照与 Pod 终止相同的顺序（从最大序号到最小序号）进行，每次更新一个 Pod。 它会等到被更新的 Pod 进入 Running 和 Ready 状态，然后再更新其前身。</p>
+<h4 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h4><p>通过声明 .spec.updateStrategy.rollingUpdate.partition 的方式，RollingUpdate 更新策略可以实现分区。 如果声明了一个分区，当 StatefulSet 的 .spec.template 被更新时， 所有序号大于等于该分区序号的 Pod 都会被更新。 所有序号小于该分区序号的 Pod 都不会被更新，并且，即使他们被删除也会依据之前的版本进行重建。 如果 StatefulSet 的 .spec.updateStrategy.rollingUpdate.partition 大于它的 .spec.replicas，对它的 .spec.template 的更新将不会传递到它的 Pod。 在大多数情况下，你不需要使用分区，但如果你希望进行阶段更新、执行金丝雀或执行 分阶段上线，则这些分区会非常有用。</p>
+<h2 id="DaemonSet"><a href="#DaemonSet" class="headerlink" title="DaemonSet"></a>DaemonSet</h2><p><a href="https://kubernetes.io/zh/docs/concepts/workloads/controllers/daemonset/" target="_blank" rel="noopener">https://kubernetes.io/zh/docs/concepts/workloads/controllers/daemonset/</a></p>
+<p>DaemonSet 确保全部（或者某些）节点上运行一个 Pod 的副本。 当有节点加入集群时， 也会为他们新增一个 Pod 。 当有节点从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod。</p>
+<p>DaemonSet 的一些典型用法：</p>
+<p>在每个节点上运行集群守护进程<br>在每个节点上运行日志收集守护进程<br>在每个节点上运行监控守护进程</p>
+<h2 id="Job-CronJob"><a href="#Job-CronJob" class="headerlink" title="Job/CronJob"></a>Job/CronJob</h2><h2 id="Informer"><a href="#Informer" class="headerlink" title="Informer"></a>Informer</h2><p><a href="https://www.kubernetes.org.cn/6905.html" target="_blank" rel="noopener">https://www.kubernetes.org.cn/6905.html</a></p>
+<p><a href="https://segmentfault.com/a/1190000022643082" target="_blank" rel="noopener">https://segmentfault.com/a/1190000022643082</a></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="CRD"><a href="#CRD" class="headerlink" title="CRD"></a>CRD</h3><p>operator</p>
+<h3 id="Container-Plugin"><a href="#Container-Plugin" class="headerlink" title="Container Plugin"></a>Container Plugin</h3><h3 id="Storage-Plugin"><a href="#Storage-Plugin" class="headerlink" title="Storage Plugin"></a>Storage Plugin</h3><h3 id="Device-Plugin"><a href="#Device-Plugin" class="headerlink" title="Device Plugin"></a>Device Plugin</h3><h2 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h2><ol>
+<li>高内聚、低耦合。</li>
+<li>无缝的 API 集成。</li>
+<li>为每一项服务分配唯一的资源标识。</li>
+<li>实时流量管理。</li>
+<li>最小化数据表，以优化加载。</li>
+<li>通过内/外部 API，执行持续监控。</li>
+<li>为每个微服务隔离数据的存储。这对于限制数据的访问和避免“服务的耦合”是非常有用的。 例如：基于用户的分类数据，我们可以实施命令查询的责任分离（Command Query Responsibility Segregation，CQRS）。</li>
+<li>去中心化。设计微服务架构的首要原则是：将单体结构分解成独立的多个实体，而这些实体就被称为微服务。 这些微服务能够独立于其他的系统功能提供服务，用户对它们采取的所有编辑、删除、或在其他地方的使用，都不会影响到本系统的整体性能。</li>
+<li>可扩展性。微服务的设计目标是：性能与效率。在现实世界中，解决大型系统的可扩展性问题，是任何微服务生态系统的性能体现。 虽然丰富的技术功能给大量的数据工作带来了多种数据片段，但是如果能恰当地实施、并使用各种应用程序控制器（Application Controllers），则会让微服务架构更具可扩展性。</li>
+<li>通过与 DevOps 的集成，实现持续交付。DevOps 的多技术互通与融合，比较适合于微服务架构。在设计微服务架构时，我们需要关注性能和系统效率的提升，这正好契合了 DevOps 的更快交付出方案的理念。 相对于传统的单体式设计，它更适合于部署性、可靠的和可扩展性的方案管理。</li>
+</ol>
+<p><a href="https://kubernetes.io/zh/docs/setup/release/version-skew-policy/" target="_blank" rel="noopener">https://kubernetes.io/zh/docs/setup/release/version-skew-policy/</a></p>
+<hr>
+<p><a href="http://blog.itpub.net/31555484/viewspace-2650133/" target="_blank" rel="noopener">http://blog.itpub.net/31555484/viewspace-2650133/</a></p>
+]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -1895,7 +2099,7 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>压缩的好处就是减少传输的数据量，减轻对网络传输的压力</p>
 <h2 id="kafka的存储模型"><a href="#kafka的存储模型" class="headerlink" title="kafka的存储模型"></a>kafka的存储模型</h2><p><a href="https://blog.csdn.net/FlyingAngelet/article/details/84761466" target="_blank" rel="noopener">https://blog.csdn.net/FlyingAngelet/article/details/84761466</a></p>
 <h2 id="Kafka消费者多个group消费同一个topic-会重复消费吗？"><a href="#Kafka消费者多个group消费同一个topic-会重复消费吗？" class="headerlink" title="Kafka消费者多个group消费同一个topic,会重复消费吗？"></a>Kafka消费者多个group消费同一个topic,会重复消费吗？</h2><p>不会</p>
-<h2 id="Kafka保序"><a href="#Kafka保序" class="headerlink" title="Kafka保序"></a>Kafka保序</h2><h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><h2 id="rabbitmq的消息投递策略"><a href="#rabbitmq的消息投递策略" class="headerlink" title="rabbitmq的消息投递策略"></a>rabbitmq的消息投递策略</h2><h2 id="celery在rabbitmq的默认策略"><a href="#celery在rabbitmq的默认策略" class="headerlink" title="celery在rabbitmq的默认策略"></a>celery在rabbitmq的默认策略</h2><h2 id="rabbitmq的消息丢失"><a href="#rabbitmq的消息丢失" class="headerlink" title="rabbitmq的消息丢失"></a>rabbitmq的消息丢失</h2><h2 id="celery的延时任务"><a href="#celery的延时任务" class="headerlink" title="celery的延时任务"></a>celery的延时任务</h2><h1 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h1>]]></content>
+<h2 id="Kafka保序"><a href="#Kafka保序" class="headerlink" title="Kafka保序"></a>Kafka保序</h2><h1 id="Apache-Pulsar"><a href="#Apache-Pulsar" class="headerlink" title="Apache Pulsar"></a>Apache Pulsar</h1><h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><h2 id="rabbitmq的消息投递策略"><a href="#rabbitmq的消息投递策略" class="headerlink" title="rabbitmq的消息投递策略"></a>rabbitmq的消息投递策略</h2><h2 id="celery在rabbitmq的默认策略"><a href="#celery在rabbitmq的默认策略" class="headerlink" title="celery在rabbitmq的默认策略"></a>celery在rabbitmq的默认策略</h2><h2 id="rabbitmq的消息丢失"><a href="#rabbitmq的消息丢失" class="headerlink" title="rabbitmq的消息丢失"></a>rabbitmq的消息丢失</h2><h2 id="celery的延时任务"><a href="#celery的延时任务" class="headerlink" title="celery的延时任务"></a>celery的延时任务</h2><h1 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h1>]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -1911,6 +2115,9 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p><a href="https://juejin.cn/post/6844904127047139335" target="_blank" rel="noopener">https://juejin.cn/post/6844904127047139335</a></p>
 <h1 id="binlog"><a href="#binlog" class="headerlink" title="binlog"></a>binlog</h1><p>二进制日志，主从同步，replay</p>
 <p><a href="https://laijianfeng.org/2019/03/MySQL-Binlog-%E4%BB%8B%E7%BB%8D/" target="_blank" rel="noopener">https://laijianfeng.org/2019/03/MySQL-Binlog-%E4%BB%8B%E7%BB%8D/</a></p>
+<p>订阅分库分表的 Binlog 怎么订阅？</p>
+<p>分库分表的数据源中假如存在主键冲突要怎么解决？</p>
+<p>怎么保证下游对 Binlog 的消费顺序？</p>
 <h1 id="Innodb和MyIASM区别-事务，索引，锁。。。"><a href="#Innodb和MyIASM区别-事务，索引，锁。。。" class="headerlink" title="Innodb和MyIASM区别(事务，索引，锁。。。)"></a>Innodb和MyIASM区别(事务，索引，锁。。。)</h1><p>InnoDB索引是聚簇索引，MyISAM索引是非聚簇索引。<br>InnoDB的主键索引的叶子节点存储着行数据，因此主键索引非常高效。<br>MyISAM索引的叶子节点存储的是行数据地址，需要再寻址一次才能得到数据。<br>InnoDB非主键索引的叶子节点存储的是主键和其他带索引的列数据，因此查询时做到覆盖索引会非常高效。</p>
 <p><a href="https://www.runoob.com/w3cnote/mysql-different-nnodb-myisam.html" target="_blank" rel="noopener">https://www.runoob.com/w3cnote/mysql-different-nnodb-myisam.html</a></p>
 <h1 id="Innodb"><a href="#Innodb" class="headerlink" title="Innodb"></a>Innodb</h1><p><a href="https://blog.csdn.net/weixin_45320660/article/details/115326483" target="_blank" rel="noopener">https://blog.csdn.net/weixin_45320660/article/details/115326483</a></p>
@@ -1998,6 +2205,18 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <h1 id="分布式ID"><a href="#分布式ID" class="headerlink" title="分布式ID"></a>分布式ID</h1><p>Snowflake</p>
 <p>毫秒级时间41位 机器ID 10位 毫秒内序列12位</p>
 ]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>烤面筋 - Python</title>
+    <url>/work/interview/python/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基础问题</p>
+<a id="more"></a>]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -2267,6 +2486,7 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>Go熟悉程度？常见问题？</li>
 </ul>
 <p>云服务后端，推荐后端，机器学习产品（Notebook/EAS）后端。</p>
+<p><a href="/work/interview/go">Go面试</a></p>
 <ul>
 <li>C++熟悉程度？常见问题？</li>
 </ul>
@@ -2286,7 +2506,8 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <ul>
 <li>对云原生的理解？</li>
 </ul>
-<p>k8s的大规模使用带来的更精细粒度的云资源的调度，尤其是Serverless的形式，使得服务不需要过多关注底层资源管理调度。云原生就是以调度平台，微服务，容器的分布式系统为基础的应用开发，一是容器化无状态，二是直接定义使用云资源。</p>
+<p>k8s的大规模使用带来的更精细粒度的云资源的调度，尤其是Serverless的形式，使得服务不需要过多关注底层资源管理调度。</p>
+<p>采用开源堆栈（K8S+Docker）进行容器化，基于微服务架构提高灵活性和可维护性，借助敏捷方法、DevOps支持持续迭代和运维自动化，利用云平台设施实现弹性伸缩、动态调度、优化资源利用率。</p>
 <ul>
 <li>关注产品，关注什么？</li>
 </ul>
@@ -2396,11 +2617,13 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>你写了SQL，了解MySQL吗？使用MySQL有哪些注意事项。</li>
 </ul>
 <p>不用外键。</p>
+<p><a href="/work/interview/mysql">MySQL面试</a></p>
 <ul>
 <li>Redis使用有哪些注意事项。</li>
 </ul>
 <p>读雪崩。不统一设置过期时间。</p>
 <p>保护API，VPC内加白名单。后端限流。</p>
+<p><a href="/work/interview/redis">Redis面试</a></p>
 <ul>
 <li>HBase的理解，有什么要注意的？</li>
 </ul>
@@ -2420,6 +2643,7 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>说说Kubernetes的基本理解。</li>
 </ul>
 <p>k8s统一了分布式资源调度模型，更精细的分配资源，扩展性强。</p>
+<p><a href="/work/interview/kubernetes">Kuberenetes面试</a></p>
 <ul>
 <li>私有化部署方案具体是什么？</li>
 </ul>
@@ -2441,6 +2665,20 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>具体加速了哪些模型？</li>
 </ul>
 <p>ResNet baseline<br>UNet<br>RCNN<br>CTR WDN</p>
+]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>烤面筋 - Rust</title>
+    <url>/work/interview/rust/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基础问题</p>
+<a id="more"></a>
+<p><a href="https://segmentfault.com/a/1190000038658674" target="_blank" rel="noopener">https://segmentfault.com/a/1190000038658674</a></p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -2715,6 +2953,52 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
       </tags>
   </entry>
   <entry>
+    <title>机器学习系统 1-3 - 后端硬件描述语言</title>
+    <url>/ai/ml-system/hardware-backend/3-hardware-description-language/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。</p>
+<a id="more"></a>
+<p>软件编程语言定义了一系列面向人类可读性的字符语法。人类使用软件编程语言编写描述机器如何处理信息的步骤的文本，简称为软件代码。使用编译软件使用指定指令集翻译成机器具体处理信息的指令，简称为程序。🤓</p>
+<p>类似的，在硬件设计中，硬件的结构决定了功能，因此也需要借助一种文本描述硬件结构，得名硬件（结构）描述语言。</p>
+<p>软件代码可以直接编译成程序运行，也可以直接和测试框架一起编译运行，测试功能正确性。</p>
+<p>而硬件描述语言（HDL，Hardware Description Language）——其中对应硬件结构（可综合）的合法语法——只是对硬件的结构描述，需要使用仿真器（Emulator）构造硬件结构。</p>
+<p>通常高效的仿真器会将硬件代码等价映射成软件代码（比如C++）编译后运行，提高仿真效率。</p>
+<p>就可综合语法部分看，HDL乏像软件语言中的抽象模型，以用于代码复用。但是HDL中的寄存器、线以及模型足以描述任何复杂的硬件。可以利用软件工具管理生成代码，减少一部分coding的工作量。</p>
+<p>比如使用脚本（Perl或者Python）管理模块，辅助连线，或者借用软件的OOP（Object Oriented Programming)模型，套壳做DSL（Domain Specific Language）（比如Chisel套在Scala里），借助套壳语言的语法和抽象简化硬件编码工作。</p>
+<p>除了可综合语法，HDL中还引入了测试语法用来提供仿真激励。为了改进HDL的测试方面的短板，更多语法和抽象被引入进来，以至于可以被称为一门新的语言（比如System Verilog<a href="#refer-1"><sup>1</sup></a>)。</p>
+<p>有趣的是，System Verilog可以被看作天然的并行语言，引入不少并发机制，比如channel，GoLang的并发机制里也有channel。</p>
+<p>硬件开发的主要工作量并不在前端编码（主要包括编写Verilog并做功能仿真），占大头的是仿真测试和优化。在一些非自主开发IP的流程中，前端的工作基本就是把买来的IP（比如ARM）集成连线，写一些胶水逻辑。在一些自主IP定制的流程中，比如RISC-V，主要的功能还是在拓展指令集，然后接着大量测试和优化。</p>
+<p>我曾经试图发明一门新的语言，使用现代语言的语法来改进Verilog。写好了词法Parser，拿到了AST，做了一些类型推断以及代码优化工作，可以生成Verilog。然而如果要用于生产，开发工作量是不小的。最终只是作为一个toy项目，帮我熟悉了一些编译器的知识。</p>
+<p>现在回过头来看，如果考虑写一门HDL的话，需要考虑几点：  </p>
+<ul>
+<li>是否可以适配已有工业流程？通常是生成Verilog和其他EDA流程对接。</li>
+<li>是否可以做到和Verilog可综合语法完全等价？需要形式化验证以及实际项目支持（比如Chisel傍上了RISC-V）。</li>
+<li>是否支持其他blackbox（加密IP网表，VHDL，Verilog，SystemVerilog仿真模型）联合仿真？</li>
+<li>是否能在保证仿真结果精度准确的情况下，提高仿真效率？只能粗粒度功能仿真就很鸡肋。</li>
+<li>是否可以引入稳定的自动优化？怀疑是否又必要，后期优化的时候基本会扣每个寄存器，后端流程也有大量优化。</li>
+<li>是否易学？过多的引入严格的抽象概念会大幅提高语言学习难度（用软件语言的角度类比，学go，可能3天上手写工程，学rust，学一个月可能还经常卡在工程编译上），HDL依赖惯性可能比软件语言要大的多。</li>
+</ul>
+<p>软件语言的迭代，引入了新的编程模型，新的内存管理机制，新的并行模型等等，实实在在地带来了极大的收益，大幅提高了并发性能，大幅减少了代码量，大幅降低了运行时排错的成本等等。</p>
+<p>最终决定新语言是否会被大规模使用的核心还是：<strong>开发学习使用新语言引入的成本是否带来了足够的生产力收益</strong>。</p>
+<p>HDL的核心功能还是描述硬件结构。</p>
+<p>如果高层语言可以直接生成Verilog，要么是面向FPGA的HLS<a href="#refer-2"><sup>2</sup></a>（High Level Synthesis），面向软件工程师的硬件加速，根本不关心生成的代码，生成的代码也不可读。</p>
+<p>要么是面向芯片的设计流程，语言本身最好能和硬件资源一一对应，所见即所得，否则就要生成可读的代码，让工程师检查。不过工程师既然都要人肉检查生成的代码了，再套一层壳就比较鸡肋了。</p>
+<p>HDL已经深深嵌入到整个芯片设计流程中，前端和后端都能统一，EDA工具掌管着优化，VCS和Verdi已经是测试的标准工具。相比软件语言，HDL是一个非常细分且小众的DSL。</p>
+<p>也许，之后会有新的HDL成为事实的工业界标准，但应该会是一个漫长的过程。</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/SystemVerilog" target="_blank" rel="noopener">System Verilog</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/High-level_synthesis" target="_blank" rel="noopener">High-level synthesis</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>FPGA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 1-4 - 后端硬件验证</title>
     <url>/ai/ml-system/hardware-backend/4-verification/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>仿真不是真，只不过是现实世界的一个有限切面。但仿真又是在进入现实世界前的必经试炼。</p>
@@ -2815,52 +3099,6 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://www.xilinx.com/products/silicon-devices/acap/versal.html" target="_blank" rel="noopener">Versal</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>FPGA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 1-3 - 后端硬件描述语言</title>
-    <url>/ai/ml-system/hardware-backend/3-hardware-description-language/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>语言只是手段，不是目的。自然语言如此，软件编程语言如此，硬件描述语言也如此。</p>
-<a id="more"></a>
-<p>软件编程语言定义了一系列面向人类可读性的字符语法。人类使用软件编程语言编写描述机器如何处理信息的步骤的文本，简称为软件代码。使用编译软件使用指定指令集翻译成机器具体处理信息的指令，简称为程序。🤓</p>
-<p>类似的，在硬件设计中，硬件的结构决定了功能，因此也需要借助一种文本描述硬件结构，得名硬件（结构）描述语言。</p>
-<p>软件代码可以直接编译成程序运行，也可以直接和测试框架一起编译运行，测试功能正确性。</p>
-<p>而硬件描述语言（HDL，Hardware Description Language）——其中对应硬件结构（可综合）的合法语法——只是对硬件的结构描述，需要使用仿真器（Emulator）构造硬件结构。</p>
-<p>通常高效的仿真器会将硬件代码等价映射成软件代码（比如C++）编译后运行，提高仿真效率。</p>
-<p>就可综合语法部分看，HDL乏像软件语言中的抽象模型，以用于代码复用。但是HDL中的寄存器、线以及模型足以描述任何复杂的硬件。可以利用软件工具管理生成代码，减少一部分coding的工作量。</p>
-<p>比如使用脚本（Perl或者Python）管理模块，辅助连线，或者借用软件的OOP（Object Oriented Programming)模型，套壳做DSL（Domain Specific Language）（比如Chisel套在Scala里），借助套壳语言的语法和抽象简化硬件编码工作。</p>
-<p>除了可综合语法，HDL中还引入了测试语法用来提供仿真激励。为了改进HDL的测试方面的短板，更多语法和抽象被引入进来，以至于可以被称为一门新的语言（比如System Verilog<a href="#refer-1"><sup>1</sup></a>)。</p>
-<p>有趣的是，System Verilog可以被看作天然的并行语言，引入不少并发机制，比如channel，GoLang的并发机制里也有channel。</p>
-<p>硬件开发的主要工作量并不在前端编码（主要包括编写Verilog并做功能仿真），占大头的是仿真测试和优化。在一些非自主开发IP的流程中，前端的工作基本就是把买来的IP（比如ARM）集成连线，写一些胶水逻辑。在一些自主IP定制的流程中，比如RISC-V，主要的功能还是在拓展指令集，然后接着大量测试和优化。</p>
-<p>我曾经试图发明一门新的语言，使用现代语言的语法来改进Verilog。写好了词法Parser，拿到了AST，做了一些类型推断以及代码优化工作，可以生成Verilog。然而如果要用于生产，开发工作量是不小的。最终只是作为一个toy项目，帮我熟悉了一些编译器的知识。</p>
-<p>现在回过头来看，如果考虑写一门HDL的话，需要考虑几点：  </p>
-<ul>
-<li>是否可以适配已有工业流程？通常是生成Verilog和其他EDA流程对接。</li>
-<li>是否可以做到和Verilog可综合语法完全等价？需要形式化验证以及实际项目支持（比如Chisel傍上了RISC-V）。</li>
-<li>是否支持其他blackbox（加密IP网表，VHDL，Verilog，SystemVerilog仿真模型）联合仿真？</li>
-<li>是否能在保证仿真结果精度准确的情况下，提高仿真效率？只能粗粒度功能仿真就很鸡肋。</li>
-<li>是否可以引入稳定的自动优化？怀疑是否又必要，后期优化的时候基本会扣每个寄存器，后端流程也有大量优化。</li>
-<li>是否易学？过多的引入严格的抽象概念会大幅提高语言学习难度（用软件语言的角度类比，学go，可能3天上手写工程，学rust，学一个月可能还经常卡在工程编译上），HDL依赖惯性可能比软件语言要大的多。</li>
-</ul>
-<p>软件语言的迭代，引入了新的编程模型，新的内存管理机制，新的并行模型等等，实实在在地带来了极大的收益，大幅提高了并发性能，大幅减少了代码量，大幅降低了运行时排错的成本等等。</p>
-<p>最终决定新语言是否会被大规模使用的核心还是：<strong>开发学习使用新语言引入的成本是否带来了足够的生产力收益</strong>。</p>
-<p>HDL的核心功能还是描述硬件结构。</p>
-<p>如果高层语言可以直接生成Verilog，要么是面向FPGA的HLS<a href="#refer-2"><sup>2</sup></a>（High Level Synthesis），面向软件工程师的硬件加速，根本不关心生成的代码，生成的代码也不可读。</p>
-<p>要么是面向芯片的设计流程，语言本身最好能和硬件资源一一对应，所见即所得，否则就要生成可读的代码，让工程师检查。不过工程师既然都要人肉检查生成的代码了，再套一层壳就比较鸡肋了。</p>
-<p>HDL已经深深嵌入到整个芯片设计流程中，前端和后端都能统一，EDA工具掌管着优化，VCS和Verdi已经是测试的标准工具。相比软件语言，HDL是一个非常细分且小众的DSL。</p>
-<p>也许，之后会有新的HDL成为事实的工业界标准，但应该会是一个漫长的过程。</p>
-<hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://en.wikipedia.org/wiki/SystemVerilog" target="_blank" rel="noopener">System Verilog</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://en.wikipedia.org/wiki/High-level_synthesis" target="_blank" rel="noopener">High-level synthesis</a></li>
 </ul>
 ]]></content>
       <categories>
