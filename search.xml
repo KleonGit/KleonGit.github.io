@@ -1645,6 +1645,9 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>假设数据序列的规模为 𝑛，需要采样的数量的为 𝑘。</p>
 <p>首先构建一个可容纳 𝑘 个元素的数组，将序列的前 𝑘 个元素放入数组中。</p>
 <p>然后从第 𝑘+1 个元素开始，以 <script type="math/tex">\frac{k}{n}</script> 的概率来决定该元素是否被替换到数组中（数组中的元素被替换的概率是相同的）。 当遍历完所有元素之后，数组中剩下的元素即为所需采取的样本。</p>
+<h1 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h1><p><a href="https://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html" target="_blank" rel="noopener">https://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html</a></p>
+<p>Dijkstra</p>
+<p>S, U</p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -2186,7 +2189,6 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 </ol>
 <p><a href="https://kubernetes.io/zh/docs/setup/release/version-skew-policy/" target="_blank" rel="noopener">https://kubernetes.io/zh/docs/setup/release/version-skew-policy/</a></p>
 <hr>
-<p><a href="http://blog.itpub.net/31555484/viewspace-2650133/" target="_blank" rel="noopener">http://blog.itpub.net/31555484/viewspace-2650133/</a></p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -2777,12 +2779,47 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>具体加速了哪些模型？</li>
 </ul>
 <p>ResNet baseline<br>UNet<br>RCNN<br>CTR WDN</p>
-<h1 id="有什么想问的吗？"><a href="#有什么想问的吗？" class="headerlink" title="有什么想问的吗？"></a>有什么想问的吗？</h1><h2 id="得物"><a href="#得物" class="headerlink" title="得物"></a>得物</h2><ul>
-<li>加班情况</li>
-<li>工作内容</li>
-<li>业务需求</li>
+<h1 id="得物"><a href="#得物" class="headerlink" title="得物"></a>得物</h1><h2 id="JD"><a href="#JD" class="headerlink" title="JD"></a>JD</h2><p>机器学习平台</p>
+<p>大小周，double加班费</p>
+<p>职责：</p>
+<ol>
+<li>负责大规模机器学习平台的搭建，开发和维护模型训练、模型服务、计算调度等机器学习平台开发。</li>
+<li>负责大数据与机器学习融合的自主化机器学习平台的建设。</li>
+<li>负责在线实时系统的开发与建设</li>
+</ol>
+<p>要求：</p>
+<ol>
+<li>C/Java/Python</li>
+<li>TensorFlow, PyTorch</li>
+<li>Spark/Flink</li>
+<li>分布式系统部署</li>
+</ol>
+<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>我叫xx，xx年，现在硕士毕业工作差不多三年了，本硕都是在复旦读的微电子专业，专业课程除了半导体工艺、数字和模拟芯片设计外，还要上大部分计算机专业的课程。本科和研究生期间在实验室的工作主要是基于FPGA的计算加速系统的架构，EDA软件和硬件IP设计开发。</p>
+<p>毕业之后在阿里云的计算平台机器学习组继续做了一段时间的硬件后端，其中最主要的工作是通用CNN的硬件IP和软件栈。硬件部分，我主要负责CNN计算核的功能拓展还有长尾算子pipeline的实现，软件部分涵盖了编译器，runtime和驱动，通过自定义算子的形式接到TF，对外提供定制板卡，SDK和镜像。CTR和TTS的IP主要是组内其他同学开发，我负责软件的通用化支持。</p>
+<p>与此同时，因为通用化的工作逐步完善了，我们希望从点对点的支持变成基于平台的对更广泛的业务模型支持，工作重点就放到了系统和框架上。因为TF的生态比较丰富，而且有XLA这套编译优化框架在前，我们就主要是基于TF做后端接入和推理优化。优化通过自研的推理平台的提供服务。在系统服务这一层主要针对端到端延时、吞吐和资源利用率等各种指标做了相应的优化。之后参与了推理优化服务的标准化以及产品整合的工作，把优化能力和平台内其他产品整合起来。</p>
+<p>在此期间，也就顺其自然地接一些了产品开发的工作，主要可以分成两类工作，一类是产品的功能需求，主要是基于k8s的operator开发，和公有云其他产品的打通，另一类产品体验优化，因为平台内几个产品的定位比较清晰，有各自的开发标准，跨产品使用可能会有些障碍，因此主要工作是推动统一镜像，在实验、训练和推理产品上的环境保持一致，支持用户自定义镜像。除了公有云的开发，另一边还调研了私有化部署方案，现阶段的私有化输出需要带全套阿里云的底座，整个技术大背景是k8s化，希望可以基于k8s设计一套开源、轻量、按需的部署方案。</p>
+<p>自从部门目标转向营收，会开始接各种中小企业的定制需求，因此工作也就转到了解决方案上。重度参与了两个场景，一个是推荐系统，主要工作包括了数据处理、特征工程、利用现有平台算法库构建模型，golang的后端，把常用的模块抽象出来，支持各种召回策略，排序模型，以及各种数据源，能够做到灵活配置，尽量复用。另一个是用户增长，主要是通过机器学习筛选目标人群，节约成本，还配套地做了短信的模板签名审核、定时发送的功能。这两个场景也在各种不同类型的外部客户上落地了。</p>
+<p>作为第三方解决方案提供商，因为数据权限和沟通之类的问题，对业务场景的理解和参与比较有限，希望能更全面地看一些面对实际业务时候的具体场景和解决思路。</p>
+<p>以上基本就是我的大致情况，谢谢。</p>
+<h2 id="有什么想问的吗？"><a href="#有什么想问的吗？" class="headerlink" title="有什么想问的吗？"></a>有什么想问的吗？</h2><ul>
+<li>业务场景</li>
 <li>基础架构情况</li>
+<li>工作内容</li>
+<li>加班情况</li>
 </ul>
+<h1 id="美团"><a href="#美团" class="headerlink" title="美团"></a>美团</h1><h2 id="JD-1"><a href="#JD-1" class="headerlink" title="JD"></a>JD</h2><p>推理平台工程师</p>
+<ol>
+<li>深度优化超大规模样本和参数的模型训练性能</li>
+</ol>
+<h2 id="Intro-1"><a href="#Intro-1" class="headerlink" title="Intro"></a>Intro</h2><p>我现在硕士毕业工作差不多三年了，本硕都是在复旦读的微电子专业，专业课程排的比较满，除了半导体工艺、数字和模拟芯片设计外，还要上大部分计算机专业的课程。本科和研究生期间在实验室的工作主要是基于FPGA的计算加速系统的架构，EDA软件和硬件IP设计开发。</p>
+<p>毕业之后在阿里云的计算平台机器学习组继续做了一段时间的硬件后端，其中最主要的工作是通用CNN的硬件IP和软件栈的设计开发。硬件部分，我主要负责CNN计算核的功能拓展还有长尾算子流水线的实现，软件部分，涵盖了计算图的解析，图层面编译优化，子图匹配，codegen，runtime和驱动的改造。通过自定义算子和XLA的形式接入TF，对外提供定制板卡，SDK和镜像。通用CNN目标是作为芯片原型探索先试点落地，和芯片部门有互动。CTR和TTS的IP主要是组内其他同学开发，我负责软件的通用化支持。</p>
+<p>与此同时，因为通用化的工作逐步完善了，我们希望从点对点的支持变成基于平台的更广泛的业务模型支持，工作重点就放到了系统整合上。因为TF的生态比较丰富，而且有XLA这套编译优化框架在前，我们就主要在TF上做后端接入和推理优化。模型的优化工作主要分成三类：图层面优化，编译优化，硬件厂商计算库接入。优化工作主要通过自研的推理平台的服务提供，。在系统服务这一层主要关注端到端延时、吞吐和资源利用率，也做了相应的优化。落地思路基本是先点后面，先看最典型的业务模型，然后作为默认优化选项打开。这三类优化工作里，编译优化的手段是最丰富的，比如XLA、TVM，MLIR，Polyhedral，但大多数偏research，poc的工作量也不低，主要参与了XLA和TVM的工作。我这边就更注重工程效果一点，也是为了把推理优化能力和平台的产品结合起来，就去参与了推理优化服务的标准化以及产品整合的工作。</p>
+<p>在此期也就顺其自然地同时接一些了产品开发的工作，主要可以分成两类工作，一类是产品的功能需求，主要是基于k8s的operator开发，和阿里云公有云其他产品的打通，另一类产品体验优化，因为几个产品的定位比较清晰，有各自的开发标准，产品之间的连接有有些障碍，主要工作时推动统一镜像，在实验、训练和推理上的环境保持一致。除了公有云的开发，另一边还调研了私有化部署方案，现阶段的私有化输出需要带全套阿里云的底座，可以基于k8s设计一套轻量按需的私有化方案。</p>
+<p>部门目标转向营收，会接各种中小企业的定制需求，因此主要工作也就转到了解决方案的输出上了。主要重度参与了两个场景，一个是推荐系统，主要工作包括了数据处理、特征工程、利用现有平台算法库构建模型，推荐后端，把常用的模块抽象出来，支持灵活配置。另一个是用户增长，主要是通过机器学习筛选目标人群，更精准地召回，还配套地做了短信的模板签名审核、定时发送计划的功能。这两个场景也在各种不同类型的外部客户上落地。</p>
+<p>以上基本就是我的大致情况，谢谢。</p>
+<h1 id="腾讯"><a href="#腾讯" class="headerlink" title="腾讯"></a>腾讯</h1><h2 id="JD-2"><a href="#JD-2" class="headerlink" title="JD"></a>JD</h2><h1 id="字节"><a href="#字节" class="headerlink" title="字节"></a>字节</h1><h2 id="JD-3"><a href="#JD-3" class="headerlink" title="JD"></a>JD</h2><p>端云语音引擎</p>
+<p>深度定制优化</p>
+<p>算法落地评估</p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -2824,6 +2861,8 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <p>XGB,GBDT,Recall,Rank,Recommender System Design,XGB,GBDT,LGBM,L1,L2,LR,SVM,XGB,Adam,SGD,Xavier,Loss,Recommender System Index,GBDT,LSTM,Train/Validation/Test Dataset,FM,FFM,XGB,GBDT,ETL,Feature Engineer,DIN,DICE,Dataset,Hyperparameter Search,Django,Flask,Nginx,Apache,CSRF,ORM reverse,Overfitting,LR,Tree,NN,Tuning,Data Lacking,XGB,GBDT,Softmax,LR,Classifier,Regression,DQN,Data Skew,Quantization,CNN,Recall,L2R,PS,Distributed Training,Tree Regression,XGB,GBDT,Softmax Overflow,Overfitting,HDFS,Fine Tune,Flink,Storm,Spark,Spark for Training,Kafka,Kafka Topic,Data Skew,W&amp;D,L2R,Lambda MART,Lambda Rank,NDCG,Position Bias,Cold Start,LSTM,LSTM Unit,Concave Optimization,SGD,OU,Replay Buffer,Sliding,LSTM,Layer,Unit,Data EDA,CNN,Tuning,FM,FFM,Postion Bias,Recommender System Index,Recommend Flow Orthogonal,DIN,Attention,XGB,Distributed XGB,Streaming,Flink,Spark,</p>
 <p><a href="https://www.nowcoder.com/discuss/458758?channel=-1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/458758?channel=-1</a></p>
 <p>Cache,HashMap,Guava Cache,</p>
+<p><a href="http://blog.itpub.net/31555484/viewspace-2650133/" target="_blank" rel="noopener">http://blog.itpub.net/31555484/viewspace-2650133/</a></p>
+<p>后端</p>
 <hr>
 ]]></content>
       <categories>
@@ -3892,33 +3931,6 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
       </tags>
   </entry>
   <entry>
-    <title>机器学习系统 4-3 - 特征嵌入(Embedding)</title>
-    <url>/ai/ml-system/recommender/3-feature-embedding/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Embedding是高维向量到低维空间的转换。在理想情况下，嵌入可以将语义上相似的不同输入映射到嵌入空间里的邻近处，以此来捕获输入的语义<a href="#refer-1"><sup>1</sup></a>。</p>
-<a id="more"></a>
-<p>在常见的特征中，通常可以用分桶或OneHot编码转为特征，对于类别较多的特征或者非结构化特征，可以通过Embedding转换为紧凑的实值特征向量表示。</p>
-<h1 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h1><h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>词嵌入（Word Embedding）将每个单词表示为密集向量，嵌入的相似句子应该在空间上彼此接近。常用模型有神经网络模型（NNLM）、用于字词表示的全局向量（GloVe）、深层语境化词表示（ELMo）、Word2Vec等。</p>
-<h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><p>Skip-gram: works well with a small amount of the training data, represents well even rare words or phrases.</p>
-<p>CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words.</p>
-<h3 id="Doc2Vec"><a href="#Doc2Vec" class="headerlink" title="Doc2Vec"></a>Doc2Vec</h3><h2 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h2><p>使用大型图片数据集训练模型，常用的预训练模型有ResNet、Inception、NasNet、MobileNet等。最后使用不含Softmax分类器的模型作为特征向量，这类向量可以很好的描述图片基本属性。</p>
-<h2 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h2><p>可以从高位功率谱密度系数提取特征向量。</p>
-<h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><p>用户和物品数量可能相当大，可以使用矩阵分解、单值分解、神经协同过滤、神经因式分解机等得到向量。物品的嵌入位置表达了物品属性，位置接近的嵌入位置代表用户更相似的兴趣度。</p>
-<h3 id="神经协同过滤"><a href="#神经协同过滤" class="headerlink" title="神经协同过滤"></a>神经协同过滤</h3><h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p>Video2Vec</p>
-<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>DeepWalk<br>Node2Vec<br>EGES<br>GraphSage<br>DCN</p>
-<hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://cloud.google.com/architecture/overview-extracting-and-serving-feature-embeddings-for-machine-learning?hl=zh-cn" target="_blank" rel="noopener">概述：提取和提供用于机器学习的特征嵌入  |  云架构中心  |  Google Cloud</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>机器学习系统 4-2 - 特征工程</title>
     <url>/ai/ml-system/recommender/2-feature-engineer/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>特征工程是利用数据的特定领域知识构建特征使算法达到最高性能的过程。</p>
@@ -3967,6 +3979,33 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <p>当两个特征的数量较多时，可以矩阵分解为k维的低维向量表示。</p>
 <script type="math/tex; mode=display">Y=sigmoid(\sum_{i}\sum_{j}w_{ij}<x_{i}, x_{j}>)</script><p>可以通过梯度提升决策树（GBDT）寻找有效的特征组合，该方法的思想是每次都在之前构建的决策树的残差上构建下一棵决策树。</p>
 <h1 id="典型"><a href="#典型" class="headerlink" title="典型"></a>典型</h1><h2 id="商品推荐"><a href="#商品推荐" class="headerlink" title="商品推荐"></a>商品推荐</h2><h2 id="游戏推荐"><a href="#游戏推荐" class="headerlink" title="游戏推荐"></a>游戏推荐</h2><h2 id="视频推荐"><a href="#视频推荐" class="headerlink" title="视频推荐"></a>视频推荐</h2><h2 id="新闻推荐"><a href="#新闻推荐" class="headerlink" title="新闻推荐"></a>新闻推荐</h2>]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推荐系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 4-3 - 特征嵌入(Embedding)</title>
+    <url>/ai/ml-system/recommender/3-feature-embedding/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Embedding是高维向量到低维空间的转换。在理想情况下，嵌入可以将语义上相似的不同输入映射到嵌入空间里的邻近处，以此来捕获输入的语义<a href="#refer-1"><sup>1</sup></a>。</p>
+<a id="more"></a>
+<p>在常见的特征中，通常可以用分桶或OneHot编码转为特征，对于类别较多的特征或者非结构化特征，可以通过Embedding转换为紧凑的实值特征向量表示。</p>
+<h1 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h1><h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>词嵌入（Word Embedding）将每个单词表示为密集向量，嵌入的相似句子应该在空间上彼此接近。常用模型有神经网络模型（NNLM）、用于字词表示的全局向量（GloVe）、深层语境化词表示（ELMo）、Word2Vec等。</p>
+<h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><p>Skip-gram: works well with a small amount of the training data, represents well even rare words or phrases.</p>
+<p>CBOW: several times faster to train than the skip-gram, slightly better accuracy for the frequent words.</p>
+<h3 id="Doc2Vec"><a href="#Doc2Vec" class="headerlink" title="Doc2Vec"></a>Doc2Vec</h3><h2 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h2><p>使用大型图片数据集训练模型，常用的预训练模型有ResNet、Inception、NasNet、MobileNet等。最后使用不含Softmax分类器的模型作为特征向量，这类向量可以很好的描述图片基本属性。</p>
+<h2 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h2><p>可以从高位功率谱密度系数提取特征向量。</p>
+<h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><p>用户和物品数量可能相当大，可以使用矩阵分解、单值分解、神经协同过滤、神经因式分解机等得到向量。物品的嵌入位置表达了物品属性，位置接近的嵌入位置代表用户更相似的兴趣度。</p>
+<h3 id="神经协同过滤"><a href="#神经协同过滤" class="headerlink" title="神经协同过滤"></a>神经协同过滤</h3><h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p>Video2Vec</p>
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>DeepWalk<br>Node2Vec<br>EGES<br>GraphSage<br>DCN</p>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://cloud.google.com/architecture/overview-extracting-and-serving-feature-embeddings-for-machine-learning?hl=zh-cn" target="_blank" rel="noopener">概述：提取和提供用于机器学习的特征嵌入  |  云架构中心  |  Google Cloud</a></li>
+</ul>
+]]></content>
       <categories>
         <category>机器学习</category>
       </categories>

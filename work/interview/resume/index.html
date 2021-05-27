@@ -382,12 +382,47 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>具体加速了哪些模型？</li>
 </ul>
 <p>ResNet baseline<br>UNet<br>RCNN<br>CTR WDN</p>
-<h1 id="有什么想问的吗？"><a href="#有什么想问的吗？" class="headerlink" title="有什么想问的吗？"></a>有什么想问的吗？</h1><h2 id="得物"><a href="#得物" class="headerlink" title="得物"></a>得物</h2><ul>
-<li>加班情况</li>
-<li>工作内容</li>
-<li>业务需求</li>
+<h1 id="得物"><a href="#得物" class="headerlink" title="得物"></a>得物</h1><h2 id="JD"><a href="#JD" class="headerlink" title="JD"></a>JD</h2><p>机器学习平台</p>
+<p>大小周，double加班费</p>
+<p>职责：</p>
+<ol>
+<li>负责大规模机器学习平台的搭建，开发和维护模型训练、模型服务、计算调度等机器学习平台开发。</li>
+<li>负责大数据与机器学习融合的自主化机器学习平台的建设。</li>
+<li>负责在线实时系统的开发与建设</li>
+</ol>
+<p>要求：</p>
+<ol>
+<li>C/Java/Python</li>
+<li>TensorFlow, PyTorch</li>
+<li>Spark/Flink</li>
+<li>分布式系统部署</li>
+</ol>
+<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>我叫xx，xx年，现在硕士毕业工作差不多三年了，本硕都是在复旦读的微电子专业，专业课程除了半导体工艺、数字和模拟芯片设计外，还要上大部分计算机专业的课程。本科和研究生期间在实验室的工作主要是基于FPGA的计算加速系统的架构，EDA软件和硬件IP设计开发。</p>
+<p>毕业之后在阿里云的计算平台机器学习组继续做了一段时间的硬件后端，其中最主要的工作是通用CNN的硬件IP和软件栈。硬件部分，我主要负责CNN计算核的功能拓展还有长尾算子pipeline的实现，软件部分涵盖了编译器，runtime和驱动，通过自定义算子的形式接到TF，对外提供定制板卡，SDK和镜像。CTR和TTS的IP主要是组内其他同学开发，我负责软件的通用化支持。</p>
+<p>与此同时，因为通用化的工作逐步完善了，我们希望从点对点的支持变成基于平台的对更广泛的业务模型支持，工作重点就放到了系统和框架上。因为TF的生态比较丰富，而且有XLA这套编译优化框架在前，我们就主要是基于TF做后端接入和推理优化。优化通过自研的推理平台的提供服务。在系统服务这一层主要针对端到端延时、吞吐和资源利用率等各种指标做了相应的优化。之后参与了推理优化服务的标准化以及产品整合的工作，把优化能力和平台内其他产品整合起来。</p>
+<p>在此期间，也就顺其自然地接一些了产品开发的工作，主要可以分成两类工作，一类是产品的功能需求，主要是基于k8s的operator开发，和公有云其他产品的打通，另一类产品体验优化，因为平台内几个产品的定位比较清晰，有各自的开发标准，跨产品使用可能会有些障碍，因此主要工作是推动统一镜像，在实验、训练和推理产品上的环境保持一致，支持用户自定义镜像。除了公有云的开发，另一边还调研了私有化部署方案，现阶段的私有化输出需要带全套阿里云的底座，整个技术大背景是k8s化，希望可以基于k8s设计一套开源、轻量、按需的部署方案。</p>
+<p>自从部门目标转向营收，会开始接各种中小企业的定制需求，因此工作也就转到了解决方案上。重度参与了两个场景，一个是推荐系统，主要工作包括了数据处理、特征工程、利用现有平台算法库构建模型，golang的后端，把常用的模块抽象出来，支持各种召回策略，排序模型，以及各种数据源，能够做到灵活配置，尽量复用。另一个是用户增长，主要是通过机器学习筛选目标人群，节约成本，还配套地做了短信的模板签名审核、定时发送的功能。这两个场景也在各种不同类型的外部客户上落地了。</p>
+<p>作为第三方解决方案提供商，因为数据权限和沟通之类的问题，对业务场景的理解和参与比较有限，希望能更全面地看一些面对实际业务时候的具体场景和解决思路。</p>
+<p>以上基本就是我的大致情况，谢谢。</p>
+<h2 id="有什么想问的吗？"><a href="#有什么想问的吗？" class="headerlink" title="有什么想问的吗？"></a>有什么想问的吗？</h2><ul>
+<li>业务场景</li>
 <li>基础架构情况</li>
+<li>工作内容</li>
+<li>加班情况</li>
 </ul>
+<h1 id="美团"><a href="#美团" class="headerlink" title="美团"></a>美团</h1><h2 id="JD-1"><a href="#JD-1" class="headerlink" title="JD"></a>JD</h2><p>推理平台工程师</p>
+<ol>
+<li>深度优化超大规模样本和参数的模型训练性能</li>
+</ol>
+<h2 id="Intro-1"><a href="#Intro-1" class="headerlink" title="Intro"></a>Intro</h2><p>我现在硕士毕业工作差不多三年了，本硕都是在复旦读的微电子专业，专业课程排的比较满，除了半导体工艺、数字和模拟芯片设计外，还要上大部分计算机专业的课程。本科和研究生期间在实验室的工作主要是基于FPGA的计算加速系统的架构，EDA软件和硬件IP设计开发。</p>
+<p>毕业之后在阿里云的计算平台机器学习组继续做了一段时间的硬件后端，其中最主要的工作是通用CNN的硬件IP和软件栈的设计开发。硬件部分，我主要负责CNN计算核的功能拓展还有长尾算子流水线的实现，软件部分，涵盖了计算图的解析，图层面编译优化，子图匹配，codegen，runtime和驱动的改造。通过自定义算子和XLA的形式接入TF，对外提供定制板卡，SDK和镜像。通用CNN目标是作为芯片原型探索先试点落地，和芯片部门有互动。CTR和TTS的IP主要是组内其他同学开发，我负责软件的通用化支持。</p>
+<p>与此同时，因为通用化的工作逐步完善了，我们希望从点对点的支持变成基于平台的更广泛的业务模型支持，工作重点就放到了系统整合上。因为TF的生态比较丰富，而且有XLA这套编译优化框架在前，我们就主要在TF上做后端接入和推理优化。模型的优化工作主要分成三类：图层面优化，编译优化，硬件厂商计算库接入。优化工作主要通过自研的推理平台的服务提供，。在系统服务这一层主要关注端到端延时、吞吐和资源利用率，也做了相应的优化。落地思路基本是先点后面，先看最典型的业务模型，然后作为默认优化选项打开。这三类优化工作里，编译优化的手段是最丰富的，比如XLA、TVM，MLIR，Polyhedral，但大多数偏research，poc的工作量也不低，主要参与了XLA和TVM的工作。我这边就更注重工程效果一点，也是为了把推理优化能力和平台的产品结合起来，就去参与了推理优化服务的标准化以及产品整合的工作。</p>
+<p>在此期也就顺其自然地同时接一些了产品开发的工作，主要可以分成两类工作，一类是产品的功能需求，主要是基于k8s的operator开发，和阿里云公有云其他产品的打通，另一类产品体验优化，因为几个产品的定位比较清晰，有各自的开发标准，产品之间的连接有有些障碍，主要工作时推动统一镜像，在实验、训练和推理上的环境保持一致。除了公有云的开发，另一边还调研了私有化部署方案，现阶段的私有化输出需要带全套阿里云的底座，可以基于k8s设计一套轻量按需的私有化方案。</p>
+<p>部门目标转向营收，会接各种中小企业的定制需求，因此主要工作也就转到了解决方案的输出上了。主要重度参与了两个场景，一个是推荐系统，主要工作包括了数据处理、特征工程、利用现有平台算法库构建模型，推荐后端，把常用的模块抽象出来，支持灵活配置。另一个是用户增长，主要是通过机器学习筛选目标人群，更精准地召回，还配套地做了短信的模板签名审核、定时发送计划的功能。这两个场景也在各种不同类型的外部客户上落地。</p>
+<p>以上基本就是我的大致情况，谢谢。</p>
+<h1 id="腾讯"><a href="#腾讯" class="headerlink" title="腾讯"></a>腾讯</h1><h2 id="JD-2"><a href="#JD-2" class="headerlink" title="JD"></a>JD</h2><h1 id="字节"><a href="#字节" class="headerlink" title="字节"></a>字节</h1><h2 id="JD-3"><a href="#JD-3" class="headerlink" title="JD"></a>JD</h2><p>端云语音引擎</p>
+<p>深度定制优化</p>
+<p>算法落地评估</p>
 
       
     </div>
@@ -435,7 +470,7 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#个人简介"><span class="nav-number">1.</span> <span class="nav-text">个人简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要方向"><span class="nav-number">1.1.</span> <span class="nav-text">主要方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语言"><span class="nav-number">1.2.</span> <span class="nav-text">语言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#教育经历"><span class="nav-number">2.</span> <span class="nav-text">教育经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统架构"><span class="nav-number">2.1.</span> <span class="nav-text">系统架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目经历"><span class="nav-number">3.</span> <span class="nav-text">项目经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">3.1.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习产品"><span class="nav-number">3.2.</span> <span class="nav-text">机器学习产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型推理优化"><span class="nav-number">3.3.</span> <span class="nav-text">模型推理优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加速系统"><span class="nav-number">3.4.</span> <span class="nav-text">加速系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有什么想问的吗？"><span class="nav-number">4.</span> <span class="nav-text">有什么想问的吗？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#得物"><span class="nav-number">4.1.</span> <span class="nav-text">得物</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#个人简介"><span class="nav-number">1.</span> <span class="nav-text">个人简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要方向"><span class="nav-number">1.1.</span> <span class="nav-text">主要方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语言"><span class="nav-number">1.2.</span> <span class="nav-text">语言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#教育经历"><span class="nav-number">2.</span> <span class="nav-text">教育经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统架构"><span class="nav-number">2.1.</span> <span class="nav-text">系统架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目经历"><span class="nav-number">3.</span> <span class="nav-text">项目经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">3.1.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习产品"><span class="nav-number">3.2.</span> <span class="nav-text">机器学习产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型推理优化"><span class="nav-number">3.3.</span> <span class="nav-text">模型推理优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加速系统"><span class="nav-number">3.4.</span> <span class="nav-text">加速系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#得物"><span class="nav-number">4.</span> <span class="nav-text">得物</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD"><span class="nav-number">4.1.</span> <span class="nav-text">JD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro"><span class="nav-number">4.2.</span> <span class="nav-text">Intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有什么想问的吗？"><span class="nav-number">4.3.</span> <span class="nav-text">有什么想问的吗？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#美团"><span class="nav-number">5.</span> <span class="nav-text">美团</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-1"><span class="nav-number">5.1.</span> <span class="nav-text">JD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro-1"><span class="nav-number">5.2.</span> <span class="nav-text">Intro</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#腾讯"><span class="nav-number">6.</span> <span class="nav-text">腾讯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-2"><span class="nav-number">6.1.</span> <span class="nav-text">JD</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字节"><span class="nav-number">7.</span> <span class="nav-text">字节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-3"><span class="nav-number">7.1.</span> <span class="nav-text">JD</span></a></li></ol></li></ol>
     
     </div>
   </aside>
