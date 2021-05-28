@@ -214,7 +214,13 @@ var themeMenus = {};
 <li>双指针法</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverseList</span><span class="params">(head *ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> pre, temp *ListNode</span><br><span class="line">    cur := head</span><br><span class="line">    <span class="keyword">for</span> cur != <span class="literal">nil</span> &#123;</span><br><span class="line">        temp = cur.Next</span><br><span class="line">        cur.Next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = temp</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="环形链表的入环节点"><a href="#环形链表的入环节点" class="headerlink" title="环形链表的入环节点"></a>环形链表的入环节点</h2><p><img src="https://img.shields.io/badge/leetcode-141-blue.svg" alt> <a href="https://leetcode-cn.com/problems/linked-list-cycle/" target="_blank" rel="noopener">环形链表</a><br><img src="https://img.shields.io/badge/leetcode-142-blue.svg" alt> <a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">环形链表II</a></p>
+<h2 id="环形链表的入环节点"><a href="#环形链表的入环节点" class="headerlink" title="环形链表的入环节点"></a>环形链表的入环节点</h2><p><img src="https://img.shields.io/badge/leetcode-141-blue.svg" alt> <a href="https://leetcode-cn.com/problems/linked-list-cycle/" target="_blank" rel="noopener">环形链表</a><br><img src="https://img.shields.io/badge/leetcode-142-blue.svg" alt> <a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener">环形链表II</a></p>
+<script type="math/tex; mode=display">
+fast = x + y + n(y + z)</script><script type="math/tex; mode=display">
+slow = x + y</script><script type="math/tex; mode=display">
+fast = 2slow</script><script type="math/tex; mode=display">
+x + y = n(y + z)</script><script type="math/tex; mode=display">
+x = (n - 1)(y + z) + z</script><p>n = 1时， x = z</p>
 <ul>
 <li>快慢指针法</li>
 </ul>

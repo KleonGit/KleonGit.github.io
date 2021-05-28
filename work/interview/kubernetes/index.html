@@ -184,7 +184,25 @@ var themeMenus = {};
 <a id="more"></a>
 <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p><a href="https://segmentfault.com/a/1190000039334395" target="_blank" rel="noopener">https://segmentfault.com/a/1190000039334395</a></p>
 <p><a href="https://www.kubernetes.org.cn/5578.html" target="_blank" rel="noopener">https://www.kubernetes.org.cn/5578.html</a></p>
+<p><a href="https://www.qikqiak.com/k8s-book/docs/15.%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%B8%8E%E7%BB%84%E4%BB%B6.html" target="_blank" rel="noopener">https://www.qikqiak.com/k8s-book/docs/15.%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%B8%8E%E7%BB%84%E4%BB%B6.html</a></p>
 <h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>apiserver、controller、kubelet、scheduler </p>
+<p>Kubernetes 主要由以下几个核心组件组成:</p>
+<ul>
+<li>etcd 保存了整个集群的状态，就是一个数据库；</li>
+<li>apiserver 提供了资源操作的唯一入口，并提供认证、授权、访问控制、API 注册和发现等机制；</li>
+<li>controller manager 负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；</li>
+<li>scheduler 负责资源的调度，按照预定的调度策略将 Pod 调度到相应的机器上；</li>
+<li>kubelet 负责维护容器的生命周期，同时也负责 Volume（CSI）和网络（CNI）的管理；</li>
+<li>Container runtime 负责镜像管理以及 Pod 和容器的真正运行（CRI）；</li>
+<li>kube-proxy 负责为 Service 提供 cluster 内部的服务发现和负载均衡；</li>
+</ul>
+<p>插件：</p>
+<ul>
+<li>kube-dns 负责为整个集群提供 DNS 服务</li>
+<li>Ingress Controller 为服务提供外网入口</li>
+<li>Heapster 提供资源监控</li>
+<li>Dashboard 提供 GUI</li>
+</ul>
 <h2 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h2><p><a href="https://draveness.me/kubernetes-pod/" target="_blank" rel="noopener">https://draveness.me/kubernetes-pod/</a></p>
 <p><a href="https://kubernetes.io/zh/docs/concepts/workloads/pods/" target="_blank" rel="noopener">https://kubernetes.io/zh/docs/concepts/workloads/pods/</a></p>
 <p>Pod 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。</p>
@@ -284,11 +302,11 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/work/interview/dart/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/work/interview/c++/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          烤面筋 - Dart
+          烤面筋 - C++
         
       </div>
     </a>
