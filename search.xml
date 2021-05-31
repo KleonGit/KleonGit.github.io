@@ -1679,7 +1679,61 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
     <url>/work/interview/backend/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>操作系统，网络，系统设计</p>
 <a id="more"></a>
-<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="并发-并行"><a href="#并发-并行" class="headerlink" title="并发 并行"></a>并发 并行</h2><p>并发：在操作系统中，某一<strong>时间段</strong>，几个程序在同一个CPU上运行，但在任意一个时间点上，只有一个程序在CPU上运行。</p>
+<h1 id="生产服务"><a href="#生产服务" class="headerlink" title="生产服务"></a>生产服务</h1><h2 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h2><p><a href="https://developer.aliyun.com/article/699892" target="_blank" rel="noopener">https://developer.aliyun.com/article/699892</a></p>
+<p>服务稳定性保障</p>
+<p>保障策略：限流，降级，隔离，超时，重试和集群</p>
+<h3 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h3><ol>
+<li>防止系统高负荷运行</li>
+<li>有效利用服务器资源</li>
+</ol>
+<p>算法</p>
+<ol>
+<li>漏桶算法</li>
+<li>令牌桶算法</li>
+</ol>
+<h3 id="降级"><a href="#降级" class="headerlink" title="降级"></a>降级</h3><p>系统上线之后总会遇到一些不稳定情况，比如redis挂了，MySQL挂了，系统如何保证继续提供这些服务</p>
+<ol>
+<li>保障服务器基本可用</li>
+<li>保障服务的核心服务可用</li>
+</ol>
+<h3 id="超时"><a href="#超时" class="headerlink" title="超时"></a>超时</h3><p>合理设置超时时间</p>
+<ol>
+<li>识别业务需要的服务响应时间</li>
+<li>统计服务日常的响应时间</li>
+<li>分清主次，即分出哪些是核心服务。因为核心服务一旦失败，整个链路便不可用，所以可以对核心服务的时间设置的宽松一些</li>
+</ol>
+<h3 id="隔离"><a href="#隔离" class="headerlink" title="隔离"></a>隔离</h3><ol>
+<li>秒杀场景，和正常业务分开，热点数据在数据库层面隔离</li>
+<li><strong>慢SQL隔离</strong>，资源隔离</li>
+<li>机房隔离，一般大公司都会做多机房部署，其目的就是确保稳定性。确保稳定性时不要做跨机房调用，否则耦合度会比较高，假如 A 调 B，B 挂掉，A 服务也会受影响。一般确保稳定性都是做本机房的调用。而且本机房的调用性能也比较快</li>
+<li>进程隔离，进程比线程更加稳定。</li>
+<li>资源隔离，CPU，磁盘，docker cgroup</li>
+</ol>
+<p><a href="https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html" target="_blank" rel="noopener">https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html</a></p>
+<h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h3><p>对小公司而言，一台机器就提供一个服务，如果机器挂掉服务恢复就会成为一个问题。一般解决方法是做一个集群，从原来的一台机器提供服务变为可以用多台机器提供服务</p>
+<ol>
+<li>主备</li>
+<li>主从</li>
+<li>多主</li>
+</ol>
+<p>分布式锁</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="CR"><a href="#CR" class="headerlink" title="CR"></a>CR</h3><h3 id="压测"><a href="#压测" class="headerlink" title="压测"></a>压测</h3><ol>
+<li>稳定性</li>
+<li>最大QPS</li>
+</ol>
+<p>首先，压测机器和被压测服务在同一网段，尽量避免因为网络原因导致压测的结果不准确。第二点是关注服务器的负载，注意不要把服务器压到 100%，服务器快要崩的时候，得到的值意义不大。应该是服务器负载达到 60%~70%的时候，看 QPS 是多少。另外，压测并发数据是逐步递增的过程，到一个点的时候，并发数据越多代表 QPS 越低。最后，根据测试环境的压测结果估算线上的承载能力。估算的公式是线上 QPS = 单机 QPS 机器数 0.7。后面会乘以一个系数（0.7）是因为线上 put 上去的时候总会存在一些损耗。</p>
+<p>但有一些测试在测试环境下无法实现压测，所以现在发展成了<strong>全链路压测</strong>。全链路压测大概分成三个核心关注点。第一个是数据模型的构造。全链路压测是模拟线上真正的数据模型，比如说访问详情页的人数，下单的人数，人数比例，登陆人数等等参数，尽量按照真实数据模拟，构建仿真模型，这样才能真正的发现线上的一些问题。注意全链路压测不是在测试环境下实现，而是在线上压测。第二个是压测工具构建。可以是借助开源的压测工具，阿里自建了压测平台，根据数据模型提升流量。第三点是流量的隔离。对流量增加标识，保证不影响线上的数据，将全链路测试流量放到测试的存储中。比如生成一个订单 order 表，同时也会生成一个影子表 test_order。如果发现是来自于全链路压测的流量，就把这个数据写到影子表 test_order 里面，这样能够保证存储。无论是缓存还是数据库存储都能够进行流量隔离。</p>
+<h3 id="灰度"><a href="#灰度" class="headerlink" title="灰度"></a>灰度</h3><ol>
+<li>地区</li>
+<li>用户属性</li>
+<li>数据，一批用户中选取几个用户进行处理</li>
+<li>平台，一般都发生在客户端场景下。客户端与服务端不同，服务端一般是针对这个平台，先指挥这个平台先发布新版本，反馈不错再推到整个全面平台。对于客户端的灰度技术的实现如下图，给客户端集中一个 Cookie，请求到了之后在 Nginx 中去检查 Cookie，根据不同的 Cookie 把情趣转到不同的组。比如组 A 有新特性，组 B 是老版本，根据不同的 Cookie 转到不同组，保证只有一部分人可以看到新的特性。</li>
+</ol>
+<h3 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h3><p>第一是全方面监控，系统和服务全部都要监控。<br>第二是报警分级，监控报警的系数设置的要合理。<br>最后一点是在真实环境下做数据收集。</p>
+<p>首先确定对哪些指标进行监控。将整个指标的数据绘制出来，查看指标数据波动。一旦遇到问题，可以很方便的进行对比。另外要确定影响，将所有相关的指标聚合起来。比如供应商的团队操控系统经常会发生仓库操作卡顿，有很多因素都会导致卡顿，如 PC 端调用其它接口较慢，服务器 load 比较高等。仓库人员无法关注具体的细节，他们在影响界面查看指标影响值，一眼就可以知道是哪项指标不合格导致的卡顿。之后对造成的影响进行相应的处理，目前一般的行为有效报警或短信报警。</p>
+<h2 id="SLA"><a href="#SLA" class="headerlink" title="SLA"></a>SLA</h2><p><a href="https://www.cnblogs.com/imyalost/p/12952930.html" target="_blank" rel="noopener">https://www.cnblogs.com/imyalost/p/12952930.html</a></p>
+<h2 id="雪崩、降级与熔断"><a href="#雪崩、降级与熔断" class="headerlink" title="雪崩、降级与熔断"></a>雪崩、降级与熔断</h2><p><a href="https://www.cnblogs.com/rjzheng/p/10340176.html" target="_blank" rel="noopener">https://www.cnblogs.com/rjzheng/p/10340176.html</a></p>
+<h1 id="超大规模库-物品表"><a href="#超大规模库-物品表" class="headerlink" title="超大规模库/物品表"></a>超大规模库/物品表</h1><h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="并发-并行"><a href="#并发-并行" class="headerlink" title="并发 并行"></a>并发 并行</h2><p>并发：在操作系统中，某一<strong>时间段</strong>，几个程序在同一个CPU上运行，但在任意一个时间点上，只有一个程序在CPU上运行。</p>
 <p>当有多个线程时，如果系统只有一个CPU，那么CPU不可能真正同时进行多个线程，CPU的运行时间会被划分成若干个时间段，每个时间段分配给各个线程去执行，一个时间段里某个线程运行时，其他线程处于挂起状态，这就是并发。并发解决了程序排队等待的问题，如果一个程序发生阻塞，其他程序仍然可以正常执行。</p>
 <p>并行：当操作系统有多个CPU时，一个CPU处理A线程，另一个CPU处理B线程，两个线程互相不抢占CPU资源，可以<strong>同时进行</strong>，这种方式成为并行。</p>
 <p>并发只是在宏观上给人感觉有多个程序在同时运行，但在实际的单CPU系统中，每一时刻只有一个程序在运行，微观上这些程序是分时交替执行。<br>在多CPU系统中，将这些并发执行的程序分配到不同的CPU上处理，每个CPU用来处理一个程序，这样多个程序便可以实现同时执行。</p>
@@ -1847,6 +1901,10 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 </ul>
 <p><a href="https://www.licc.tech/article?id=63" target="_blank" rel="noopener">https://www.licc.tech/article?id=63</a><br>在Eigen中实现稀疏矩阵的多线程乘法</p>
 <h1 id="云，中间件，系统"><a href="#云，中间件，系统" class="headerlink" title="云，中间件，系统"></a>云，中间件，系统</h1><p><a href="http://blog.itpub.net/31555484/viewspace-2650133/" target="_blank" rel="noopener">http://blog.itpub.net/31555484/viewspace-2650133/</a></p>
+<h1 id="分布式ID"><a href="#分布式ID" class="headerlink" title="分布式ID"></a>分布式ID</h1><p>解决分库分表主键问题</p>
+<p><a href="https://segmentfault.com/a/1190000010978305" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010978305</a></p>
+<p>snowflake</p>
+<p><a href="https://www.jianshu.com/p/9a9eeb24c144" target="_blank" rel="noopener">https://www.jianshu.com/p/9a9eeb24c144</a></p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -1871,10 +1929,13 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
       </tags>
   </entry>
   <entry>
-    <title>烤面筋 - Dart</title>
-    <url>/work/interview/dart/</url>
+    <title>烤面筋 - C++</title>
+    <url>/work/interview/c++/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基础问题</p>
-<a id="more"></a>]]></content>
+<a id="more"></a>
+<p><a href="https://github.com/huihut/interview" target="_blank" rel="noopener">https://github.com/huihut/interview</a></p>
+<p><a href="https://juejin.cn/post/6844903878886948878" target="_blank" rel="noopener">https://juejin.cn/post/6844903878886948878</a></p>
+]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -1883,8 +1944,8 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
       </tags>
   </entry>
   <entry>
-    <title>烤面筋 - C++</title>
-    <url>/work/interview/c++/</url>
+    <title>烤面筋 - Dart</title>
+    <url>/work/interview/dart/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基础问题</p>
 <a id="more"></a>]]></content>
       <categories>
@@ -2262,7 +2323,10 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
     <url>/work/interview/mysql/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>MySQL</p>
 <a id="more"></a>
+<h1 id="MYSQL规模优化"><a href="#MYSQL规模优化" class="headerlink" title="MYSQL规模优化"></a>MYSQL规模优化</h1><p><a href="https://mp.weixin.qq.com/s?__biz=Mzg4MjU0OTM1OA==&amp;mid=2247489128&amp;idx=1&amp;sn=bfd3e00d8c8f8e4f259bf5e6b9e49f16&amp;chksm=cf55a169f822287ffc79194e3b8103fb04ec7391d2a89ab3fb9d7c046243d2a04f414917253e&amp;token=1924668976&amp;lang=zh_CN#rd" target="_blank" rel="noopener">从零到千万用户，我是如何一步步优化MySQL数据库的？</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=Mzg4MjU0OTM1OA==&amp;mid=2247489097&amp;idx=1&amp;sn=21c5805bea64cad0d9d2e280abe74b2b&amp;chksm=cf55a148f822285e5fc8e48ba9a18743e8515292ab3c5c15fefd3251e4598265ef1289eda239&amp;token=1924668976&amp;lang=zh_CN#rd" target="_blank" rel="noopener">系统从初期到支撑亿级流量，都经历了哪些架构上的演变？</a></p>
 <p><a href="https://juejin.cn/post/6844904127047139335" target="_blank" rel="noopener">https://juejin.cn/post/6844904127047139335</a></p>
+<h1 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h1><p><a href="https://zhuanlan.zhihu.com/p/57185574" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/57185574</a></p>
 <h1 id="binlog"><a href="#binlog" class="headerlink" title="binlog"></a>binlog</h1><p>二进制日志，主从同步，replay</p>
 <p><a href="https://laijianfeng.org/2019/03/MySQL-Binlog-%E4%BB%8B%E7%BB%8D/" target="_blank" rel="noopener">https://laijianfeng.org/2019/03/MySQL-Binlog-%E4%BB%8B%E7%BB%8D/</a></p>
 <p>订阅分库分表的 Binlog 怎么订阅？</p>
@@ -2299,6 +2363,8 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>垂直分库针对的是一个系统中的不同业务进行拆分，比如用户User一个库，商品Producet一个库，订单Order一个库。切分后，要放在多个服务器上，提高性能。</p>
 <p>3）水平分库分表</p>
 <p>将单张表的数据切分到多个服务器上去，每个服务器具有相应的库与表，只是表中数据集合不同。水平分库分表能够有效的缓解单机和单库的性能瓶颈和压力，突破IO、连接数、硬件资源等的瓶颈。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/84224499" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84224499</a></p>
+<p><a href="https://segmentfault.com/a/1190000038751310" target="_blank" rel="noopener">https://segmentfault.com/a/1190000038751310</a></p>
 <h1 id="B-树和B树区别，优缺点"><a href="#B-树和B树区别，优缺点" class="headerlink" title="B+树和B树区别，优缺点"></a>B+树和B树区别，优缺点</h1><p>B树每个节点都存储key和data，所有节点组成这棵树，并且叶子节点指针为null。只有叶子节点存储data，叶子节点包含了这棵树的所有键值，叶子节点不存储指针，顺序访问指针，也就是每个叶子节点增加一个指向相邻叶子节点的指针。</p>
 <h1 id="B树和二叉查找树或者红黑色区别"><a href="#B树和二叉查找树或者红黑色区别" class="headerlink" title="B树和二叉查找树或者红黑色区别"></a>B树和二叉查找树或者红黑色区别</h1><p>基本常识</p>
 <h1 id="索引原理"><a href="#索引原理" class="headerlink" title="索引原理"></a>索引原理</h1><p><a href="https://www.ituring.com.cn/article/986" target="_blank" rel="noopener">https://www.ituring.com.cn/article/986</a></p>
@@ -2354,6 +2420,7 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>所以我们想要删除百万数据的时候可以先删除索引（此时大概耗时三分多钟）<br>然后删除其中无用数据（此过程需要不到两分钟）<br>删除完成后重新创建索引(此时数据较少了)创建索引也非常快，约十分钟左右。<br>与之前的直接删除绝对是要快速很多，更别说万一删除中断,一切删除会回滚。那更是坑了</p>
 <h1 id="分布式ID"><a href="#分布式ID" class="headerlink" title="分布式ID"></a>分布式ID</h1><p>Snowflake</p>
 <p>毫秒级时间41位 机器ID 10位 毫秒内序列12位</p>
+<p>[TimeStamp][TransctionID][AutoIncrement]</p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -2367,6 +2434,94 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
     <url>/work/interview/python/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基础问题</p>
 <a id="more"></a>]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>烤面筋 - AI</title>
+    <url>/work/interview/recommender/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习，推荐系统</p>
+<a id="more"></a>
+<p>百面机器学习算法工程师带你去面试</p>
+<p><a href="https://github.com/stormstone/awesome-material/blob/master/Book/%E7%99%BE%E9%9D%A2%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%B8%A6%E4%BD%A0%E5%8E%BB%E9%9D%A2%E8%AF%95.pdf" target="_blank" rel="noopener">https://github.com/stormstone/awesome-material/blob/master/Book/%E7%99%BE%E9%9D%A2%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%B8%A6%E4%BD%A0%E5%8E%BB%E9%9D%A2%E8%AF%95.pdf</a></p>
+<ul>
+<li>推荐系统中的三个要素</li>
+</ul>
+<p>三要素指的是挖掘用户兴趣的信息源。</p>
+<p>用户特征：年龄（如新闻，视频推荐 不同年龄的人关注内容不一样），职业（职业不同，关注内容也不一样），地域，性别等。这些我们都可以统称为用户的画像特征。这些用户画像中特征的变化性有不同的特点：如年龄是逐年稳定增加，职业（因人而变，有的长久不变，有的经常变化），性别（基本不变），地域（也会变化）。</p>
+<p>商品特征：类型（车，手机，体育新闻，娱乐新闻等），商品内容（车的品牌，颜色，大小；手机的品牌，智能程序；足球新闻，篮球新闻；某明星娱乐新闻；歌曲的演唱者等），商品展示的位置（置顶，边框，角落），展示的方式等。这些我们称为商品特征</p>
+<p>行为（用户对商品的行为 ）特征：购买。长时间阅读某新闻；点击某广告并快速关闭或长时间停留；完事听完某歌 曲并短时间内重复听。这些特征称为用户对商品行为特征，简称行为特征。</p>
+<ul>
+<li>请设计一个你认为能够处理百万日活的推荐系统框架？（包括算法和工程落地方案）</li>
+<li>之前做的推荐系统可以达到实时吗？你认为怎样的推荐系统能够达到实时？（日活百万）</li>
+<li>给出一个标准三层结构（召回，粗排，过滤），每个结构上有10个待上线算法，日活百万，如何解决每个算法上训练时数据量不足的问题？（提示：用流量正交）</li>
+<li>对于在线端，近线端和离线端的理解？</li>
+<li>实时推荐系统三大模块中，最快达到性能瓶颈的是哪一个模块？为什么？怎么解决？</li>
+<li>现在让你设计一个日活百万的推荐系统架构，请从在线端和离线端两个角度描述你的设计方案</li>
+<li>如何设计A/B Test系统？如何保证流量正交？</li>
+<li>流量分桶吗？如何保证流量分桶唯一？</li>
+</ul>
+<h2 id="树模型"><a href="#树模型" class="headerlink" title="树模型"></a>树模型</h2><ul>
+<li>GBDT 的原理（知识）</li>
+<li>决策树节点分裂时是如何选择特征的？（知识）</li>
+<li>写出 Gini Index 和 Information Gain 的公式并举例说明（知识）</li>
+<li>分类树和回归树的区别是什么？（知识）</li>
+<li>与 Random Forest 作比较，并以此介绍什么是模型的Bias和Variance（知识）</li>
+<li>XGBoost 的参数调优有哪些经验（工具）</li>
+<li>XGBoost 的正则化是如何实现的（工具）</li>
+<li>XGBoost 的并行化部分是如何实现的（工具）</li>
+<li>为什么预测股票涨跌一般都会出现严重的过拟合现象（业务）</li>
+<li>如果选用一种其他的模型替代 XGBoost 或者改进 XGBoost 你会怎么做，为什么？（业务+逻辑+知识）</li>
+</ul>
+<h2 id="CTR"><a href="#CTR" class="headerlink" title="CTR"></a>CTR</h2><ul>
+<li>softmax 函数的定义是什么？（知识）</li>
+<li>深度神经网络为什么会产生梯度消失现象，如何解决它？（知识）</li>
+<li>常见的激活函数有哪些？都有什么特点？（知识）</li>
+<li>挑一种激活函数推导梯度下降的过程。（知识+逻辑）</li>
+<li>Attention 机制什么？（知识）</li>
+<li>阿里将attention机制引入推荐模型的动机是什么？（知识+业务）</li>
+<li>DIN中将用户和商品进行了embedding，请讲清楚两项你知道的embedding 方法。（知识）</li>
+<li>推荐系统中 embedding 技术都可以有哪些应用？（业务+知识）</li>
+<li>你如何 serving 类似 DIN 这样的深度学习模型(工具+业务)</li>
+</ul>
+<h2 id="广度"><a href="#广度" class="headerlink" title="广度"></a>广度</h2><ul>
+<li>NN，RNN，个别聚类算法，模型评估等知识的理解程度</li>
+<li>spark的调优经验，model serving的主要方法，parameter server的原理</li>
+<li>GAN，LSTM，online learning的基本理解</li>
+<li>embedding方法，attention机制，multi task，GNN，reinforcement learning，online learning的基本理解</li>
+</ul>
+<h2 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h2><ul>
+<li>为什么需要对数值型特征做归一化呢？</li>
+</ul>
+<p>保持相同学习速率下，特征的更新速度一致，梯度下降更快。当然，数据归一化并不是万能的。在实际应用中，通过梯度下降法求解的模型通常是需要归一化的，包括线性回归、逻辑回归、支持向量机、神经网络等模型。但对于决策树模型则并不适用，以C4.5为例，决策树在进行节点分裂时主要依据数据集D关于特征x的信息增益比（详见第3章第3节），而信息增益比跟特征是否经过归一化是无关的，因为归一化并不会改变样本在特征x上的信息增益。</p>
+<ul>
+<li>什么时候需要对连续特征分桶？</li>
+</ul>
+<p><a href="https://cloud.tencent.com/developer/article/1590912" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1590912</a><br>分桶是离散化的常用方法，将连续型特征离线化为一系列 0/1 的离散特征；<br>当数值特征跨越不同的数量级的时候，模型可能会只对大的特征值敏感，这种情况可以考虑分桶操作。<br>分桶操作可以看作是对数值变量的离散化，之后通过二值化进行 one-hot 编码。<br>分桶的数量和宽度可以根据业务领域的经验来指定，但也有一些常规的做法：</p>
+<ol>
+<li>等距分桶。每个桶的宽度是固定的，即值域范围是固定的，比如是 0-99，100-199，200-299等；这种适合样本分布比较均匀的情况，避免出现有的桶的数量很少，而有的桶数量过多的情况；</li>
+<li>等频分桶，也称为分位数分桶。也就是每个桶有一样多的样本，但可能出现数值相差太大的样本放在同个桶的情况；<br>模型分桶。使用模型找到最佳分桶，比如聚类，将特征分成多个类别，或者树模型，这种非线性模型天生具有对连续型特征切分的能力，利用特征分割点进行离散化。</li>
+</ol>
+<p>分桶的优点：</p>
+<ol>
+<li>分桶后得到的稀疏向量，内积乘法运算速度更快，计算结果更方便存储；</li>
+<li>对异常数据有很强的鲁棒性</li>
+</ol>
+<ul>
+<li>在对数据进行预处理时，应该怎样处理类别型特征？</li>
+</ul>
+<p>大小关系：序号编码。<br>不具有大小关系：One-Hot编码+Embedding。<br>更多Hash/Binary。</p>
+<ul>
+<li>什么是组合特征？如何处理高维组合特征？</li>
+<li>为什么L1正则化可以产生稀疏模型（L1是怎么让系数等于零的），以及为什么L2正则化可以防止过拟合?</li>
+</ul>
+<h2 id="推荐系统工程"><a href="#推荐系统工程" class="headerlink" title="推荐系统工程"></a>推荐系统工程</h2><p><a href="https://zhuanlan.zhihu.com/p/28522487" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/28522487</a></p>
+<p><a href="https://xie.infoq.cn/article/e1db36aecf60b4da29f56eeb4" target="_blank" rel="noopener">https://xie.infoq.cn/article/e1db36aecf60b4da29f56eeb4</a></p>
+]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -2514,94 +2669,6 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>缓存预热（关闭外网访问，先开启mysql，通过预热脚本将热点数据写入缓存中，启动缓存。开启外网服务）</li>
 <li>数据不要设置相同的生存时间，不然过期时，redis压力会大</li>
 </ol>
-]]></content>
-      <categories>
-        <category>面筋</category>
-      </categories>
-      <tags>
-        <tag>面筋</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>烤面筋 - AI</title>
-    <url>/work/interview/recommender/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>机器学习，推荐系统</p>
-<a id="more"></a>
-<p>百面机器学习算法工程师带你去面试</p>
-<p><a href="https://github.com/stormstone/awesome-material/blob/master/Book/%E7%99%BE%E9%9D%A2%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%B8%A6%E4%BD%A0%E5%8E%BB%E9%9D%A2%E8%AF%95.pdf" target="_blank" rel="noopener">https://github.com/stormstone/awesome-material/blob/master/Book/%E7%99%BE%E9%9D%A2%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%B8%A6%E4%BD%A0%E5%8E%BB%E9%9D%A2%E8%AF%95.pdf</a></p>
-<ul>
-<li>推荐系统中的三个要素</li>
-</ul>
-<p>三要素指的是挖掘用户兴趣的信息源。</p>
-<p>用户特征：年龄（如新闻，视频推荐 不同年龄的人关注内容不一样），职业（职业不同，关注内容也不一样），地域，性别等。这些我们都可以统称为用户的画像特征。这些用户画像中特征的变化性有不同的特点：如年龄是逐年稳定增加，职业（因人而变，有的长久不变，有的经常变化），性别（基本不变），地域（也会变化）。</p>
-<p>商品特征：类型（车，手机，体育新闻，娱乐新闻等），商品内容（车的品牌，颜色，大小；手机的品牌，智能程序；足球新闻，篮球新闻；某明星娱乐新闻；歌曲的演唱者等），商品展示的位置（置顶，边框，角落），展示的方式等。这些我们称为商品特征</p>
-<p>行为（用户对商品的行为 ）特征：购买。长时间阅读某新闻；点击某广告并快速关闭或长时间停留；完事听完某歌 曲并短时间内重复听。这些特征称为用户对商品行为特征，简称行为特征。</p>
-<ul>
-<li>请设计一个你认为能够处理百万日活的推荐系统框架？（包括算法和工程落地方案）</li>
-<li>之前做的推荐系统可以达到实时吗？你认为怎样的推荐系统能够达到实时？（日活百万）</li>
-<li>给出一个标准三层结构（召回，粗排，过滤），每个结构上有10个待上线算法，日活百万，如何解决每个算法上训练时数据量不足的问题？（提示：用流量正交）</li>
-<li>对于在线端，近线端和离线端的理解？</li>
-<li>实时推荐系统三大模块中，最快达到性能瓶颈的是哪一个模块？为什么？怎么解决？</li>
-<li>现在让你设计一个日活百万的推荐系统架构，请从在线端和离线端两个角度描述你的设计方案</li>
-<li>如何设计A/B Test系统？如何保证流量正交？</li>
-<li>流量分桶吗？如何保证流量分桶唯一？</li>
-</ul>
-<h2 id="树模型"><a href="#树模型" class="headerlink" title="树模型"></a>树模型</h2><ul>
-<li>GBDT 的原理（知识）</li>
-<li>决策树节点分裂时是如何选择特征的？（知识）</li>
-<li>写出 Gini Index 和 Information Gain 的公式并举例说明（知识）</li>
-<li>分类树和回归树的区别是什么？（知识）</li>
-<li>与 Random Forest 作比较，并以此介绍什么是模型的Bias和Variance（知识）</li>
-<li>XGBoost 的参数调优有哪些经验（工具）</li>
-<li>XGBoost 的正则化是如何实现的（工具）</li>
-<li>XGBoost 的并行化部分是如何实现的（工具）</li>
-<li>为什么预测股票涨跌一般都会出现严重的过拟合现象（业务）</li>
-<li>如果选用一种其他的模型替代 XGBoost 或者改进 XGBoost 你会怎么做，为什么？（业务+逻辑+知识）</li>
-</ul>
-<h2 id="CTR"><a href="#CTR" class="headerlink" title="CTR"></a>CTR</h2><ul>
-<li>softmax 函数的定义是什么？（知识）</li>
-<li>深度神经网络为什么会产生梯度消失现象，如何解决它？（知识）</li>
-<li>常见的激活函数有哪些？都有什么特点？（知识）</li>
-<li>挑一种激活函数推导梯度下降的过程。（知识+逻辑）</li>
-<li>Attention 机制什么？（知识）</li>
-<li>阿里将attention机制引入推荐模型的动机是什么？（知识+业务）</li>
-<li>DIN中将用户和商品进行了embedding，请讲清楚两项你知道的embedding 方法。（知识）</li>
-<li>推荐系统中 embedding 技术都可以有哪些应用？（业务+知识）</li>
-<li>你如何 serving 类似 DIN 这样的深度学习模型(工具+业务)</li>
-</ul>
-<h2 id="广度"><a href="#广度" class="headerlink" title="广度"></a>广度</h2><ul>
-<li>NN，RNN，个别聚类算法，模型评估等知识的理解程度</li>
-<li>spark的调优经验，model serving的主要方法，parameter server的原理</li>
-<li>GAN，LSTM，online learning的基本理解</li>
-<li>embedding方法，attention机制，multi task，GNN，reinforcement learning，online learning的基本理解</li>
-</ul>
-<h2 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h2><ul>
-<li>为什么需要对数值型特征做归一化呢？</li>
-</ul>
-<p>保持相同学习速率下，特征的更新速度一致，梯度下降更快。当然，数据归一化并不是万能的。在实际应用中，通过梯度下降法求解的模型通常是需要归一化的，包括线性回归、逻辑回归、支持向量机、神经网络等模型。但对于决策树模型则并不适用，以C4.5为例，决策树在进行节点分裂时主要依据数据集D关于特征x的信息增益比（详见第3章第3节），而信息增益比跟特征是否经过归一化是无关的，因为归一化并不会改变样本在特征x上的信息增益。</p>
-<ul>
-<li>什么时候需要对连续特征分桶？</li>
-</ul>
-<p><a href="https://cloud.tencent.com/developer/article/1590912" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1590912</a><br>分桶是离散化的常用方法，将连续型特征离线化为一系列 0/1 的离散特征；<br>当数值特征跨越不同的数量级的时候，模型可能会只对大的特征值敏感，这种情况可以考虑分桶操作。<br>分桶操作可以看作是对数值变量的离散化，之后通过二值化进行 one-hot 编码。<br>分桶的数量和宽度可以根据业务领域的经验来指定，但也有一些常规的做法：</p>
-<ol>
-<li>等距分桶。每个桶的宽度是固定的，即值域范围是固定的，比如是 0-99，100-199，200-299等；这种适合样本分布比较均匀的情况，避免出现有的桶的数量很少，而有的桶数量过多的情况；</li>
-<li>等频分桶，也称为分位数分桶。也就是每个桶有一样多的样本，但可能出现数值相差太大的样本放在同个桶的情况；<br>模型分桶。使用模型找到最佳分桶，比如聚类，将特征分成多个类别，或者树模型，这种非线性模型天生具有对连续型特征切分的能力，利用特征分割点进行离散化。</li>
-</ol>
-<p>分桶的优点：</p>
-<ol>
-<li>分桶后得到的稀疏向量，内积乘法运算速度更快，计算结果更方便存储；</li>
-<li>对异常数据有很强的鲁棒性</li>
-</ol>
-<ul>
-<li>在对数据进行预处理时，应该怎样处理类别型特征？</li>
-</ul>
-<p>大小关系：序号编码。<br>不具有大小关系：One-Hot编码+Embedding。<br>更多Hash/Binary。</p>
-<ul>
-<li>什么是组合特征？如何处理高维组合特征？</li>
-<li>为什么L1正则化可以产生稀疏模型（L1是怎么让系数等于零的），以及为什么L2正则化可以防止过拟合?</li>
-</ul>
-<h2 id="推荐系统工程"><a href="#推荐系统工程" class="headerlink" title="推荐系统工程"></a>推荐系统工程</h2><p><a href="https://zhuanlan.zhihu.com/p/28522487" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/28522487</a></p>
-<p><a href="https://xie.infoq.cn/article/e1db36aecf60b4da29f56eeb4" target="_blank" rel="noopener">https://xie.infoq.cn/article/e1db36aecf60b4da29f56eeb4</a></p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -2889,11 +2956,23 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>部门人员增长，自己造轮子，突出技术部的重要性</li>
 <li>系统设计</li>
 </ol>
-<h1 id="美团"><a href="#美团" class="headerlink" title="美团"></a>美团</h1><h2 id="JD-1"><a href="#JD-1" class="headerlink" title="JD"></a>JD</h2><p>推理平台工程师</p>
+<h1 id="Bilibili"><a href="#Bilibili" class="headerlink" title="Bilibili"></a>Bilibili</h1><h2 id="JD-1"><a href="#JD-1" class="headerlink" title="JD"></a>JD</h2><p>职责：</p>
+<ol>
+<li>负责AI云平台的建设和运营工作</li>
+<li>负责打通从特征工程、训练、评估、模型发布、预测等机器学习全流程，提升业务迭代效率</li>
+<li>负责探索业界前沿技术落地</li>
+</ol>
+<p>要求：</p>
+<ol>
+<li>熟悉数据结构和算法，精通C++/Python/Golang中的一种</li>
+<li>熟悉常用机器学习，深度学习模型与算法，基本原理和适用范围</li>
+<li>熟悉TF、MxNet、Caffe等开源框架</li>
+</ol>
+<h2 id="面筋-1"><a href="#面筋-1" class="headerlink" title="面筋"></a>面筋</h2><h1 id="美团"><a href="#美团" class="headerlink" title="美团"></a>美团</h1><h2 id="JD-2"><a href="#JD-2" class="headerlink" title="JD"></a>JD</h2><p>推理平台工程师</p>
 <ol>
 <li>深度优化超大规模样本和参数的模型训练性能</li>
 </ol>
-<h2 id="Intro-1"><a href="#Intro-1" class="headerlink" title="Intro"></a>Intro</h2><h1 id="腾讯"><a href="#腾讯" class="headerlink" title="腾讯"></a>腾讯</h1><h2 id="JD-2"><a href="#JD-2" class="headerlink" title="JD"></a>JD</h2><h1 id="字节"><a href="#字节" class="headerlink" title="字节"></a>字节</h1><h2 id="JD-3"><a href="#JD-3" class="headerlink" title="JD"></a>JD</h2><p>端云语音引擎</p>
+<h2 id="Intro-1"><a href="#Intro-1" class="headerlink" title="Intro"></a>Intro</h2><h1 id="腾讯"><a href="#腾讯" class="headerlink" title="腾讯"></a>腾讯</h1><h2 id="JD-3"><a href="#JD-3" class="headerlink" title="JD"></a>JD</h2><h1 id="字节"><a href="#字节" class="headerlink" title="字节"></a>字节</h1><h2 id="JD-4"><a href="#JD-4" class="headerlink" title="JD"></a>JD</h2><p>端云语音引擎</p>
 <p>深度定制优化</p>
 <p>算法落地评估</p>
 ]]></content>
