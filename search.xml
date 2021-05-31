@@ -2712,7 +2712,63 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
     <url>/work/interview/resume/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>202105 - 机器学习系统和解决方案</p>
 <a id="more"></a>
-<h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><h2 id="CS"><a href="#CS" class="headerlink" title="CS"></a>CS</h2><h3 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h3><h4 id="进程-线程-协程-锁"><a href="#进程-线程-协程-锁" class="headerlink" title="进程/线程/协程/锁"></a>进程/线程/协程/锁</h4><h3 id="Network"><a href="#Network" class="headerlink" title="Network"></a>Network</h3><h4 id="IO复用"><a href="#IO复用" class="headerlink" title="IO复用"></a>IO复用</h4><h4 id="TCP-IP-HTTP-WebSocket"><a href="#TCP-IP-HTTP-WebSocket" class="headerlink" title="TCP/IP/HTTP/WebSocket"></a>TCP/IP/HTTP/WebSocket</h4><h2 id="Algo"><a href="#Algo" class="headerlink" title="Algo"></a>Algo</h2><h3 id="数组-动态数组-线性表-链表-映射Map-队列-栈-树-堆-图"><a href="#数组-动态数组-线性表-链表-映射Map-队列-栈-树-堆-图" class="headerlink" title="数组/动态数组/线性表/链表/映射Map/队列/栈/树/堆/图"></a>数组/动态数组/线性表/链表/映射Map/队列/栈/树/堆/图</h3><h3 id="分治-回溯-贪心-动规"><a href="#分治-回溯-贪心-动规" class="headerlink" title="分治/回溯/贪心/动规"></a>分治/回溯/贪心/动规</h3><h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h2 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h2><h3 id="Goroutine-GPM-Channel"><a href="#Goroutine-GPM-Channel" class="headerlink" title="Goroutine/GPM/Channel"></a>Goroutine/GPM/Channel</h3><h3 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h3><h3 id="坑-捕获-内存对齐-拷贝-锁重入"><a href="#坑-捕获-内存对齐-拷贝-锁重入" class="headerlink" title="坑/捕获/内存对齐/拷贝/锁重入"></a>坑/捕获/内存对齐/拷贝/锁重入</h3><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="结构-类-对象-继承-组合-封装-多态-虚函数"><a href="#结构-类-对象-继承-组合-封装-多态-虚函数" class="headerlink" title="结构/类/对象/继承/组合/封装/多态/虚函数"></a>结构/类/对象/继承/组合/封装/多态/虚函数</h3><h3 id="指针-智能指针"><a href="#指针-智能指针" class="headerlink" title="指针/智能指针"></a>指针/智能指针</h3><h3 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h3><h2 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h2><h2 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a>推荐系统</h2><h2 id="k8s数据架构"><a href="#k8s数据架构" class="headerlink" title="k8s数据架构"></a>k8s数据架构</h2><h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><h3 id="SQL-分库分表-分布式ID-慢SQL-事物一致性-索引"><a href="#SQL-分库分表-分布式ID-慢SQL-事物一致性-索引" class="headerlink" title="SQL/分库分表/分布式ID/慢SQL/事物一致性/索引"></a>SQL/分库分表/分布式ID/慢SQL/事物一致性/索引</h3><h3 id="Cache-数据结构-雪崩-原理"><a href="#Cache-数据结构-雪崩-原理" class="headerlink" title="Cache/数据结构/雪崩/原理"></a>Cache/数据结构/雪崩/原理</h3><h3 id="MQ"><a href="#MQ" class="headerlink" title="MQ"></a>MQ</h3><h2 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h2><h3 id="限流-熔断-降级-超时-隔离-集群"><a href="#限流-熔断-降级-超时-隔离-集群" class="headerlink" title="限流/熔断/降级/超时/隔离/集群"></a>限流/熔断/降级/超时/隔离/集群</h3><h2 id="系统设计"><a href="#系统设计" class="headerlink" title="系统设计"></a>系统设计</h2><h1 id="个人简介"><a href="#个人简介" class="headerlink" title="个人简介"></a>个人简介</h1><h2 id="主要方向"><a href="#主要方向" class="headerlink" title="主要方向"></a>主要方向</h2><ul>
+<h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><ul>
+<li>OS<ul>
+<li>进程/线程/协程</li>
+<li>互斥锁/自旋锁/读写锁</li>
+<li>Cache/体系结构</li>
+</ul>
+</li>
+<li>Network<ul>
+<li>IO多路复用</li>
+<li>TCP/IP/HTTP/WebSocket</li>
+</ul>
+</li>
+<li>Algo<ul>
+<li>数组/动态数组/线性表/链表/映射Map/队列/集合/栈/堆/图</li>
+<li>树/二叉树/完全二叉树/B树/B+树/B*树/红黑树/前中后层</li>
+<li>分治/回溯/贪心/动规</li>
+<li>排序/TopK/布隆过滤器/DFS/BFS/最短路径</li>
+</ul>
+</li>
+<li>Golang<ul>
+<li>Goroutine/GPM/Channel/锁</li>
+<li>GC/三色标记</li>
+<li>坑/变量捕获/内存对齐/拷贝/锁重入</li>
+</ul>
+</li>
+<li>C++<ul>
+<li>结构/类/对象/继承/组合/封装/多态/虚函数</li>
+<li>指针/智能指针</li>
+<li>STL</li>
+</ul>
+</li>
+<li>机器学习系统<ul>
+<li>LR/DT/RF/GBDT</li>
+<li>TF/PT</li>
+<li>图/编译/厂商库/压缩</li>
+<li>IO/资源隔离/高并发/大batch/缓存/稳定性/排错/监控</li>
+</ul>
+</li>
+<li>推荐系统<ul>
+<li>GBDT+LR/CB/CF/Embedding</li>
+<li>向量检索</li>
+</ul>
+</li>
+<li>k8s数据架构</li>
+<li>中间件<ul>
+<li>SQL/分库分表/分布式ID/慢SQL/事务/一致性/索引/锁</li>
+<li>Cache/数据结构/雪崩/多级缓存</li>
+<li>MQ</li>
+</ul>
+</li>
+<li>高可用<ul>
+<li>限流/熔断/降级/超时/隔离/集群</li>
+</ul>
+</li>
+<li>系统设计</li>
+</ul>
+<h1 id="个人简介"><a href="#个人简介" class="headerlink" title="个人简介"></a>个人简介</h1><h2 id="主要方向"><a href="#主要方向" class="headerlink" title="主要方向"></a>主要方向</h2><ul>
 <li>机器学习产品主要是什么？</li>
 </ul>
 <p>模型优化，推理服务，实验和训练相关的产品体验改进。</p>
@@ -4185,6 +4241,7 @@ Gini(D|A) = \frac{|D_1|}{|D|}Gini(D_1) + \frac{|D_2|}{|D|}Gini(D_2)</script><ul>
 <h2 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h2><p>可以从高位功率谱密度系数提取特征向量。</p>
 <h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><p>用户和物品数量可能相当大，可以使用矩阵分解、单值分解、神经协同过滤、神经因式分解机等得到向量。物品的嵌入位置表达了物品属性，位置接近的嵌入位置代表用户更相似的兴趣度。</p>
 <h3 id="神经协同过滤"><a href="#神经协同过滤" class="headerlink" title="神经协同过滤"></a>神经协同过滤</h3><h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p>Video2Vec</p>
+<p>CNN+LSTM提取</p>
 <h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>DeepWalk<br>Node2Vec<br>EGES<br>GraphSage<br>DCN</p>
 <hr>
 <ul>
