@@ -13,7 +13,7 @@
   <!-- PACE Progress Bar START -->
 
   
-  <title>烤面筋 - 大数据 | KLEON</title>
+  <title>烤面筋 - 推理优化 | KLEON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="AI,IT">
@@ -21,18 +21,18 @@
   
   
   
-  <meta name="description" content="HDFS/Hive/Spark/Flink">
+  <meta name="description" content="预设问题">
 <meta name="keywords" content="面筋">
 <meta property="og:type" content="article">
-<meta property="og:title" content="烤面筋 - 大数据">
-<meta property="og:url" content="https://blog.kleon.space/work/interview/big-data/index.html">
+<meta property="og:title" content="烤面筋 - 推理优化">
+<meta property="og:url" content="https://blog.kleon.space/work/interview/infer-opt/index.html">
 <meta property="og:site_name" content="KLEON">
-<meta property="og:description" content="HDFS/Hive/Spark/Flink">
+<meta property="og:description" content="预设问题">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-05-25T19:23:19.000Z">
+<meta property="og:updated_time" content="2021-06-01T08:24:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="烤面筋 - 大数据">
-<meta name="twitter:description" content="HDFS/Hive/Spark/Flink">
+<meta name="twitter:title" content="烤面筋 - 推理优化">
+<meta name="twitter:description" content="预设问题">
   
     <link rel="alternate" href="/atom.xml" title="KLEON" type="application/atom+xml">
   
@@ -156,7 +156,7 @@ var themeMenus = {};
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-work/interview/big-data" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-work/interview/infer-opt" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
     
@@ -164,7 +164,7 @@ var themeMenus = {};
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      烤面筋 - 大数据
+      烤面筋 - 推理优化
     </h1>
   
 
@@ -172,18 +172,52 @@ var themeMenus = {};
     
     <div class="article-meta">
       
-	发布于 <time datetime="2021-05-25T12:23:19.000Z" itemprop="datePublished">五月 25, 2021</time>
+	发布于 <time datetime="2021-06-01T08:23:19.000Z" itemprop="datePublished">六月 1, 2021</time>
 	&nbsp;&nbsp;
-	更新于 <time datetime="2021-05-25T19:23:19.000Z" itemprop="datePublished">五月 25, 2021</time>
+	更新于 <time datetime="2021-06-01T08:24:53.000Z" itemprop="datePublished">六月 1, 2021</time>
 
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>HDFS/Hive/Spark/Flink</p>
+        <p>预设问题</p>
 <a id="more"></a>
-<h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><p><a href="https://blog.csdn.net/weixin_43893397/article/details/102967571" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43893397/article/details/102967571</a></p>
-<p><a href="https://troywu0.gitbooks.io/spark/content/hdfs.html" target="_blank" rel="noopener">https://troywu0.gitbooks.io/spark/content/hdfs.html</a></p>
+<ul>
+<li>推理优化主要做了什么工作？</li>
+</ul>
+<p>主要会从两个视角来叙述，一个是不同优化层次中的通用优化工作，另一个是针对不同业务模型特点的优化工作。</p>
+<p>先从通用的<strong>优化层次</strong>上说，主要是基于Tensorflow模型的优化，大致可以分为三个不同层次：模型，框架和系统。</p>
+<p>模型级优化主要分为图层面优化、编译优化和模型压缩。</p>
+<p><strong>图层面</strong>的优化主要是为了后续推理优化步骤做准备，目的是尽量去除训练算子，使实际执行推理功能的子图尽可能小，并且尽量连通，便于识别子图pattern，或者通过编译优化方法融合子图。</p>
+<p>图层面优化的工作包括：</p>
+<ul>
+<li>图结构清理</li>
+</ul>
+<p>去除可能包含自定义Op的训练图，比如PAI-TF定义了读ODPS表的算子<br>因用户构图API使用不当引入的TF不能识别的训练图，比如DropOut、Switch Merge<br>同时保护关联Node，清理前后校验数据正确性</p>
+<ul>
+<li>子图优化</li>
+</ul>
+<p>除了常用的contant folding，CSE之外，还做了Range Propagation优化为敞亮<br>子图结构变换，适配硬件指令结构，比如拆分卷积</p>
+<ul>
+<li>pattern匹配融合</li>
+</ul>
+<p>对常见的子图pattern做fusion，比如BatchNorm</p>
+<p><strong>编译优化</strong>这边我们做了很多方向上的探索，比如XLA、TVM、MLIR、PolyHedron等等。我主要参与的是XLA和TVM这两个方面。</p>
+<ul>
+<li>XLA</li>
+</ul>
+<p>利用XLA接硬件后端和TVM，XLA的IR定义、优化pass结构、后端IR emit和codegen流程比较完整，适配FPGA硬件和TVM，实际上利用XLA接入会遇到dynamic shape的问题，在业务模型shape动态范围比较大的时候，可能compilation cache爆炸。</p>
+<ul>
+<li>TVM</li>
+</ul>
+<p>TVM上主要是跟进社区工作，使用TVM的schedule和组里同学做的ansor的工作，做kernel tuning作为数据库供线上查找。</p>
+<p><strong>模型压缩</strong>主要</p>
+<p><strong>框架runtime级</strong>主要包括算子定制，框架。</p>
+<p><strong>系统级</strong>主要包括服务的各项指标优化。</p>
+<p>从<strong>业务模型</strong>类别上大致可以分为CV、语音、NLP，推广搜</p>
+<p>CV，业务模型中常见的ResNet，YOLO、MaskRCNN</p>
+<p>Transformer类</p>
+<p>Bert<br>TextCNN</p>
 
       
     </div>
@@ -205,19 +239,10 @@ var themeMenus = {};
     
 <nav id="article-nav">
   
-    <a href="/work/interview/infer-opt/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          烤面筋 - 推理优化
-        
-      </div>
-    </a>
   
-  
-    <a href="/work/interview/c++/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/work/interview/big-data/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">烤面筋 - C++</div>
+      <div class="article-nav-title">烤面筋 - 大数据</div>
     </a>
   
 </nav>
@@ -231,7 +256,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS"><span class="nav-number">1.</span> <span class="nav-text">HDFS</span></a></li></ol>
+      <ol class="nav">无</ol>
     
     </div>
   </aside>

@@ -413,11 +413,18 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>服务稳定性</li>
 <li>一般RT是多少</li>
 <li>大batch query的性能优化</li>
+<li>recall有什么方案？有什么优化方法？具体业务效果</li>
+<li>rank有什么方案？有什么优化方法？具体业务效果</li>
+<li>rank主要耗时是多少？</li>
+<li>超大规模feature表查询优化？</li>
+<li>特征工程主要做了什么？</li>
+<li>实时推荐系统怎么优化？</li>
+<li>spark用过吗？</li>
+<li>flink用过吗？</li>
 </ul>
 <h2 id="机器学习产品"><a href="#机器学习产品" class="headerlink" title="机器学习产品"></a>机器学习产品</h2><ul>
 <li>说说你的主要工作。</li>
 </ul>
-<p>简历里写了一部分。</p>
 <p>一个是Kubernetes化，服务迁移重构，围绕k8s和阿里云的基础设施的改造，资源、网络打通工作。</p>
 <p>一个是产品间打通，梳理产品关系，平台现有工具，通过统一镜像打通，提供自定义镜像的拓展能力。</p>
 <p>一个是推理优化服务的产品化，整合到各个产品中去。</p>
@@ -430,23 +437,53 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>私有化部署方案具体是什么？</li>
 </ul>
 <p>在私有云部署。</p>
+<ul>
+<li>k8s用过吗？</li>
+<li>k8s的基本概念熟悉吗？</li>
+<li>k8s弹性扩容具体指什么工作？</li>
+<li>开发过operator吗？</li>
+<li>开发过CSI吗？</li>
+<li>开发过存储、网络插件吗？</li>
+</ul>
 <h2 id="模型推理优化"><a href="#模型推理优化" class="headerlink" title="模型推理优化"></a>模型推理优化</h2><ul>
-<li>主要优化了什么业务模型？</li>
+<li>主要优化了什么业务模型？有具体的业务效果吗？</li>
 </ul>
 <p>ResNet<br>LSTM<br>GRU<br>Bert<br>CTR</p>
 <ul>
-<li>TensorRT用的怎么样？</li>
+<li>TensorRT用的怎么样？怎么用于优化的？</li>
 <li>写kernel吗？</li>
 <li>写汇编吗？</li>
-<li>MKL-DNN的了解？</li>
+<li>MKL-DNN的了解吗？</li>
 <li>TVM上做了什么工作？</li>
+<li>XLA上你的主要工作是什么？</li>
+<li>主要用了什么优化方法？</li>
+<li>系统级部署用了什么优化方法？有什么具体案例吗？</li>
+<li>延迟是怎么优化的？</li>
+<li>延迟和吞吐的关系？</li>
 </ul>
-<h2 id="加速系统"><a href="#加速系统" class="headerlink" title="加速系统"></a>加速系统</h2><ul>
-<li>这是个硬件吗？</li>
+<p>并发度　= 吞吐量 <em> 延迟 </em> batch</p>
+<ul>
+<li>怎么优化资源利用率？</li>
+<li>分布式系统有经验吗？</li>
+<li>服务的网络IO如何优化？rank取feature和embedding的怎么优化？</li>
+<li>服务的线上抖动如何优化？</li>
+<li>服务的可用性和稳定性如何保障？</li>
+<li>GPU模型优化过吗？</li>
+<li>ARM上的模型优化过吗？</li>
+<li>模型压缩有经验吗？有什么具体业务模型吗？</li>
+<li>端上推理的发热和性能如何平衡？</li>
+</ul>
+<p><a href="https://www.infoq.cn/article/qeoaxd99ylmv7d0m179e" target="_blank" rel="noopener">https://www.infoq.cn/article/qeoaxd99ylmv7d0m179e</a></p>
+<ul>
+<li>典型的优化流程是怎样的？需要考虑什么？有哪些具体措施？足够通用吗？</li>
+</ul>
+<h2 id="加速系统"><a href="#加速系统" class="headerlink" title="加速系统"></a>加速系统</h2><p>不太会问</p>
+<ul>
+<li>硬件？</li>
 </ul>
 <p>FPGA原型，通用CNN硬件，推理加速引擎。</p>
 <ul>
-<li>具体加速了哪些模型？</li>
+<li>具体加速了哪些模型？有具体业务数据吗？</li>
 </ul>
 <p>ResNet baseline<br>UNet<br>RCNN<br>CTR WDN</p>
 <h1 id="得物"><a href="#得物" class="headerlink" title="得物"></a>得物</h1><h2 id="JD"><a href="#JD" class="headerlink" title="JD"></a>JD</h2><p>机器学习平台</p>
@@ -524,7 +561,35 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>熟悉常用机器学习，深度学习模型与算法，基本原理和适用范围</li>
 <li>熟悉TF、MxNet、Caffe等开源框架</li>
 </ol>
-<h2 id="面筋-1"><a href="#面筋-1" class="headerlink" title="面筋"></a>面筋</h2><h1 id="美团"><a href="#美团" class="headerlink" title="美团"></a>美团</h1><h2 id="JD-2"><a href="#JD-2" class="headerlink" title="JD"></a>JD</h2><p>推理平台工程师</p>
+<h2 id="面筋-1"><a href="#面筋-1" class="headerlink" title="面筋"></a>面筋</h2><p>业务</p>
+<ol>
+<li>自我介绍</li>
+<li>我对推理优化比较感兴趣，你们对延迟和吞吐的优化手段是什么？<ol>
+<li>序列化</li>
+<li>多级缓存</li>
+<li>资源隔离，绑核</li>
+</ol>
+</li>
+<li>有没有具体的业务加速效果？<ol>
+<li>记不太清</li>
+</ol>
+</li>
+<li>延迟和吞吐的相关公式是什么？</li>
+</ol>
+<p>算法</p>
+<ol>
+<li>多线程，统计排序数组频次到map</li>
+<li>二叉树前序遍历非递归</li>
+</ol>
+<h2 id="有什么想问的"><a href="#有什么想问的" class="headerlink" title="有什么想问的"></a>有什么想问的</h2><ol>
+<li>主要场景</li>
+</ol>
+<p>主站、直播视频推荐</p>
+<ol>
+<li>推荐系统</li>
+</ol>
+<p>C++，训练+推理优化，JAVA后端，推荐工程，模型MXNet</p>
+<h1 id="美团"><a href="#美团" class="headerlink" title="美团"></a>美团</h1><h2 id="JD-2"><a href="#JD-2" class="headerlink" title="JD"></a>JD</h2><p>推理平台工程师</p>
 <ol>
 <li>深度优化超大规模样本和参数的模型训练性能</li>
 </ol>
@@ -578,7 +643,7 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#个人简介"><span class="nav-number">2.</span> <span class="nav-text">个人简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要方向"><span class="nav-number">2.1.</span> <span class="nav-text">主要方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语言"><span class="nav-number">2.2.</span> <span class="nav-text">语言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#教育经历"><span class="nav-number">3.</span> <span class="nav-text">教育经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统架构"><span class="nav-number">3.1.</span> <span class="nav-text">系统架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目经历"><span class="nav-number">4.</span> <span class="nav-text">项目经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">4.1.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐系统-工程"><span class="nav-number">4.2.</span> <span class="nav-text">推荐系统-工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习产品"><span class="nav-number">4.3.</span> <span class="nav-text">机器学习产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型推理优化"><span class="nav-number">4.4.</span> <span class="nav-text">模型推理优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加速系统"><span class="nav-number">4.5.</span> <span class="nav-text">加速系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#得物"><span class="nav-number">5.</span> <span class="nav-text">得物</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD"><span class="nav-number">5.1.</span> <span class="nav-text">JD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro"><span class="nav-number">5.2.</span> <span class="nav-text">Intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有什么想问的吗？"><span class="nav-number">5.3.</span> <span class="nav-text">有什么想问的吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面筋"><span class="nav-number">5.4.</span> <span class="nav-text">面筋</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bilibili"><span class="nav-number">6.</span> <span class="nav-text">Bilibili</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-1"><span class="nav-number">6.1.</span> <span class="nav-text">JD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面筋-1"><span class="nav-number">6.2.</span> <span class="nav-text">面筋</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#美团"><span class="nav-number">7.</span> <span class="nav-text">美团</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-2"><span class="nav-number">7.1.</span> <span class="nav-text">JD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro-1"><span class="nav-number">7.2.</span> <span class="nav-text">Intro</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#腾讯"><span class="nav-number">8.</span> <span class="nav-text">腾讯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-3"><span class="nav-number">8.1.</span> <span class="nav-text">JD</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字节"><span class="nav-number">9.</span> <span class="nav-text">字节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-4"><span class="nav-number">9.1.</span> <span class="nav-text">JD</span></a></li></ol></li></ol>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#个人简介"><span class="nav-number">2.</span> <span class="nav-text">个人简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要方向"><span class="nav-number">2.1.</span> <span class="nav-text">主要方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语言"><span class="nav-number">2.2.</span> <span class="nav-text">语言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#教育经历"><span class="nav-number">3.</span> <span class="nav-text">教育经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统架构"><span class="nav-number">3.1.</span> <span class="nav-text">系统架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目经历"><span class="nav-number">4.</span> <span class="nav-text">项目经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">4.1.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐系统-工程"><span class="nav-number">4.2.</span> <span class="nav-text">推荐系统-工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习产品"><span class="nav-number">4.3.</span> <span class="nav-text">机器学习产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型推理优化"><span class="nav-number">4.4.</span> <span class="nav-text">模型推理优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加速系统"><span class="nav-number">4.5.</span> <span class="nav-text">加速系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#得物"><span class="nav-number">5.</span> <span class="nav-text">得物</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD"><span class="nav-number">5.1.</span> <span class="nav-text">JD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro"><span class="nav-number">5.2.</span> <span class="nav-text">Intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有什么想问的吗？"><span class="nav-number">5.3.</span> <span class="nav-text">有什么想问的吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面筋"><span class="nav-number">5.4.</span> <span class="nav-text">面筋</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bilibili"><span class="nav-number">6.</span> <span class="nav-text">Bilibili</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-1"><span class="nav-number">6.1.</span> <span class="nav-text">JD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面筋-1"><span class="nav-number">6.2.</span> <span class="nav-text">面筋</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有什么想问的"><span class="nav-number">6.3.</span> <span class="nav-text">有什么想问的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#美团"><span class="nav-number">7.</span> <span class="nav-text">美团</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-2"><span class="nav-number">7.1.</span> <span class="nav-text">JD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Intro-1"><span class="nav-number">7.2.</span> <span class="nav-text">Intro</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#腾讯"><span class="nav-number">8.</span> <span class="nav-text">腾讯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-3"><span class="nav-number">8.1.</span> <span class="nav-text">JD</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字节"><span class="nav-number">9.</span> <span class="nav-text">字节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JD-4"><span class="nav-number">9.1.</span> <span class="nav-text">JD</span></a></li></ol></li></ol>
     
     </div>
   </aside>
