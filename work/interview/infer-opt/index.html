@@ -211,13 +211,90 @@ var themeMenus = {};
 <li>TVM</li>
 </ul>
 <p>TVM上主要是跟进社区工作，使用TVM的schedule和组里同学做的ansor的工作，做kernel tuning作为数据库供线上查找。</p>
-<p><strong>模型压缩</strong>主要</p>
+<p><strong>模型压缩</strong>主要的工作是量化。</p>
 <p><strong>框架runtime级</strong>主要包括算子定制，框架。</p>
+<p>厂商库，主要是用TensorRT和MKL-DNN。</p>
 <p><strong>系统级</strong>主要包括服务的各项指标优化。</p>
-<p>从<strong>业务模型</strong>类别上大致可以分为CV、语音、NLP，推广搜</p>
-<p>CV，业务模型中常见的ResNet，YOLO、MaskRCNN</p>
-<p>Transformer类</p>
-<p>Bert<br>TextCNN</p>
+<p>指标包括：</p>
+<ul>
+<li>RT，对RT要求高的实时业务。</li>
+<li>QPS，对RT要求低的异步业务。</li>
+<li>资源利用率，公有云成本，超卖和隔离。</li>
+</ul>
+<p>单一优化点：</p>
+<ul>
+<li>网络IO<ul>
+<li>序列化</li>
+<li>多级缓存</li>
+<li>负载均衡优化</li>
+<li>网络直连</li>
+</ul>
+</li>
+<li>计算并行度</li>
+<li>资源利用率</li>
+</ul>
+<p>Q：你们的多级缓存具体怎么做的？<br>Q：你是怎么使用TensorRT优化的？<br>API，blade，dynamic shape的问题。</p>
+<p>从<strong>业务模型</strong>类别上大致可以分为CV、NLP，推荐</p>
+<ul>
+<li>CV，业务模型中常见的ResNet 3.5x，OCR-CRNN 3.5x，OCR-Attention，Yolo 2.5x，MobileNet 2.5x，密集计算，GPU优化，TensorRT和量化</li>
+<li>NLP，Bert-large的Self-Attention结构，模型3x，TextCNN 1.5x，定制算子，GPU</li>
+<li>语音，ASR Transformer模型 2.46x，定制算子，GPU</li>
+<li>推荐，Embedding优化，EasyRec，密集计算部分较简单，主要是Embedding的定制优化，典型场景端到端中等并发下RT降低为1/2以下，QPS提升1.8x左右</li>
+</ul>
+<p>对于推荐的工程支持方法还包括：</p>
+<ul>
+<li>超大Embedding支持<ul>
+<li>为了提升推荐场景的效果，推荐模型通常采用无Hash的方式或者超大的Hash桶的方式。在这种情况下, embedding size会很大，超过1T，给单机部署tensorflow模型带来了挑战。<ul>
+<li>大规模Embedding导出的任务需要设置PS(parameter server)</li>
+<li>单机无法restore带巨大embedding的模型</li>
+<li>embedding通常是分片的，分布在多个PS上</li>
+</ul>
+</li>
+<li>embedding映射表</li>
+<li>模型feature分为dense和sparse，sparse部分需要支持embedding，redis/OTS存储</li>
+<li>模型热更新</li>
+</ul>
+</li>
+</ul>
+<p>cache: list(bool)表示的是否需要在op初始化的时候将相应的embedding加载到内存，减少对redis的访问，提高qps和rt。经讨论:</p>
+<ul>
+<li>item feature比较适合cache</li>
+<li>一些比较小的user feature也适合cache，如性别、年龄等</li>
+<li>user_id等取值范围比较大的，访问频率不高的，暂时不考虑cache</li>
+<li>模型导出时，业务同学指定哪些embedding需要cache。</li>
+<li>cache考虑LRU策略</li>
+</ul>
+<p>Q：你们的embedding的平均latency有多少呢？<br>Q：embedding怎么训练的？<br>Q：embedding怎么导出的？</p>
+<p>redis？</p>
+<ul>
+<li>实时行为</li>
+<li>特征工程feature</li>
+<li>embedding</li>
+</ul>
+<p>推理平台</p>
+<ul>
+<li>RPC<ul>
+<li>服务编排</li>
+<li>多协议</li>
+<li>流式接口</li>
+</ul>
+</li>
+<li>多模型合并</li>
+<li>多框架支持</li>
+</ul>
+<p>客户端负载均衡</p>
+<p>模型调用RPC接口</p>
+<p>EAS设计</p>
+<ul>
+<li>failover<ul>
+<li>依赖k8s的probe</li>
+</ul>
+</li>
+<li>负载均衡</li>
+<li>请求转发</li>
+</ul>
+<p>公有云 SLA</p>
+<p>Q: 训练的PS架构知道吗？</p>
 
       
     </div>

@@ -261,7 +261,25 @@ var themeMenus = {};
 <li>主动自己退出： 经过多少时间后主动退出（channel） func main() { var wg sync. WaitGroup quit := time. …</li>
 <li>外部被动退出： 我们可以通过外部操作接收信号方式来退出： func main() { var wg sync.</li>
 </ol>
-<h1 id="goroutine泄露，或是内存泄漏"><a href="#goroutine泄露，或是内存泄漏" class="headerlink" title="goroutine泄露，或是内存泄漏"></a>goroutine泄露，或是内存泄漏</h1><h1 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h1><p>interface nil 比较</p>
+<h1 id="goroutine泄露，或是内存泄漏"><a href="#goroutine泄露，或是内存泄漏" class="headerlink" title="goroutine泄露，或是内存泄漏"></a>goroutine泄露，或是内存泄漏</h1><p>协程泄露是指协程创建后，长时间得不到释放，并且还在不断地创建新的协程，最终导致内存耗尽，程序崩溃。常见的导致协程泄露的场景有以下几种：</p>
+<ul>
+<li>缺少接收器，导致发送阻塞<br>这个例子中，每执行一次 query，则启动1000个协程向信道 ch 发送数字 0，但只接收了一次，导致 999 个协程被阻塞，不能退出。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">query</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++ &#123;</span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; ch &lt;- <span class="number">0</span> &#125;()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> &lt;-ch</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">4</span>; i++ &#123;</span><br><span class="line">		query()</span><br><span class="line">		fmt.Printf(<span class="string">"goroutines: %d\n"</span>, runtime.NumGoroutine())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// goroutines: 1001</span></span><br><span class="line"><span class="comment">// goroutines: 2000</span></span><br><span class="line"><span class="comment">// goroutines: 2999</span></span><br><span class="line"><span class="comment">// goroutines: 3998</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>缺少发送器，导致接收阻塞</li>
+</ul>
+<p>那同样的，如果启动 1000 个协程接收信道的信息，但信道并不会发送那么多次的信息，也会导致接收协程被阻塞，不能退出。</p>
+<ul>
+<li>死锁(dead lock)</li>
+</ul>
+<p>两个或两个以上的协程在执行过程中，由于竞争资源或者由于彼此通信而造成阻塞，这种情况下，也会导致协程被阻塞，不能退出。</p>
+<ul>
+<li>无限循环(infinite loops)</li>
+</ul>
+<p>这个例子中，为了避免网络等问题，采用了无限重试的方式，发送 HTTP 请求，直到获取到数据。那如果 HTTP 服务宕机，永远不可达，导致协程不能退出，发生泄漏。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">request</span><span class="params">(url <span class="keyword">string</span>, wg sync.WaitGroup)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> _, err := http.Get(url); err == <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="comment">// write to db</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		time.Sleep(time.Second)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Done()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++ &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">go</span> request(fmt.Sprintf(<span class="string">"exampe.com/%d"</span>, i), wg)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h1><p>interface nil 比较</p>
 <h1 id="init"><a href="#init" class="headerlink" title="init"></a>init</h1><p>init函数先于main函数自动执行，不能被其他函数调用； … 每个包可以有多个init函数； 包的每个源文件也可以有多个init函数，这点比较特殊； 同一个包的init执行顺序，golang没有明确定义，编程时要注意程序不要依赖这个执行顺序。</p>
 <p>go init 的执行顺序，注意是不按导入规则的（这里是编译时按文件名的顺序执行的）</p>
 <h1 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h1><p>go中多个defer的执行顺序, FILO</p>

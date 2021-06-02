@@ -347,11 +347,67 @@
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * @param numbers int整型vector </span></span><br><span class="line"><span class="comment">     * @param target int整型 </span></span><br><span class="line"><span class="comment">     * @return int整型vector</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; h;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            tmp = numbers[i];</span><br><span class="line">            <span class="keyword">auto</span> it = h.<span class="built_in">find</span>(target - tmp);</span><br><span class="line">            <span class="keyword">if</span> (it != h.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;h[target - tmp] + <span class="number">1</span>, i + <span class="number">1</span>&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            h[tmp] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>算法基础 - 优先队列</title>
+    <url>/cs/algo/priority-queue/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>优先队列以比排序更小的代价维护顺序。二叉堆是实现优先队列的一种实现。二叉堆的最简单实现是数组。</p>
+<a id="more"></a>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>堆的基本操作：</p>
+<ul>
+<li>插入</li>
+<li>堆化，Sift Up，Sift Down</li>
+<li>取出最值</li>
+</ul>
+<p>使用数组表示的二叉堆的基本性质：</p>
+<p><img src="/images/priority_queue_heap.svg" alt="二叉堆的数组表示"></p>
+<ul>
+<li>每个结点的左孩子为下标i的2倍：left child(i) = i <em> 2；每个结点的右孩子为下标i的2倍加1：right child(i) = i </em> 2 + 1</li>
+<li>每个结点的父亲结点为下标的二分之一：parent(i) = i / 2，注意这里是整数除，2和3除以2都为1，大家可以验证一下</li>
+<li>注意：这里是把下标为0的地方空出来了的，主要是为了方便理解，如果0不空出来只需要在计算的时候把i值往右偏移一个位置就行了（也就是加1）</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>Go标准库提供了”container/heap”<a href="#refer-2"><sup>2</sup></a>封装了堆的基本操作。默认最小堆。</p>
+<p>可以自定义struct，并重载method：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>重载Less为Greater逻辑即可获得最大堆。</p>
+<h2 id="Heapify"><a href="#Heapify" class="headerlink" title="Heapify"></a>Heapify</h2><h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="合并K个升序链表"><a href="#合并K个升序链表" class="headerlink" title="合并K个升序链表"></a>合并K个升序链表</h2><p><img src="https://img.shields.io/badge/leetcode-23-blue.svg" alt> <a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">合并K个升序链表</a></p>
+<p>优先队列合并，先顺序push所有链表最小值，在根据堆顶元素push下个值，时间复杂度O(kn * logk)，空间复杂度O(k)</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"container/heap"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ListNodeHeap []*ListNode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h ListNodeHeap)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> <span class="built_in">len</span>(h) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h ListNodeHeap)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> h[i].Val &lt; h[j].Val</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h ListNodeHeap)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    h[i], h[j] = h[j], h[i]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *ListNodeHeap)</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    *h = <span class="built_in">append</span>(*h, x.(*ListNode))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *ListNodeHeap)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    old := *h</span><br><span class="line">    n := <span class="built_in">len</span>(old)</span><br><span class="line">    x := old[n - <span class="number">1</span>]</span><br><span class="line">    *h = old[<span class="number">0</span> : n<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mergeKLists</span><span class="params">(lists []*ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> q ListNodeHeap</span><br><span class="line">    <span class="keyword">for</span> _, nodePtr := <span class="keyword">range</span> lists &#123;</span><br><span class="line">        <span class="keyword">if</span> (nodePtr != <span class="literal">nil</span>) &#123;</span><br><span class="line">            q = <span class="built_in">append</span>(q, nodePtr)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    heap.Init(&amp;q)</span><br><span class="line"></span><br><span class="line">    head := ListNode&#123;&#125;</span><br><span class="line">    tail := &amp;head</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(q) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        nodePtr := heap.Pop(&amp;q).(*ListNode)</span><br><span class="line">        tail.Next = nodePtr</span><br><span class="line">        tail = tail.Next</span><br><span class="line">        <span class="keyword">if</span> nodePtr.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">            heap.Push(&amp;q, nodePtr.Next)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head.Next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其他方法：</p>
+<ul>
+<li>遍历插入，时间复杂度为O(k<sup>2</sup>n)，空间复杂度为O(1)</li>
+<li>分治合并，时间复杂度为O(kn * logk)，空间复杂度为O(logk)</li>
+</ul>
+<h2 id="数组中的第K个最大元素"><a href="#数组中的第K个最大元素" class="headerlink" title="数组中的第K个最大元素"></a>数组中的第K个最大元素</h2><p><img src="https://img.shields.io/badge/leetcode-215-blue.svg" alt> <a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener">数组中的第K个最大元素</a></p>
+<p>构建优先队列，并删除k次</p>
+<p>其他方法：</p>
+<ul>
+<li>快排，取n-k个元素</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"sort"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Array []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a Array)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span>           &#123; <span class="keyword">return</span> <span class="built_in">len</span>(a) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a Array)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span>      &#123; a[i], a[j] = a[j], a[i] &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a Array)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123; <span class="keyword">return</span> a[i] &lt; a[j] &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findKthLargest</span><span class="params">(nums []<span class="keyword">int</span>, k <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    array := Array(nums)</span><br><span class="line">    sort.Sort(array)</span><br><span class="line">    <span class="keyword">return</span> array[<span class="built_in">len</span>(nums) - k]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="前K个高频元素"><a href="#前K个高频元素" class="headerlink" title="前K个高频元素"></a>前K个高频元素</h2><p><img src="https://img.shields.io/badge/leetcode-347-blue.svg" alt> <a href="https://leetcode-cn.com/problems/top-k-frequent-elements/" target="_blank" rel="noopener">前K个高频元素</a></p>
+<p>map统计，优先队列取前K个值。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span>&#123;</span><br><span class="line">    Num <span class="keyword">int</span></span><br><span class="line">    Freq <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IntHeap []*Node</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> <span class="built_in">len</span>(h) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> h[i].Freq &gt; h[j].Freq</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    h[i], h[j] = h[j], h[i]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    *h = <span class="built_in">append</span>(*h, x.(*Node))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    old := *h</span><br><span class="line">    n := <span class="built_in">len</span>(old)</span><br><span class="line">    x := old[n - <span class="number">1</span>]</span><br><span class="line">    *h = old[<span class="number">0</span> : n<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">topKFrequent</span><span class="params">(nums []<span class="keyword">int</span>, k <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    freqs := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        freqs[n]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> q IntHeap</span><br><span class="line">    heap.Init(&amp;q)</span><br><span class="line">    <span class="keyword">for</span> num, freq := <span class="keyword">range</span> freqs &#123;</span><br><span class="line">        <span class="comment">// fmt.Printf("%v, %v\n", num, freq)</span></span><br><span class="line">        heap.Push(&amp;q, &amp;Node&#123;</span><br><span class="line">            num, freq,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; k; i++ &#123;</span><br><span class="line">        ret = <span class="built_in">append</span>(ret, heap.Pop(&amp;q).(*Node).Num)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<ul>
+<li>[1] <span id="refer-1"></span> <a href="https://zhuanlan.zhihu.com/p/39615266" target="_blank" rel="noopener">数据结构与算法(4)——优先队列和堆 - 知乎</a></li>
+<li>[2] <span id="refer-2"></span> <a href="https://golang.org/pkg/container/heap/" target="_blank" rel="noopener">Package heap</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -423,49 +479,19 @@ x = (n - 1)(y + z) + z</script><p>n = 1时， x = z</p>
       </tags>
   </entry>
   <entry>
-    <title>算法基础 - 优先队列</title>
-    <url>/cs/algo/priority-queue/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>优先队列以比排序更小的代价维护顺序。二叉堆是实现优先队列的一种实现。二叉堆的最简单实现是数组。</p>
+    <title>算法基础 - 排序</title>
+    <url>/cs/algo/sort/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>排序是最常用的操作。</p>
 <a id="more"></a>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>堆的基本操作：</p>
-<ul>
-<li>插入</li>
-<li>堆化，Sift Up，Sift Down</li>
-<li>取出最值</li>
-</ul>
-<p>使用数组表示的二叉堆的基本性质：</p>
-<p><img src="/images/priority_queue_heap.svg" alt="二叉堆的数组表示"></p>
-<ul>
-<li>每个结点的左孩子为下标i的2倍：left child(i) = i <em> 2；每个结点的右孩子为下标i的2倍加1：right child(i) = i </em> 2 + 1</li>
-<li>每个结点的父亲结点为下标的二分之一：parent(i) = i / 2，注意这里是整数除，2和3除以2都为1，大家可以验证一下</li>
-<li>注意：这里是把下标为0的地方空出来了的，主要是为了方便理解，如果0不空出来只需要在计算的时候把i值往右偏移一个位置就行了（也就是加1）</li>
-</ul>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>Go标准库提供了”container/heap”<a href="#refer-2"><sup>2</sup></a>封装了堆的基本操作。默认最小堆。</p>
-<p>可以自定义struct，并重载method：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<p>重载Less为Greater逻辑即可获得最大堆。</p>
-<h2 id="Heapify"><a href="#Heapify" class="headerlink" title="Heapify"></a>Heapify</h2><h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="合并K个升序链表"><a href="#合并K个升序链表" class="headerlink" title="合并K个升序链表"></a>合并K个升序链表</h2><p><img src="https://img.shields.io/badge/leetcode-23-blue.svg" alt> <a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">合并K个升序链表</a></p>
-<p>优先队列合并，先顺序push所有链表最小值，在根据堆顶元素push下个值，时间复杂度O(kn * logk)，空间复杂度O(k)</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"container/heap"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ListNodeHeap []*ListNode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h ListNodeHeap)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> <span class="built_in">len</span>(h) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h ListNodeHeap)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> h[i].Val &lt; h[j].Val</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h ListNodeHeap)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    h[i], h[j] = h[j], h[i]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *ListNodeHeap)</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    *h = <span class="built_in">append</span>(*h, x.(*ListNode))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *ListNodeHeap)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    old := *h</span><br><span class="line">    n := <span class="built_in">len</span>(old)</span><br><span class="line">    x := old[n - <span class="number">1</span>]</span><br><span class="line">    *h = old[<span class="number">0</span> : n<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mergeKLists</span><span class="params">(lists []*ListNode)</span> *<span class="title">ListNode</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> q ListNodeHeap</span><br><span class="line">    <span class="keyword">for</span> _, nodePtr := <span class="keyword">range</span> lists &#123;</span><br><span class="line">        <span class="keyword">if</span> (nodePtr != <span class="literal">nil</span>) &#123;</span><br><span class="line">            q = <span class="built_in">append</span>(q, nodePtr)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    heap.Init(&amp;q)</span><br><span class="line"></span><br><span class="line">    head := ListNode&#123;&#125;</span><br><span class="line">    tail := &amp;head</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(q) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        nodePtr := heap.Pop(&amp;q).(*ListNode)</span><br><span class="line">        tail.Next = nodePtr</span><br><span class="line">        tail = tail.Next</span><br><span class="line">        <span class="keyword">if</span> nodePtr.Next != <span class="literal">nil</span> &#123;</span><br><span class="line">            heap.Push(&amp;q, nodePtr.Next)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head.Next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其他方法：</p>
-<ul>
-<li>遍历插入，时间复杂度为O(k<sup>2</sup>n)，空间复杂度为O(1)</li>
-<li>分治合并，时间复杂度为O(kn * logk)，空间复杂度为O(logk)</li>
-</ul>
-<h2 id="数组中的第K个最大元素"><a href="#数组中的第K个最大元素" class="headerlink" title="数组中的第K个最大元素"></a>数组中的第K个最大元素</h2><p><img src="https://img.shields.io/badge/leetcode-215-blue.svg" alt> <a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener">数组中的第K个最大元素</a></p>
-<p>构建优先队列，并删除k次</p>
-<p>其他方法：</p>
-<ul>
-<li>快排，取n-k个元素</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"sort"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Array []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a Array)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span>           &#123; <span class="keyword">return</span> <span class="built_in">len</span>(a) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a Array)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span>      &#123; a[i], a[j] = a[j], a[i] &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a Array)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123; <span class="keyword">return</span> a[i] &lt; a[j] &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findKthLargest</span><span class="params">(nums []<span class="keyword">int</span>, k <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    array := Array(nums)</span><br><span class="line">    sort.Sort(array)</span><br><span class="line">    <span class="keyword">return</span> array[<span class="built_in">len</span>(nums) - k]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="前K个高频元素"><a href="#前K个高频元素" class="headerlink" title="前K个高频元素"></a>前K个高频元素</h2><p><img src="https://img.shields.io/badge/leetcode-347-blue.svg" alt> <a href="https://leetcode-cn.com/problems/top-k-frequent-elements/" target="_blank" rel="noopener">前K个高频元素</a></p>
-<p>map统计，优先队列取前K个值。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span>&#123;</span><br><span class="line">    Num <span class="keyword">int</span></span><br><span class="line">    Freq <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IntHeap []*Node</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> <span class="built_in">len</span>(h) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> h[i].Freq &gt; h[j].Freq</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    h[i], h[j] = h[j], h[i]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    *h = <span class="built_in">append</span>(*h, x.(*Node))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    old := *h</span><br><span class="line">    n := <span class="built_in">len</span>(old)</span><br><span class="line">    x := old[n - <span class="number">1</span>]</span><br><span class="line">    *h = old[<span class="number">0</span> : n<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">topKFrequent</span><span class="params">(nums []<span class="keyword">int</span>, k <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    freqs := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        freqs[n]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> q IntHeap</span><br><span class="line">    heap.Init(&amp;q)</span><br><span class="line">    <span class="keyword">for</span> num, freq := <span class="keyword">range</span> freqs &#123;</span><br><span class="line">        <span class="comment">// fmt.Printf("%v, %v\n", num, freq)</span></span><br><span class="line">        heap.Push(&amp;q, &amp;Node&#123;</span><br><span class="line">            num, freq,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; k; i++ &#123;</span><br><span class="line">        ret = <span class="built_in">append</span>(ret, heap.Pop(&amp;q).(*Node).Num)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>快排(QUICK-SORT)基于分治思想，核心是对子数组partition，partition挑选一个参考基准(主元，通常为第一个或最后一个元素)，以主元为分界将数据分为两份，子数组递归partition。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// QUICKSORT</span></span><br><span class="line"><span class="keyword">if</span> p &lt; r</span><br><span class="line">   then q ← PARTITION(A, p, r)</span><br><span class="line">        QUICKSORT(A, p, q - <span class="number">1</span>)</span><br><span class="line">        QUICKSORT(A, q + <span class="number">1</span>, r)</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// PARTITION</span></span><br><span class="line">x ← A[r]</span><br><span class="line">i ← p - <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> j ← p to r - <span class="number">1</span></span><br><span class="line">     do <span class="keyword">if</span> A[j] ≤ x</span><br><span class="line">           then i ← i + <span class="number">1</span></span><br><span class="line">                exchange A[i] &lt;-&gt; A[j]</span><br><span class="line">exchange A[i + <span class="number">1</span>] &lt;-&gt; A[r]</span><br><span class="line"><span class="keyword">return</span> i + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// GoLang</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">partition</span><span class="params">(a []<span class="keyword">int</span>, lo, hi <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	pivot := a[hi]</span><br><span class="line">	i := lo - <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> j := lo; j &lt; hi; j++ &#123;</span><br><span class="line">		<span class="keyword">if</span> a[j] &lt; pivot &#123;</span><br><span class="line">			i++</span><br><span class="line">			a[j], a[i] = a[i], a[j]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>], a[hi] = a[hi], a[i+<span class="number">1</span>]</span><br><span class="line">	<span class="keyword">return</span> i + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort</span><span class="params">(a []<span class="keyword">int</span>, lo, hi <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> lo &gt;= hi &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	p := partition(a, lo, hi)</span><br><span class="line">	quickSort(a, lo, p<span class="number">-1</span>)</span><br><span class="line">	quickSort(a, p+<span class="number">1</span>, hi)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     * 将给定数组排序</span></span><br><span class="line"><span class="comment">     * @param arr int整型vector 待排序的数组</span></span><br><span class="line"><span class="comment">     * @return int整型vector</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">MySort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        quickSort(arr, <span class="number">0</span>, arr.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (lo &gt;= hi) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> p = partition(arr, lo, hi);</span><br><span class="line">        quickSort(arr, lo, p - <span class="number">1</span>);</span><br><span class="line">        quickSort(arr, p + <span class="number">1</span>, hi);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pivot = arr[hi];</span><br><span class="line">        <span class="keyword">int</span> i = lo - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = lo; j &lt; hi; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &lt; pivot) &#123;</span><br><span class="line">                i++;</span><br><span class="line">                swap(arr, i, j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(arr, i + <span class="number">1</span>, hi);</span><br><span class="line">        <span class="keyword">return</span> i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = arr[j];</span><br><span class="line">        arr[j] = arr[i];</span><br><span class="line">        arr[i] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><p>归并排序(MERGE-SORT)使用分治思想，每两个有序数组相互比较合并。</p>
+<h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><h1 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h1><h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><hr>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://zhuanlan.zhihu.com/p/39615266" target="_blank" rel="noopener">数据结构与算法(4)——优先队列和堆 - 知乎</a></li>
-<li>[2] <span id="refer-2"></span> <a href="https://golang.org/pkg/container/heap/" target="_blank" rel="noopener">Package heap</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -489,31 +515,13 @@ x = (n - 1)(y + z) + z</script><p>n = 1时， x = z</p>
 <li>单调队列。单调队列的性质是维持有序序列，最值位于最头部，常用于不断有值替换（去除最久的，加入最新的）的场景中取最值。</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> MonoQueue []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *MonoQueue)</span><span class="title">Push</span><span class="params">(val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    mref := *m</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(mref) &gt; <span class="number">0</span> &amp;&amp; val &gt; mref[<span class="built_in">len</span>(mref) - <span class="number">1</span>] &#123;</span><br><span class="line">        mref = mref[:<span class="built_in">len</span>(mref) - <span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    *m = <span class="built_in">append</span>(mref, val)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *MonoQueue)</span><span class="title">Pop</span><span class="params">(val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    mref := *m</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(mref) &gt; <span class="number">0</span> &amp;&amp; val == mref[<span class="number">0</span>] &#123;</span><br><span class="line">        mref = mref[<span class="number">1</span>:]</span><br><span class="line">    &#125;</span><br><span class="line">    *m = mref</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *MonoQueue)</span><span class="title">Front</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (*m)[<span class="number">0</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxSlidingWindow</span><span class="params">(nums []<span class="keyword">int</span>, k <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    m := MonoQueue&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; k; i++ &#123;</span><br><span class="line">        m.Push(nums[i])</span><br><span class="line">    &#125;</span><br><span class="line">    ret = <span class="built_in">append</span>(ret, m.Front())</span><br><span class="line">    <span class="keyword">for</span> i := k; i &lt; <span class="built_in">len</span>(nums); i++ &#123;</span><br><span class="line">        m.Pop(nums[i - k])</span><br><span class="line">        m.Push(nums[i])</span><br><span class="line">        ret = <span class="built_in">append</span>(ret, m.Front())</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>数据结构</tag>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法基础 - 排序</title>
-    <url>/cs/algo/sort/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>排序是最常用的操作。</p>
-<a id="more"></a>
-<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>快排(QUICK-SORT)基于分治思想，核心是对子数组partition，partition挑选一个参考基准(主元，通常为第一个或最后一个元素)，以主元为分界将数据分为两份，子数组递归partition。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// QUICKSORT</span></span><br><span class="line"><span class="keyword">if</span> p &lt; r</span><br><span class="line">   then q ← PARTITION(A, p, r)</span><br><span class="line">        QUICKSORT(A, p, q - <span class="number">1</span>)</span><br><span class="line">        QUICKSORT(A, q + <span class="number">1</span>, r)</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// PARTITION</span></span><br><span class="line">x ← A[r]</span><br><span class="line">i ← p - <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> j ← p to r - <span class="number">1</span></span><br><span class="line">     do <span class="keyword">if</span> A[j] ≤ x</span><br><span class="line">           then i ← i + <span class="number">1</span></span><br><span class="line">                exchange A[i] &lt;-&gt; A[j]</span><br><span class="line">exchange A[i + <span class="number">1</span>] &lt;-&gt; A[r]</span><br><span class="line"><span class="keyword">return</span> i + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// GoLang</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">partition</span><span class="params">(a []<span class="keyword">int</span>, lo, hi <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	pivot := a[hi]</span><br><span class="line">	i := lo - <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> j := lo; j &lt; hi; j++ &#123;</span><br><span class="line">		<span class="keyword">if</span> a[j] &lt; pivot &#123;</span><br><span class="line">			i++</span><br><span class="line">			a[j], a[i] = a[i], a[j]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	a[i+<span class="number">1</span>], a[hi] = a[hi], a[i+<span class="number">1</span>]</span><br><span class="line">	<span class="keyword">return</span> i + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort</span><span class="params">(a []<span class="keyword">int</span>, lo, hi <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> lo &gt;= hi &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	p := partition(a, lo, hi)</span><br><span class="line">	quickSort(a, lo, p<span class="number">-1</span>)</span><br><span class="line">	quickSort(a, p+<span class="number">1</span>, hi)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><p>归并排序(MERGE-SORT)使用分治思想，每两个有序数组相互比较合并。</p>
-<h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><h1 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h1><h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><hr>
-<ul>
-<li>[1] <span id="refer-1"></span> <a href="https://zhuanlan.zhihu.com/p/39615266" target="_blank" rel="noopener">数据结构与算法(4)——优先队列和堆 - 知乎</a></li>
+<h2 id="最小k个数"><a href="#最小k个数" class="headerlink" title="最小k个数"></a>最小k个数</h2><ul>
+<li>暴力：排序</li>
+<li>优先队列，最大堆</li>
 </ul>
-]]></content>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">GetLeastNumbers_Solution</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; input, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ret;</span><br><span class="line">        <span class="keyword">if</span> (k==<span class="number">0</span> || k &gt; input.<span class="built_in">size</span>()) <span class="keyword">return</span> ret;</span><br><span class="line">        priority_queue&lt;<span class="keyword">int</span>&gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">int</span> val : input) &#123;</span><br><span class="line">            <span class="keyword">if</span> (pq.<span class="built_in">size</span>() &lt; k) &#123;</span><br><span class="line">                pq.push(val);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (val &lt; pq.top()) &#123;</span><br><span class="line">                pq.pop();</span><br><span class="line">                pq.push(val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">while</span> (!pq.empty()) &#123;</span><br><span class="line">            ret.push_back(pq.top());</span><br><span class="line">            pq.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="第k大数"><a href="#第k大数" class="headerlink" title="第k大数"></a>第k大数</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">std</span>::priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, <span class="built_in">std</span>::greater&lt;<span class="keyword">int</span>&gt;&gt; pq;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findKth</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, <span class="keyword">int</span> n, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::priority_queue&lt;<span class="keyword">int</span>&gt; pq;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> i : a) &#123;</span><br><span class="line">            pq.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; K - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            pq.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pq.top();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findKth</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, <span class="keyword">int</span> n, <span class="keyword">int</span> K)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> findK(a, <span class="number">0</span>, n<span class="number">-1</span>, K);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findK</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="keyword">int</span> l, <span class="keyword">int</span> h, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (l &lt;= h) &#123;</span><br><span class="line">            <span class="keyword">int</span> p = partition(a, l, h);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (p == k - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> a[p];</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p &lt; k - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> findK(a, p + <span class="number">1</span>, h, k);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> findK(a, l, p - <span class="number">1</span>, k);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="keyword">int</span> l, <span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p = a[l];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (l &lt; h) &#123;</span><br><span class="line">            <span class="keyword">while</span> (l &lt; h &amp;&amp; a[h] &lt;= p) &#123;</span><br><span class="line">                h--;</span><br><span class="line">            &#125;</span><br><span class="line">            a[l] = a[h];</span><br><span class="line">            <span class="keyword">while</span> (l &lt; h &amp;&amp; a[l] &gt;= p) &#123;</span><br><span class="line">                l++;</span><br><span class="line">            &#125;</span><br><span class="line">            a[h] = a[l];</span><br><span class="line">        &#125;</span><br><span class="line">        a[l] = p;</span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; a, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> t = a[i];</span><br><span class="line">        a[i] = a[j];</span><br><span class="line">        a[j] = t;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -611,6 +619,7 @@ x = (n - 1)(y + z) + z</script><p>n = 1时， x = z</p>
 <li>迭代</li>
 </ul>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct &#123;</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">inorderTraversal</span><span class="params">(root *TreeNode)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    stack := []*TreeNode&#123;&#125;</span><br><span class="line">    result := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> root != <span class="literal">nil</span> &#123;</span><br><span class="line">        stack = <span class="built_in">append</span>(stack, root)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(stack) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        node := stack[<span class="built_in">len</span>(stack) - <span class="number">1</span>]</span><br><span class="line">        stack = stack[:<span class="built_in">len</span>(stack) - <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> node != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> node.Right != <span class="literal">nil</span> &#123;</span><br><span class="line">                stack = <span class="built_in">append</span>(stack, node.Right)</span><br><span class="line">            &#125;</span><br><span class="line">            stack = <span class="built_in">append</span>(stack, node)</span><br><span class="line">            stack = <span class="built_in">append</span>(stack, <span class="literal">nil</span>)</span><br><span class="line">            <span class="keyword">if</span> node.Left != <span class="literal">nil</span> &#123;</span><br><span class="line">                stack = <span class="built_in">append</span>(stack, node.Left)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            node = stack[<span class="built_in">len</span>(stack) - <span class="number">1</span>]</span><br><span class="line">            stack = stack[:<span class="built_in">len</span>(stack) - <span class="number">1</span>]</span><br><span class="line">            result = <span class="built_in">append</span>(result, node.Val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>C++ 版本<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preorder</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    v.push_back(root-&gt;val);</span><br><span class="line">    preorder(root-&gt;left, v);</span><br><span class="line">    preorder(root-&gt;right, v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postorder</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    postorder(root-&gt;left, v);</span><br><span class="line">    postorder(root-&gt;right, v);</span><br><span class="line">    v.push_back(root-&gt;val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">midorder</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    midorder(root-&gt;left, v);</span><br><span class="line">    v.push_back(root-&gt;val);</span><br><span class="line">    midorder(root-&gt;right, v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preorderIter</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">stack</span>&lt;TreeNode*&gt; s;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (root != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        s.push(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    TreeNode* node = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span>(s.<span class="built_in">size</span>() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        node = s.top();</span><br><span class="line">        s.pop();</span><br><span class="line">        <span class="keyword">if</span> (node) &#123;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;right) &#123;</span><br><span class="line">                s.push(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;left) &#123;</span><br><span class="line">                s.push(node-&gt;left);</span><br><span class="line">            &#125;</span><br><span class="line">            s.push(node);</span><br><span class="line">            s.push(<span class="literal">nullptr</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            node = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            v.push_back(node-&gt;val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postorderIter</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">stack</span>&lt;TreeNode*&gt; s;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (root != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        s.push(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    TreeNode* node = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span>(s.<span class="built_in">size</span>() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        node = s.top();</span><br><span class="line">        s.pop();</span><br><span class="line">        <span class="keyword">if</span> (node) &#123;</span><br><span class="line">            s.push(node);</span><br><span class="line">            s.push(<span class="literal">nullptr</span>);</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;right) &#123;</span><br><span class="line">                s.push(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;left) &#123;</span><br><span class="line">                s.push(node-&gt;left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            node = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            v.push_back(node-&gt;val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">midorderIter</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">stack</span>&lt;TreeNode*&gt; s;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (root != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">        s.push(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    TreeNode* node = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">while</span>(s.<span class="built_in">size</span>() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        node = s.top();</span><br><span class="line">        s.pop();</span><br><span class="line">        <span class="keyword">if</span> (node) &#123;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;right) &#123;</span><br><span class="line">                s.push(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            s.push(node);</span><br><span class="line">            s.push(<span class="literal">nullptr</span>);</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;left) &#123;</span><br><span class="line">                s.push(node-&gt;left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            node = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            v.push_back(node-&gt;val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="二叉树的层序遍历"><a href="#二叉树的层序遍历" class="headerlink" title="二叉树的层序遍历"></a>二叉树的层序遍历</h2><p><img src="https://img.shields.io/badge/leetcode-102-blue.svg" alt> <a href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener">二叉树的层序遍历</a></p>
 <ul>
 <li>队列先进先出</li>
@@ -841,6 +850,47 @@ x = (n - 1)(y + z) + z</script><p>n = 1时， x = z</p>
       <tags>
         <tag>算法</tag>
         <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes系统实战 1 - 存储系统</title>
+    <url>/k8s/in-action/1-storage-on-k8s/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
+<a id="more"></a>
+<blockquote>
+<p>需要<a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">Kubernetes基本知识</a></p>
+</blockquote>
+<h1 id="本地存储-local-path"><a href="#本地存储-local-path" class="headerlink" title="本地存储 local-path"></a>本地存储 local-path</h1><p>可以用<a href="https://github.com/rancher/local-path-provisioner" target="_blank" rel="noopener">local-path-storage</a>部署基于本地存储的StorageClass。方便灵活，但没有冗余存储，如果Node节点挂掉，相关的PV都会丢失，需要及时备份。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https://github.com/rancher/local-path-provisioner/blob/master/deploy/local-path-storage.yaml</span><br></pre></td></tr></table></figure>
+<h1 id="对象存储-MinIO"><a href="#对象存储-MinIO" class="headerlink" title="对象存储 MinIO"></a>对象存储 MinIO</h1><p>MinIO支持S3，可通过Helm Chart<a href="https://docs.min.io/cn/deploy-minio-on-kubernetes.html" target="_blank" rel="noopener">部署服务</a>。</p>
+<p>添加MinIO Repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm repo add minio https://helm.min.io/</span><br></pre></td></tr></table></figure></p>
+<p>默认部署单节点服务。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm install minio/minio</span><br></pre></td></tr></table></figure></p>
+<p>分布式服务通过纠删码(EC，Erasure Code)保证高可靠性，需要多节点集群，准备可用的动态存储(longhorn、rook、openebs等)。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">helm install minio \                                                                        </span><br><span class="line">  --namespace minio --create-namespace \</span><br><span class="line">  --set mode=distributed \</span><br><span class="line">  --set replicas=4 \</span><br><span class="line">  --set persistence.size=10Gi \</span><br><span class="line">  minio/minio</span><br></pre></td></tr></table></figure></p>
+<p>可以使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Operator</a>管理租户。</p>
+<p>安装<a href="https://docs.minio.io/docs/minio-client-quickstart-guide" target="_blank" rel="noopener">MinIO客户端</a>访问bucket。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://blade-opt.oss-cn-hangzhou.aliyuncs.com/mc</span><br><span class="line">chmod +x mc</span><br></pre></td></tr></table></figure>
+<p>Retreive Keys<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export MINIO_ACCESS_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.accesskey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br><span class="line">export MINIO_SECRET_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.secretkey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br></pre></td></tr></table></figure></p>
+<p>集群内设置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mc alias set k8s http://minio.minio.svc:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY</span><br></pre></td></tr></table></figure></p>
+<p>可通过<code>~/.mc/config.json</code>修改配置，先执行<code>mc config host</code>。</p>
+<p>基本操作<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">mc mb k8s/test</span><br><span class="line">echo "Hello MinIO" &gt; /tmp/minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">mc ls k8s</span><br><span class="line">mc ls k8s/test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Copy</span></span><br><span class="line">mc cp /tmp/minio k8s/test</span><br><span class="line">mc cp k8s/test/minio .</span><br><span class="line">cat minio</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello MinIO</span></span><br><span class="line">rm minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">mc rm k8s/test/minio</span><br><span class="line">mc rb k8s/test</span><br></pre></td></tr></table></figure></p>
+<h1 id="分布式文件系统-对象存储-Rook-Ceph"><a href="#分布式文件系统-对象存储-Rook-Ceph" class="headerlink" title="分布式文件系统/对象存储 Rook-Ceph"></a>分布式文件系统/对象存储 Rook-Ceph</h1><blockquote>
+<p>需要集群<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes" target="_blank" rel="noopener">配置CSI</a>，如果是云上集群，不要申请FlexVolume。</p>
+</blockquote>
+<p>Ceph支持分布式块存储、文件系统以及对象存储。机器需要有未分配或未使用的磁盘，至少需要三个节点保持健康。</p>
+<p><a href="(https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md">安装Cephfs</a>)支持分布式文件系统。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone --single-branch --branch release-1.5 https://github.com/rook/rook</span><br><span class="line">cd rook/cluster/examples/kubernetes/ceph</span><br><span class="line">kubectl apply -f common.yaml</span><br><span class="line">kubectl apply -f crds.yaml</span><br><span class="line">kubectl apply -f operator.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait until operator is running</span></span><br><span class="line">kubectl apply -f cluster.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install Cephfs</span></span><br><span class="line">kubectl apply -f filesystem.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Install StorageClass rook-cephfs</span></span><br><span class="line">kubectl apply -f csi/cephfs/storageclass.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mark rook-cephfs as the default storage class</span></span><br><span class="line">kubectl annotate sc rook-cephfs storageclass.kubernetes.io/is-default-class="true"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install toolbox to check status</span></span><br><span class="line">kubectl apply -f toolbox.yaml</span><br><span class="line">kubectl -n rook-ceph exec -it $(kubectl get pods -l=app=rook-ceph-tools -n rook-ceph -o jsonpath='&#123;.items[0].metadata.name&#125;') bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph status</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph -s </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph df</span></span><br></pre></td></tr></table></figure>
+<p>安装ceph-rgw支持S3对象存储，MinIO Alternative</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f object.yaml</span><br><span class="line">kubectl apply -f object-user.yaml</span><br><span class="line">kubectl get svc rook-ceph-rgw-my-store -n rook-ceph</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get Bucket Config</span></span><br><span class="line">export AWS_HOST=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.Endpoint&#125;' | base64 --decode)</span><br><span class="line">export AWS_ACCESS_KEY_ID=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.AccessKey&#125;' | base64 --decode)</span><br><span class="line">export AWS_SECRET_ACCESS_KEY=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.SecretKey&#125;' | base64 --decode)</span><br></pre></td></tr></table></figure>
+<p>集群内配置好上述环境变量，使用<a href="https://github.com/s3tools/s3cmd" target="_blank" rel="noopener">s3cmd</a>测试bucket读写，可参考<a href="https://zhuanlan.zhihu.com/p/107083375" target="_blank" rel="noopener">文章</a>。可以使用<code>s3cmd --configure</code>详细配置，选择http，不要配置host_bucket。默认域名是<code>rook-ceph-rgw-my-store.rook-ceph.svc</code>(service-name.namespace.svc)。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">s3cmd mb s3://test</span><br><span class="line">echo "Hello Rook" &gt; /tmp/rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">s3cmd ls</span><br><span class="line">s3cmd ls s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Put</span></span><br><span class="line">s3cmd put /tmp/rook s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get</span></span><br><span class="line">s3cmd get s3://test/rook .</span><br><span class="line">cat rook</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello Rook</span></span><br><span class="line">rm rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">s3cmd rm s3://test/rook</span><br><span class="line">s3cmd rb s3://test</span><br></pre></td></tr></table></figure>
+<p>安装ceph-dashboard (Optional)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Either Use HTTP Port 7000</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yq w -i cluster.yaml spec.dashboard.ssl <span class="literal">false</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl apply -f dashboard-external-http.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Or Use HTTPS Port 8443</span></span><br><span class="line">kubectl apply -f dashboard-external-http.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Username: admin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Password:</span></span><br><span class="line">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="&#123;['data']['password']&#125;" | base64 --decode &amp;&amp; echo</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -1307,47 +1357,6 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
       </tags>
   </entry>
   <entry>
-    <title>Kubernetes系统实战 1 - 存储系统</title>
-    <url>/k8s/in-action/1-storage-on-k8s/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
-<a id="more"></a>
-<blockquote>
-<p>需要<a href="https://kubernetes.io/docs/home/" target="_blank" rel="noopener">Kubernetes基本知识</a></p>
-</blockquote>
-<h1 id="本地存储-local-path"><a href="#本地存储-local-path" class="headerlink" title="本地存储 local-path"></a>本地存储 local-path</h1><p>可以用<a href="https://github.com/rancher/local-path-provisioner" target="_blank" rel="noopener">local-path-storage</a>部署基于本地存储的StorageClass。方便灵活，但没有冗余存储，如果Node节点挂掉，相关的PV都会丢失，需要及时备份。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kubectl apply -f https://github.com/rancher/local-path-provisioner/blob/master/deploy/local-path-storage.yaml</span><br></pre></td></tr></table></figure>
-<h1 id="对象存储-MinIO"><a href="#对象存储-MinIO" class="headerlink" title="对象存储 MinIO"></a>对象存储 MinIO</h1><p>MinIO支持S3，可通过Helm Chart<a href="https://docs.min.io/cn/deploy-minio-on-kubernetes.html" target="_blank" rel="noopener">部署服务</a>。</p>
-<p>添加MinIO Repo<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm repo add minio https://helm.min.io/</span><br></pre></td></tr></table></figure></p>
-<p>默认部署单节点服务。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">helm install minio/minio</span><br></pre></td></tr></table></figure></p>
-<p>分布式服务通过纠删码(EC，Erasure Code)保证高可靠性，需要多节点集群，准备可用的动态存储(longhorn、rook、openebs等)。<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">helm install minio \                                                                        </span><br><span class="line">  --namespace minio --create-namespace \</span><br><span class="line">  --set mode=distributed \</span><br><span class="line">  --set replicas=4 \</span><br><span class="line">  --set persistence.size=10Gi \</span><br><span class="line">  minio/minio</span><br></pre></td></tr></table></figure></p>
-<p>可以使用<a href="https://github.com/minio/operator" target="_blank" rel="noopener">MinIO Operator</a>管理租户。</p>
-<p>安装<a href="https://docs.minio.io/docs/minio-client-quickstart-guide" target="_blank" rel="noopener">MinIO客户端</a>访问bucket。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://blade-opt.oss-cn-hangzhou.aliyuncs.com/mc</span><br><span class="line">chmod +x mc</span><br></pre></td></tr></table></figure>
-<p>Retreive Keys<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export MINIO_ACCESS_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.accesskey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br><span class="line">export MINIO_SECRET_KEY=$(kubectl get secrets minio -n minio -o jsonpath=&apos;&#123;.data.secretkey&#125;&apos; | base64 --decode &amp;&amp; echo)</span><br></pre></td></tr></table></figure></p>
-<p>集群内设置<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mc alias set k8s http://minio.minio.svc:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY</span><br></pre></td></tr></table></figure></p>
-<p>可通过<code>~/.mc/config.json</code>修改配置，先执行<code>mc config host</code>。</p>
-<p>基本操作<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">mc mb k8s/test</span><br><span class="line">echo "Hello MinIO" &gt; /tmp/minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">mc ls k8s</span><br><span class="line">mc ls k8s/test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Copy</span></span><br><span class="line">mc cp /tmp/minio k8s/test</span><br><span class="line">mc cp k8s/test/minio .</span><br><span class="line">cat minio</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello MinIO</span></span><br><span class="line">rm minio</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">mc rm k8s/test/minio</span><br><span class="line">mc rb k8s/test</span><br></pre></td></tr></table></figure></p>
-<h1 id="分布式文件系统-对象存储-Rook-Ceph"><a href="#分布式文件系统-对象存储-Rook-Ceph" class="headerlink" title="分布式文件系统/对象存储 Rook-Ceph"></a>分布式文件系统/对象存储 Rook-Ceph</h1><blockquote>
-<p>需要集群<a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md#recommended-mechanism-for-deploying-csi-drivers-on-kubernetes" target="_blank" rel="noopener">配置CSI</a>，如果是云上集群，不要申请FlexVolume。</p>
-</blockquote>
-<p>Ceph支持分布式块存储、文件系统以及对象存储。机器需要有未分配或未使用的磁盘，至少需要三个节点保持健康。</p>
-<p><a href="(https://github.com/rook/rook/blob/master/Documentation/ceph-filesystem.md">安装Cephfs</a>)支持分布式文件系统。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone --single-branch --branch release-1.5 https://github.com/rook/rook</span><br><span class="line">cd rook/cluster/examples/kubernetes/ceph</span><br><span class="line">kubectl apply -f common.yaml</span><br><span class="line">kubectl apply -f crds.yaml</span><br><span class="line">kubectl apply -f operator.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Wait until operator is running</span></span><br><span class="line">kubectl apply -f cluster.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install Cephfs</span></span><br><span class="line">kubectl apply -f filesystem.yaml</span><br><span class="line"><span class="meta">#</span><span class="bash"> Install StorageClass rook-cephfs</span></span><br><span class="line">kubectl apply -f csi/cephfs/storageclass.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mark rook-cephfs as the default storage class</span></span><br><span class="line">kubectl annotate sc rook-cephfs storageclass.kubernetes.io/is-default-class="true"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Install toolbox to check status</span></span><br><span class="line">kubectl apply -f toolbox.yaml</span><br><span class="line">kubectl -n rook-ceph exec -it $(kubectl get pods -l=app=rook-ceph-tools -n rook-ceph -o jsonpath='&#123;.items[0].metadata.name&#125;') bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph status</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph -s </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ceph df</span></span><br></pre></td></tr></table></figure>
-<p>安装ceph-rgw支持S3对象存储，MinIO Alternative</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl apply -f object.yaml</span><br><span class="line">kubectl apply -f object-user.yaml</span><br><span class="line">kubectl get svc rook-ceph-rgw-my-store -n rook-ceph</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get Bucket Config</span></span><br><span class="line">export AWS_HOST=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.Endpoint&#125;' | base64 --decode)</span><br><span class="line">export AWS_ACCESS_KEY_ID=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.AccessKey&#125;' | base64 --decode)</span><br><span class="line">export AWS_SECRET_ACCESS_KEY=$(kubectl -n rook-ceph get secret rook-ceph-object-user-my-store-my-user -o jsonpath='&#123;.data.SecretKey&#125;' | base64 --decode)</span><br></pre></td></tr></table></figure>
-<p>集群内配置好上述环境变量，使用<a href="https://github.com/s3tools/s3cmd" target="_blank" rel="noopener">s3cmd</a>测试bucket读写，可参考<a href="https://zhuanlan.zhihu.com/p/107083375" target="_blank" rel="noopener">文章</a>。可以使用<code>s3cmd --configure</code>详细配置，选择http，不要配置host_bucket。默认域名是<code>rook-ceph-rgw-my-store.rook-ceph.svc</code>(service-name.namespace.svc)。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create</span></span><br><span class="line">s3cmd mb s3://test</span><br><span class="line">echo "Hello Rook" &gt; /tmp/rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> List</span></span><br><span class="line">s3cmd ls</span><br><span class="line">s3cmd ls s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Put</span></span><br><span class="line">s3cmd put /tmp/rook s3://test</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Get</span></span><br><span class="line">s3cmd get s3://test/rook .</span><br><span class="line">cat rook</span><br><span class="line"><span class="meta">#</span><span class="bash"> Hello Rook</span></span><br><span class="line">rm rook</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Delete</span></span><br><span class="line">s3cmd rm s3://test/rook</span><br><span class="line">s3cmd rb s3://test</span><br></pre></td></tr></table></figure>
-<p>安装ceph-dashboard (Optional)</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Either Use HTTP Port 7000</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> yq w -i cluster.yaml spec.dashboard.ssl <span class="literal">false</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> kubectl apply -f dashboard-external-http.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Or Use HTTPS Port 8443</span></span><br><span class="line">kubectl apply -f dashboard-external-http.yaml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Username: admin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Default Password:</span></span><br><span class="line">kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="&#123;['data']['password']&#125;" | base64 --decode &amp;&amp; echo</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-        <tag>k8s</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>消息流在各个应用之间</title>
     <url>/thinking/message-flow/1-current/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>消息是信息传递的最基本单位。</p>
@@ -1607,9 +1616,9 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>背包容量为n，价值a[i]，第k个拿价值减(k - i) * b[i]，物品重量为1<br>dp为第k个拿物品时的最大价值</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">dp := <span class="built_in">make</span>([]<span class="keyword">int</span>, m + <span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(items); i++ &#123;</span><br><span class="line">  <span class="keyword">for</span> j := m; j &gt;= i; i-- &#123;</span><br><span class="line">    dp[j] = max(dp[j], dp[j - <span class="number">1</span>] + a[i] - i * b[i])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> dp[m]</span><br></pre></td></tr></table></figure>
 <ul>
-<li>贪心，n个怪物，每个怪物有攻击ai，勇者防御初始为d，每打一只防御+1，防御&lt;ai的话直接受到bi的伤害。问最优打怪顺序。（没做出来，给了个n=1000的网络流做法，面试官表示n是10w也能贪心做</li>
+<li>贪心，n个怪物，每个怪物有攻击ai，勇者防御初始为d，每打一只防御+1，防御 &lt; ai的话直接受到bi的伤害。问最优打怪顺序。（没做出来，给了个n=1000的网络流做法，面试官表示n是10w也能贪心做</li>
 </ul>
-<p>如果有能不吃伤害打的，直接打<br>如果没有能不吃伤害打的，直接打破防最强的</p>
+<p>策略：<br>如果有能不吃伤害打的，直接打<br>如果没有能不吃伤害打的，直接打破防最强的</p>
 <ul>
 <li>二叉树序列化和反序列化+校验</li>
 </ul>
@@ -1655,7 +1664,9 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <h1 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h1><p><a href="https://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html" target="_blank" rel="noopener">https://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html</a></p>
 <p>Dijkstra</p>
 <p>S, U</p>
-<h1 id="多线程打印ABC"><a href="#多线程打印ABC" class="headerlink" title="多线程打印ABC"></a>多线程打印ABC</h1><p><a href="https://www.cnblogs.com/xiaoxi/p/8035725.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaoxi/p/8035725.html</a></p>
+<h1 id="数字转中文"><a href="#数字转中文" class="headerlink" title="数字转中文"></a>数字转中文</h1><p><a href="https://github.com/Tnze/go.num/blob/master/zh/num.go" target="_blank" rel="noopener">https://github.com/Tnze/go.num/blob/master/zh/num.go</a></p>
+<p><a href="http://data.biancheng.net/view/146.html" target="_blank" rel="noopener">http://data.biancheng.net/view/146.html</a></p>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="多线程打印ABC"><a href="#多线程打印ABC" class="headerlink" title="多线程打印ABC"></a>多线程打印ABC</h2><p><a href="https://www.cnblogs.com/xiaoxi/p/8035725.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaoxi/p/8035725.html</a></p>
 <ul>
 <li>JAVA通过一个ReentrantLock和三个conditon实现</li>
 <li>JAVA通过一个锁和一个状态变量来实现</li>
@@ -1664,9 +1675,30 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <ul>
 <li>GO通过channel管线，A-&gt;B-&gt;C</li>
 </ul>
-<h1 id="数字转中文"><a href="#数字转中文" class="headerlink" title="数字转中文"></a>数字转中文</h1><p><a href="https://github.com/Tnze/go.num/blob/master/zh/num.go" target="_blank" rel="noopener">https://github.com/Tnze/go.num/blob/master/zh/num.go</a></p>
-<p><a href="http://data.biancheng.net/view/146.html" target="_blank" rel="noopener">http://data.biancheng.net/view/146.html</a></p>
-]]></content>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	N := <span class="number">100</span></span><br><span class="line">	chs := <span class="built_in">make</span>([]<span class="keyword">chan</span> <span class="keyword">bool</span>, <span class="number">0</span>, N)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= N; i++ &#123;</span><br><span class="line">		chs = <span class="built_in">append</span>(chs, <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>))</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= N; i++ &#123;</span><br><span class="line">		<span class="keyword">go</span> <span class="built_in">print</span>(i, chs[i<span class="number">-1</span>], chs[i])</span><br><span class="line">	&#125;</span><br><span class="line">	chs[<span class="number">0</span>] &lt;- <span class="literal">true</span></span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> &lt;-chs[N]:</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">print</span><span class="params">(n <span class="keyword">int</span>, i, o <span class="keyword">chan</span> <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">select</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> &lt;-i:</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(n)</span><br><span class="line">	o &lt;- <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>GO通过atmoic</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"sync"</span></span><br><span class="line">	<span class="string">"sync/atomic"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	N := <span class="keyword">int64</span>(<span class="number">100</span>)</span><br><span class="line">	a := <span class="keyword">int64</span>(<span class="number">1</span>)</span><br><span class="line">	wg := &amp;sync.WaitGroup&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="keyword">int64</span>(<span class="number">1</span>); i &lt;= N; i++ &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int64</span>)</span></span> &#123;</span><br><span class="line">			<span class="keyword">for</span> a != i &#123;</span><br><span class="line">        time.Sleep(time.Microsecond) <span class="comment">// 减少竞争</span></span><br><span class="line">			&#125;</span><br><span class="line">			fmt.Println(i)</span><br><span class="line">			atomic.AddInt64(&amp;a, <span class="number">1</span>)</span><br><span class="line">			wg.Done()</span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Go不一定打印顺序要和线程一致，先拿先得</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"sync"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	N := <span class="number">100</span></span><br><span class="line">	a := <span class="number">0</span></span><br><span class="line">	l := sync.Mutex&#123;&#125;</span><br><span class="line">	wg := &amp;sync.WaitGroup&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= N; i++ &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">			l.Lock()</span><br><span class="line">			<span class="keyword">defer</span> l.Unlock()</span><br><span class="line">			a += <span class="number">1</span></span><br><span class="line">			fmt.Println(a)</span><br><span class="line">			wg.Done()</span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>C++顺序打印</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Ts&gt;</span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;T&gt; <span class="title">make_unique</span><span class="params">(Ts&amp;&amp;... params)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;T&gt;(<span class="keyword">new</span> T(<span class="built_in">std</span>::forward&lt;Ts&gt;(params)...));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Solution(<span class="keyword">int</span> count = <span class="number">0</span>) : count(count) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">l</span><span class="params">(m)</span></span>;</span><br><span class="line">        count++;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; count &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">std</span>::mutex m;</span><br><span class="line">  <span class="keyword">int</span> count;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">auto</span> <span class="title">s</span><span class="params">(<span class="built_in">std</span>::make_unique&lt;Solution&gt;())</span></span>;</span><br><span class="line">    <span class="keyword">int</span> N = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        <span class="function"><span class="built_in">std</span>::thread <span class="title">t</span><span class="params">(&amp;Solution::<span class="built_in">print</span>, s.<span class="built_in">get</span>(), i)</span></span>;</span><br><span class="line">        t.join();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="轮流打印"><a href="#轮流打印" class="headerlink" title="轮流打印"></a>轮流打印</h2><ul>
+<li>C++</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Solution(<span class="keyword">int</span> count = <span class="number">0</span>) : count(count) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; repeat; i++) &#123;</span><br><span class="line">            <span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">l</span><span class="params">(m)</span></span>;</span><br><span class="line">            cvar.wait(l, [num, <span class="keyword">this</span>] &#123; <span class="keyword">return</span> num == count; &#125;);</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; num &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            count += <span class="number">1</span>;</span><br><span class="line">            count %= <span class="number">3</span>;</span><br><span class="line">            l.unlock();</span><br><span class="line">            cvar.notify_all();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::mutex m;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="built_in">std</span>::condition_variable cvar;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> repeat = <span class="number">3</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">auto</span> <span class="title">s</span><span class="params">(<span class="built_in">std</span>::make_unique&lt;Solution&gt;())</span></span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt; threads;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        threads.emplace_back(&amp;Solution::<span class="built_in">print</span>, s.<span class="built_in">get</span>(), i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::for_each(threads.<span class="built_in">begin</span>(), threads.<span class="built_in">end</span>(), <span class="built_in">std</span>::mem_fn(&amp;<span class="built_in">std</span>::thread::join));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="统计词频"><a href="#统计词频" class="headerlink" title="统计词频"></a>统计词频</h2><p>排序数组，统计词频</p>
+<p>非排序数组统计词频</p>
+<p>无限长数组统计词频</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"runtime"</span></span><br><span class="line">	<span class="string">"sync"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>&#125;</span><br><span class="line">	size := <span class="number">3</span></span><br><span class="line">	N := <span class="number">3</span></span><br><span class="line">	inter := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">	wg := &amp;sync.WaitGroup&#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(a); i += size &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		l := i</span><br><span class="line">		r := i + size</span><br><span class="line">		<span class="keyword">if</span> r &gt; <span class="built_in">len</span>(a) &#123;</span><br><span class="line">			r = <span class="built_in">len</span>(a)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">go</span> count(a, l, r, inter, wg)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	wg.Wait()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N; i++ &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">go</span> reduce(inter, wg)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	wg.Wait()</span><br><span class="line"></span><br><span class="line">	out := &lt;-inter</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(inter) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> m := <span class="keyword">range</span> inter &#123;</span><br><span class="line">			fmt.Println(m)</span><br><span class="line">			fmt.Println(<span class="string">"go:"</span>, runtime.NumGoroutine())</span><br><span class="line">			<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">				fmt.Println(k)</span><br><span class="line">				out[k] = v</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> <span class="built_in">len</span>(inter) == <span class="number">0</span> &#123;</span><br><span class="line">				<span class="built_in">close</span>(inter)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(out)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">count</span><span class="params">(a []<span class="keyword">int</span>, l, r <span class="keyword">int</span>, o <span class="keyword">chan</span> <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>, wg *sync.WaitGroup)</span></span> &#123;</span><br><span class="line">	m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">for</span> i := l; i &lt; r; i++ &#123;</span><br><span class="line">		m[a[i]]++</span><br><span class="line">	&#125;</span><br><span class="line">	o &lt;- m</span><br><span class="line">	wg.Done()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reduce</span><span class="params">(i <span class="keyword">chan</span> <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>, wg *sync.WaitGroup)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(i) &lt;= <span class="number">1</span> &#123;</span><br><span class="line">			wg.Done()</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">select</span> &#123;</span><br><span class="line">		<span class="keyword">case</span> map1 := &lt;-i:</span><br><span class="line">			<span class="keyword">if</span> <span class="built_in">len</span>(map1) == <span class="number">0</span> &#123;</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line">			&#125;</span><br><span class="line">			map2 := &lt;-i</span><br><span class="line">			<span class="keyword">if</span> <span class="built_in">len</span>(map2) == <span class="number">0</span> &#123;</span><br><span class="line">				i &lt;- map1</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span> k, v := <span class="keyword">range</span> map2 &#123;</span><br><span class="line">				map1[k] = v</span><br><span class="line">			&#125;</span><br><span class="line">			i &lt;- map1</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="生产者消费者"><a href="#生产者消费者" class="headerlink" title="生产者消费者"></a>生产者消费者</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Channel</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Channel(<span class="keyword">int</span> count = <span class="number">0</span>) : count(count) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">produce</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">l</span><span class="params">(m)</span></span>;</span><br><span class="line">            pvar.wait(l, [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> q.<span class="built_in">size</span>() &lt; count; &#125;);</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;- "</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            q.push(i);</span><br><span class="line"></span><br><span class="line">            cvar.notify_all();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">l</span><span class="params">(m)</span></span>;</span><br><span class="line">            cvar.wait(l, [<span class="keyword">this</span>]&#123; <span class="keyword">return</span> q.<span class="built_in">size</span>() != <span class="number">0</span>; &#125;);</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt;  q.front() &lt;&lt; <span class="string">" &lt;- "</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            q.pop();</span><br><span class="line">            pvar.notify_all();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> q.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::mutex m;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="built_in">std</span>::condition_variable pvar, cvar;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">auto</span> <span class="title">s</span><span class="params">(<span class="built_in">std</span>::make_unique&lt;Channel&gt;(<span class="number">10</span>))</span></span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt; threads;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">        threads.emplace_back(&amp;Channel::produce, s.<span class="built_in">get</span>(), i);</span><br><span class="line">        threads.emplace_back(&amp;Channel::consume, s.<span class="built_in">get</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::for_each(threads.<span class="built_in">begin</span>(), threads.<span class="built_in">end</span>(), <span class="built_in">std</span>::mem_fn(&amp;<span class="built_in">std</span>::thread::join));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="读者写者"><a href="#读者写者" class="headerlink" title="读者写者"></a>读者写者</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="comment">//std::unique_lock</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;shared_mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadSafeCounter</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ThreadSafeCounter() = <span class="keyword">default</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 多个线程/读者能同时读计数器的值。</span></span><br><span class="line">	<span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="built_in">std</span>::shared_lock&lt;<span class="built_in">std</span>::shared_mutex&gt; <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">		<span class="keyword">return</span> value_;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 只有一个线程/写者能增加/写线程的值。</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::shared_mutex&gt; <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">		value_++;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 只有一个线程/写者能重置/写线程的值。</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::shared_mutex&gt; <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">		value_ = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">mutable</span> <span class="built_in">std</span>::shared_mutex mutex_;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> value_ = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="计算阶乘"><a href="#计算阶乘" class="headerlink" title="计算阶乘"></a>计算阶乘</h2><h2 id="计算N次方"><a href="#计算N次方" class="headerlink" title="计算N次方"></a>计算N次方</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pow</span><span class="params">(x, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    ret := <span class="number">1</span> <span class="comment">// 结果初始为0次方的值，整数0次方为1。如果是矩阵，则为单元矩阵。</span></span><br><span class="line">    <span class="keyword">for</span> n != <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> n%<span class="number">2</span> != <span class="number">0</span> &#123;</span><br><span class="line">            ret = ret * x</span><br><span class="line">        &#125;</span><br><span class="line">        n /= <span class="number">2</span></span><br><span class="line">        x = x * x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    x := pow(<span class="number">2</span>, <span class="number">10</span>) <span class="comment">// 2^10</span></span><br><span class="line">    <span class="built_in">println</span>(x)      <span class="comment">// 1024</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -2060,7 +2092,25 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>主动自己退出： 经过多少时间后主动退出（channel） func main() { var wg sync. WaitGroup quit := time. …</li>
 <li>外部被动退出： 我们可以通过外部操作接收信号方式来退出： func main() { var wg sync.</li>
 </ol>
-<h1 id="goroutine泄露，或是内存泄漏"><a href="#goroutine泄露，或是内存泄漏" class="headerlink" title="goroutine泄露，或是内存泄漏"></a>goroutine泄露，或是内存泄漏</h1><h1 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h1><p>interface nil 比较</p>
+<h1 id="goroutine泄露，或是内存泄漏"><a href="#goroutine泄露，或是内存泄漏" class="headerlink" title="goroutine泄露，或是内存泄漏"></a>goroutine泄露，或是内存泄漏</h1><p>协程泄露是指协程创建后，长时间得不到释放，并且还在不断地创建新的协程，最终导致内存耗尽，程序崩溃。常见的导致协程泄露的场景有以下几种：</p>
+<ul>
+<li>缺少接收器，导致发送阻塞<br>这个例子中，每执行一次 query，则启动1000个协程向信道 ch 发送数字 0，但只接收了一次，导致 999 个协程被阻塞，不能退出。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">query</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++ &#123;</span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; ch &lt;- <span class="number">0</span> &#125;()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> &lt;-ch</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">4</span>; i++ &#123;</span><br><span class="line">		query()</span><br><span class="line">		fmt.Printf(<span class="string">"goroutines: %d\n"</span>, runtime.NumGoroutine())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// goroutines: 1001</span></span><br><span class="line"><span class="comment">// goroutines: 2000</span></span><br><span class="line"><span class="comment">// goroutines: 2999</span></span><br><span class="line"><span class="comment">// goroutines: 3998</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>缺少发送器，导致接收阻塞</li>
+</ul>
+<p>那同样的，如果启动 1000 个协程接收信道的信息，但信道并不会发送那么多次的信息，也会导致接收协程被阻塞，不能退出。</p>
+<ul>
+<li>死锁(dead lock)</li>
+</ul>
+<p>两个或两个以上的协程在执行过程中，由于竞争资源或者由于彼此通信而造成阻塞，这种情况下，也会导致协程被阻塞，不能退出。</p>
+<ul>
+<li>无限循环(infinite loops)</li>
+</ul>
+<p>这个例子中，为了避免网络等问题，采用了无限重试的方式，发送 HTTP 请求，直到获取到数据。那如果 HTTP 服务宕机，永远不可达，导致协程不能退出，发生泄漏。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">request</span><span class="params">(url <span class="keyword">string</span>, wg sync.WaitGroup)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> _, err := http.Get(url); err == <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="comment">// write to db</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		time.Sleep(time.Second)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Done()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++ &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">go</span> request(fmt.Sprintf(<span class="string">"exampe.com/%d"</span>, i), wg)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h1><p>interface nil 比较</p>
 <h1 id="init"><a href="#init" class="headerlink" title="init"></a>init</h1><p>init函数先于main函数自动执行，不能被其他函数调用； … 每个包可以有多个init函数； 包的每个源文件也可以有多个init函数，这点比较特殊； 同一个包的init执行顺序，golang没有明确定义，编程时要注意程序不要依赖这个执行顺序。</p>
 <p>go init 的执行顺序，注意是不按导入规则的（这里是编译时按文件名的顺序执行的）</p>
 <h1 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h1><p>go中多个defer的执行顺序, FILO</p>
@@ -2246,13 +2296,90 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>TVM</li>
 </ul>
 <p>TVM上主要是跟进社区工作，使用TVM的schedule和组里同学做的ansor的工作，做kernel tuning作为数据库供线上查找。</p>
-<p><strong>模型压缩</strong>主要</p>
+<p><strong>模型压缩</strong>主要的工作是量化。</p>
 <p><strong>框架runtime级</strong>主要包括算子定制，框架。</p>
+<p>厂商库，主要是用TensorRT和MKL-DNN。</p>
 <p><strong>系统级</strong>主要包括服务的各项指标优化。</p>
-<p>从<strong>业务模型</strong>类别上大致可以分为CV、语音、NLP，推广搜</p>
-<p>CV，业务模型中常见的ResNet，YOLO、MaskRCNN</p>
-<p>Transformer类</p>
-<p>Bert<br>TextCNN</p>
+<p>指标包括：</p>
+<ul>
+<li>RT，对RT要求高的实时业务。</li>
+<li>QPS，对RT要求低的异步业务。</li>
+<li>资源利用率，公有云成本，超卖和隔离。</li>
+</ul>
+<p>单一优化点：</p>
+<ul>
+<li>网络IO<ul>
+<li>序列化</li>
+<li>多级缓存</li>
+<li>负载均衡优化</li>
+<li>网络直连</li>
+</ul>
+</li>
+<li>计算并行度</li>
+<li>资源利用率</li>
+</ul>
+<p>Q：你们的多级缓存具体怎么做的？<br>Q：你是怎么使用TensorRT优化的？<br>API，blade，dynamic shape的问题。</p>
+<p>从<strong>业务模型</strong>类别上大致可以分为CV、NLP，推荐</p>
+<ul>
+<li>CV，业务模型中常见的ResNet 3.5x，OCR-CRNN 3.5x，OCR-Attention，Yolo 2.5x，MobileNet 2.5x，密集计算，GPU优化，TensorRT和量化</li>
+<li>NLP，Bert-large的Self-Attention结构，模型3x，TextCNN 1.5x，定制算子，GPU</li>
+<li>语音，ASR Transformer模型 2.46x，定制算子，GPU</li>
+<li>推荐，Embedding优化，EasyRec，密集计算部分较简单，主要是Embedding的定制优化，典型场景端到端中等并发下RT降低为1/2以下，QPS提升1.8x左右</li>
+</ul>
+<p>对于推荐的工程支持方法还包括：</p>
+<ul>
+<li>超大Embedding支持<ul>
+<li>为了提升推荐场景的效果，推荐模型通常采用无Hash的方式或者超大的Hash桶的方式。在这种情况下, embedding size会很大，超过1T，给单机部署tensorflow模型带来了挑战。<ul>
+<li>大规模Embedding导出的任务需要设置PS(parameter server)</li>
+<li>单机无法restore带巨大embedding的模型</li>
+<li>embedding通常是分片的，分布在多个PS上</li>
+</ul>
+</li>
+<li>embedding映射表</li>
+<li>模型feature分为dense和sparse，sparse部分需要支持embedding，redis/OTS存储</li>
+<li>模型热更新</li>
+</ul>
+</li>
+</ul>
+<p>cache: list(bool)表示的是否需要在op初始化的时候将相应的embedding加载到内存，减少对redis的访问，提高qps和rt。经讨论:</p>
+<ul>
+<li>item feature比较适合cache</li>
+<li>一些比较小的user feature也适合cache，如性别、年龄等</li>
+<li>user_id等取值范围比较大的，访问频率不高的，暂时不考虑cache</li>
+<li>模型导出时，业务同学指定哪些embedding需要cache。</li>
+<li>cache考虑LRU策略</li>
+</ul>
+<p>Q：你们的embedding的平均latency有多少呢？<br>Q：embedding怎么训练的？<br>Q：embedding怎么导出的？</p>
+<p>redis？</p>
+<ul>
+<li>实时行为</li>
+<li>特征工程feature</li>
+<li>embedding</li>
+</ul>
+<p>推理平台</p>
+<ul>
+<li>RPC<ul>
+<li>服务编排</li>
+<li>多协议</li>
+<li>流式接口</li>
+</ul>
+</li>
+<li>多模型合并</li>
+<li>多框架支持</li>
+</ul>
+<p>客户端负载均衡</p>
+<p>模型调用RPC接口</p>
+<p>EAS设计</p>
+<ul>
+<li>failover<ul>
+<li>依赖k8s的probe</li>
+</ul>
+</li>
+<li>负载均衡</li>
+<li>请求转发</li>
+</ul>
+<p>公有云 SLA</p>
+<p>Q: 训练的PS架构知道吗？</p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -3052,6 +3179,7 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>延迟和吞吐的关系？</li>
 </ul>
 <p>并发度　= 吞吐量 <em> 延迟 </em> batch</p>
+<p><a href="https://www.infoq.cn/article/qeoaxd99ylmv7d0m179e" target="_blank" rel="noopener">https://www.infoq.cn/article/qeoaxd99ylmv7d0m179e</a></p>
 <ul>
 <li>怎么优化资源利用率？</li>
 <li>分布式系统有经验吗？</li>
@@ -3062,11 +3190,10 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 <li>ARM上的模型优化过吗？</li>
 <li>模型压缩有经验吗？有什么具体业务模型吗？</li>
 <li>端上推理的发热和性能如何平衡？</li>
-</ul>
-<p><a href="https://www.infoq.cn/article/qeoaxd99ylmv7d0m179e" target="_blank" rel="noopener">https://www.infoq.cn/article/qeoaxd99ylmv7d0m179e</a></p>
-<ul>
 <li>典型的优化流程是怎样的？需要考虑什么？有哪些具体措施？足够通用吗？</li>
 </ul>
+<p><a href="http://blog.itpub.net/69942496/viewspace-2665766/" target="_blank" rel="noopener">http://blog.itpub.net/69942496/viewspace-2665766/</a></p>
+<p><a href="https://segmentfault.com/a/1190000022483639" target="_blank" rel="noopener">https://segmentfault.com/a/1190000022483639</a></p>
 <h2 id="加速系统"><a href="#加速系统" class="headerlink" title="加速系统"></a>加速系统</h2><p>不太会问</p>
 <ul>
 <li>硬件？</li>
@@ -3262,6 +3389,190 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
       <tags>
         <tag>机器学习</tag>
         <tag>大数据</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-1 - 推理优化总览</title>
+    <url>/ai/ml-system/inference-optimization/1-overview/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。</p>
+<a id="more"></a>
+<p>说起性能优化，软件的性能优化应该是必备功课，通过profiling定位bottleneck，再针对性优化，可以说具备一定程度通用的方法论，但实际业务上也要随机应变。</p>
+<p>模型性能的优化也属于软件性能优化，特点是模型的运行调度框架已经确定，并且由社区平衡通用性和性能做了不少的优化。</p>
+<p>模型性能的问题主要在低效的计算密集型算子，不合理的子图结构，复杂的动态运行环境，冗余的模型结构和数据宽度。</p>
+<p>针对这些问题，模型推理优化方法主要分为：</p>
+<h1 id="计算图结构优化"><a href="#计算图结构优化" class="headerlink" title="计算图结构优化"></a>计算图结构优化</h1><p>主要是清理冗余节点，一般的训练节点，框架在开始运行前会根据输入和输出裁剪无关节点，通常对性能影响不大。</p>
+<p>但部分嵌入计算图的节点就很难被去除，Tensorflow引入的控制结构就是是图结构优化点之一，比如训练时需要的随机dropout结构等，用户可能在构建模型时把标记是否是训练的变量加入到计算图，在清理时就需要将对应placeholder转变为常量，提取子图。</p>
+<h1 id="算子融合"><a href="#算子融合" class="headerlink" title="算子融合"></a>算子融合</h1><p>主要是融合子图，比如对于Feature Embedding这类常用的特征预处理API，通常为了灵活性，生成的子图比较复杂，算子数量极多，框架调度算子的开销远远超过算子实际执行的开销。因此可以匹配对应子图，使用一个算子代替，大大提高执行效率。高频模型中Tensorflow引入的循环控制结构也可以被优化，比如LSTM结构。</p>
+<p>通常需要匹配识别的子图较复杂，依赖人工发现模式并编写匹配逻辑，基本纯手工，开发验证工作量大，由于引入了控制节点和Dynamic Shape，目前编译优化方法也没有很好的解法。因此，通常只针对成熟模型做此类定制优化，比如Transformer结构，Embedding结构等。</p>
+<h1 id="硬件计算库"><a href="#硬件计算库" class="headerlink" title="硬件计算库"></a>硬件计算库</h1><p>底层硬件开发者出于安全或其他原因考虑，不会开放底层实现细节，也不会开放精细控制接口，但为了迎合市场需求，会推出计算库。</p>
+<p>计算库内提供了粗粒度的算子接口，内置了不少汇编层级的优化经验，实现方法至于是if else还是JIT codegen就不得而知了。</p>
+<p>计算库内的核心是如何高效利用硬件执行矩阵并行计算，通常基于经验，比如考虑Cache大小，内存带宽，数据位宽等，利用一个“经验性”公式计算出合理的矩阵分块配置，比较重要也比较让人感到tricky的是公式中不时出现的magic number，很有可能是结合profiling得出的经验。</p>
+<p>常见的计算库比如CUDA和MKL-DNN，在单个算子优化的基础上，硬件厂家还会提供子图层面的计算优化库，比如TensorRT等。</p>
+<h1 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h1><p>编译优化包含一大类方法，也借鉴了上述方法的思路。主要目标是自动化地、通用化地实现图结构优化、算子融合、以及矩阵分块。</p>
+<p>和编译器的优化思路类似，不同框架的计算图经过分图，将可编译的子图会被统一转化为编译优化框架的中间表示（IR），再通过一系列的通用的编译优化pass得到优化后的IR，随后codegen生成执行代码。只要能被划分进编译子图，就能通用化地支持图结构优化和算子融合。</p>
+<p>最精华的地方在于codegen，主要思路有：</p>
+<ul>
+<li>写入人工调优的经验，生成高效的底层执行代码。一般是社区早期这么做，比如Tensorflow的XLA。</li>
+<li>借用硬件计算库生成高效代码。硬件厂商这头大象终于反应过来了，毕竟他们对硬件更了解，不用白不用。</li>
+<li>把硬件当作黑盒，构建细粒度矩阵分块方法，通过profiling不断调整分块参数，直到收敛到最优解。比较暴力，分块方法的可调参数越多，Tuning（参数搜索）的时间可能越长，不过也有算法加速收敛，比如TVM。</li>
+<li>解析法，比如Ployhedral，把矩阵分块过程描述为一般的空间变换方法，而性能优化问题就转化成了搜索最优整数解的过程。愿景很好，但目标函数本身又很难和实际硬件完全对应，搜索的时间也不小。</li>
+</ul>
+<p>编译优化方法在学术届内百花齐放，本质上还是新瓶装旧酒，关键还是在于如何把新问题转化为通用的老问题，并解决新的问题定义边界带来的新的约束带来的corner case。</p>
+<p>对于主流模型，硬件厂商的人力可以做到全图支持，定制优化的性能让编译优化难以超越，编译优化更多地是在通用化的corner case场景下发挥作用，与手工方法互补。</p>
+<p>同时现有的编译优化方法本身也会遇到比如Dynamic Shape的问题，严重影响分图和codegen，亟待解决。好在如MLIR等编译基础设施工作正在不断发展，解决多层IR信息联合优化，复用优化pass，解决共有的问题。</p>
+<h1 id="模型压缩"><a href="#模型压缩" class="headerlink" title="模型压缩"></a>模型压缩</h1><p>除了编译优化方法之外，模型压缩也被用来从算法层面去除降低数据位宽，冗余图结构，大幅并行化模型结构。</p>
+<ul>
+<li>量化</li>
+</ul>
+<p>模型推理的性能问题有很多是memory bound（受限于内存带宽），尤其是在高度密集计算（大batch）的场景下，同时推理相对于训练不需要很高的数据精度，可以使用量化方法缩减数据位宽，直接降低所需内存带宽，memory bound问题也迎刃而解。同时原来用于计算32位数据（FP32）的计算单元可以配置为计算2个16位数据（FP16）和4个8位数据（INT8），计算性能也直接翻番。</p>
+<ul>
+<li>剪枝</li>
+</ul>
+<p>深度学习模型并不是要求精确计算，而是计算概率分布，因此在实践中，将模型中权重较小的连接直接置为0或去除，对模型的整体精度影响不大，反而有效降低了总体计算量。</p>
+<ul>
+<li>蒸馏</li>
+</ul>
+<p>出于直观，可能使用串行结构（数据依赖）模型，导致计算效率不高，或者使用超大模型，模型参数非常多。但模型训练本质上是拟合数据的目标概率分布，那么就可以使用另一个并行模型“学习”串行模型的概率分布，或者使用一个小模型“学习”大模型的概率分布。只要模型精度控制在预期范围内，那么所需的计算量就能大幅下降。</p>
+<h1 id="推理服务性能优化"><a href="#推理服务性能优化" class="headerlink" title="推理服务性能优化"></a>推理服务性能优化</h1><p>这部分和模型关系不大，但也在关键路径上，因此放在这里。服务的性能优化，主要是优化数据链路，比如数据传输协议，Serving框架线程性能，网关性能等。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-2 - 图优化</title>
+    <url>/ai/ml-system/inference-optimization/2-graph-optimization/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>图结构优化在算子层面调整图结构，调整前后的计算图输入输出等价。</p>
+<a id="more"></a>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>图层面优化主要包括：</p>
+<h2 id="训练图清理"><a href="#训练图清理" class="headerlink" title="训练图清理"></a>训练图清理</h2><p>主要针对TensorFlow 1.x， Tensorflowd的训练图包含较多非推理用算子，通常调用TF提供的API提取子图，但可能因为用户的构图不当不能被清理干净。常见的操作包括：</p>
+<ul>
+<li>固定输入Placeholder替换为Const，使TF API去除更多算子</li>
+<li>根据用户输入输出设置保护Node，尽可能多地剔除冗余算子，并且防止提取子图后出错</li>
+<li>通过对SavedModel的Metagraph API精细剔除仅在训练图中存在的自定义Op</li>
+<li>去除训练用Switch Merge结构，比如训练用的Dropout结构</li>
+</ul>
+<h2 id="子图优化"><a href="#子图优化" class="headerlink" title="子图优化"></a>子图优化</h2><p>主要是图结构的局部优化，常见操作包括：</p>
+<ul>
+<li>使用常见的优化操作，比如CSE（Common Subexpression Elimination） ，常量折叠Constant Folding等</li>
+<li>图结构等价变换，适配硬件指令，比如拆分卷积，重排数据Layout，卷积转矩阵乘等</li>
+<li>常量Propagation，加强的常量折叠，更大范围地支持折叠某些固定输入算子</li>
+</ul>
+<h2 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h2><p>针对高频使用的子图模式做专项优化，常见模式包括：</p>
+<ul>
+<li>BatchNorm，融合乘加操作，社区框架已支持</li>
+<li>ResNet Block，Conv-Bias-BatchNorm，更激进的融合，社区框架已支持</li>
+<li>Transformer，Multi-Head Attention</li>
+<li>Feature Column Embedding，调度开销高于计算开销，算子融合即可带来收益，底层可使用MKL加速。</li>
+<li>LSTM</li>
+</ul>
+<h2 id="算子改写"><a href="#算子改写" class="headerlink" title="算子改写"></a>算子改写</h2><p>针对不同的计算场景，针对性地修改算子实现，实现统一框架对模型性能的覆盖程度。</p>
+<ul>
+<li>启发式，根据硬件的结构参数优化计算，比如指令位宽，Cache Line大小等，但通常可能会引入经验值，手工搜索后得到性能较均衡的magic number。</li>
+<li>三方库，比如MKL，CUDA或其他硬件厂商提供的计算库，但要注意线程冲突，内存带宽不匹配等问题。</li>
+<li>特定指令优化，根据专用硬件后端，比如定制NPU，Intel CPU的VNNI INT8和BF16指令定制算子实现。</li>
+</ul>
+<p>图结构优化通过去除冗余算子优化模型的推理性能，一是减少了不必要的计算，二是减少了不必要的调度开销。</p>
+<p>尤其是算子定制，可以通过手工编写算子达到理想的计算性能，针对高频子图模式最有效，但对于业务模型变种，缺乏灵活性，手工支持的响应时间较长，维护成本较高。</p>
+<p>在此基础上，编译优化正是标准化自动化的优化方法。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-3 - 编译优化</title>
+    <url>/ai/ml-system/inference-optimization/3-compilation-optimization/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>深度学习的编译优化方法师承程序语言，相比而言，程序语言的输入是语法树，深度学习的输入是计算图，有相似的编译结构，深度学习后端可以借鉴LLVM架构灵活支持新后端硬件。</p>
+<a id="more"></a>
+<p>不少社区都提出了自己的编译优化框架，定义了自己的一套中间表达（IR，Intermediate Represent），在发展过程中，这些框架和IR也在相互借鉴相互融合。</p>
+<h1 id="XLA"><a href="#XLA" class="headerlink" title="XLA"></a>XLA</h1><p>XLA(Accelerated Linear Algebra)是TensorFLow给出的编译优化框架，嵌入在Tensorflow的图层面的Grappler优化中，提供了子图划分，IR转换，Codegen(代码生成)等功能，属于JIT(Just-In-Time)流程。</p>
+<p>XLA定义一套Tensorflow算子集的子集Instruction，在IR转换阶段将Tensorflow的算子转换为等价表达，随后执行编译优化以及Codegen。</p>
+<p>对于通用计算硬件，能在子图划分阶段进入候选集的算子基本都能完成整套编译优化流程，XLA后端将XLA Instruction转换为LLVM IR使用LLVM生成代码，能做到较好的模型覆盖。</p>
+<p>但对于专用硬件，一是支持的算子较少，分割的子图大小和数量都较多，会引入较高的跨设备调度开销，通常会设定编译触发阈值，二是支持的子图pattern受限，纯粹使用算子集划分子图，后端硬件可能不支持，需要fallback回Tensorflow图，或者提前加入图匹配。</p>
+<p>但XLA对子图输入Shape敏感，导致每种Shape都会触发一次编译，XLA的编译结果Cache很有可能溢出，尤其是对于输入极不固定的模型，频繁编译会大大影响模型性能，甚至导致负优化。</p>
+<p>另一方面，XLA的代码生成仍然是启发式的，不能在指令层面优化，也没有动态搜索，导致XLA在大部分常见场景上不敌手工图优化。</p>
+<p>因此，XLA的一个优化方向是使用第三方库负责计算密集型算子的计算，XLA编译机制作为fusion优化，能较好平衡优化性能。</p>
+<h1 id="TensorRT"><a href="#TensorRT" class="headerlink" title="TensorRT"></a>TensorRT</h1><p>TensorRT是NVIDIA提供的一套独立的模型构建工具，提供了算子级别的API，用户可以用来直接构建计算图，并提供了转换工具将框架的模型文件转换为Tensor RT的执行参数。</p>
+<p>同时，TensorRT也在图层面用和XLA类似的方法接入了TensorFlow，TensorRT内部负责优化子图和生成GPU kernel。</p>
+<h1 id="OpenVINO"><a href="#OpenVINO" class="headerlink" title="OpenVINO"></a>OpenVINO</h1><p>OpenVINO是Intel提供的一套独立的模型构建工具，并提供了转换工具执行全图转换，支持的算子的覆盖度有待提高。内部应该也是基于OneDNN（原MKL-DNN）提供的构建接口。</p>
+<h1 id="TVM"><a href="#TVM" class="headerlink" title="TVM"></a>TVM</h1><p>TVM的主要思想是搜索计算密集型算子的所有可调的参数空间，比如循环展开的基本宽度（可能影响Cache），循环顺序（可能影响分块逻辑），数据Layout等。</p>
+<p>TVM使用TVM IR定义了基本操作，可以直接通过TVM IR描述某个计算密集型算子的计算结构，使用Schedule定义在计算结构上搜索(Tuning)的空间。</p>
+<p>在计算图层面，TVM定义了一套Relay IR作为计算图层面的表达，各个框架的算子可以转换为Relay IR，再统一优化，执行fusion等操作。</p>
+<p>可以通过XLA接入Tensorflow。</p>
+<h1 id="PolyHydral"><a href="#PolyHydral" class="headerlink" title="PolyHydral"></a>PolyHydral</h1><p>多面体优化，TVM所使用的方法来源，但更侧重于使用数学方法启发式地寻找最优解，结合少量Profiling，定义每套硬件的启发参数。</p>
+<h1 id="MLIR"><a href="#MLIR" class="headerlink" title="MLIR"></a>MLIR</h1><p>MLIR旨在统一多种框架的多层IR，共享优化方法，并将图信息跨IR保留，解决Dynamic Shape的问题。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-4 - 模型压缩</title>
+    <url>/ai/ml-system/inference-optimization/4-model-compression/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型压缩相比图优化/编译优化无损优化方法，侧重减少网络参数量，达到节约服务器资源，端侧部署优化等目的。</p>
+<a id="more"></a>
+<h1 id="结构优化"><a href="#结构优化" class="headerlink" title="结构优化"></a>结构优化</h1><p>如矩阵分解（Factor Machine），权值共享（CNN），分组卷积（MobileNet的depth-wise Conv)，分拆卷积（Inception）等。</p>
+<p>结构优化主要是模型结构创新，以更少的计算量/模型参数达到相似的模型准确度。</p>
+<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>使用高精度浮点训练，使用定点推理。常见量化格式有FP16，BF16，INT8，INT4。</p>
+<h1 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h1><p>剪枝按粒度可分为突触剪枝、神经元剪枝、权重矩阵剪枝等。</p>
+<p>基本思想是将接近0的参数置为0，通过稀疏矩阵存储。</p>
+<p>首先训练一个精度较高的大模型，按阈值置0，随后在训练集上微调，验证模型大小和精度是否符合预期，否则持续迭代。</p>
+<h1 id="蒸馏"><a href="#蒸馏" class="headerlink" title="蒸馏"></a>蒸馏</h1><p>蒸馏过程是对Student和Teacher的拟合，老师和学生可以使用不同的网络结构（串行到并行），不同规模的参数（减少模型参数）。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-5 - 系统级优化</title>
+    <url>/ai/ml-system/inference-optimization/5-system-level-optimization/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>推理优化除了对模型本身的优化，还需要考虑计算框架、推理服务等系统层面的优化。</p>
+<a id="more"></a>
+<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><ul>
+<li>编译器优化</li>
+<li>线程并行</li>
+<li>Cache优化</li>
+<li>Memory</li>
+<li>稀疏化</li>
+<li>内存精细管理</li>
+<li>专用指令，比如ARM的NEON、Intel的AVX</li>
+<li>亲核性，NUMA</li>
+</ul>
+<h1 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h1><ul>
+<li>线程/进程/服务实例并行</li>
+<li>调度绑定</li>
+<li>资源复用</li>
+<li>网络开销</li>
+<li>缓存</li>
+<li>延时抖动</li>
+<li>服务稳定性</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
       </tags>
   </entry>
   <entry>
@@ -3898,190 +4209,6 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
       <tags>
         <tag>机器学习</tag>
         <tag>FPGA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-1 - 推理优化总览</title>
-    <url>/ai/ml-system/inference-optimization/1-overview/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。</p>
-<a id="more"></a>
-<p>说起性能优化，软件的性能优化应该是必备功课，通过profiling定位bottleneck，再针对性优化，可以说具备一定程度通用的方法论，但实际业务上也要随机应变。</p>
-<p>模型性能的优化也属于软件性能优化，特点是模型的运行调度框架已经确定，并且由社区平衡通用性和性能做了不少的优化。</p>
-<p>模型性能的问题主要在低效的计算密集型算子，不合理的子图结构，复杂的动态运行环境，冗余的模型结构和数据宽度。</p>
-<p>针对这些问题，模型推理优化方法主要分为：</p>
-<h1 id="计算图结构优化"><a href="#计算图结构优化" class="headerlink" title="计算图结构优化"></a>计算图结构优化</h1><p>主要是清理冗余节点，一般的训练节点，框架在开始运行前会根据输入和输出裁剪无关节点，通常对性能影响不大。</p>
-<p>但部分嵌入计算图的节点就很难被去除，Tensorflow引入的控制结构就是是图结构优化点之一，比如训练时需要的随机dropout结构等，用户可能在构建模型时把标记是否是训练的变量加入到计算图，在清理时就需要将对应placeholder转变为常量，提取子图。</p>
-<h1 id="算子融合"><a href="#算子融合" class="headerlink" title="算子融合"></a>算子融合</h1><p>主要是融合子图，比如对于Feature Embedding这类常用的特征预处理API，通常为了灵活性，生成的子图比较复杂，算子数量极多，框架调度算子的开销远远超过算子实际执行的开销。因此可以匹配对应子图，使用一个算子代替，大大提高执行效率。高频模型中Tensorflow引入的循环控制结构也可以被优化，比如LSTM结构。</p>
-<p>通常需要匹配识别的子图较复杂，依赖人工发现模式并编写匹配逻辑，基本纯手工，开发验证工作量大，由于引入了控制节点和Dynamic Shape，目前编译优化方法也没有很好的解法。因此，通常只针对成熟模型做此类定制优化，比如Transformer结构，Embedding结构等。</p>
-<h1 id="硬件计算库"><a href="#硬件计算库" class="headerlink" title="硬件计算库"></a>硬件计算库</h1><p>底层硬件开发者出于安全或其他原因考虑，不会开放底层实现细节，也不会开放精细控制接口，但为了迎合市场需求，会推出计算库。</p>
-<p>计算库内提供了粗粒度的算子接口，内置了不少汇编层级的优化经验，实现方法至于是if else还是JIT codegen就不得而知了。</p>
-<p>计算库内的核心是如何高效利用硬件执行矩阵并行计算，通常基于经验，比如考虑Cache大小，内存带宽，数据位宽等，利用一个“经验性”公式计算出合理的矩阵分块配置，比较重要也比较让人感到tricky的是公式中不时出现的magic number，很有可能是结合profiling得出的经验。</p>
-<p>常见的计算库比如CUDA和MKL-DNN，在单个算子优化的基础上，硬件厂家还会提供子图层面的计算优化库，比如TensorRT等。</p>
-<h1 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h1><p>编译优化包含一大类方法，也借鉴了上述方法的思路。主要目标是自动化地、通用化地实现图结构优化、算子融合、以及矩阵分块。</p>
-<p>和编译器的优化思路类似，不同框架的计算图经过分图，将可编译的子图会被统一转化为编译优化框架的中间表示（IR），再通过一系列的通用的编译优化pass得到优化后的IR，随后codegen生成执行代码。只要能被划分进编译子图，就能通用化地支持图结构优化和算子融合。</p>
-<p>最精华的地方在于codegen，主要思路有：</p>
-<ul>
-<li>写入人工调优的经验，生成高效的底层执行代码。一般是社区早期这么做，比如Tensorflow的XLA。</li>
-<li>借用硬件计算库生成高效代码。硬件厂商这头大象终于反应过来了，毕竟他们对硬件更了解，不用白不用。</li>
-<li>把硬件当作黑盒，构建细粒度矩阵分块方法，通过profiling不断调整分块参数，直到收敛到最优解。比较暴力，分块方法的可调参数越多，Tuning（参数搜索）的时间可能越长，不过也有算法加速收敛，比如TVM。</li>
-<li>解析法，比如Ployhedral，把矩阵分块过程描述为一般的空间变换方法，而性能优化问题就转化成了搜索最优整数解的过程。愿景很好，但目标函数本身又很难和实际硬件完全对应，搜索的时间也不小。</li>
-</ul>
-<p>编译优化方法在学术届内百花齐放，本质上还是新瓶装旧酒，关键还是在于如何把新问题转化为通用的老问题，并解决新的问题定义边界带来的新的约束带来的corner case。</p>
-<p>对于主流模型，硬件厂商的人力可以做到全图支持，定制优化的性能让编译优化难以超越，编译优化更多地是在通用化的corner case场景下发挥作用，与手工方法互补。</p>
-<p>同时现有的编译优化方法本身也会遇到比如Dynamic Shape的问题，严重影响分图和codegen，亟待解决。好在如MLIR等编译基础设施工作正在不断发展，解决多层IR信息联合优化，复用优化pass，解决共有的问题。</p>
-<h1 id="模型压缩"><a href="#模型压缩" class="headerlink" title="模型压缩"></a>模型压缩</h1><p>除了编译优化方法之外，模型压缩也被用来从算法层面去除降低数据位宽，冗余图结构，大幅并行化模型结构。</p>
-<ul>
-<li>量化</li>
-</ul>
-<p>模型推理的性能问题有很多是memory bound（受限于内存带宽），尤其是在高度密集计算（大batch）的场景下，同时推理相对于训练不需要很高的数据精度，可以使用量化方法缩减数据位宽，直接降低所需内存带宽，memory bound问题也迎刃而解。同时原来用于计算32位数据（FP32）的计算单元可以配置为计算2个16位数据（FP16）和4个8位数据（INT8），计算性能也直接翻番。</p>
-<ul>
-<li>剪枝</li>
-</ul>
-<p>深度学习模型并不是要求精确计算，而是计算概率分布，因此在实践中，将模型中权重较小的连接直接置为0或去除，对模型的整体精度影响不大，反而有效降低了总体计算量。</p>
-<ul>
-<li>蒸馏</li>
-</ul>
-<p>出于直观，可能使用串行结构（数据依赖）模型，导致计算效率不高，或者使用超大模型，模型参数非常多。但模型训练本质上是拟合数据的目标概率分布，那么就可以使用另一个并行模型“学习”串行模型的概率分布，或者使用一个小模型“学习”大模型的概率分布。只要模型精度控制在预期范围内，那么所需的计算量就能大幅下降。</p>
-<h1 id="推理服务性能优化"><a href="#推理服务性能优化" class="headerlink" title="推理服务性能优化"></a>推理服务性能优化</h1><p>这部分和模型关系不大，但也在关键路径上，因此放在这里。服务的性能优化，主要是优化数据链路，比如数据传输协议，Serving框架线程性能，网关性能等。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-2 - 图优化</title>
-    <url>/ai/ml-system/inference-optimization/2-graph-optimization/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>图结构优化在算子层面调整图结构，调整前后的计算图输入输出等价。</p>
-<a id="more"></a>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>图层面优化主要包括：</p>
-<h2 id="训练图清理"><a href="#训练图清理" class="headerlink" title="训练图清理"></a>训练图清理</h2><p>主要针对TensorFlow 1.x， Tensorflowd的训练图包含较多非推理用算子，通常调用TF提供的API提取子图，但可能因为用户的构图不当不能被清理干净。常见的操作包括：</p>
-<ul>
-<li>固定输入Placeholder替换为Const，使TF API去除更多算子</li>
-<li>根据用户输入输出设置保护Node，尽可能多地剔除冗余算子，并且防止提取子图后出错</li>
-<li>通过对SavedModel的Metagraph API精细剔除仅在训练图中存在的自定义Op</li>
-<li>去除训练用Switch Merge结构，比如训练用的Dropout结构</li>
-</ul>
-<h2 id="子图优化"><a href="#子图优化" class="headerlink" title="子图优化"></a>子图优化</h2><p>主要是图结构的局部优化，常见操作包括：</p>
-<ul>
-<li>使用常见的优化操作，比如CSE（Common Subexpression Elimination） ，常量折叠Constant Folding等</li>
-<li>图结构等价变换，适配硬件指令，比如拆分卷积，重排数据Layout，卷积转矩阵乘等</li>
-<li>常量Propagation，加强的常量折叠，更大范围地支持折叠某些固定输入算子</li>
-</ul>
-<h2 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h2><p>针对高频使用的子图模式做专项优化，常见模式包括：</p>
-<ul>
-<li>BatchNorm，融合乘加操作，社区框架已支持</li>
-<li>ResNet Block，Conv-Bias-BatchNorm，更激进的融合，社区框架已支持</li>
-<li>Transformer，Multi-Head Attention</li>
-<li>Feature Column Embedding，调度开销高于计算开销，算子融合即可带来收益，底层可使用MKL加速。</li>
-<li>LSTM</li>
-</ul>
-<h2 id="算子改写"><a href="#算子改写" class="headerlink" title="算子改写"></a>算子改写</h2><p>针对不同的计算场景，针对性地修改算子实现，实现统一框架对模型性能的覆盖程度。</p>
-<ul>
-<li>启发式，根据硬件的结构参数优化计算，比如指令位宽，Cache Line大小等，但通常可能会引入经验值，手工搜索后得到性能较均衡的magic number。</li>
-<li>三方库，比如MKL，CUDA或其他硬件厂商提供的计算库，但要注意线程冲突，内存带宽不匹配等问题。</li>
-<li>特定指令优化，根据专用硬件后端，比如定制NPU，Intel CPU的VNNI INT8和BF16指令定制算子实现。</li>
-</ul>
-<p>图结构优化通过去除冗余算子优化模型的推理性能，一是减少了不必要的计算，二是减少了不必要的调度开销。</p>
-<p>尤其是算子定制，可以通过手工编写算子达到理想的计算性能，针对高频子图模式最有效，但对于业务模型变种，缺乏灵活性，手工支持的响应时间较长，维护成本较高。</p>
-<p>在此基础上，编译优化正是标准化自动化的优化方法。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-3 - 编译优化</title>
-    <url>/ai/ml-system/inference-optimization/3-compilation-optimization/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>深度学习的编译优化方法师承程序语言，相比而言，程序语言的输入是语法树，深度学习的输入是计算图，有相似的编译结构，深度学习后端可以借鉴LLVM架构灵活支持新后端硬件。</p>
-<a id="more"></a>
-<p>不少社区都提出了自己的编译优化框架，定义了自己的一套中间表达（IR，Intermediate Represent），在发展过程中，这些框架和IR也在相互借鉴相互融合。</p>
-<h1 id="XLA"><a href="#XLA" class="headerlink" title="XLA"></a>XLA</h1><p>XLA(Accelerated Linear Algebra)是TensorFLow给出的编译优化框架，嵌入在Tensorflow的图层面的Grappler优化中，提供了子图划分，IR转换，Codegen(代码生成)等功能，属于JIT(Just-In-Time)流程。</p>
-<p>XLA定义一套Tensorflow算子集的子集Instruction，在IR转换阶段将Tensorflow的算子转换为等价表达，随后执行编译优化以及Codegen。</p>
-<p>对于通用计算硬件，能在子图划分阶段进入候选集的算子基本都能完成整套编译优化流程，XLA后端将XLA Instruction转换为LLVM IR使用LLVM生成代码，能做到较好的模型覆盖。</p>
-<p>但对于专用硬件，一是支持的算子较少，分割的子图大小和数量都较多，会引入较高的跨设备调度开销，通常会设定编译触发阈值，二是支持的子图pattern受限，纯粹使用算子集划分子图，后端硬件可能不支持，需要fallback回Tensorflow图，或者提前加入图匹配。</p>
-<p>但XLA对子图输入Shape敏感，导致每种Shape都会触发一次编译，XLA的编译结果Cache很有可能溢出，尤其是对于输入极不固定的模型，频繁编译会大大影响模型性能，甚至导致负优化。</p>
-<p>另一方面，XLA的代码生成仍然是启发式的，不能在指令层面优化，也没有动态搜索，导致XLA在大部分常见场景上不敌手工图优化。</p>
-<p>因此，XLA的一个优化方向是使用第三方库负责计算密集型算子的计算，XLA编译机制作为fusion优化，能较好平衡优化性能。</p>
-<h1 id="TensorRT"><a href="#TensorRT" class="headerlink" title="TensorRT"></a>TensorRT</h1><p>TensorRT是NVIDIA提供的一套独立的模型构建工具，提供了算子级别的API，用户可以用来直接构建计算图，并提供了转换工具将框架的模型文件转换为Tensor RT的执行参数。</p>
-<p>同时，TensorRT也在图层面用和XLA类似的方法接入了TensorFlow，TensorRT内部负责优化子图和生成GPU kernel。</p>
-<h1 id="OpenVINO"><a href="#OpenVINO" class="headerlink" title="OpenVINO"></a>OpenVINO</h1><p>OpenVINO是Intel提供的一套独立的模型构建工具，并提供了转换工具执行全图转换，支持的算子的覆盖度有待提高。内部应该也是基于OneDNN（原MKL-DNN）提供的构建接口。</p>
-<h1 id="TVM"><a href="#TVM" class="headerlink" title="TVM"></a>TVM</h1><p>TVM的主要思想是搜索计算密集型算子的所有可调的参数空间，比如循环展开的基本宽度（可能影响Cache），循环顺序（可能影响分块逻辑），数据Layout等。</p>
-<p>TVM使用TVM IR定义了基本操作，可以直接通过TVM IR描述某个计算密集型算子的计算结构，使用Schedule定义在计算结构上搜索(Tuning)的空间。</p>
-<p>在计算图层面，TVM定义了一套Relay IR作为计算图层面的表达，各个框架的算子可以转换为Relay IR，再统一优化，执行fusion等操作。</p>
-<p>可以通过XLA接入Tensorflow。</p>
-<h1 id="PolyHydral"><a href="#PolyHydral" class="headerlink" title="PolyHydral"></a>PolyHydral</h1><p>多面体优化，TVM所使用的方法来源，但更侧重于使用数学方法启发式地寻找最优解，结合少量Profiling，定义每套硬件的启发参数。</p>
-<h1 id="MLIR"><a href="#MLIR" class="headerlink" title="MLIR"></a>MLIR</h1><p>MLIR旨在统一多种框架的多层IR，共享优化方法，并将图信息跨IR保留，解决Dynamic Shape的问题。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-4 - 模型压缩</title>
-    <url>/ai/ml-system/inference-optimization/4-model-compression/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型压缩相比图优化/编译优化无损优化方法，侧重减少网络参数量，达到节约服务器资源，端侧部署优化等目的。</p>
-<a id="more"></a>
-<h1 id="结构优化"><a href="#结构优化" class="headerlink" title="结构优化"></a>结构优化</h1><p>如矩阵分解（Factor Machine），权值共享（CNN），分组卷积（MobileNet的depth-wise Conv)，分拆卷积（Inception）等。</p>
-<p>结构优化主要是模型结构创新，以更少的计算量/模型参数达到相似的模型准确度。</p>
-<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>使用高精度浮点训练，使用定点推理。常见量化格式有FP16，BF16，INT8，INT4。</p>
-<h1 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h1><p>剪枝按粒度可分为突触剪枝、神经元剪枝、权重矩阵剪枝等。</p>
-<p>基本思想是将接近0的参数置为0，通过稀疏矩阵存储。</p>
-<p>首先训练一个精度较高的大模型，按阈值置0，随后在训练集上微调，验证模型大小和精度是否符合预期，否则持续迭代。</p>
-<h1 id="蒸馏"><a href="#蒸馏" class="headerlink" title="蒸馏"></a>蒸馏</h1><p>蒸馏过程是对Student和Teacher的拟合，老师和学生可以使用不同的网络结构（串行到并行），不同规模的参数（减少模型参数）。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-5 - 系统级优化</title>
-    <url>/ai/ml-system/inference-optimization/5-system-level-optimization/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>推理优化除了对模型本身的优化，还需要考虑计算框架、推理服务等系统层面的优化。</p>
-<a id="more"></a>
-<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><ul>
-<li>编译器优化</li>
-<li>线程并行</li>
-<li>Cache优化</li>
-<li>Memory</li>
-<li>稀疏化</li>
-<li>内存精细管理</li>
-<li>专用指令，比如ARM的NEON、Intel的AVX</li>
-<li>亲核性，NUMA</li>
-</ul>
-<h1 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h1><ul>
-<li>线程/进程/服务实例并行</li>
-<li>调度绑定</li>
-<li>资源复用</li>
-<li>网络开销</li>
-<li>缓存</li>
-<li>延时抖动</li>
-<li>服务稳定性</li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
       </tags>
   </entry>
   <entry>
