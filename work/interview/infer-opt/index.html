@@ -201,19 +201,29 @@ var themeMenus = {};
 <ul>
 <li>pattern匹配融合</li>
 </ul>
-<p>对常见的子图pattern做fusion，比如BatchNorm</p>
+<p>对常见的子图pattern做fusion，比如BatchNorm。</p>
+<p>对于常见业务模型pattern定制优化：比如LSTM，Tensorflow Feature Column的优化，Embedding LookUp，Self-Attention，</p>
 <p><strong>编译优化</strong>这边我们做了很多方向上的探索，比如XLA、TVM、MLIR、PolyHedron等等。我主要参与的是XLA和TVM这两个方面。</p>
 <ul>
 <li>XLA</li>
 </ul>
 <p>利用XLA接硬件后端和TVM，XLA的IR定义、优化pass结构、后端IR emit和codegen流程比较完整，适配FPGA硬件和TVM，实际上利用XLA接入会遇到dynamic shape的问题，在业务模型shape动态范围比较大的时候，可能compilation cache爆炸。</p>
+<p>利用了基础设施</p>
+<p>FPGA后端</p>
+<p>TVM的通用化JIT fallback</p>
 <ul>
 <li>TVM</li>
 </ul>
-<p>TVM上主要是跟进社区工作，使用TVM的schedule和组里同学做的ansor的工作，做kernel tuning作为数据库供线上查找。</p>
-<p><strong>模型压缩</strong>主要的工作是量化。</p>
-<p><strong>框架runtime级</strong>主要包括算子定制，框架。</p>
+<p>TVM上主要是跟进社区工作，使用TVM的schedule和组里同学做的ansor的工作，做kernel tuning作为数据库供线上查找，在不同的shape，TVM的schedule会用默认schedule，ansor的全空间探索耗时比较长。我们试验下来，TVM在CPU上效果明显，差不多可以达到MKL-DNN优化的效果。</p>
+<p>8 cpu 32 G</p>
+<p>ResNet50 模型 3x 23 -&gt; 7 ms<br>线上服务<br>bs=1 2x 88 -&gt; 43 ms，QPS 30 -&gt; 50<br>bs=8 3x 450 -&gt; 190 ms，QPS 3 -&gt; 10 * bs</p>
+<p><strong>模型压缩</strong>主要的工作是利用NVidia和Intel的量化工作。</p>
+<p>GPU: FP16 不重训，INT8 calibration</p>
+<p>Q: INT8的重训和calibration有啥区别？</p>
+<p><strong>框架runtime级</strong>主要包括框架。</p>
 <p>厂商库，主要是用TensorRT和MKL-DNN。</p>
+<p>针对不同代的CPU有指令结构的优化。</p>
+<p>skylake AVX-512<br>cascadelake VNNI INT8*UINT8<br>cooperlake BF16<br>tigerlake 调研</p>
 <p><strong>系统级</strong>主要包括服务的各项指标优化。</p>
 <p>指标包括：</p>
 <ul>
@@ -230,17 +240,58 @@ var themeMenus = {};
 <li>网络直连</li>
 </ul>
 </li>
-<li>计算并行度</li>
-<li>资源利用率</li>
+<li>计算并行度<ul>
+<li>多线程</li>
+<li>多进程</li>
 </ul>
-<p>Q：你们的多级缓存具体怎么做的？<br>Q：你是怎么使用TensorRT优化的？<br>API，blade，dynamic shape的问题。</p>
+</li>
+<li>资源利用率<ul>
+<li>资源隔离，CPU/Memory/Network/Disk</li>
+<li>资源复用，超卖</li>
+<li>亲核性，NUMA，绑核</li>
+</ul>
+</li>
+</ul>
+<h3 id="Disk-IO"><a href="#Disk-IO" class="headerlink" title="Disk IO"></a>Disk IO</h3><p><a href="https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html" target="_blank" rel="noopener">https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html</a></p>
+<p>Docker中有修改dockershim，和kuberuntime的labels</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">annotations:</span> </span><br><span class="line">  <span class="attr">BlkioDeviceWriteBps:</span> <span class="string">'/dev/sda:31457280'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Network-IO"><a href="#Network-IO" class="headerlink" title="Network IO"></a>Network IO</h3><p>kubectl apply -f <a href="http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml" target="_blank" rel="noopener">http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml</a></p>
+<p><a href="https://developer.aliyun.com/article/388097" target="_blank" rel="noopener">https://developer.aliyun.com/article/388097</a></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">annotations:</span></span><br><span class="line">  <span class="attr">kubernetes.io/ingress-bandwidth:</span> <span class="string">5M</span>  <span class="comment">#进入到容器的最大带宽</span></span><br><span class="line">  <span class="attr">kubernetes.io/egress-bandwidth:</span> <span class="string">10M</span>   <span class="comment">#容器向外访问的最大带宽</span></span><br></pre></td></tr></table></figure>
+<p>Q：你们的多级缓存具体怎么做的？有哪些注意事项和坑？</p>
+<p>主要是数据源缓存、后端缓存、客户端缓存，我们这边提供的是后端。</p>
+<p>数据源缓存是redis</p>
+<p>（1）redis keys命令不能用在生产环境中，如果数量过大效率十分低，导致redis长时间堵塞在keys上。生产环境我们一般选择提前载入一些warm up物品id的方式载入物品embedding<br>（2）Redis value 可以用protobuf格式存储, 存储上节省空间. 解析起来相比string, cpu的效率也应该会更高<br>（3）把item embedding提前加载到内存里<br>（4）关于user embedding，指定一个内存区域的大小，用FIFO的方案来缓存，这样内存用完了，就自动把早进来的用户pop出去<br>（5）如果有条件可以判断活跃用户，可以尽量选择活跃用户进行缓存</p>
+<p>后端缓存，使用local-cache，对user-id, item-id区分，使用LRU/LFU策略。</p>
+<p>Q: LRU会写吗？</p>
+<p>list + map，存取过则放到</p>
+<p>Q: LFU会写吗？</p>
+<p>list和map</p>
+<p><a href="https://leetcode-cn.com/problems/lfu-cache/solution/lfuhuan-cun-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/lfu-cache/solution/lfuhuan-cun-by-leetcode-solution/</a></p>
+<p>Q：本地缓存并行竞争严重吗？</p>
+<p>加读写锁</p>
+<p>Q：你是怎么使用<strong>TensorRT</strong>优化的？</p>
+<p>TensorRT提供了高层API，输入graphdef，输出替换子图成Trt的算子。</p>
+<p>内部会做分图，Layer &amp; Tensor Fusion，量化，和Nvidia对CUDA使用的优化经验 Kernel Auto-Tuning。</p>
+<p>量化，对于FP16和FP32的完全不用考虑。</p>
+<p>缺点是只能针对static shape，dynamic shape会有大量warm up开销。</p>
+<p>Kernel Auto-Tuning 可能是用的编译优化方法和手工优化函数（buket）结合的方式，</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> major_minor &gt;= <span class="number">1.14</span>:</span><br><span class="line">    <span class="keyword">from</span> tensorflow.python.compiler.tensorrt <span class="keyword">import</span> trt_convert <span class="keyword">as</span> trt</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">from</span> tensorflow.contrib <span class="keyword">import</span> tensorrt <span class="keyword">as</span> trt  <span class="comment"># noqa: F401</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># only when static shape we resort to trt</span></span><br><span class="line"><span class="comment"># otherwise there will be large online warm-up overhead</span></span><br><span class="line">converter = trt.TrtGraphConverter</span><br></pre></td></tr></table></figure>
 <p>从<strong>业务模型</strong>类别上大致可以分为CV、NLP，推荐</p>
-<ul>
-<li>CV，业务模型中常见的ResNet 3.5x，OCR-CRNN 3.5x，OCR-Attention，Yolo 2.5x，MobileNet 2.5x，密集计算，GPU优化，TensorRT和量化</li>
-<li>NLP，Bert-large的Self-Attention结构，模型3x，TextCNN 1.5x，定制算子，GPU</li>
-<li>语音，ASR Transformer模型 2.46x，定制算子，GPU</li>
-<li>推荐，Embedding优化，EasyRec，密集计算部分较简单，主要是Embedding的定制优化，典型场景端到端中等并发下RT降低为1/2以下，QPS提升1.8x左右</li>
-</ul>
+<h2 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h2><p>GPU<br>ResNet 3.3x<br>OCR-CRNN 3.5x<br>OCR-Attention<br>Yolo 2.5x<br>MobileNet 2.5x</p>
+<p>CPU<br>ResNet50 3.8x<br>YOLO 2.5x<br>MaskRCNN 1.7x</p>
+<p>密集计算，GPU优化，TensorRT和量化</p>
+<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>GPU<br>Bert-large &gt;3x<br>TextCNN 1.5x</p>
+<p>CPU<br>Bert-large的Self-Attention结构 2x</p>
+<h2 id="语音"><a href="#语音" class="headerlink" title="语音"></a>语音</h2><p>GPU</p>
+<p>ASR Transformer模型 2.46x，定制算子，GPU</p>
+<p>CPU</p>
+<p>Transformer 2.3x</p>
+<h2 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h2><p>Embedding优化，EasyRec，密集计算部分较简单，主要是Embedding的定制优化</p>
+<p>典型场景端到端中等并发下RT降低为1/2以下，QPS提升1.8x左右</p>
+<p>DSSM，Wide&amp;Deep，DeepFM</p>
+<p>8 vcpu</p>
+<p>hb 3x 110 -&gt; 30 ms, QPS 55 -&gt; 175<br>zl 3x 160 -&gt; 54 ms, QPS 40 -&gt; 110<br>dy 1.5x 60 -&gt; 40 ms, QPS 80 -&gt; 100</p>
 <p>对于推荐的工程支持方法还包括：</p>
 <ul>
 <li>超大Embedding支持<ul>
@@ -252,7 +303,7 @@ var themeMenus = {};
 </li>
 <li>embedding映射表</li>
 <li>模型feature分为dense和sparse，sparse部分需要支持embedding，redis/OTS存储</li>
-<li>模型热更新</li>
+<li>模型热更新，ping-pong session</li>
 </ul>
 </li>
 </ul>
@@ -264,26 +315,79 @@ var themeMenus = {};
 <li>模型导出时，业务同学指定哪些embedding需要cache。</li>
 <li>cache考虑LRU策略</li>
 </ul>
-<p>Q：你们的embedding的平均latency有多少呢？<br>Q：embedding怎么训练的？<br>Q：embedding怎么导出的？</p>
-<p>redis？</p>
+<p>Q：你们的取embedding的平均latency有多少呢？</p>
+<p>1ms左右。</p>
+<p>Q：embedding怎么训练的？</p>
+<p>用partitioned variable，放到多个PS上</p>
+<p>Q：embedding怎么导出的？</p>
+<p>定制Op，导出到redis上。</p>
+<p>Q：你们的取feature服务latency有多少？</p>
+<p>整个推荐服务，客户通常要求控制在50-200ms，rank部分差不多要控制在30-50ms以内。</p>
+<p>TP95 TP99 5ms以内，rank模型30-50ms。</p>
+<p>Q：你们的机器用的多大？</p>
+<p>推理平台统一</p>
+<p>32 cpu 128G 的VM</p>
+<p>Q：性能优化的一般思路？</p>
+<p>profile分析关键路径，针对关键点着重优化</p>
+<p>考虑绕过的情况，是否有其他解决方案</p>
+<p>Q：redis存什么？</p>
 <ul>
-<li>实时行为</li>
+<li>实时行为x</li>
 <li>特征工程feature</li>
 <li>embedding</li>
+<li>i2i/u2i</li>
+<li>缓存/hologres/mysql</li>
 </ul>
+<p>Q: redis的内存淘汰策略知道吗？</p>
+<p>在 64 位操作系统中 Redis 的内存大小是没有限制的，也就是配置项 maxmemory 是被注释掉的，这样就会导致在物理内存不足时，使用 swap 空间既交换空间，而当操心系统将 Redis 所用的内存分页移至 swap 空间时，将会阻塞 Redis 进程，导致 Redis 出现延迟，从而影响 Redis 的整体性能。因此我们需要限制 Redis 的内存大小为一个固定的值，当 Redis 的运行到达此值时会触发内存淘汰策略，内存淘汰策略在 Redis 4.0 之后有 8 种：</p>
+<ul>
+<li>noeviction：不淘汰任何数据，当内存不足时，新增操作会报错，Redis 默认内存淘汰策略；</li>
+<li>allkeys-lru：淘汰整个键值中最久未使用的键值；</li>
+<li>allkeys-random：随机淘汰任意键值;</li>
+<li>volatile-lru：淘汰所有设置了过期时间的键值中最久未使用的键值；</li>
+<li>volatile-random：随机淘汰设置了过期时间的任意键值；</li>
+<li><p>volatile-ttl：优先淘汰更早过期的键值。<br>在 Redis 4.0 版本中又新增了 2 种淘汰策略：</p>
+</li>
+<li><p>volatile-lfu：淘汰所有设置了过期时间的键值中，最少使用的键值；</p>
+</li>
+<li>allkeys-lfu：淘汰整个键值中最少使用的键值。<br>其中 allkeys-xxx 表示从所有的键值中淘汰数据，而 volatile-xxx 表示从设置了过期键的键值中淘汰数据。</li>
+</ul>
+<p>Q：超大规模数据遇到过性能问题吗？怎么解决的？</p>
+<p><a href="https://segmentfault.com/a/1190000022172968" target="_blank" rel="noopener">https://segmentfault.com/a/1190000022172968</a></p>
+<ol>
+<li>缩短键值对的存储长度；</li>
+<li>使用 lazy free（延迟删除）特性；</li>
+<li>设置键值的过期时间；</li>
+<li>禁用长耗时的查询命令；使用SCAN</li>
+<li>使用 slowlog 优化耗时命令；</li>
+<li>使用 Pipeline 批量操作数据；</li>
+<li>避免大量数据同时失效；</li>
+<li>客户端使用优化；<br>在客户端的使用上我们除了要尽量使用 Pipeline 的技术外，还需要注意要尽量使用 Redis 连接池，而不是频繁创建销毁 Redis 连接，这样就可以减少网络传输次数和减少了非必要调用指令。</li>
+<li>限制 Redis 内存大小；</li>
+<li>使用物理机而非虚拟机安装 Redis 服务；<br>在虚拟机中运行 Redis 服务器，因为和物理机共享一个物理网口，并且一台物理机可能有多个虚拟机在运行，因此在内存占用上和网络延迟方面都会有很糟糕的表现，我们可以通过 ./redis-cli —intrinsic-latency 100 命令查看延迟时间，如果对 Redis 的性能有较高要求的话，应尽可能在物理机上直接部署 Redis 服务器。</li>
+<li>检查数据持久化策略；</li>
+<li>禁用 THP 特性；</li>
+<li>使用分布式架构来增加读写速度。</li>
+</ol>
 <p>推理平台</p>
 <ul>
-<li>RPC<ul>
-<li>服务编排</li>
-<li>多协议</li>
-<li>流式接口</li>
+<li>多模型合并<ul>
+<li>N合1，放到一个session里</li>
 </ul>
 </li>
-<li>多模型合并</li>
-<li>多框架支持</li>
+<li>多框架支持<ul>
+<li>C++ dlopen</li>
+<li>Java JVM JNI</li>
+<li>Python 固定入口</li>
 </ul>
-<p>客户端负载均衡</p>
-<p>模型调用RPC接口</p>
+</li>
+<li>ECI弹性扩容</li>
+<li>双网卡网络直连</li>
+<li>自定义镜像</li>
+<li>镜像sidecar</li>
+</ul>
+<p>EAS逐步暴露k8s的接口</p>
+<p><strong>ENABLE</strong><br><strong>场景优化</strong></p>
 <p>EAS设计</p>
 <ul>
 <li>failover<ul>
@@ -295,6 +399,30 @@ var themeMenus = {};
 </ul>
 <p>公有云 SLA</p>
 <p>Q: 训练的PS架构知道吗？</p>
+<p>Parameter Server放参数，Worker执行训练。<br>Chief负责额外执行模型加载保存，初始化等功能。<br>evaluator需要放在Chief上。</p>
+<p>TFJob负责机器调度，恢复。</p>
+<h1 id="线上服务"><a href="#线上服务" class="headerlink" title="线上服务"></a>线上服务</h1><p>Q: 线上服务的failover如何处理？</p>
+<p>k8s支持，Pod的probe监控</p>
+<p>Q：服务并发</p>
+<p>并发度　= 吞吐量 <em> 延迟 </em> batch</p>
+<h1 id="你觉得你自己"><a href="#你觉得你自己" class="headerlink" title="你觉得你自己"></a>你觉得你自己</h1><p>Q：做过的最突出/挑战性的工作是什么？</p>
+<p>在工程上的事比较多，我觉得每个阶段都有比较值得我的工作。</p>
+<p>FCNN加速后端，从编译器到RT驱动到硬件，全栈工程。团队协作分工，硬件背景驱动软件设计优化。<br>加速学习，理解业务和系统。</p>
+<p>模型推理优化，接触各类模型，找出共性，Research，调研，技术选型，寻找合适的落地场景。</p>
+<p>推理平台建设和垂直场景优化，通用平台功能，大客户定点支持，抽象复用，全栈工程x2。</p>
+<p>Q：遇到过哪些大坑，是怎么躲开的？</p>
+<ul>
+<li>过早优化和通用化，方案在迭代中改进，很多只是POC</li>
+<li>闭源，内部技术迭代离社区渐行渐远，维护难度指数增加，难以PR merge</li>
+<li>跨团队很重要，重复造轮子，技术选型和复用</li>
+</ul>
+<p>Q：你最大的收获是什么？</p>
+<ul>
+<li>考虑为什么多于怎么实现</li>
+<li>考虑通用、抽象复用多于定制</li>
+<li>工程能力</li>
+<li>跨团队协作</li>
+</ul>
 
       
     </div>
@@ -333,7 +461,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav">无</ol>
+      <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Disk-IO"><span class="nav-number">1.</span> <span class="nav-text">Disk IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-IO"><span class="nav-number">2.</span> <span class="nav-text">Network IO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CV"><span class="nav-number"></span> <span class="nav-text">CV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本"><span class="nav-number"></span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语音"><span class="nav-number"></span> <span class="nav-text">语音</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐"><span class="nav-number"></span> <span class="nav-text">推荐</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线上服务"><span class="nav-number"></span> <span class="nav-text">线上服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#你觉得你自己"><span class="nav-number"></span> <span class="nav-text">你觉得你自己</span></a>
     
     </div>
   </aside>
