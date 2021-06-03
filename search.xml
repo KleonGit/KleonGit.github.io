@@ -314,6 +314,56 @@
       </tags>
   </entry>
   <entry>
+    <title>算法基础 - 哈希表</title>
+    <url>/cs/algo/hash-table/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>哈希函数用于缩小映射空间，可能会发生碰撞，可用链表法或多哈希函数。</p>
+<a id="more"></a>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>常用数据结构：</p>
+<ul>
+<li>数组，有限确定项，比如字母串</li>
+<li>map，映射</li>
+<li>set，集合</li>
+</ul>
+<p>Go的map底层使用哈希表实现，set可通过将map的value置空实现。<br>C++的std::map/std::multimap由红黑树实现，std::unorderd_map由哈希表实现。</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="数组判断有效字母异位词"><a href="#数组判断有效字母异位词" class="headerlink" title="数组判断有效字母异位词"></a>数组判断有效字母异位词</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
+<ul>
+<li>数组直接存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isAnagram</span><span class="params">(s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a,b [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> s &#123;</span><br><span class="line">        a[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> t &#123;</span><br><span class="line">        b[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a==b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
+<ul>
+<li>数组直接存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canConstruct</span><span class="params">(ransomNote <span class="keyword">string</span>, magazine <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> r [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> magazine &#123;</span><br><span class="line">        r[c - <span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> ransomNote &#123;</span><br><span class="line">        <span class="keyword">if</span> r[c - <span class="string">'a'</span>] == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        r[c - <span class="string">'a'</span>]--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合判断数组相交"><a href="#集合判断数组相交" class="headerlink" title="集合判断数组相交"></a>集合判断数组相交</h2><p><img src="https://img.shields.io/badge/leetcode-349-blue.svg" alt> <a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a></p>
+<ul>
+<li>集合存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">Add</span><span class="params">(n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    s[n] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">And</span><span class="params">(t Set)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &gt; <span class="built_in">len</span>(t) &#123;</span><br><span class="line">        s, t = t, s</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> s &#123;</span><br><span class="line">        <span class="keyword">if</span> _, ok := t[k]; ok &#123;</span><br><span class="line">            ret = <span class="built_in">append</span>(ret, k)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">intersection</span><span class="params">(nums1 []<span class="keyword">int</span>, nums2 []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    a, b := Set&#123;&#125;, Set&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums1 &#123;</span><br><span class="line">        a.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums2 &#123;</span><br><span class="line">        b.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.And(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合判断快乐数"><a href="#集合判断快乐数" class="headerlink" title="集合判断快乐数"></a>集合判断快乐数</h2><p><img src="https://img.shields.io/badge/leetcode-202-blue.svg" alt> <a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a></p>
+<ul>
+<li>集合存储</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * @param numbers int整型vector </span></span><br><span class="line"><span class="comment">     * @param target int整型 </span></span><br><span class="line"><span class="comment">     * @return int整型vector</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; h;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            tmp = numbers[i];</span><br><span class="line">            <span class="keyword">auto</span> it = h.<span class="built_in">find</span>(target - tmp);</span><br><span class="line">            <span class="keyword">if</span> (it != h.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;h[target - tmp] + <span class="number">1</span>, i + <span class="number">1</span>&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            h[tmp] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>数据结构</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法基础 - 链表</title>
     <url>/cs/algo/list/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>表是最基础的数据结构之一，存储线性数据，内存结构不连续。</p>
@@ -363,56 +413,6 @@ x = (n - 1)(y + z) + z</script><p>n = 1时， x = z</p>
 <ul>
 <li>[1] <span id="refer-1"></span> <a href="https://golang.org/pkg/container/list/" target="_blank" rel="noopener">Package list</a></li>
 </ul>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>数据结构</tag>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法基础 - 哈希表</title>
-    <url>/cs/algo/hash-table/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>哈希函数用于缩小映射空间，可能会发生碰撞，可用链表法或多哈希函数。</p>
-<a id="more"></a>
-<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>常用数据结构：</p>
-<ul>
-<li>数组，有限确定项，比如字母串</li>
-<li>map，映射</li>
-<li>set，集合</li>
-</ul>
-<p>Go的map底层使用哈希表实现，set可通过将map的value置空实现。<br>C++的std::map/std::multimap由红黑树实现，std::unorderd_map由哈希表实现。</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="数组判断有效字母异位词"><a href="#数组判断有效字母异位词" class="headerlink" title="数组判断有效字母异位词"></a>数组判断有效字母异位词</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
-<ul>
-<li>数组直接存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isAnagram</span><span class="params">(s <span class="keyword">string</span>, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a,b [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> s &#123;</span><br><span class="line">        a[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, i:= <span class="keyword">range</span> t &#123;</span><br><span class="line">        b[i-<span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a==b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p><img src="https://img.shields.io/badge/leetcode-242-blue.svg" alt> <a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">有效的字母异位词</a></p>
-<ul>
-<li>数组直接存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canConstruct</span><span class="params">(ransomNote <span class="keyword">string</span>, magazine <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> r [<span class="number">26</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> magazine &#123;</span><br><span class="line">        r[c - <span class="string">'a'</span>]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> ransomNote &#123;</span><br><span class="line">        <span class="keyword">if</span> r[c - <span class="string">'a'</span>] == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        r[c - <span class="string">'a'</span>]--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="集合判断数组相交"><a href="#集合判断数组相交" class="headerlink" title="集合判断数组相交"></a>集合判断数组相交</h2><p><img src="https://img.shields.io/badge/leetcode-349-blue.svg" alt> <a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a></p>
-<ul>
-<li>集合存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">Add</span><span class="params">(n <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    s[n] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span><span class="title">And</span><span class="params">(t Set)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    ret := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(s) &gt; <span class="built_in">len</span>(t) &#123;</span><br><span class="line">        s, t = t, s</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> k := <span class="keyword">range</span> s &#123;</span><br><span class="line">        <span class="keyword">if</span> _, ok := t[k]; ok &#123;</span><br><span class="line">            ret = <span class="built_in">append</span>(ret, k)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">intersection</span><span class="params">(nums1 []<span class="keyword">int</span>, nums2 []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    a, b := Set&#123;&#125;, Set&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums1 &#123;</span><br><span class="line">        a.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> _, n := <span class="keyword">range</span> nums2 &#123;</span><br><span class="line">        b.Add(n)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a.And(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="集合判断快乐数"><a href="#集合判断快乐数" class="headerlink" title="集合判断快乐数"></a>集合判断快乐数</h2><p><img src="https://img.shields.io/badge/leetcode-202-blue.svg" alt> <a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a></p>
-<ul>
-<li>集合存储</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">happy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">        s := n % <span class="number">10</span></span><br><span class="line">        sum += s * s</span><br><span class="line">        n /= <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isHappy</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   set := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">   <span class="keyword">for</span> &#123;</span><br><span class="line">       sum := happy(n)</span><br><span class="line">       <span class="keyword">if</span> sum == <span class="number">1</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> _, ok := set[sum]; ok &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           set[sum] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">       &#125;</span><br><span class="line">       n = sum</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="映射存储两数之和"><a href="#映射存储两数之和" class="headerlink" title="映射存储两数之和"></a>映射存储两数之和</h2><p><img src="https://img.shields.io/badge/leetcode-1-blue.svg" alt> <a href="https://leetcode-cn.com/problems/two-sum/" target="_blank" rel="noopener">两数之和</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i, n := <span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> v, ok := m[target - n]; ok &#123;</span><br><span class="line">            <span class="keyword">return</span> []<span class="keyword">int</span>&#123;v, i&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        m[n] = i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * @param numbers int整型vector </span></span><br><span class="line"><span class="comment">     * @param target int整型 </span></span><br><span class="line"><span class="comment">     * @return int整型vector</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; h;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            tmp = numbers[i];</span><br><span class="line">            <span class="keyword">auto</span> it = h.<span class="built_in">find</span>(target - tmp);</span><br><span class="line">            <span class="keyword">if</span> (it != h.<span class="built_in">end</span>()) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;h[target - tmp] + <span class="number">1</span>, i + <span class="number">1</span>&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            h[tmp] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="映射统计四数相加结果次数"><a href="#映射统计四数相加结果次数" class="headerlink" title="映射统计四数相加结果次数"></a>映射统计四数相加结果次数</h2><p><img src="https://img.shields.io/badge/leetcode-454-blue.svg" alt> <a href="https://leetcode-cn.com/problems/4sum-ii/" target="_blank" rel="noopener">四数相加 II</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fourSumCount</span><span class="params">(A []<span class="keyword">int</span>, B []<span class="keyword">int</span>, C []<span class="keyword">int</span>, D []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> _, a := <span class="keyword">range</span> A &#123;</span><br><span class="line">        <span class="keyword">for</span> _, b := <span class="keyword">range</span> B &#123;</span><br><span class="line">            m[a + b]++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span> </span><br><span class="line">    <span class="keyword">for</span> _, c := <span class="keyword">range</span> C &#123;</span><br><span class="line">        <span class="keyword">for</span> _, d := <span class="keyword">range</span> D &#123;</span><br><span class="line">            <span class="keyword">if</span> v, ok := m[-c-d]; ok &#123;</span><br><span class="line">                count += v</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="员工的重要性"><a href="#员工的重要性" class="headerlink" title="员工的重要性"></a>员工的重要性</h2><p><img src="https://img.shields.io/badge/leetcode-690-blue.svg" alt> <a href="https://leetcode-cn.com/problems/employee-importance/" target="_blank" rel="noopener">员工的重要性</a></p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for Employee.</span></span><br><span class="line"><span class="comment"> * type Employee struct &#123;</span></span><br><span class="line"><span class="comment"> *     Id int</span></span><br><span class="line"><span class="comment"> *     Importance int</span></span><br><span class="line"><span class="comment"> *     Subordinates []int</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImportance</span><span class="params">(employees []*Employee, id <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]*Employee)</span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> employees &#123;</span><br><span class="line">        m[e.Id] = e</span><br><span class="line">    &#125;</span><br><span class="line">    count := <span class="number">0</span></span><br><span class="line">    queue := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">    queue = <span class="built_in">append</span>(queue, id)</span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">len</span>(queue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">        id = queue[<span class="number">0</span>]</span><br><span class="line">        queue = queue[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">if</span> e, ok := m[id]; ok &#123;</span><br><span class="line">            count += e.Importance</span><br><span class="line">            <span class="keyword">for</span> _, sub := <span class="keyword">range</span> e.Subordinates &#123;</span><br><span class="line">                queue = <span class="built_in">append</span>(queue, sub)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
 ]]></content>
       <categories>
         <category>算法</category>
@@ -1698,21 +1698,9 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"runtime"</span></span><br><span class="line">	<span class="string">"sync"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>&#125;</span><br><span class="line">	size := <span class="number">3</span></span><br><span class="line">	N := <span class="number">3</span></span><br><span class="line">	inter := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">	wg := &amp;sync.WaitGroup&#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(a); i += size &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		l := i</span><br><span class="line">		r := i + size</span><br><span class="line">		<span class="keyword">if</span> r &gt; <span class="built_in">len</span>(a) &#123;</span><br><span class="line">			r = <span class="built_in">len</span>(a)</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">go</span> count(a, l, r, inter, wg)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	wg.Wait()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; N; i++ &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">go</span> reduce(inter, wg)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	wg.Wait()</span><br><span class="line"></span><br><span class="line">	out := &lt;-inter</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(inter) &gt; <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> m := <span class="keyword">range</span> inter &#123;</span><br><span class="line">			fmt.Println(m)</span><br><span class="line">			fmt.Println(<span class="string">"go:"</span>, runtime.NumGoroutine())</span><br><span class="line">			<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">				fmt.Println(k)</span><br><span class="line">				out[k] = v</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> <span class="built_in">len</span>(inter) == <span class="number">0</span> &#123;</span><br><span class="line">				<span class="built_in">close</span>(inter)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(out)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">count</span><span class="params">(a []<span class="keyword">int</span>, l, r <span class="keyword">int</span>, o <span class="keyword">chan</span> <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>, wg *sync.WaitGroup)</span></span> &#123;</span><br><span class="line">	m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">for</span> i := l; i &lt; r; i++ &#123;</span><br><span class="line">		m[a[i]]++</span><br><span class="line">	&#125;</span><br><span class="line">	o &lt;- m</span><br><span class="line">	wg.Done()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reduce</span><span class="params">(i <span class="keyword">chan</span> <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>, wg *sync.WaitGroup)</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(i) &lt;= <span class="number">1</span> &#123;</span><br><span class="line">			wg.Done()</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">select</span> &#123;</span><br><span class="line">		<span class="keyword">case</span> map1 := &lt;-i:</span><br><span class="line">			<span class="keyword">if</span> <span class="built_in">len</span>(map1) == <span class="number">0</span> &#123;</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line">			&#125;</span><br><span class="line">			map2 := &lt;-i</span><br><span class="line">			<span class="keyword">if</span> <span class="built_in">len</span>(map2) == <span class="number">0</span> &#123;</span><br><span class="line">				i &lt;- map1</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span> k, v := <span class="keyword">range</span> map2 &#123;</span><br><span class="line">				map1[k] = v</span><br><span class="line">			&#125;</span><br><span class="line">			i &lt;- map1</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="生产者消费者"><a href="#生产者消费者" class="headerlink" title="生产者消费者"></a>生产者消费者</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Channel</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Channel(<span class="keyword">int</span> count = <span class="number">0</span>) : count(count) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">produce</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">l</span><span class="params">(m)</span></span>;</span><br><span class="line">        pvar.wait(l, [<span class="keyword">this</span>]</span><br><span class="line">                  &#123; <span class="keyword">return</span> q.<span class="built_in">size</span>() &lt; count; &#125;);</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">" &lt;- "</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        q.push(i);</span><br><span class="line"></span><br><span class="line">        cvar.notify_all();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::mutex&gt; <span class="title">l</span><span class="params">(m)</span></span>;</span><br><span class="line">        cvar.wait(l, [<span class="keyword">this</span>]</span><br><span class="line">                  &#123; <span class="keyword">return</span> q.<span class="built_in">size</span>() != <span class="number">0</span>; &#125;);</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; q.front() &lt;&lt; <span class="string">" &lt;- "</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        q.pop();</span><br><span class="line">        pvar.notify_all();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> q.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">std</span>::mutex m;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="built_in">std</span>::condition_variable pvar, cvar;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">auto</span> <span class="title">s</span><span class="params">(<span class="built_in">std</span>::make_unique&lt;Channel&gt;(<span class="number">10</span>))</span></span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt; threads;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        threads.emplace_back(&amp;Channel::produce, s.<span class="built_in">get</span>(), i);</span><br><span class="line">        threads.emplace_back(&amp;Channel::consume, s.<span class="built_in">get</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::for_each(threads.<span class="built_in">begin</span>(), threads.<span class="built_in">end</span>(), <span class="built_in">std</span>::mem_fn(&amp;<span class="built_in">std</span>::thread::join));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="读者写者"><a href="#读者写者" class="headerlink" title="读者写者"></a>读者写者</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="comment">//std::unique_lock</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;shared_mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadSafeCounter</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	ThreadSafeCounter() = <span class="keyword">default</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 多个线程/读者能同时读计数器的值。</span></span><br><span class="line">	<span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="built_in">std</span>::shared_lock&lt;<span class="built_in">std</span>::shared_mutex&gt; <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">		<span class="keyword">return</span> value_;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 只有一个线程/写者能增加/写线程的值。</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::shared_mutex&gt; <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">		value_++;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 只有一个线程/写者能重置/写线程的值。</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="built_in">std</span>::unique_lock&lt;<span class="built_in">std</span>::shared_mutex&gt; <span class="title">lock</span><span class="params">(mutex_)</span></span>;</span><br><span class="line">		value_ = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">mutable</span> <span class="built_in">std</span>::shared_mutex mutex_;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> value_ = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="计算阶乘"><a href="#计算阶乘" class="headerlink" title="计算阶乘"></a>计算阶乘</h2><h2 id="计算N次方"><a href="#计算N次方" class="headerlink" title="计算N次方"></a>计算N次方</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pow</span><span class="params">(x, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    ret := <span class="number">1</span> <span class="comment">// 结果初始为0次方的值，整数0次方为1。如果是矩阵，则为单元矩阵。</span></span><br><span class="line">    <span class="keyword">for</span> n != <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> n%<span class="number">2</span> != <span class="number">0</span> &#123;</span><br><span class="line">            ret = ret * x</span><br><span class="line">        &#125;</span><br><span class="line">        n /= <span class="number">2</span></span><br><span class="line">        x = x * x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    x := pow(<span class="number">2</span>, <span class="number">10</span>) <span class="comment">// 2^10</span></span><br><span class="line">    <span class="built_in">println</span>(x)      <span class="comment">// 1024</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>面筋</category>
-      </categories>
-      <tags>
-        <tag>面筋</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>烤面筋 - 大数据</title>
-    <url>/work/interview/big-data/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>HDFS/Hive/Spark/Flink</p>
-<a id="more"></a>
-<h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><p><a href="https://blog.csdn.net/weixin_43893397/article/details/102967571" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43893397/article/details/102967571</a></p>
-<p><a href="https://troywu0.gitbooks.io/spark/content/hdfs.html" target="_blank" rel="noopener">https://troywu0.gitbooks.io/spark/content/hdfs.html</a></p>
+<h2 id="计算阶乘"><a href="#计算阶乘" class="headerlink" title="计算阶乘"></a>计算阶乘</h2><h2 id="计算N次方"><a href="#计算N次方" class="headerlink" title="计算N次方"></a>计算N次方</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pow</span><span class="params">(x, n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    ret := <span class="number">1</span> <span class="comment">// 结果初始为0次方的值，整数0次方为1。如果是矩阵，则为单元矩阵。</span></span><br><span class="line">    <span class="keyword">for</span> n != <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> n%<span class="number">2</span> != <span class="number">0</span> &#123;</span><br><span class="line">            ret = ret * x</span><br><span class="line">        &#125;</span><br><span class="line">        n /= <span class="number">2</span></span><br><span class="line">        x = x * x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    x := pow(<span class="number">2</span>, <span class="number">10</span>) <span class="comment">// 2^10</span></span><br><span class="line">    <span class="built_in">println</span>(x)      <span class="comment">// 1024</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="排序数组去重，还是哈希表去重"><a href="#排序数组去重，还是哈希表去重" class="headerlink" title="排序数组去重，还是哈希表去重"></a>排序数组去重，还是哈希表去重</h1><p>多线程情况下，排序数组可以分段并行，哈希表会冲突</p>
+<p>单线程情况下，数组cache空间局部性更好</p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -1963,12 +1951,30 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
       </tags>
   </entry>
   <entry>
+    <title>烤面筋 - 大数据</title>
+    <url>/work/interview/big-data/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>HDFS/Hive/Spark/Flink</p>
+<a id="more"></a>
+<h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><p><a href="https://blog.csdn.net/weixin_43893397/article/details/102967571" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43893397/article/details/102967571</a></p>
+<p><a href="https://troywu0.gitbooks.io/spark/content/hdfs.html" target="_blank" rel="noopener">https://troywu0.gitbooks.io/spark/content/hdfs.html</a></p>
+]]></content>
+      <categories>
+        <category>面筋</category>
+      </categories>
+      <tags>
+        <tag>面筋</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>烤面筋 - C++</title>
     <url>/work/interview/c++/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>基础问题</p>
 <a id="more"></a>
 <p><a href="https://github.com/huihut/interview" target="_blank" rel="noopener">https://github.com/huihut/interview</a></p>
 <p><a href="https://juejin.cn/post/6844903878886948878" target="_blank" rel="noopener">https://juejin.cn/post/6844903878886948878</a></p>
+<p>继承、多态、虚指针、菱形继承<br><a href="https://blog.csdn.net/c_base_jin/article/details/86036185" target="_blank" rel="noopener">https://blog.csdn.net/c_base_jin/article/details/86036185</a></p>
+<p>C++ 虚函数、虚函数表完全解析：<br><a href="https://blog.csdn.net/caoshangpa/article/details/80112673" target="_blank" rel="noopener">https://blog.csdn.net/caoshangpa/article/details/80112673</a></p>
+<p>虚指针为什么放在头部：<br>为了访问性能，多继承的时候直接用sizeof偏移</p>
 ]]></content>
       <categories>
         <category>面筋</category>
@@ -2288,7 +2294,7 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>pattern匹配融合</li>
 </ul>
 <p>对常见的子图pattern做fusion，比如BatchNorm。</p>
-<p>对于常见业务模型pattern定制优化：比如LSTM，Tensorflow Feature Column的优化，Embedding LookUp，Self-Attention，</p>
+<p>对于常见业务模型pattern定制优化：比如LSTM，Tensorflow Feature Column的优化，Embedding LookUp，Self-Attention。</p>
 <p><strong>编译优化</strong>这边我们做了很多方向上的探索，比如XLA、TVM、MLIR、PolyHedron等等。我主要参与的是XLA和TVM这两个方面。</p>
 <ul>
 <li>XLA</li>
@@ -2303,6 +2309,28 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>TVM上主要是跟进社区工作，使用TVM的schedule和组里同学做的ansor的工作，做kernel tuning作为数据库供线上查找，在不同的shape，TVM的schedule会用默认schedule，ansor的全空间探索耗时比较长。我们试验下来，TVM在CPU上效果明显，差不多可以达到MKL-DNN优化的效果。</p>
 <p>8 cpu 32 G</p>
 <p>ResNet50 模型 3x 23 -&gt; 7 ms<br>线上服务<br>bs=1 2x 88 -&gt; 43 ms，QPS 30 -&gt; 50<br>bs=8 3x 450 -&gt; 190 ms，QPS 3 -&gt; 10 * bs</p>
+<p>Q：具体怎么用TVM的？</p>
+<ul>
+<li>存储层次相关schedule</li>
+<li>循环优化<ul>
+<li>fuse 合并两层</li>
+<li>split 分割一层</li>
+<li>reorder 重排循环顺序</li>
+<li>tile 分块</li>
+<li>unroll 展开</li>
+</ul>
+</li>
+<li>多线程<ul>
+<li>vecotrize simd指令</li>
+<li>bind将iter绑定到block或thread的index上，从而把循环的任务分配到线程，实现并行化计算，这是针对CUDA后端最核心的部分。</li>
+<li>parallel将指定iter的for循环替换为parallel操作，从而在GPU以外的CPU等设备上实现并行。</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>prefetch 空间局部性</li>
+</ul>
+</li>
+</ul>
 <p><strong>模型压缩</strong>主要的工作是利用NVidia和Intel的量化工作。</p>
 <p>GPU: FP16 不重训，INT8 calibration</p>
 <p>Q: INT8的重训和calibration有啥区别？</p>
@@ -2331,17 +2359,23 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>多进程</li>
 </ul>
 </li>
-<li>资源利用率<ul>
+<li><p>资源利用率</p>
+<ul>
 <li>资源隔离，CPU/Memory/Network/Disk</li>
 <li>资源复用，超卖</li>
 <li>亲核性，NUMA，绑核</li>
 </ul>
 </li>
+<li><p>Disk IO</p>
+</li>
 </ul>
-<h3 id="Disk-IO"><a href="#Disk-IO" class="headerlink" title="Disk IO"></a>Disk IO</h3><p><a href="https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html" target="_blank" rel="noopener">https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html</a></p>
+<p><a href="https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html" target="_blank" rel="noopener">https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html</a></p>
 <p>Docker中有修改dockershim，和kuberuntime的labels</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">annotations:</span> </span><br><span class="line">  <span class="attr">BlkioDeviceWriteBps:</span> <span class="string">'/dev/sda:31457280'</span></span><br></pre></td></tr></table></figure>
-<h3 id="Network-IO"><a href="#Network-IO" class="headerlink" title="Network IO"></a>Network IO</h3><p>kubectl apply -f <a href="http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml" target="_blank" rel="noopener">http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml</a></p>
+<ul>
+<li>Network IO</li>
+</ul>
+<p>kubectl apply -f <a href="http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml" target="_blank" rel="noopener">http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml</a></p>
 <p><a href="https://developer.aliyun.com/article/388097" target="_blank" rel="noopener">https://developer.aliyun.com/article/388097</a></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">annotations:</span></span><br><span class="line">  <span class="attr">kubernetes.io/ingress-bandwidth:</span> <span class="string">5M</span>  <span class="comment">#进入到容器的最大带宽</span></span><br><span class="line">  <span class="attr">kubernetes.io/egress-bandwidth:</span> <span class="string">10M</span>   <span class="comment">#容器向外访问的最大带宽</span></span><br></pre></td></tr></table></figure>
 <p>Q：你们的多级缓存具体怎么做的？有哪些注意事项和坑？</p>
@@ -2364,16 +2398,28 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>Kernel Auto-Tuning 可能是用的编译优化方法和手工优化函数（buket）结合的方式，</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> major_minor &gt;= <span class="number">1.14</span>:</span><br><span class="line">    <span class="keyword">from</span> tensorflow.python.compiler.tensorrt <span class="keyword">import</span> trt_convert <span class="keyword">as</span> trt</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">from</span> tensorflow.contrib <span class="keyword">import</span> tensorrt <span class="keyword">as</span> trt  <span class="comment"># noqa: F401</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># only when static shape we resort to trt</span></span><br><span class="line"><span class="comment"># otherwise there will be large online warm-up overhead</span></span><br><span class="line">converter = trt.TrtGraphConverter</span><br></pre></td></tr></table></figure>
 <p>从<strong>业务模型</strong>类别上大致可以分为CV、NLP，推荐</p>
-<h2 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h2><p>GPU<br>ResNet 3.3x<br>OCR-CRNN 3.5x<br>OCR-Attention<br>Yolo 2.5x<br>MobileNet 2.5x</p>
+<ul>
+<li>CV</li>
+</ul>
+<p>GPU<br>ResNet 3.3x<br>OCR-CRNN 3.5x<br>OCR-Attention<br>Yolo 2.5x<br>MobileNet 2.5x</p>
 <p>CPU<br>ResNet50 3.8x<br>YOLO 2.5x<br>MaskRCNN 1.7x</p>
 <p>密集计算，GPU优化，TensorRT和量化</p>
-<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>GPU<br>Bert-large &gt;3x<br>TextCNN 1.5x</p>
+<ul>
+<li>文本</li>
+</ul>
+<p>GPU<br>Bert-large &gt;3x<br>TextCNN 1.5x</p>
 <p>CPU<br>Bert-large的Self-Attention结构 2x</p>
-<h2 id="语音"><a href="#语音" class="headerlink" title="语音"></a>语音</h2><p>GPU</p>
+<ul>
+<li>语音</li>
+</ul>
+<p>GPU</p>
 <p>ASR Transformer模型 2.46x，定制算子，GPU</p>
 <p>CPU</p>
 <p>Transformer 2.3x</p>
-<h2 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h2><p>Embedding优化，EasyRec，密集计算部分较简单，主要是Embedding的定制优化</p>
+<ul>
+<li>推荐</li>
+</ul>
+<p>Embedding优化，EasyRec，密集计算部分较简单，主要是Embedding的定制优化</p>
 <p>典型场景端到端中等并发下RT降低为1/2以下，QPS提升1.8x左右</p>
 <p>DSSM，Wide&amp;Deep，DeepFM</p>
 <p>8 vcpu</p>
@@ -2393,6 +2439,9 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 </ul>
 </li>
 </ul>
+<p>特征哈希就是一种简单的降维方法，在微视使用也较多，特征哈希法的目标就是是把原始的高维特征向量压缩成较低维特征向量，且尽量不损失原始特征的表达能力，其优势在于实现简单，所需额外计算量小；降低特征维度，从而加速算法训练与预测的时间，以及降低内存消耗；但代价是通过哈希转换后学习到的模型变得很难检验，我们很难对训练出的模型参数做出合理解释。特征哈希法的另一个问题是它会把多个原始特征哈希到相同的位置上，出现哈希 collision 现象，但实际实验表明这种 collision 对算法的精度影响很小。<br><a href="https://www.infoq.cn/article/fsfrcvm83tt88ulovfu2" target="_blank" rel="noopener">https://www.infoq.cn/article/fsfrcvm83tt88ulovfu2</a></p>
+<p>优点（相对于One-hot Serialization）：训练和预测的时间复杂度大幅降低；数据的一致性强，不存在同一个特征今天编码成这个、明天编码成那个的情况，便于跟踪单特征效果；对new feature可以直接编码并加入训练，无需等待编码表统计并反馈；降低feature space大小，（精心设计可以）降低over-fitting的几率。缺点：在不清楚hashing function细节的情况下，容易导致特征碰撞失效，且难以排查；难以通过hashing出的特征反推源特征；</p>
+<p>作者：Ainika Peng<br>链接：<a href="https://www.zhihu.com/question/264165760/answer/279676705" target="_blank" rel="noopener">https://www.zhihu.com/question/264165760/answer/279676705</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 <p>cache: list(bool)表示的是否需要在op初始化的时候将相应的embedding加载到内存，减少对redis的访问，提高qps和rt。经讨论:</p>
 <ul>
 <li>item feature比较适合cache</li>
@@ -2401,12 +2450,42 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>模型导出时，业务同学指定哪些embedding需要cache。</li>
 <li>cache考虑LRU策略</li>
 </ul>
+<p>Q：Tensorflow Feature Column优化？</p>
+<ul>
+<li>sparse embedding lookup优化</li>
+</ul>
+<p>Reshape<br>Select<br>ZerosLike<br>SparseSegmentMean，SparseSegmentSum<br>GatherV2<br>Unique<br>GatherV2，SparseReshape</p>
+<p><a href="https://www.infoq.cn/article/fb4f7djbqihbc86dl7bb" target="_blank" rel="noopener">https://www.infoq.cn/article/fb4f7djbqihbc86dl7bb</a></p>
+<ul>
+<li>整型特征哈希优化</li>
+</ul>
+<p>categorical_column_with_hash_bucket</p>
+<p>Int AsString再Hash，里面具体用了什么Hash函数</p>
+<p>Tensorflow内置，循环移位和异或</p>
+<p>AsString的代价太大<br>如果是均匀的uint64，可以直接作为hash值，或cast成char*</p>
+<ul>
+<li>定长特征转换优化</li>
+</ul>
+<p>定长特征是指使用接口<code>tf.io.FixedLenFeature</code>来解析的特征，比如用户的性别，年龄等，这类特征的长度通常都是定长的，并且固定为 1 维或多维。这类特征经过接口<code>tf.io.parse_example</code> 解析成 Dense Tensor，然后经过 Feature Column 处理，再进入到模型的输入层。</p>
+<p>如果能直接将原始的 Input Tensor 转换成 One Hot Tensor，就可以省去两个转换过程，而且 Sparse Tensor 和 Dense Tensor 之间的转换其实是非常耗时的操作。</p>
+<p>除了上面的 Vocabulary Categorical Column，还有别的类似 Feature Column 也有同样的问题，因此针对这类特征，平台专门开发了一套优化的 Feature Column 接口提供给业务使用，优化性能效果还不错。</p>
+<ul>
+<li>用户特征去重优化</li>
+</ul>
 <p>Q：你们的取embedding的平均latency有多少呢？</p>
 <p>1ms左右。</p>
 <p>Q：embedding怎么训练的？</p>
 <p>用partitioned variable，放到多个PS上</p>
 <p>Q：embedding怎么导出的？</p>
 <p>定制Op，导出到redis上。</p>
+<p>Q：例行任务时间单位，天</p>
+<p>导出到redis+版本号</p>
+<p>Q：Op的导出配置是什么？限流吗？</p>
+<p>定时限速，间隔。</p>
+<p>Q：Op是并行导出的吗？</p>
+<p>每个feature会有自己的Op。</p>
+<p>Q：Embedding会落盘吗？</p>
+<p>不会。</p>
 <p>Q：你们的取feature服务latency有多少？</p>
 <p>整个推荐服务，客户通常要求控制在50-200ms，rank部分差不多要控制在30-50ms以内。</p>
 <p>TP95 TP99 5ms以内，rank模型30-50ms。</p>
@@ -2487,15 +2566,23 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>Q: 训练的PS架构知道吗？</p>
 <p>Parameter Server放参数，Worker执行训练。<br>Chief负责额外执行模型加载保存，初始化等功能。<br>evaluator需要放在Chief上。</p>
 <p>TFJob负责机器调度，恢复。</p>
-<h1 id="线上服务"><a href="#线上服务" class="headerlink" title="线上服务"></a>线上服务</h1><p>Q: 线上服务的failover如何处理？</p>
+<ul>
+<li>线上服务</li>
+</ul>
+<p>Q: 线上服务的failover如何处理？</p>
 <p>k8s支持，Pod的probe监控</p>
 <p>Q：服务并发</p>
 <p>并发度　= 吞吐量 <em> 延迟 </em> batch</p>
-<h1 id="你觉得你自己"><a href="#你觉得你自己" class="headerlink" title="你觉得你自己"></a>你觉得你自己</h1><p>Q：做过的最突出/挑战性的工作是什么？</p>
+<ul>
+<li>你觉得你自己</li>
+</ul>
+<p>Q：做过的最突出/挑战性的工作是什么？</p>
 <p>在工程上的事比较多，我觉得每个阶段都有比较值得我的工作。</p>
 <p>FCNN加速后端，从编译器到RT驱动到硬件，全栈工程。团队协作分工，硬件背景驱动软件设计优化。<br>加速学习，理解业务和系统。</p>
 <p>模型推理优化，接触各类模型，找出共性，Research，调研，技术选型，寻找合适的落地场景。</p>
 <p>推理平台建设和垂直场景优化，通用平台功能，大客户定点支持，抽象复用，全栈工程x2。</p>
+<p>Q：你遇到过的最大的挑战？</p>
+<p>硬件转软件，runtime设计</p>
 <p>Q：遇到过哪些大坑，是怎么躲开的？</p>
 <ul>
 <li>过早优化和通用化，方案在迭代中改进，很多只是POC</li>
@@ -3338,7 +3425,9 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
 </ul>
 <p><a href="http://blog.itpub.net/69942496/viewspace-2665766/" target="_blank" rel="noopener">http://blog.itpub.net/69942496/viewspace-2665766/</a></p>
 <p><a href="https://segmentfault.com/a/1190000022483639" target="_blank" rel="noopener">https://segmentfault.com/a/1190000022483639</a></p>
-<h2 id="加速系统"><a href="#加速系统" class="headerlink" title="加速系统"></a>加速系统</h2><p>不太会问</p>
+<h2 id="加速系统"><a href="#加速系统" class="headerlink" title="加速系统"></a>加速系统</h2><ul>
+<li>主要做了什么工作？</li>
+</ul>
 <ul>
 <li>硬件？</li>
 </ul>
@@ -4172,6 +4261,190 @@ h^{x,b}(v) = [\frac{v \dot x + b}{w}]</script><p>多哈希函数分桶需要平�
       </tags>
   </entry>
   <entry>
+    <title>机器学习系统 2-1 - 推理优化总览</title>
+    <url>/ai/ml-system/inference-optimization/1-overview/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。</p>
+<a id="more"></a>
+<p>说起性能优化，软件的性能优化应该是必备功课，通过profiling定位bottleneck，再针对性优化，可以说具备一定程度通用的方法论，但实际业务上也要随机应变。</p>
+<p>模型性能的优化也属于软件性能优化，特点是模型的运行调度框架已经确定，并且由社区平衡通用性和性能做了不少的优化。</p>
+<p>模型性能的问题主要在低效的计算密集型算子，不合理的子图结构，复杂的动态运行环境，冗余的模型结构和数据宽度。</p>
+<p>针对这些问题，模型推理优化方法主要分为：</p>
+<h1 id="计算图结构优化"><a href="#计算图结构优化" class="headerlink" title="计算图结构优化"></a>计算图结构优化</h1><p>主要是清理冗余节点，一般的训练节点，框架在开始运行前会根据输入和输出裁剪无关节点，通常对性能影响不大。</p>
+<p>但部分嵌入计算图的节点就很难被去除，Tensorflow引入的控制结构就是是图结构优化点之一，比如训练时需要的随机dropout结构等，用户可能在构建模型时把标记是否是训练的变量加入到计算图，在清理时就需要将对应placeholder转变为常量，提取子图。</p>
+<h1 id="算子融合"><a href="#算子融合" class="headerlink" title="算子融合"></a>算子融合</h1><p>主要是融合子图，比如对于Feature Embedding这类常用的特征预处理API，通常为了灵活性，生成的子图比较复杂，算子数量极多，框架调度算子的开销远远超过算子实际执行的开销。因此可以匹配对应子图，使用一个算子代替，大大提高执行效率。高频模型中Tensorflow引入的循环控制结构也可以被优化，比如LSTM结构。</p>
+<p>通常需要匹配识别的子图较复杂，依赖人工发现模式并编写匹配逻辑，基本纯手工，开发验证工作量大，由于引入了控制节点和Dynamic Shape，目前编译优化方法也没有很好的解法。因此，通常只针对成熟模型做此类定制优化，比如Transformer结构，Embedding结构等。</p>
+<h1 id="硬件计算库"><a href="#硬件计算库" class="headerlink" title="硬件计算库"></a>硬件计算库</h1><p>底层硬件开发者出于安全或其他原因考虑，不会开放底层实现细节，也不会开放精细控制接口，但为了迎合市场需求，会推出计算库。</p>
+<p>计算库内提供了粗粒度的算子接口，内置了不少汇编层级的优化经验，实现方法至于是if else还是JIT codegen就不得而知了。</p>
+<p>计算库内的核心是如何高效利用硬件执行矩阵并行计算，通常基于经验，比如考虑Cache大小，内存带宽，数据位宽等，利用一个“经验性”公式计算出合理的矩阵分块配置，比较重要也比较让人感到tricky的是公式中不时出现的magic number，很有可能是结合profiling得出的经验。</p>
+<p>常见的计算库比如CUDA和MKL-DNN，在单个算子优化的基础上，硬件厂家还会提供子图层面的计算优化库，比如TensorRT等。</p>
+<h1 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h1><p>编译优化包含一大类方法，也借鉴了上述方法的思路。主要目标是自动化地、通用化地实现图结构优化、算子融合、以及矩阵分块。</p>
+<p>和编译器的优化思路类似，不同框架的计算图经过分图，将可编译的子图会被统一转化为编译优化框架的中间表示（IR），再通过一系列的通用的编译优化pass得到优化后的IR，随后codegen生成执行代码。只要能被划分进编译子图，就能通用化地支持图结构优化和算子融合。</p>
+<p>最精华的地方在于codegen，主要思路有：</p>
+<ul>
+<li>写入人工调优的经验，生成高效的底层执行代码。一般是社区早期这么做，比如Tensorflow的XLA。</li>
+<li>借用硬件计算库生成高效代码。硬件厂商这头大象终于反应过来了，毕竟他们对硬件更了解，不用白不用。</li>
+<li>把硬件当作黑盒，构建细粒度矩阵分块方法，通过profiling不断调整分块参数，直到收敛到最优解。比较暴力，分块方法的可调参数越多，Tuning（参数搜索）的时间可能越长，不过也有算法加速收敛，比如TVM。</li>
+<li>解析法，比如Ployhedral，把矩阵分块过程描述为一般的空间变换方法，而性能优化问题就转化成了搜索最优整数解的过程。愿景很好，但目标函数本身又很难和实际硬件完全对应，搜索的时间也不小。</li>
+</ul>
+<p>编译优化方法在学术届内百花齐放，本质上还是新瓶装旧酒，关键还是在于如何把新问题转化为通用的老问题，并解决新的问题定义边界带来的新的约束带来的corner case。</p>
+<p>对于主流模型，硬件厂商的人力可以做到全图支持，定制优化的性能让编译优化难以超越，编译优化更多地是在通用化的corner case场景下发挥作用，与手工方法互补。</p>
+<p>同时现有的编译优化方法本身也会遇到比如Dynamic Shape的问题，严重影响分图和codegen，亟待解决。好在如MLIR等编译基础设施工作正在不断发展，解决多层IR信息联合优化，复用优化pass，解决共有的问题。</p>
+<h1 id="模型压缩"><a href="#模型压缩" class="headerlink" title="模型压缩"></a>模型压缩</h1><p>除了编译优化方法之外，模型压缩也被用来从算法层面去除降低数据位宽，冗余图结构，大幅并行化模型结构。</p>
+<ul>
+<li>量化</li>
+</ul>
+<p>模型推理的性能问题有很多是memory bound（受限于内存带宽），尤其是在高度密集计算（大batch）的场景下，同时推理相对于训练不需要很高的数据精度，可以使用量化方法缩减数据位宽，直接降低所需内存带宽，memory bound问题也迎刃而解。同时原来用于计算32位数据（FP32）的计算单元可以配置为计算2个16位数据（FP16）和4个8位数据（INT8），计算性能也直接翻番。</p>
+<ul>
+<li>剪枝</li>
+</ul>
+<p>深度学习模型并不是要求精确计算，而是计算概率分布，因此在实践中，将模型中权重较小的连接直接置为0或去除，对模型的整体精度影响不大，反而有效降低了总体计算量。</p>
+<ul>
+<li>蒸馏</li>
+</ul>
+<p>出于直观，可能使用串行结构（数据依赖）模型，导致计算效率不高，或者使用超大模型，模型参数非常多。但模型训练本质上是拟合数据的目标概率分布，那么就可以使用另一个并行模型“学习”串行模型的概率分布，或者使用一个小模型“学习”大模型的概率分布。只要模型精度控制在预期范围内，那么所需的计算量就能大幅下降。</p>
+<h1 id="推理服务性能优化"><a href="#推理服务性能优化" class="headerlink" title="推理服务性能优化"></a>推理服务性能优化</h1><p>这部分和模型关系不大，但也在关键路径上，因此放在这里。服务的性能优化，主要是优化数据链路，比如数据传输协议，Serving框架线程性能，网关性能等。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-2 - 图优化</title>
+    <url>/ai/ml-system/inference-optimization/2-graph-optimization/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>图结构优化在算子层面调整图结构，调整前后的计算图输入输出等价。</p>
+<a id="more"></a>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>图层面优化主要包括：</p>
+<h2 id="训练图清理"><a href="#训练图清理" class="headerlink" title="训练图清理"></a>训练图清理</h2><p>主要针对TensorFlow 1.x， Tensorflowd的训练图包含较多非推理用算子，通常调用TF提供的API提取子图，但可能因为用户的构图不当不能被清理干净。常见的操作包括：</p>
+<ul>
+<li>固定输入Placeholder替换为Const，使TF API去除更多算子</li>
+<li>根据用户输入输出设置保护Node，尽可能多地剔除冗余算子，并且防止提取子图后出错</li>
+<li>通过对SavedModel的Metagraph API精细剔除仅在训练图中存在的自定义Op</li>
+<li>去除训练用Switch Merge结构，比如训练用的Dropout结构</li>
+</ul>
+<h2 id="子图优化"><a href="#子图优化" class="headerlink" title="子图优化"></a>子图优化</h2><p>主要是图结构的局部优化，常见操作包括：</p>
+<ul>
+<li>使用常见的优化操作，比如CSE（Common Subexpression Elimination） ，常量折叠Constant Folding等</li>
+<li>图结构等价变换，适配硬件指令，比如拆分卷积，重排数据Layout，卷积转矩阵乘等</li>
+<li>常量Propagation，加强的常量折叠，更大范围地支持折叠某些固定输入算子</li>
+</ul>
+<h2 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h2><p>针对高频使用的子图模式做专项优化，常见模式包括：</p>
+<ul>
+<li>BatchNorm，融合乘加操作，社区框架已支持</li>
+<li>ResNet Block，Conv-Bias-BatchNorm，更激进的融合，社区框架已支持</li>
+<li>Transformer，Multi-Head Attention</li>
+<li>Feature Column Embedding，调度开销高于计算开销，算子融合即可带来收益，底层可使用MKL加速。</li>
+<li>LSTM</li>
+</ul>
+<h2 id="算子改写"><a href="#算子改写" class="headerlink" title="算子改写"></a>算子改写</h2><p>针对不同的计算场景，针对性地修改算子实现，实现统一框架对模型性能的覆盖程度。</p>
+<ul>
+<li>启发式，根据硬件的结构参数优化计算，比如指令位宽，Cache Line大小等，但通常可能会引入经验值，手工搜索后得到性能较均衡的magic number。</li>
+<li>三方库，比如MKL，CUDA或其他硬件厂商提供的计算库，但要注意线程冲突，内存带宽不匹配等问题。</li>
+<li>特定指令优化，根据专用硬件后端，比如定制NPU，Intel CPU的VNNI INT8和BF16指令定制算子实现。</li>
+</ul>
+<p>图结构优化通过去除冗余算子优化模型的推理性能，一是减少了不必要的计算，二是减少了不必要的调度开销。</p>
+<p>尤其是算子定制，可以通过手工编写算子达到理想的计算性能，针对高频子图模式最有效，但对于业务模型变种，缺乏灵活性，手工支持的响应时间较长，维护成本较高。</p>
+<p>在此基础上，编译优化正是标准化自动化的优化方法。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-3 - 编译优化</title>
+    <url>/ai/ml-system/inference-optimization/3-compilation-optimization/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>深度学习的编译优化方法师承程序语言，相比而言，程序语言的输入是语法树，深度学习的输入是计算图，有相似的编译结构，深度学习后端可以借鉴LLVM架构灵活支持新后端硬件。</p>
+<a id="more"></a>
+<p>不少社区都提出了自己的编译优化框架，定义了自己的一套中间表达（IR，Intermediate Represent），在发展过程中，这些框架和IR也在相互借鉴相互融合。</p>
+<h1 id="XLA"><a href="#XLA" class="headerlink" title="XLA"></a>XLA</h1><p>XLA(Accelerated Linear Algebra)是TensorFLow给出的编译优化框架，嵌入在Tensorflow的图层面的Grappler优化中，提供了子图划分，IR转换，Codegen(代码生成)等功能，属于JIT(Just-In-Time)流程。</p>
+<p>XLA定义一套Tensorflow算子集的子集Instruction，在IR转换阶段将Tensorflow的算子转换为等价表达，随后执行编译优化以及Codegen。</p>
+<p>对于通用计算硬件，能在子图划分阶段进入候选集的算子基本都能完成整套编译优化流程，XLA后端将XLA Instruction转换为LLVM IR使用LLVM生成代码，能做到较好的模型覆盖。</p>
+<p>但对于专用硬件，一是支持的算子较少，分割的子图大小和数量都较多，会引入较高的跨设备调度开销，通常会设定编译触发阈值，二是支持的子图pattern受限，纯粹使用算子集划分子图，后端硬件可能不支持，需要fallback回Tensorflow图，或者提前加入图匹配。</p>
+<p>但XLA对子图输入Shape敏感，导致每种Shape都会触发一次编译，XLA的编译结果Cache很有可能溢出，尤其是对于输入极不固定的模型，频繁编译会大大影响模型性能，甚至导致负优化。</p>
+<p>另一方面，XLA的代码生成仍然是启发式的，不能在指令层面优化，也没有动态搜索，导致XLA在大部分常见场景上不敌手工图优化。</p>
+<p>因此，XLA的一个优化方向是使用第三方库负责计算密集型算子的计算，XLA编译机制作为fusion优化，能较好平衡优化性能。</p>
+<h1 id="TensorRT"><a href="#TensorRT" class="headerlink" title="TensorRT"></a>TensorRT</h1><p>TensorRT是NVIDIA提供的一套独立的模型构建工具，提供了算子级别的API，用户可以用来直接构建计算图，并提供了转换工具将框架的模型文件转换为Tensor RT的执行参数。</p>
+<p>同时，TensorRT也在图层面用和XLA类似的方法接入了TensorFlow，TensorRT内部负责优化子图和生成GPU kernel。</p>
+<h1 id="OpenVINO"><a href="#OpenVINO" class="headerlink" title="OpenVINO"></a>OpenVINO</h1><p>OpenVINO是Intel提供的一套独立的模型构建工具，并提供了转换工具执行全图转换，支持的算子的覆盖度有待提高。内部应该也是基于OneDNN（原MKL-DNN）提供的构建接口。</p>
+<h1 id="TVM"><a href="#TVM" class="headerlink" title="TVM"></a>TVM</h1><p>TVM的主要思想是搜索计算密集型算子的所有可调的参数空间，比如循环展开的基本宽度（可能影响Cache），循环顺序（可能影响分块逻辑），数据Layout等。</p>
+<p>TVM使用TVM IR定义了基本操作，可以直接通过TVM IR描述某个计算密集型算子的计算结构，使用Schedule定义在计算结构上搜索(Tuning)的空间。</p>
+<p>在计算图层面，TVM定义了一套Relay IR作为计算图层面的表达，各个框架的算子可以转换为Relay IR，再统一优化，执行fusion等操作。</p>
+<p>可以通过XLA接入Tensorflow。</p>
+<h1 id="PolyHydral"><a href="#PolyHydral" class="headerlink" title="PolyHydral"></a>PolyHydral</h1><p>多面体优化，TVM所使用的方法来源，但更侧重于使用数学方法启发式地寻找最优解，结合少量Profiling，定义每套硬件的启发参数。</p>
+<h1 id="MLIR"><a href="#MLIR" class="headerlink" title="MLIR"></a>MLIR</h1><p>MLIR旨在统一多种框架的多层IR，共享优化方法，并将图信息跨IR保留，解决Dynamic Shape的问题。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-4 - 模型压缩</title>
+    <url>/ai/ml-system/inference-optimization/4-model-compression/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型压缩相比图优化/编译优化无损优化方法，侧重减少网络参数量，达到节约服务器资源，端侧部署优化等目的。</p>
+<a id="more"></a>
+<h1 id="结构优化"><a href="#结构优化" class="headerlink" title="结构优化"></a>结构优化</h1><p>如矩阵分解（Factor Machine），权值共享（CNN），分组卷积（MobileNet的depth-wise Conv)，分拆卷积（Inception）等。</p>
+<p>结构优化主要是模型结构创新，以更少的计算量/模型参数达到相似的模型准确度。</p>
+<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>使用高精度浮点训练，使用定点推理。常见量化格式有FP16，BF16，INT8，INT4。</p>
+<h1 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h1><p>剪枝按粒度可分为突触剪枝、神经元剪枝、权重矩阵剪枝等。</p>
+<p>基本思想是将接近0的参数置为0，通过稀疏矩阵存储。</p>
+<p>首先训练一个精度较高的大模型，按阈值置0，随后在训练集上微调，验证模型大小和精度是否符合预期，否则持续迭代。</p>
+<h1 id="蒸馏"><a href="#蒸馏" class="headerlink" title="蒸馏"></a>蒸馏</h1><p>蒸馏过程是对Student和Teacher的拟合，老师和学生可以使用不同的网络结构（串行到并行），不同规模的参数（减少模型参数）。</p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习系统 2-5 - 系统级优化</title>
+    <url>/ai/ml-system/inference-optimization/5-system-level-optimization/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>推理优化除了对模型本身的优化，还需要考虑计算框架、推理服务等系统层面的优化。</p>
+<a id="more"></a>
+<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><ul>
+<li>编译器优化</li>
+<li>线程并行</li>
+<li>Cache优化</li>
+<li>Memory</li>
+<li>稀疏化</li>
+<li>内存精细管理</li>
+<li>专用指令，比如ARM的NEON、Intel的AVX</li>
+<li>亲核性，NUMA</li>
+</ul>
+<h1 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h1><ul>
+<li>线程/进程/服务实例并行</li>
+<li>调度绑定</li>
+<li>资源复用</li>
+<li>网络开销</li>
+<li>缓存</li>
+<li>延时抖动</li>
+<li>服务稳定性</li>
+</ul>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>推理优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习系统 4-1 - 推荐系统总览</title>
     <url>/ai/ml-system/recommender/1-overview/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>推荐系统主要用来根据用户行为数据/用户特征实现个性化体验，行为预测，提高点击率/转化率等关键商业指标。</p>
@@ -4865,190 +5138,6 @@ sim(u, s) = \sum_{u_i \in U} sim(u, u_i) * score(u_i, s)</script><p>有了用户
       <tags>
         <tag>机器学习</tag>
         <tag>推荐系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-1 - 推理优化总览</title>
-    <url>/ai/ml-system/inference-optimization/1-overview/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型推理服务是在业务关键路径上的，其性能足以收到高度重视。如何优化训练后的模型，提高性能，降低资源占用，维持推理精度，优化方法的通用化与自动化，这些是模型推理优化的核心目标。</p>
-<a id="more"></a>
-<p>说起性能优化，软件的性能优化应该是必备功课，通过profiling定位bottleneck，再针对性优化，可以说具备一定程度通用的方法论，但实际业务上也要随机应变。</p>
-<p>模型性能的优化也属于软件性能优化，特点是模型的运行调度框架已经确定，并且由社区平衡通用性和性能做了不少的优化。</p>
-<p>模型性能的问题主要在低效的计算密集型算子，不合理的子图结构，复杂的动态运行环境，冗余的模型结构和数据宽度。</p>
-<p>针对这些问题，模型推理优化方法主要分为：</p>
-<h1 id="计算图结构优化"><a href="#计算图结构优化" class="headerlink" title="计算图结构优化"></a>计算图结构优化</h1><p>主要是清理冗余节点，一般的训练节点，框架在开始运行前会根据输入和输出裁剪无关节点，通常对性能影响不大。</p>
-<p>但部分嵌入计算图的节点就很难被去除，Tensorflow引入的控制结构就是是图结构优化点之一，比如训练时需要的随机dropout结构等，用户可能在构建模型时把标记是否是训练的变量加入到计算图，在清理时就需要将对应placeholder转变为常量，提取子图。</p>
-<h1 id="算子融合"><a href="#算子融合" class="headerlink" title="算子融合"></a>算子融合</h1><p>主要是融合子图，比如对于Feature Embedding这类常用的特征预处理API，通常为了灵活性，生成的子图比较复杂，算子数量极多，框架调度算子的开销远远超过算子实际执行的开销。因此可以匹配对应子图，使用一个算子代替，大大提高执行效率。高频模型中Tensorflow引入的循环控制结构也可以被优化，比如LSTM结构。</p>
-<p>通常需要匹配识别的子图较复杂，依赖人工发现模式并编写匹配逻辑，基本纯手工，开发验证工作量大，由于引入了控制节点和Dynamic Shape，目前编译优化方法也没有很好的解法。因此，通常只针对成熟模型做此类定制优化，比如Transformer结构，Embedding结构等。</p>
-<h1 id="硬件计算库"><a href="#硬件计算库" class="headerlink" title="硬件计算库"></a>硬件计算库</h1><p>底层硬件开发者出于安全或其他原因考虑，不会开放底层实现细节，也不会开放精细控制接口，但为了迎合市场需求，会推出计算库。</p>
-<p>计算库内提供了粗粒度的算子接口，内置了不少汇编层级的优化经验，实现方法至于是if else还是JIT codegen就不得而知了。</p>
-<p>计算库内的核心是如何高效利用硬件执行矩阵并行计算，通常基于经验，比如考虑Cache大小，内存带宽，数据位宽等，利用一个“经验性”公式计算出合理的矩阵分块配置，比较重要也比较让人感到tricky的是公式中不时出现的magic number，很有可能是结合profiling得出的经验。</p>
-<p>常见的计算库比如CUDA和MKL-DNN，在单个算子优化的基础上，硬件厂家还会提供子图层面的计算优化库，比如TensorRT等。</p>
-<h1 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h1><p>编译优化包含一大类方法，也借鉴了上述方法的思路。主要目标是自动化地、通用化地实现图结构优化、算子融合、以及矩阵分块。</p>
-<p>和编译器的优化思路类似，不同框架的计算图经过分图，将可编译的子图会被统一转化为编译优化框架的中间表示（IR），再通过一系列的通用的编译优化pass得到优化后的IR，随后codegen生成执行代码。只要能被划分进编译子图，就能通用化地支持图结构优化和算子融合。</p>
-<p>最精华的地方在于codegen，主要思路有：</p>
-<ul>
-<li>写入人工调优的经验，生成高效的底层执行代码。一般是社区早期这么做，比如Tensorflow的XLA。</li>
-<li>借用硬件计算库生成高效代码。硬件厂商这头大象终于反应过来了，毕竟他们对硬件更了解，不用白不用。</li>
-<li>把硬件当作黑盒，构建细粒度矩阵分块方法，通过profiling不断调整分块参数，直到收敛到最优解。比较暴力，分块方法的可调参数越多，Tuning（参数搜索）的时间可能越长，不过也有算法加速收敛，比如TVM。</li>
-<li>解析法，比如Ployhedral，把矩阵分块过程描述为一般的空间变换方法，而性能优化问题就转化成了搜索最优整数解的过程。愿景很好，但目标函数本身又很难和实际硬件完全对应，搜索的时间也不小。</li>
-</ul>
-<p>编译优化方法在学术届内百花齐放，本质上还是新瓶装旧酒，关键还是在于如何把新问题转化为通用的老问题，并解决新的问题定义边界带来的新的约束带来的corner case。</p>
-<p>对于主流模型，硬件厂商的人力可以做到全图支持，定制优化的性能让编译优化难以超越，编译优化更多地是在通用化的corner case场景下发挥作用，与手工方法互补。</p>
-<p>同时现有的编译优化方法本身也会遇到比如Dynamic Shape的问题，严重影响分图和codegen，亟待解决。好在如MLIR等编译基础设施工作正在不断发展，解决多层IR信息联合优化，复用优化pass，解决共有的问题。</p>
-<h1 id="模型压缩"><a href="#模型压缩" class="headerlink" title="模型压缩"></a>模型压缩</h1><p>除了编译优化方法之外，模型压缩也被用来从算法层面去除降低数据位宽，冗余图结构，大幅并行化模型结构。</p>
-<ul>
-<li>量化</li>
-</ul>
-<p>模型推理的性能问题有很多是memory bound（受限于内存带宽），尤其是在高度密集计算（大batch）的场景下，同时推理相对于训练不需要很高的数据精度，可以使用量化方法缩减数据位宽，直接降低所需内存带宽，memory bound问题也迎刃而解。同时原来用于计算32位数据（FP32）的计算单元可以配置为计算2个16位数据（FP16）和4个8位数据（INT8），计算性能也直接翻番。</p>
-<ul>
-<li>剪枝</li>
-</ul>
-<p>深度学习模型并不是要求精确计算，而是计算概率分布，因此在实践中，将模型中权重较小的连接直接置为0或去除，对模型的整体精度影响不大，反而有效降低了总体计算量。</p>
-<ul>
-<li>蒸馏</li>
-</ul>
-<p>出于直观，可能使用串行结构（数据依赖）模型，导致计算效率不高，或者使用超大模型，模型参数非常多。但模型训练本质上是拟合数据的目标概率分布，那么就可以使用另一个并行模型“学习”串行模型的概率分布，或者使用一个小模型“学习”大模型的概率分布。只要模型精度控制在预期范围内，那么所需的计算量就能大幅下降。</p>
-<h1 id="推理服务性能优化"><a href="#推理服务性能优化" class="headerlink" title="推理服务性能优化"></a>推理服务性能优化</h1><p>这部分和模型关系不大，但也在关键路径上，因此放在这里。服务的性能优化，主要是优化数据链路，比如数据传输协议，Serving框架线程性能，网关性能等。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-2 - 图优化</title>
-    <url>/ai/ml-system/inference-optimization/2-graph-optimization/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>图结构优化在算子层面调整图结构，调整前后的计算图输入输出等价。</p>
-<a id="more"></a>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>图层面优化主要包括：</p>
-<h2 id="训练图清理"><a href="#训练图清理" class="headerlink" title="训练图清理"></a>训练图清理</h2><p>主要针对TensorFlow 1.x， Tensorflowd的训练图包含较多非推理用算子，通常调用TF提供的API提取子图，但可能因为用户的构图不当不能被清理干净。常见的操作包括：</p>
-<ul>
-<li>固定输入Placeholder替换为Const，使TF API去除更多算子</li>
-<li>根据用户输入输出设置保护Node，尽可能多地剔除冗余算子，并且防止提取子图后出错</li>
-<li>通过对SavedModel的Metagraph API精细剔除仅在训练图中存在的自定义Op</li>
-<li>去除训练用Switch Merge结构，比如训练用的Dropout结构</li>
-</ul>
-<h2 id="子图优化"><a href="#子图优化" class="headerlink" title="子图优化"></a>子图优化</h2><p>主要是图结构的局部优化，常见操作包括：</p>
-<ul>
-<li>使用常见的优化操作，比如CSE（Common Subexpression Elimination） ，常量折叠Constant Folding等</li>
-<li>图结构等价变换，适配硬件指令，比如拆分卷积，重排数据Layout，卷积转矩阵乘等</li>
-<li>常量Propagation，加强的常量折叠，更大范围地支持折叠某些固定输入算子</li>
-</ul>
-<h2 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h2><p>针对高频使用的子图模式做专项优化，常见模式包括：</p>
-<ul>
-<li>BatchNorm，融合乘加操作，社区框架已支持</li>
-<li>ResNet Block，Conv-Bias-BatchNorm，更激进的融合，社区框架已支持</li>
-<li>Transformer，Multi-Head Attention</li>
-<li>Feature Column Embedding，调度开销高于计算开销，算子融合即可带来收益，底层可使用MKL加速。</li>
-<li>LSTM</li>
-</ul>
-<h2 id="算子改写"><a href="#算子改写" class="headerlink" title="算子改写"></a>算子改写</h2><p>针对不同的计算场景，针对性地修改算子实现，实现统一框架对模型性能的覆盖程度。</p>
-<ul>
-<li>启发式，根据硬件的结构参数优化计算，比如指令位宽，Cache Line大小等，但通常可能会引入经验值，手工搜索后得到性能较均衡的magic number。</li>
-<li>三方库，比如MKL，CUDA或其他硬件厂商提供的计算库，但要注意线程冲突，内存带宽不匹配等问题。</li>
-<li>特定指令优化，根据专用硬件后端，比如定制NPU，Intel CPU的VNNI INT8和BF16指令定制算子实现。</li>
-</ul>
-<p>图结构优化通过去除冗余算子优化模型的推理性能，一是减少了不必要的计算，二是减少了不必要的调度开销。</p>
-<p>尤其是算子定制，可以通过手工编写算子达到理想的计算性能，针对高频子图模式最有效，但对于业务模型变种，缺乏灵活性，手工支持的响应时间较长，维护成本较高。</p>
-<p>在此基础上，编译优化正是标准化自动化的优化方法。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-3 - 编译优化</title>
-    <url>/ai/ml-system/inference-optimization/3-compilation-optimization/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>深度学习的编译优化方法师承程序语言，相比而言，程序语言的输入是语法树，深度学习的输入是计算图，有相似的编译结构，深度学习后端可以借鉴LLVM架构灵活支持新后端硬件。</p>
-<a id="more"></a>
-<p>不少社区都提出了自己的编译优化框架，定义了自己的一套中间表达（IR，Intermediate Represent），在发展过程中，这些框架和IR也在相互借鉴相互融合。</p>
-<h1 id="XLA"><a href="#XLA" class="headerlink" title="XLA"></a>XLA</h1><p>XLA(Accelerated Linear Algebra)是TensorFLow给出的编译优化框架，嵌入在Tensorflow的图层面的Grappler优化中，提供了子图划分，IR转换，Codegen(代码生成)等功能，属于JIT(Just-In-Time)流程。</p>
-<p>XLA定义一套Tensorflow算子集的子集Instruction，在IR转换阶段将Tensorflow的算子转换为等价表达，随后执行编译优化以及Codegen。</p>
-<p>对于通用计算硬件，能在子图划分阶段进入候选集的算子基本都能完成整套编译优化流程，XLA后端将XLA Instruction转换为LLVM IR使用LLVM生成代码，能做到较好的模型覆盖。</p>
-<p>但对于专用硬件，一是支持的算子较少，分割的子图大小和数量都较多，会引入较高的跨设备调度开销，通常会设定编译触发阈值，二是支持的子图pattern受限，纯粹使用算子集划分子图，后端硬件可能不支持，需要fallback回Tensorflow图，或者提前加入图匹配。</p>
-<p>但XLA对子图输入Shape敏感，导致每种Shape都会触发一次编译，XLA的编译结果Cache很有可能溢出，尤其是对于输入极不固定的模型，频繁编译会大大影响模型性能，甚至导致负优化。</p>
-<p>另一方面，XLA的代码生成仍然是启发式的，不能在指令层面优化，也没有动态搜索，导致XLA在大部分常见场景上不敌手工图优化。</p>
-<p>因此，XLA的一个优化方向是使用第三方库负责计算密集型算子的计算，XLA编译机制作为fusion优化，能较好平衡优化性能。</p>
-<h1 id="TensorRT"><a href="#TensorRT" class="headerlink" title="TensorRT"></a>TensorRT</h1><p>TensorRT是NVIDIA提供的一套独立的模型构建工具，提供了算子级别的API，用户可以用来直接构建计算图，并提供了转换工具将框架的模型文件转换为Tensor RT的执行参数。</p>
-<p>同时，TensorRT也在图层面用和XLA类似的方法接入了TensorFlow，TensorRT内部负责优化子图和生成GPU kernel。</p>
-<h1 id="OpenVINO"><a href="#OpenVINO" class="headerlink" title="OpenVINO"></a>OpenVINO</h1><p>OpenVINO是Intel提供的一套独立的模型构建工具，并提供了转换工具执行全图转换，支持的算子的覆盖度有待提高。内部应该也是基于OneDNN（原MKL-DNN）提供的构建接口。</p>
-<h1 id="TVM"><a href="#TVM" class="headerlink" title="TVM"></a>TVM</h1><p>TVM的主要思想是搜索计算密集型算子的所有可调的参数空间，比如循环展开的基本宽度（可能影响Cache），循环顺序（可能影响分块逻辑），数据Layout等。</p>
-<p>TVM使用TVM IR定义了基本操作，可以直接通过TVM IR描述某个计算密集型算子的计算结构，使用Schedule定义在计算结构上搜索(Tuning)的空间。</p>
-<p>在计算图层面，TVM定义了一套Relay IR作为计算图层面的表达，各个框架的算子可以转换为Relay IR，再统一优化，执行fusion等操作。</p>
-<p>可以通过XLA接入Tensorflow。</p>
-<h1 id="PolyHydral"><a href="#PolyHydral" class="headerlink" title="PolyHydral"></a>PolyHydral</h1><p>多面体优化，TVM所使用的方法来源，但更侧重于使用数学方法启发式地寻找最优解，结合少量Profiling，定义每套硬件的启发参数。</p>
-<h1 id="MLIR"><a href="#MLIR" class="headerlink" title="MLIR"></a>MLIR</h1><p>MLIR旨在统一多种框架的多层IR，共享优化方法，并将图信息跨IR保留，解决Dynamic Shape的问题。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-4 - 模型压缩</title>
-    <url>/ai/ml-system/inference-optimization/4-model-compression/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>模型压缩相比图优化/编译优化无损优化方法，侧重减少网络参数量，达到节约服务器资源，端侧部署优化等目的。</p>
-<a id="more"></a>
-<h1 id="结构优化"><a href="#结构优化" class="headerlink" title="结构优化"></a>结构优化</h1><p>如矩阵分解（Factor Machine），权值共享（CNN），分组卷积（MobileNet的depth-wise Conv)，分拆卷积（Inception）等。</p>
-<p>结构优化主要是模型结构创新，以更少的计算量/模型参数达到相似的模型准确度。</p>
-<h1 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h1><p>使用高精度浮点训练，使用定点推理。常见量化格式有FP16，BF16，INT8，INT4。</p>
-<h1 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h1><p>剪枝按粒度可分为突触剪枝、神经元剪枝、权重矩阵剪枝等。</p>
-<p>基本思想是将接近0的参数置为0，通过稀疏矩阵存储。</p>
-<p>首先训练一个精度较高的大模型，按阈值置0，随后在训练集上微调，验证模型大小和精度是否符合预期，否则持续迭代。</p>
-<h1 id="蒸馏"><a href="#蒸馏" class="headerlink" title="蒸馏"></a>蒸馏</h1><p>蒸馏过程是对Student和Teacher的拟合，老师和学生可以使用不同的网络结构（串行到并行），不同规模的参数（减少模型参数）。</p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习系统 2-5 - 系统级优化</title>
-    <url>/ai/ml-system/inference-optimization/5-system-level-optimization/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>推理优化除了对模型本身的优化，还需要考虑计算框架、推理服务等系统层面的优化。</p>
-<a id="more"></a>
-<h1 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h1><ul>
-<li>编译器优化</li>
-<li>线程并行</li>
-<li>Cache优化</li>
-<li>Memory</li>
-<li>稀疏化</li>
-<li>内存精细管理</li>
-<li>专用指令，比如ARM的NEON、Intel的AVX</li>
-<li>亲核性，NUMA</li>
-</ul>
-<h1 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h1><ul>
-<li>线程/进程/服务实例并行</li>
-<li>调度绑定</li>
-<li>资源复用</li>
-<li>网络开销</li>
-<li>缓存</li>
-<li>延时抖动</li>
-<li>服务稳定性</li>
-</ul>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>推理优化</tag>
       </tags>
   </entry>
   <entry>

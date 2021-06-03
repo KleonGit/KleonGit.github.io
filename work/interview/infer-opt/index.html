@@ -202,7 +202,7 @@ var themeMenus = {};
 <li>pattern匹配融合</li>
 </ul>
 <p>对常见的子图pattern做fusion，比如BatchNorm。</p>
-<p>对于常见业务模型pattern定制优化：比如LSTM，Tensorflow Feature Column的优化，Embedding LookUp，Self-Attention，</p>
+<p>对于常见业务模型pattern定制优化：比如LSTM，Tensorflow Feature Column的优化，Embedding LookUp，Self-Attention。</p>
 <p><strong>编译优化</strong>这边我们做了很多方向上的探索，比如XLA、TVM、MLIR、PolyHedron等等。我主要参与的是XLA和TVM这两个方面。</p>
 <ul>
 <li>XLA</li>
@@ -217,6 +217,28 @@ var themeMenus = {};
 <p>TVM上主要是跟进社区工作，使用TVM的schedule和组里同学做的ansor的工作，做kernel tuning作为数据库供线上查找，在不同的shape，TVM的schedule会用默认schedule，ansor的全空间探索耗时比较长。我们试验下来，TVM在CPU上效果明显，差不多可以达到MKL-DNN优化的效果。</p>
 <p>8 cpu 32 G</p>
 <p>ResNet50 模型 3x 23 -&gt; 7 ms<br>线上服务<br>bs=1 2x 88 -&gt; 43 ms，QPS 30 -&gt; 50<br>bs=8 3x 450 -&gt; 190 ms，QPS 3 -&gt; 10 * bs</p>
+<p>Q：具体怎么用TVM的？</p>
+<ul>
+<li>存储层次相关schedule</li>
+<li>循环优化<ul>
+<li>fuse 合并两层</li>
+<li>split 分割一层</li>
+<li>reorder 重排循环顺序</li>
+<li>tile 分块</li>
+<li>unroll 展开</li>
+</ul>
+</li>
+<li>多线程<ul>
+<li>vecotrize simd指令</li>
+<li>bind将iter绑定到block或thread的index上，从而把循环的任务分配到线程，实现并行化计算，这是针对CUDA后端最核心的部分。</li>
+<li>parallel将指定iter的for循环替换为parallel操作，从而在GPU以外的CPU等设备上实现并行。</li>
+</ul>
+</li>
+<li>其他<ul>
+<li>prefetch 空间局部性</li>
+</ul>
+</li>
+</ul>
 <p><strong>模型压缩</strong>主要的工作是利用NVidia和Intel的量化工作。</p>
 <p>GPU: FP16 不重训，INT8 calibration</p>
 <p>Q: INT8的重训和calibration有啥区别？</p>
@@ -245,17 +267,23 @@ var themeMenus = {};
 <li>多进程</li>
 </ul>
 </li>
-<li>资源利用率<ul>
+<li><p>资源利用率</p>
+<ul>
 <li>资源隔离，CPU/Memory/Network/Disk</li>
 <li>资源复用，超卖</li>
 <li>亲核性，NUMA，绑核</li>
 </ul>
 </li>
+<li><p>Disk IO</p>
+</li>
 </ul>
-<h3 id="Disk-IO"><a href="#Disk-IO" class="headerlink" title="Disk IO"></a>Disk IO</h3><p><a href="https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html" target="_blank" rel="noopener">https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html</a></p>
+<p><a href="https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html" target="_blank" rel="noopener">https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html</a></p>
 <p>Docker中有修改dockershim，和kuberuntime的labels</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">annotations:</span> </span><br><span class="line">  <span class="attr">BlkioDeviceWriteBps:</span> <span class="string">'/dev/sda:31457280'</span></span><br></pre></td></tr></table></figure>
-<h3 id="Network-IO"><a href="#Network-IO" class="headerlink" title="Network IO"></a>Network IO</h3><p>kubectl apply -f <a href="http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml" target="_blank" rel="noopener">http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml</a></p>
+<ul>
+<li>Network IO</li>
+</ul>
+<p>kubectl apply -f <a href="http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml" target="_blank" rel="noopener">http://acs-public.oss-cn-hangzhou.aliyuncs.com/kubernetes/network/kube-tc.yml</a></p>
 <p><a href="https://developer.aliyun.com/article/388097" target="_blank" rel="noopener">https://developer.aliyun.com/article/388097</a></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">annotations:</span></span><br><span class="line">  <span class="attr">kubernetes.io/ingress-bandwidth:</span> <span class="string">5M</span>  <span class="comment">#进入到容器的最大带宽</span></span><br><span class="line">  <span class="attr">kubernetes.io/egress-bandwidth:</span> <span class="string">10M</span>   <span class="comment">#容器向外访问的最大带宽</span></span><br></pre></td></tr></table></figure>
 <p>Q：你们的多级缓存具体怎么做的？有哪些注意事项和坑？</p>
@@ -278,16 +306,28 @@ var themeMenus = {};
 <p>Kernel Auto-Tuning 可能是用的编译优化方法和手工优化函数（buket）结合的方式，</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> major_minor &gt;= <span class="number">1.14</span>:</span><br><span class="line">    <span class="keyword">from</span> tensorflow.python.compiler.tensorrt <span class="keyword">import</span> trt_convert <span class="keyword">as</span> trt</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">from</span> tensorflow.contrib <span class="keyword">import</span> tensorrt <span class="keyword">as</span> trt  <span class="comment"># noqa: F401</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># only when static shape we resort to trt</span></span><br><span class="line"><span class="comment"># otherwise there will be large online warm-up overhead</span></span><br><span class="line">converter = trt.TrtGraphConverter</span><br></pre></td></tr></table></figure>
 <p>从<strong>业务模型</strong>类别上大致可以分为CV、NLP，推荐</p>
-<h2 id="CV"><a href="#CV" class="headerlink" title="CV"></a>CV</h2><p>GPU<br>ResNet 3.3x<br>OCR-CRNN 3.5x<br>OCR-Attention<br>Yolo 2.5x<br>MobileNet 2.5x</p>
+<ul>
+<li>CV</li>
+</ul>
+<p>GPU<br>ResNet 3.3x<br>OCR-CRNN 3.5x<br>OCR-Attention<br>Yolo 2.5x<br>MobileNet 2.5x</p>
 <p>CPU<br>ResNet50 3.8x<br>YOLO 2.5x<br>MaskRCNN 1.7x</p>
 <p>密集计算，GPU优化，TensorRT和量化</p>
-<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>GPU<br>Bert-large &gt;3x<br>TextCNN 1.5x</p>
+<ul>
+<li>文本</li>
+</ul>
+<p>GPU<br>Bert-large &gt;3x<br>TextCNN 1.5x</p>
 <p>CPU<br>Bert-large的Self-Attention结构 2x</p>
-<h2 id="语音"><a href="#语音" class="headerlink" title="语音"></a>语音</h2><p>GPU</p>
+<ul>
+<li>语音</li>
+</ul>
+<p>GPU</p>
 <p>ASR Transformer模型 2.46x，定制算子，GPU</p>
 <p>CPU</p>
 <p>Transformer 2.3x</p>
-<h2 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h2><p>Embedding优化，EasyRec，密集计算部分较简单，主要是Embedding的定制优化</p>
+<ul>
+<li>推荐</li>
+</ul>
+<p>Embedding优化，EasyRec，密集计算部分较简单，主要是Embedding的定制优化</p>
 <p>典型场景端到端中等并发下RT降低为1/2以下，QPS提升1.8x左右</p>
 <p>DSSM，Wide&amp;Deep，DeepFM</p>
 <p>8 vcpu</p>
@@ -307,6 +347,9 @@ var themeMenus = {};
 </ul>
 </li>
 </ul>
+<p>特征哈希就是一种简单的降维方法，在微视使用也较多，特征哈希法的目标就是是把原始的高维特征向量压缩成较低维特征向量，且尽量不损失原始特征的表达能力，其优势在于实现简单，所需额外计算量小；降低特征维度，从而加速算法训练与预测的时间，以及降低内存消耗；但代价是通过哈希转换后学习到的模型变得很难检验，我们很难对训练出的模型参数做出合理解释。特征哈希法的另一个问题是它会把多个原始特征哈希到相同的位置上，出现哈希 collision 现象，但实际实验表明这种 collision 对算法的精度影响很小。<br><a href="https://www.infoq.cn/article/fsfrcvm83tt88ulovfu2" target="_blank" rel="noopener">https://www.infoq.cn/article/fsfrcvm83tt88ulovfu2</a></p>
+<p>优点（相对于One-hot Serialization）：训练和预测的时间复杂度大幅降低；数据的一致性强，不存在同一个特征今天编码成这个、明天编码成那个的情况，便于跟踪单特征效果；对new feature可以直接编码并加入训练，无需等待编码表统计并反馈；降低feature space大小，（精心设计可以）降低over-fitting的几率。缺点：在不清楚hashing function细节的情况下，容易导致特征碰撞失效，且难以排查；难以通过hashing出的特征反推源特征；</p>
+<p>作者：Ainika Peng<br>链接：<a href="https://www.zhihu.com/question/264165760/answer/279676705" target="_blank" rel="noopener">https://www.zhihu.com/question/264165760/answer/279676705</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 <p>cache: list(bool)表示的是否需要在op初始化的时候将相应的embedding加载到内存，减少对redis的访问，提高qps和rt。经讨论:</p>
 <ul>
 <li>item feature比较适合cache</li>
@@ -315,12 +358,42 @@ var themeMenus = {};
 <li>模型导出时，业务同学指定哪些embedding需要cache。</li>
 <li>cache考虑LRU策略</li>
 </ul>
+<p>Q：Tensorflow Feature Column优化？</p>
+<ul>
+<li>sparse embedding lookup优化</li>
+</ul>
+<p>Reshape<br>Select<br>ZerosLike<br>SparseSegmentMean，SparseSegmentSum<br>GatherV2<br>Unique<br>GatherV2，SparseReshape</p>
+<p><a href="https://www.infoq.cn/article/fb4f7djbqihbc86dl7bb" target="_blank" rel="noopener">https://www.infoq.cn/article/fb4f7djbqihbc86dl7bb</a></p>
+<ul>
+<li>整型特征哈希优化</li>
+</ul>
+<p>categorical_column_with_hash_bucket</p>
+<p>Int AsString再Hash，里面具体用了什么Hash函数</p>
+<p>Tensorflow内置，循环移位和异或</p>
+<p>AsString的代价太大<br>如果是均匀的uint64，可以直接作为hash值，或cast成char*</p>
+<ul>
+<li>定长特征转换优化</li>
+</ul>
+<p>定长特征是指使用接口<code>tf.io.FixedLenFeature</code>来解析的特征，比如用户的性别，年龄等，这类特征的长度通常都是定长的，并且固定为 1 维或多维。这类特征经过接口<code>tf.io.parse_example</code> 解析成 Dense Tensor，然后经过 Feature Column 处理，再进入到模型的输入层。</p>
+<p>如果能直接将原始的 Input Tensor 转换成 One Hot Tensor，就可以省去两个转换过程，而且 Sparse Tensor 和 Dense Tensor 之间的转换其实是非常耗时的操作。</p>
+<p>除了上面的 Vocabulary Categorical Column，还有别的类似 Feature Column 也有同样的问题，因此针对这类特征，平台专门开发了一套优化的 Feature Column 接口提供给业务使用，优化性能效果还不错。</p>
+<ul>
+<li>用户特征去重优化</li>
+</ul>
 <p>Q：你们的取embedding的平均latency有多少呢？</p>
 <p>1ms左右。</p>
 <p>Q：embedding怎么训练的？</p>
 <p>用partitioned variable，放到多个PS上</p>
 <p>Q：embedding怎么导出的？</p>
 <p>定制Op，导出到redis上。</p>
+<p>Q：例行任务时间单位，天</p>
+<p>导出到redis+版本号</p>
+<p>Q：Op的导出配置是什么？限流吗？</p>
+<p>定时限速，间隔。</p>
+<p>Q：Op是并行导出的吗？</p>
+<p>每个feature会有自己的Op。</p>
+<p>Q：Embedding会落盘吗？</p>
+<p>不会。</p>
 <p>Q：你们的取feature服务latency有多少？</p>
 <p>整个推荐服务，客户通常要求控制在50-200ms，rank部分差不多要控制在30-50ms以内。</p>
 <p>TP95 TP99 5ms以内，rank模型30-50ms。</p>
@@ -401,15 +474,23 @@ var themeMenus = {};
 <p>Q: 训练的PS架构知道吗？</p>
 <p>Parameter Server放参数，Worker执行训练。<br>Chief负责额外执行模型加载保存，初始化等功能。<br>evaluator需要放在Chief上。</p>
 <p>TFJob负责机器调度，恢复。</p>
-<h1 id="线上服务"><a href="#线上服务" class="headerlink" title="线上服务"></a>线上服务</h1><p>Q: 线上服务的failover如何处理？</p>
+<ul>
+<li>线上服务</li>
+</ul>
+<p>Q: 线上服务的failover如何处理？</p>
 <p>k8s支持，Pod的probe监控</p>
 <p>Q：服务并发</p>
 <p>并发度　= 吞吐量 <em> 延迟 </em> batch</p>
-<h1 id="你觉得你自己"><a href="#你觉得你自己" class="headerlink" title="你觉得你自己"></a>你觉得你自己</h1><p>Q：做过的最突出/挑战性的工作是什么？</p>
+<ul>
+<li>你觉得你自己</li>
+</ul>
+<p>Q：做过的最突出/挑战性的工作是什么？</p>
 <p>在工程上的事比较多，我觉得每个阶段都有比较值得我的工作。</p>
 <p>FCNN加速后端，从编译器到RT驱动到硬件，全栈工程。团队协作分工，硬件背景驱动软件设计优化。<br>加速学习，理解业务和系统。</p>
 <p>模型推理优化，接触各类模型，找出共性，Research，调研，技术选型，寻找合适的落地场景。</p>
 <p>推理平台建设和垂直场景优化，通用平台功能，大客户定点支持，抽象复用，全栈工程x2。</p>
+<p>Q：你遇到过的最大的挑战？</p>
+<p>硬件转软件，runtime设计</p>
 <p>Q：遇到过哪些大坑，是怎么躲开的？</p>
 <ul>
 <li>过早优化和通用化，方案在迭代中改进，很多只是POC</li>
@@ -461,7 +542,7 @@ var themeMenus = {};
     <div id="toc" class="toc-article" style="overflow-y: scroll; max-width: 28%;">
     <strong class="toc-title">文章目录</strong>
     
-      <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Disk-IO"><span class="nav-number">1.</span> <span class="nav-text">Disk IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-IO"><span class="nav-number">2.</span> <span class="nav-text">Network IO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CV"><span class="nav-number"></span> <span class="nav-text">CV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本"><span class="nav-number"></span> <span class="nav-text">文本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语音"><span class="nav-number"></span> <span class="nav-text">语音</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐"><span class="nav-number"></span> <span class="nav-text">推荐</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线上服务"><span class="nav-number"></span> <span class="nav-text">线上服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#你觉得你自己"><span class="nav-number"></span> <span class="nav-text">你觉得你自己</span></a>
+      <ol class="nav">无</ol>
     
     </div>
   </aside>
