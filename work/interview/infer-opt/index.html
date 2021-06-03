@@ -246,6 +246,7 @@ var themeMenus = {};
 <p>厂商库，主要是用TensorRT和MKL-DNN。</p>
 <p>针对不同代的CPU有指令结构的优化。</p>
 <p>skylake AVX-512<br>cascadelake VNNI INT8*UINT8<br>cooperlake BF16<br>tigerlake 调研</p>
+<p>Q：Tensorflow框架级别有优化吗？</p>
 <p><strong>系统级</strong>主要包括服务的各项指标优化。</p>
 <p>指标包括：</p>
 <ul>
@@ -267,15 +268,19 @@ var themeMenus = {};
 <li>多进程</li>
 </ul>
 </li>
-<li><p>资源利用率</p>
-<ul>
+<li>资源利用率<ul>
 <li>资源隔离，CPU/Memory/Network/Disk</li>
 <li>资源复用，超卖</li>
 <li>亲核性，NUMA，绑核</li>
 </ul>
 </li>
-<li><p>Disk IO</p>
-</li>
+</ul>
+<p>Q：serving调优怎么做？线上tracing？</p>
+<p>一般离线profile，查看timelime。</p>
+<p>线上tracing。</p>
+<p>查看网络、队列、处理等多个步骤的耗时，针对性的优化。</p>
+<ul>
+<li>Disk IO</li>
 </ul>
 <p><a href="https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html" target="_blank" rel="noopener">https://blog.kelu.org/tech/2019/10/11/kubernetes-Limit-iops-per-container.html</a></p>
 <p>Docker中有修改dockershim，和kuberuntime的labels</p>
@@ -504,6 +509,7 @@ var themeMenus = {};
 <li>工程能力</li>
 <li>跨团队协作</li>
 </ul>
+<p>大规模分布式工程能力</p>
 
       
     </div>
