@@ -44,6 +44,469 @@
       </tags>
   </entry>
   <entry>
+    <title>Keep Moving策划</title>
+    <url>/game/keep-moving/design/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Keep Moving是一款高度Rogue Like化的外星主题的2D俯视角射击游戏</p>
+<a id="more"></a>
+<h1 id="背景设定"><a href="#背景设定" class="headerlink" title="背景设定"></a>背景设定</h1><p>玩家作为异星探险家，飞船<strong>解体</strong>坠毁，需要收集<strong>材料</strong>和<strong>零件</strong>重建飞船逃出生天。</p>
+<h1 id="核心特色"><a href="#核心特色" class="headerlink" title="核心特色"></a>核心特色</h1><ul>
+<li>RogLike化的敌人生成，包括外观，行为，技能</li>
+<li>游戏时间相关的房间和敌人生成</li>
+<li>自由组合的武器系统</li>
+</ul>
+<h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
+<li>使用<strong>关键零件</strong>和<strong>材料</strong>组成<strong>飞船</strong>，完成游戏</li>
+</ul>
+<h2 id="星球属性"><a href="#星球属性" class="headerlink" title="星球属性"></a>星球属性</h2><p>汇总参数，详细看下文解释</p>
+<p>宽 Width <script type="math/tex">W</script><br>高 Height <script type="math/tex">H</script><br>自转方向 SpinDirection <script type="math/tex">Spin</script><br>水量修正 WaterAdjustment <script type="math/tex">A_{water}</script> </p>
+<h2 id="运行参数"><a href="#运行参数" class="headerlink" title="运行参数"></a>运行参数</h2><p>汇总参数，详细看下文解释</p>
+<p>进入房间次数 RoomEntranceCount <script type="math/tex">N</script><br>Boss BossKilledCount <script type="math/tex">B</script><br>含水量 WaterDistribution <script type="math/tex">D_{water}</script><br>普通怪物总数量 EnemyNormalCount <script type="math/tex">A_{normal}</script><br>精英怪物总数量 EnemySpecialCount <script type="math/tex">A_{special}</script></p>
+<h2 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h2><ul>
+<li>地图可划分为基本的<strong>房间</strong>，由WxH个房间构成，W与H取决于星球属性，初始建议W(横)H(纵)为12x7</li>
+<li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动<ul>
+<li>左右直接回绕</li>
+<li>上下并不直接回绕，极点附近向上/下与当前纬度+星球总纬度/2的房间相连</li>
+</ul>
+</li>
+<li>地图横向为经度，纵向为纬度<ul>
+<li>温度/亮度随经度循环变化，左移或右移取决于星球属性（自转方向）</li>
+<li>移动时间以进入房间次数（N）为准，N取决于星球属性</li>
+<li>温度变化率随纬度变化，从赤道到极点不断减弱</li>
+</ul>
+</li>
+<li>房间分为<strong>普通房间</strong>和<strong>专用房间</strong>，<strong>专用房间</strong>可由多个房间拼接而成。</li>
+<li>地图形状未探索时不可知，探索后计入地图</li>
+<li>地表障碍物为tile-based</li>
+<li>专用房间包括：<ul>
+<li>起始房间，飞船坠毁点，需要回到此处完成游戏</li>
+<li>Boss房间，Boss掉落关键零件和大量材料，地图中最后一个Boss掉落周目关键道具，提升环境适应性，可进入更多房间</li>
+<li>挑战房间，精英敌人或某种挑战</li>
+<li>奖励房间，提供材料，回血道具，武器</li>
+<li>商店房间，消耗材料，制作回血道具，武器</li>
+<li>不可入房间，计入房间进入次数，但场景显示为探索后退回</li>
+<li>关键进展房间，用于剧情碎片收集</li>
+<li>隐藏房间</li>
+</ul>
+</li>
+<li>不可入房间分为永久不可入房间(某周目不可入)和因环境导致的临时不可入房间<ul>
+<li>海洋房间，完全是水，但在温度-1/-2时可进入</li>
+<li>岩浆白昼，极端炎热，光照为无穷大</li>
+<li>寒冰黑夜，极端寒冷，光照为0</li>
+<li>山脉高原，完全障碍地形</li>
+<li>无尽深渊，完全障碍地形</li>
+</ul>
+</li>
+<li>Boss难度按第一次进入Boss房为准，难度随已击杀boss递增</li>
+</ul>
+<p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
+<h2 id="房间"><a href="#房间" class="headerlink" title="房间"></a>房间</h2><h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>以角色为一个单位方格为基准，标准房间单位为16x9，占据横向显示设备（PC/手机），组合房间为基准房间的倍数，如Boss房长宽分别为基准房间的2倍。</p>
+<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门生成于房间的四边，一个房间最多有四个门，门在两个房间中一定是成对连通的</p>
+<p>按顺序从(0,0)开始生成门。</p>
+<p>按如下优先级修正门：</p>
+<ul>
+<li>隐藏房间只有一个门可入。</li>
+</ul>
+<h3 id="障碍物"><a href="#障碍物" class="headerlink" title="障碍物"></a>障碍物</h3><p>障碍物以单元格为基准随机生成，障碍物分为：</p>
+<ul>
+<li>不可重叠可破环障碍物，拥有可破坏次数N，被攻击N次（次数变为0）后障碍物消除<ul>
+<li>岩石容器，拥有1次可破坏次数</li>
+<li>巨型岩石，拥有3次可破坏次数</li>
+<li>冰块容器，拥有1次可破坏次数</li>
+<li>巨型冰块，拥有3次可破坏次数</li>
+</ul>
+</li>
+<li>不可重叠不可破坏障碍物<ul>
+<li>水</li>
+</ul>
+</li>
+<li>可重叠不可破坏障碍物<ul>
+<li>岩浆池，可重叠，重叠超过0.5s后造成持续伤害</li>
+</ul>
+</li>
+</ul>
+<h3 id="障碍物转化路径"><a href="#障碍物转化路径" class="headerlink" title="障碍物转化路径"></a>障碍物转化路径</h3><ol>
+<li>首次进入房间时按星球属性随机和房间预设生成，比如水(10%),土(90%)，如果水含量大于75%，则全部置为水</li>
+<li>根据预设房间属性生成障碍物<ul>
+<li>比如土转变为岩石容器(5%),巨型岩石(5%)</li>
+<li>水转变为冰块容器(5%),巨型冰块(5%)</li>
+</ul>
+</li>
+<li>根据温度调整形态<ul>
+<li>3 100%转变为岩浆池</li>
+<li>2 水/巨型冰块/冰块容器先转变为土，土/巨型岩石/岩石容器转变为岩浆池(25%)</li>
+<li>1 水/冰转变为土</li>
+<li>0 不做处理</li>
+<li>-1 水转变为冰面(30%)/冰容器(10%)，冰面会使所有移动物打滑，具有抗性物品的除外</li>
+<li>-2 水转变为冰面(60%)/巨型冰块(30%)/冰容器(10%)</li>
+<li>-3 水转变为冰面(30%)/巨型冰块(60%)/冰容器(10%)</li>
+</ul>
+</li>
+</ol>
+<p>水含量<script type="math/tex">D_{water}</script>：</p>
+<script type="math/tex; mode=display">
+D_{water} = random(0, 1) + A_{water}</script><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
+<p>可变因子包括：</p>
+<ul>
+<li>温度，影响地形，能力，敌人生成</li>
+<li>光照，影响视野，敌人生成</li>
+<li>水分布，影响地形，一周目不可下水，可能转变为冰障碍物</li>
+</ul>
+<p>环境温度<script type="math/tex">T</script>按等级取整到：</p>
+<ul>
+<li>3 岩浆白昼，不可入</li>
+<li>2 极端炎热，地表生成岩浆池</li>
+<li>1 热，地表无水</li>
+<li>0 正常，地表有液态水</li>
+<li>-1 冷，部分水结冰</li>
+<li>-2 极端严寒，全部水结冰，生成冰障碍物</li>
+<li>-3 寒冰黑夜，不可入</li>
+</ul>
+<p>当前经度温度<script type="math/tex">T_{longitude}</script>按0 - -3 - 0 - 3 - 0均匀分布<br>按进入房间次数<script type="math/tex">N=3</script>，左移/右一(自转，一颗星球二选一)一个标准房间</p>
+<p>当前房间温度<script type="math/tex">T_{room}</script>随纬度<script type="math/tex">A</script>和当前经度温度<script type="math/tex">T_{longitude}</script>变化公式</p>
+<script type="math/tex; mode=display">
+T_{room} = [T_{longitude}\frac{90 - |A|}{90} - 2\frac{|A|}{90}]  (A \in [0, 90))</script><p>光照强度<script type="math/tex">L</script>和温度的关系：</p>
+<script type="math/tex; mode=display">
+L = T+3</script><p>光照强度<script type="math/tex">L</script>影响视野半径<script type="math/tex">r_{view}</script>，<script type="math/tex">r_{base}</script>为基础视野8，<script type="math/tex">r_{equip}</script>为装备带来的视野加成<script type="math/tex">(4-12)</script></p>
+<script type="math/tex; mode=display">
+r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
+<li>收集<strong>材料</strong>，材料可用于<ul>
+<li>制作<strong>武器</strong></li>
+<li>强化<strong>武器</strong></li>
+<li>制作<strong>功能性物品</strong></li>
+<li>制作<strong>消耗品</strong></li>
+</ul>
+</li>
+<li>材料从敌人掉落或环境开采</li>
+<li>武器<strong>强度</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关，非关键零件<strong>质量</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关</li>
+<li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
+<li>材料简单分为<strong>金属M</strong>与<strong>有机物O</strong></li>
+</ul>
+<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
+<li>角色仅能携带一把武器</li>
+<li>武器会过热，需要充能</li>
+<li>武器有两种攻击模式，普通攻击和特殊攻击，分别消耗对应子弹</li>
+<li>特殊攻击冷却时间较长</li>
+<li>武器可使用材料升级</li>
+<li>boss可掉落武器</li>
+<li>可能开出武器</li>
+<li>武器可分解回收一定数量的材料（不可分解）</li>
+</ul>
+<h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p>武器形态，先以广义的枪为原型，每把枪具有：</p>
+<ul>
+<li>弹夹容量Bullets，没有子弹限制，释放完弹夹容量的子弹后，再次射击会出发点充能补充</li>
+<li>特殊弹夹容量SpecialBullets，同上，初始为1</li>
+<li>最小攻击间隔时间AttackInterval</li>
+<li>充能时间RechargeTime</li>
+<li>同时发射的子弹数量ConcurrentBullets</li>
+<li>攻击距离AttackRadius，子弹按鼠标/虚拟键盘指示方向发射 不存在这种东西</li>
+<li>子弹散射角度SpreadAngle，当ConcurrentBullets &gt; 1时</li>
+<li>子弹偏转角度RandomErrorAngle</li>
+</ul>
+<p>以上属性均可强化（不能强化）</p>
+<h3 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h3><p><a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">https://www.desmos.com/calculator</a></p>
+<p>弹夹容量</p>
+<script type="math/tex; mode=display">
+Bullets_{base} = [max(0, ln(O))]</script><script type="math/tex; mode=display">
+Bullets = max(random(Bullets_{base} - 2, Bullets_{base} + 2), 1)</script><p>攻击间隔</p>
+<script type="math/tex; mode=display">
+AttackInterval_{base} = 0.5</script><script type="math/tex; mode=display">
+AttackInterval = AttackInterval_{base} * random(0.5, 1.5) * \frac{1}{\sqrt[3]{O}}</script><p>充能时间</p>
+<script type="math/tex; mode=display">
+RechargeTime_{base} = 2</script><script type="math/tex; mode=display">
+RechargeTime = RechargeTime_{base} * random(0.5, 1.5) * \frac{1}{ln(O)}</script><p>同时子弹数量</p>
+<script type="math/tex; mode=display">
+ConcurrentBullets_{base} = [max(0, log_{10}(O))]</script><script type="math/tex; mode=display">
+ConcurrentBullets = max(random(ConcurrentBullets_{base} - 1, ConcurrentBullets_{base} + 1), 1)</script><p>攻击半径，不存在的</p>
+<script type="math/tex; mode=display">
+AttackRadius_{base} = [max(100, \sqrt{2}{O})]</script><script type="math/tex; mode=display">
+AttackRadius = random(0.5, 1.5) * AttackRadius_{base}</script><p>散射角</p>
+<script type="math/tex; mode=display">
+SpreadAngle = random(-\pi, \pi)</script><script type="math/tex; mode=display">
+RandomErrorAngle_{base} = min(\frac{\pi}{6}, \frac{1}{ln(O + 1)})</script><p>随机发射误差</p>
+<script type="math/tex; mode=display">
+RandomErrorAngle = random.normal(\mu=0, \sigma=1) * RandomErrorAngle_{base}</script><h3 id="强化（去掉）"><a href="#强化（去掉）" class="headerlink" title="强化（去掉）"></a>强化（去掉）</h3><p>付定额花费摇彩票</p>
+<h2 id="子弹"><a href="#子弹" class="headerlink" title="子弹"></a>子弹</h2><p>一次使用一种子弹类型，最多携带2枚子弹（一周目）</p>
+<h2 id="子弹类型（deprecated）"><a href="#子弹类型（deprecated）" class="headerlink" title="子弹类型（deprecated）"></a>子弹类型（deprecated）</h2><ul>
+<li>普通，不叠加任何伤害</li>
+<li>电磁，持续伤害(2/s)，对属性免疫无效，有几率(1%)中断行动</li>
+<li>灼烧，持续伤害，升高敌人感知温度1，可以消除温度契合伤害</li>
+<li>冰冻，持续伤害，降低敌人感知温度1，可以消除温度契合伤害</li>
+<li>爆炸，一次性额外伤害</li>
+<li>引力，有几率(5%)减速敌人N秒</li>
+</ul>
+<p>可选择当前装备子弹类型，同一时间仅能使用一种普通子弹和一种特殊子弹</p>
+<h2 id="子弹属性"><a href="#子弹属性" class="headerlink" title="子弹属性"></a>子弹属性</h2><p>子弹随机N个属性槽，服从泊松分布</p>
+<p>触发事件击中敌人后触发</p>
+<ul>
+<li>触发事件持续时间 Persistence</li>
+<li>触发事件最大可叠加 MaxStack</li>
+<li>触发间隔 Interval</li>
+<li>触发几率 Probability</li>
+<li>触发行为 Event<ul>
+<li>伤害<ul>
+<li>元素属性 DamageType</li>
+<li>伤害量 Damage</li>
+</ul>
+</li>
+<li>减速<ul>
+<li>减速比例</li>
+<li>中断行动是减速的特例，减速比例为100%</li>
+</ul>
+</li>
+<li>感知温度<ul>
+<li>温度变化 +1/-1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>触发行为持续时间 Time</li>
+<li>飞行速度 Speed</li>
+<li>存活时间 LiveTime</li>
+<li>子弹半径 Radius</li>
+<li>一次性伤害 Damage</li>
+</ul>
+<p>比如：</p>
+<p>一次性伤害<br>Persistance = 0<br>Interval = 0<br>Probability = 1<br>Event = 伤害，Damage</p>
+<h2 id="合成-1"><a href="#合成-1" class="headerlink" title="合成"></a>合成</h2><p>固定开销摇彩票</p>
+<script type="math/tex; mode=display">
+M_{cost} = M_{base} * 2^{BossKillCount}</script><p>子弹最大属性槽</p>
+<script type="math/tex; mode=display">
+BulletSlot = BossKillCount + 1</script><p>子弹速度正态分布</p>
+<script type="math/tex; mode=display">
+BulletSpeed = random.normal(\mu=800, \sigma=200)</script><p>子弹存活时间正态分布</p>
+<script type="math/tex; mode=display">
+BulletLiveTime = random.normal(\mu=1, \sigma=0.2)</script><p>子弹半径正态分布</p>
+<script type="math/tex; mode=display">
+BulletRadius = random.normal(\mu=100, \sigma=10)</script><p>基础伤害正态分布</p>
+<script type="math/tex; mode=display">
+BulletDamage = max(random.normal(\mu=BossKillCount + 1, \sigma=0.3), 0) * BulletDamage_{base}</script><p>触发几率</p>
+<script type="math/tex; mode=display">
+Probability = max(random.normal(\mu=0.15, \sigma=0.05), 0.01)</script><p>触发事件持续时间</p>
+<script type="math/tex; mode=display">
+Persitence = max(random.normal(\mu=3, \sigma=1), 0)</script><p>触发间隔，用于持续性事件，如持续伤害</p>
+<script type="math/tex; mode=display">
+Interval = max(random.normal(\mu=1, \sigma=0.2), 0.1)</script><p>触发属性列表，每一个占用属性槽：</p>
+<ul>
+<li>加速比例 SpeedUp</li>
+</ul>
+<script type="math/tex; mode=display">
+SpeedUp = random.normal(\mu=1, \sigma=0.1)</script><ul>
+<li>感知温度</li>
+</ul>
+<script type="math/tex; mode=display">
+T = [random.normal(\mu=0, \sigma=0.5)]</script><ul>
+<li>持续伤害，也可能是持续增益</li>
+</ul>
+<script type="math/tex; mode=display">
+Damage = random.normal(\mu=0, \sigma=(BossKilledCount+1) * 10)</script><ul>
+<li>防御</li>
+</ul>
+<script type="math/tex; mode=display">
+DefenceUp = random.normal(\mu=1, \sigma=0.1)</script><ul>
+<li>武器容量增减</li>
+</ul>
+<script type="math/tex; mode=display">
+BulletsChange = [random.normal(\mu=0, \sigma=1)]</script><ul>
+<li>射速变化比例</li>
+</ul>
+<script type="math/tex; mode=display">
+AttackIntervalUp = random.normal(\mu=1, \sigma=0.2)</script><ul>
+<li>充能时间</li>
+</ul>
+<script type="math/tex; mode=display">
+RechargeTimeUp = random.normal(\mu=1, \sigma=0.2)</script><ul>
+<li>同时子弹数量</li>
+</ul>
+<script type="math/tex; mode=display">
+ConcurrentBullets = random(-1, 0, 1)</script><h2 id="特殊子弹"><a href="#特殊子弹" class="headerlink" title="特殊子弹"></a>特殊子弹</h2><ul>
+<li>引力场，爆炸点范围内敌人减速</li>
+<li>闪电网，多个闪电点间形成闪电连，给予穿过的敌人持续伤害，离开则伤害中止</li>
+<li>火焰阱，持续伤害，升高范围内温度</li>
+<li>冰冻阱，持续伤害，降低范围内温度</li>
+<li>爆炸物，爆炸点附近产生范围伤害</li>
+<li>机枪塔，爆炸点生成自动机枪塔，自动攻击附近敌人</li>
+</ul>
+<p>特殊子弹可强化</p>
+<ul>
+<li>充能时间</li>
+<li>影响范围，半径</li>
+<li>持续时间</li>
+<li>最大并发数量</li>
+</ul>
+<h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
+<li>血量 HP</li>
+<li>防御 Defence</li>
+<li>移动速度 Speed</li>
+<li>属性免疫 Immune</li>
+<li>视野半径 ViewRadius</li>
+<li>适合温度 Temp</li>
+</ul>
+<h3 id="普通敌人"><a href="#普通敌人" class="headerlink" title="普通敌人"></a>普通敌人</h3><p>在每次进入时按进入房间次数<script type="math/tex">N</script>生成。</p>
+<p>怪物总数量约束：</p>
+<script type="math/tex; mode=display">
+A_{normal} = random(max(N-3, 1), N+3)</script><p>怪物可组合类型</p>
+<ul>
+<li>血量</li>
+</ul>
+<script type="math/tex; mode=display">
+HP = random(0.5, 1.5) * ln(N) * HP_{base}</script><ul>
+<li>防御</li>
+</ul>
+<script type="math/tex; mode=display">
+Defence = random(0.5, 1.5) * ln(N) * Defence_{base}</script><ul>
+<li>移动速度</li>
+</ul>
+<script type="math/tex; mode=display">
+Speed = random(0.5, 1.5) * ln(N) * Speed_{base}</script><ul>
+<li>视野半径</li>
+</ul>
+<script type="math/tex; mode=display">
+ViewRadius = random(0.5, 1.5) * ln(N) * ViewRadius_{base}</script><ul>
+<li><p>适合温度</p>
+<ul>
+<li>50%T，25%T-1，25%T+1</li>
+<li>在适合温度时，基础属性随机一个x1.5</li>
+</ul>
+</li>
+<li><p>属性免疫 随机1个</p>
+</li>
+</ul>
+<p>属性池 [无x10,其他属性]</p>
+<h4 id="武器-1"><a href="#武器-1" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
+<script type="math/tex; mode=display">
+Bullets = random(3, max(3, [ln(N)]))</script><p>射速</p>
+<script type="math/tex; mode=display">
+AttackInterval = random(0.5, 1.5) * ln(N) * AttackInterval_{base}</script><p>充能</p>
+<script type="math/tex; mode=display">
+RechargeTime = random(0.8, 1.2) * ln(N) * RechargeTime_{base}</script><p>同时子弹数量</p>
+<script type="math/tex; mode=display">
+ConcurrentBullets = 1</script><p>攻击半径</p>
+<script type="math/tex; mode=display">
+AttackRadius = random(0.8, 1.2) * ln(N) * AttackRadius</script><h4 id="子弹-1"><a href="#子弹-1" class="headerlink" title="子弹"></a>子弹</h4><p>携带一枚子弹</p>
+<p>子弹属性SlotCount = 1，随机一个属性</p>
+<h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
+<script type="math/tex; mode=display">
+A_{special} = random(0, [\frac{D - 8}{5}])</script><ul>
+<li>血量</li>
+</ul>
+<script type="math/tex; mode=display">
+HP = random(1.5, 3.5) * ln(N) * HP_{base}</script><ul>
+<li>防御</li>
+</ul>
+<script type="math/tex; mode=display">
+Defence = random(1.5, 3.5) * ln(N) * Defence_{base}</script><ul>
+<li>移动速度</li>
+</ul>
+<script type="math/tex; mode=display">
+Speed = random(1.5, 3.5) * ln(N) * Speed_{base}</script><ul>
+<li>视野半径</li>
+</ul>
+<script type="math/tex; mode=display">
+ViewRadius = random(1.5, 3.5) * ln(N) * ViewRadius_{base}</script><ul>
+<li><p>适合温度</p>
+<ul>
+<li>50%T，25%T-1，25%T+1</li>
+<li>在适合温度时，基础属性随机一个x3</li>
+</ul>
+</li>
+<li><p>属性免疫 随机1个</p>
+</li>
+</ul>
+<p>属性池 [无x3,其他属性]</p>
+<h4 id="武器-2"><a href="#武器-2" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
+<script type="math/tex; mode=display">
+Bullets = random(3, max(3, N))</script><p>射速</p>
+<script type="math/tex; mode=display">
+AttackInterval = random(1.5, 3.5) * ln(N) * Speed_{base}</script><p>充能</p>
+<script type="math/tex; mode=display">
+RechargeTime = random(0.2, 0.6) * ln(N) * RechargeTime_{base}</script><p>同时子弹数量</p>
+<script type="math/tex; mode=display">
+ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-2"><a href="#子弹-2" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带一枚子弹</p>
+<h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><ul>
+<li>血量</li>
+</ul>
+<script type="math/tex; mode=display">
+HP = random(3, 5) * ln(N) * BossCount * HP_{base}</script><ul>
+<li>防御</li>
+</ul>
+<script type="math/tex; mode=display">
+Defence = random(3, 5) * ln(N) * BossCount * Defence_{base}</script><ul>
+<li>移动速度</li>
+</ul>
+<script type="math/tex; mode=display">
+Speed = random(3, 5) * ln(N) * BossCount * Speed_{base}</script><ul>
+<li>视野半径</li>
+</ul>
+<script type="math/tex; mode=display">
+ViewRadius = random(3, 5) * ln(N) * BossCount * ViewRadius_{base}</script><ul>
+<li><p>适合温度</p>
+<ul>
+<li>100% T</li>
+<li>在适合温度时，基础属性随机一个x3</li>
+</ul>
+</li>
+<li><p>属性免疫 随机3个</p>
+</li>
+</ul>
+<p>属性池 [无x3,其他属性]</p>
+<h4 id="武器-3"><a href="#武器-3" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
+<script type="math/tex; mode=display">
+Bullets = random(3, max(3, N)) * BossCount</script><p>射速</p>
+<script type="math/tex; mode=display">
+AttackInterval = random(1.5, 3.5) * ln(N) * BossCount * Speed_{base}</script><p>充能</p>
+<script type="math/tex; mode=display">
+RechargeTime = random(0.2, 0.6) * ln(N) * BossCount * RechargeTime_{base}</script><p>同时子弹数量</p>
+<script type="math/tex; mode=display">
+ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a href="#子弹-3" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带BossCount * 3枚子弹，随机切换</p>
+<h2 id="武器-4"><a href="#武器-4" class="headerlink" title="武器"></a>武器</h2><h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
+<ul>
+<li>最大血量 <script type="math/tex">[0.75,0.8,0.85,0.9,0.95,1.05,1.1,1.15,1.2,1.25]</script></li>
+<li>连续冲刺次数 <script type="math/tex">[-1,1]</script></li>
+<li>视野 <script type="math/tex">[-2,2]</script></li>
+<li>移速 <script type="math/tex">[0.8,0.9,1.1,1.2]</script></li>
+</ul>
+<p>一个物品随机1-3个属性，每个属性随机区间</p>
+<h2 id="消耗品"><a href="#消耗品" class="headerlink" title="消耗品"></a>消耗品</h2><ul>
+<li>小号医疗包 10%</li>
+<li>中号医疗包 25%</li>
+<li>大号医疗包 50%</li>
+<li>再生组织 复活1次</li>
+</ul>
+<h2 id="成长"><a href="#成长" class="headerlink" title="成长"></a>成长</h2><ul>
+<li>普通死亡</li>
+</ul>
+<p>嘲讽，可以选择重置星球属性或沿用当前星球属性</p>
+<ul>
+<li>打败boss后</li>
+</ul>
+<p>非常嘲讽，获得消耗品，物品，或武器</p>
+<ul>
+<li>通关后</li>
+</ul>
+<p>极度嘲讽，获得特殊道具</p>
+<h2 id="特殊道具（永久）"><a href="#特殊道具（永久）" class="headerlink" title="特殊道具（永久）"></a>特殊道具（永久）</h2><ul>
+<li>水肺（一周目通关后获得）</li>
+</ul>
+<p>可下水，有时间限制（氧气）</p>
+<ul>
+<li>照明取暖弹（二周目通关后获得）</li>
+</ul>
+<p>可进入寒冰黑夜，定时发射照明弹扩大视野，有时间限制（过冷）</p>
+<ul>
+<li>隔热墨镜（三周目通关后获得）</li>
+</ul>
+<p>可进入岩浆白昼，有时间限制（过热）</p>
+<h2 id="后期"><a href="#后期" class="headerlink" title="后期"></a>后期</h2><p>可选择探索不同难度的星系，每次探索必坠毁（TAT）</p>
+]]></content>
+      <categories>
+        <category>游戏</category>
+      </categories>
+      <tags>
+        <tag>游戏</tag>
+        <tag>Keep Moving</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法基础 - 数组</title>
     <url>/cs/algo/array/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>数组是最基础的数据结构之一，存储线性数据，内存结构连续。</p>
@@ -853,469 +1316,6 @@ x = (n - 1)(y + z) + z</script><p>n = 1时， x = z</p>
       </tags>
   </entry>
   <entry>
-    <title>Keep Moving策划</title>
-    <url>/game/keep-moving/design/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Keep Moving是一款高度Rogue Like化的外星主题的2D俯视角射击游戏</p>
-<a id="more"></a>
-<h1 id="背景设定"><a href="#背景设定" class="headerlink" title="背景设定"></a>背景设定</h1><p>玩家作为异星探险家，飞船<strong>解体</strong>坠毁，需要收集<strong>材料</strong>和<strong>零件</strong>重建飞船逃出生天。</p>
-<h1 id="核心特色"><a href="#核心特色" class="headerlink" title="核心特色"></a>核心特色</h1><ul>
-<li>RogLike化的敌人生成，包括外观，行为，技能</li>
-<li>游戏时间相关的房间和敌人生成</li>
-<li>自由组合的武器系统</li>
-</ul>
-<h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
-<li>使用<strong>关键零件</strong>和<strong>材料</strong>组成<strong>飞船</strong>，完成游戏</li>
-</ul>
-<h2 id="星球属性"><a href="#星球属性" class="headerlink" title="星球属性"></a>星球属性</h2><p>汇总参数，详细看下文解释</p>
-<p>宽 Width <script type="math/tex">W</script><br>高 Height <script type="math/tex">H</script><br>自转方向 SpinDirection <script type="math/tex">Spin</script><br>水量修正 WaterAdjustment <script type="math/tex">A_{water}</script> </p>
-<h2 id="运行参数"><a href="#运行参数" class="headerlink" title="运行参数"></a>运行参数</h2><p>汇总参数，详细看下文解释</p>
-<p>进入房间次数 RoomEntranceCount <script type="math/tex">N</script><br>Boss BossKilledCount <script type="math/tex">B</script><br>含水量 WaterDistribution <script type="math/tex">D_{water}</script><br>普通怪物总数量 EnemyNormalCount <script type="math/tex">A_{normal}</script><br>精英怪物总数量 EnemySpecialCount <script type="math/tex">A_{special}</script></p>
-<h2 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h2><ul>
-<li>地图可划分为基本的<strong>房间</strong>，由WxH个房间构成，W与H取决于星球属性，初始建议W(横)H(纵)为12x7</li>
-<li>在概念上所有<strong>房间</strong>共同拼成星球，左右/上下回绕，房间形状可以不同，位置可以小幅移动<ul>
-<li>左右直接回绕</li>
-<li>上下并不直接回绕，极点附近向上/下与当前纬度+星球总纬度/2的房间相连</li>
-</ul>
-</li>
-<li>地图横向为经度，纵向为纬度<ul>
-<li>温度/亮度随经度循环变化，左移或右移取决于星球属性（自转方向）</li>
-<li>移动时间以进入房间次数（N）为准，N取决于星球属性</li>
-<li>温度变化率随纬度变化，从赤道到极点不断减弱</li>
-</ul>
-</li>
-<li>房间分为<strong>普通房间</strong>和<strong>专用房间</strong>，<strong>专用房间</strong>可由多个房间拼接而成。</li>
-<li>地图形状未探索时不可知，探索后计入地图</li>
-<li>地表障碍物为tile-based</li>
-<li>专用房间包括：<ul>
-<li>起始房间，飞船坠毁点，需要回到此处完成游戏</li>
-<li>Boss房间，Boss掉落关键零件和大量材料，地图中最后一个Boss掉落周目关键道具，提升环境适应性，可进入更多房间</li>
-<li>挑战房间，精英敌人或某种挑战</li>
-<li>奖励房间，提供材料，回血道具，武器</li>
-<li>商店房间，消耗材料，制作回血道具，武器</li>
-<li>不可入房间，计入房间进入次数，但场景显示为探索后退回</li>
-<li>关键进展房间，用于剧情碎片收集</li>
-<li>隐藏房间</li>
-</ul>
-</li>
-<li>不可入房间分为永久不可入房间(某周目不可入)和因环境导致的临时不可入房间<ul>
-<li>海洋房间，完全是水，但在温度-1/-2时可进入</li>
-<li>岩浆白昼，极端炎热，光照为无穷大</li>
-<li>寒冰黑夜，极端寒冷，光照为0</li>
-<li>山脉高原，完全障碍地形</li>
-<li>无尽深渊，完全障碍地形</li>
-</ul>
-</li>
-<li>Boss难度按第一次进入Boss房为准，难度随已击杀boss递增</li>
-</ul>
-<p><img src="/images/game/keep-moving/map.svg" alt="地图示例"></p>
-<h2 id="房间"><a href="#房间" class="headerlink" title="房间"></a>房间</h2><h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><p>以角色为一个单位方格为基准，标准房间单位为16x9，占据横向显示设备（PC/手机），组合房间为基准房间的倍数，如Boss房长宽分别为基准房间的2倍。</p>
-<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门生成于房间的四边，一个房间最多有四个门，门在两个房间中一定是成对连通的</p>
-<p>按顺序从(0,0)开始生成门。</p>
-<p>按如下优先级修正门：</p>
-<ul>
-<li>隐藏房间只有一个门可入。</li>
-</ul>
-<h3 id="障碍物"><a href="#障碍物" class="headerlink" title="障碍物"></a>障碍物</h3><p>障碍物以单元格为基准随机生成，障碍物分为：</p>
-<ul>
-<li>不可重叠可破环障碍物，拥有可破坏次数N，被攻击N次（次数变为0）后障碍物消除<ul>
-<li>岩石容器，拥有1次可破坏次数</li>
-<li>巨型岩石，拥有3次可破坏次数</li>
-<li>冰块容器，拥有1次可破坏次数</li>
-<li>巨型冰块，拥有3次可破坏次数</li>
-</ul>
-</li>
-<li>不可重叠不可破坏障碍物<ul>
-<li>水</li>
-</ul>
-</li>
-<li>可重叠不可破坏障碍物<ul>
-<li>岩浆池，可重叠，重叠超过0.5s后造成持续伤害</li>
-</ul>
-</li>
-</ul>
-<h3 id="障碍物转化路径"><a href="#障碍物转化路径" class="headerlink" title="障碍物转化路径"></a>障碍物转化路径</h3><ol>
-<li>首次进入房间时按星球属性随机和房间预设生成，比如水(10%),土(90%)，如果水含量大于75%，则全部置为水</li>
-<li>根据预设房间属性生成障碍物<ul>
-<li>比如土转变为岩石容器(5%),巨型岩石(5%)</li>
-<li>水转变为冰块容器(5%),巨型冰块(5%)</li>
-</ul>
-</li>
-<li>根据温度调整形态<ul>
-<li>3 100%转变为岩浆池</li>
-<li>2 水/巨型冰块/冰块容器先转变为土，土/巨型岩石/岩石容器转变为岩浆池(25%)</li>
-<li>1 水/冰转变为土</li>
-<li>0 不做处理</li>
-<li>-1 水转变为冰面(30%)/冰容器(10%)，冰面会使所有移动物打滑，具有抗性物品的除外</li>
-<li>-2 水转变为冰面(60%)/巨型冰块(30%)/冰容器(10%)</li>
-<li>-3 水转变为冰面(30%)/巨型冰块(60%)/冰容器(10%)</li>
-</ul>
-</li>
-</ol>
-<p>水含量<script type="math/tex">D_{water}</script>：</p>
-<script type="math/tex; mode=display">
-D_{water} = random(0, 1) + A_{water}</script><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境随时间变化</p>
-<p>可变因子包括：</p>
-<ul>
-<li>温度，影响地形，能力，敌人生成</li>
-<li>光照，影响视野，敌人生成</li>
-<li>水分布，影响地形，一周目不可下水，可能转变为冰障碍物</li>
-</ul>
-<p>环境温度<script type="math/tex">T</script>按等级取整到：</p>
-<ul>
-<li>3 岩浆白昼，不可入</li>
-<li>2 极端炎热，地表生成岩浆池</li>
-<li>1 热，地表无水</li>
-<li>0 正常，地表有液态水</li>
-<li>-1 冷，部分水结冰</li>
-<li>-2 极端严寒，全部水结冰，生成冰障碍物</li>
-<li>-3 寒冰黑夜，不可入</li>
-</ul>
-<p>当前经度温度<script type="math/tex">T_{longitude}</script>按0 - -3 - 0 - 3 - 0均匀分布<br>按进入房间次数<script type="math/tex">N=3</script>，左移/右一(自转，一颗星球二选一)一个标准房间</p>
-<p>当前房间温度<script type="math/tex">T_{room}</script>随纬度<script type="math/tex">A</script>和当前经度温度<script type="math/tex">T_{longitude}</script>变化公式</p>
-<script type="math/tex; mode=display">
-T_{room} = [T_{longitude}\frac{90 - |A|}{90} - 2\frac{|A|}{90}]  (A \in [0, 90))</script><p>光照强度<script type="math/tex">L</script>和温度的关系：</p>
-<script type="math/tex; mode=display">
-L = T+3</script><p>光照强度<script type="math/tex">L</script>影响视野半径<script type="math/tex">r_{view}</script>，<script type="math/tex">r_{base}</script>为基础视野8，<script type="math/tex">r_{equip}</script>为装备带来的视野加成<script type="math/tex">(4-12)</script></p>
-<script type="math/tex; mode=display">
-r_{view} = \frac{L}{6}(r_{base} + r_{equip})</script><h2 id="材料"><a href="#材料" class="headerlink" title="材料"></a>材料</h2><ul>
-<li>收集<strong>材料</strong>，材料可用于<ul>
-<li>制作<strong>武器</strong></li>
-<li>强化<strong>武器</strong></li>
-<li>制作<strong>功能性物品</strong></li>
-<li>制作<strong>消耗品</strong></li>
-</ul>
-</li>
-<li>材料从敌人掉落或环境开采</li>
-<li>武器<strong>强度</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关，非关键零件<strong>质量</strong>与材料<strong>种类</strong>和<strong>数量</strong>相关</li>
-<li>收集<strong>关键零件</strong>和<strong>材料</strong>修复<strong>飞船</strong></li>
-<li>材料简单分为<strong>金属M</strong>与<strong>有机物O</strong></li>
-</ul>
-<h2 id="武器"><a href="#武器" class="headerlink" title="武器"></a>武器</h2><h3 id="基本约束"><a href="#基本约束" class="headerlink" title="基本约束"></a>基本约束</h3><ul>
-<li>角色仅能携带一把武器</li>
-<li>武器会过热，需要充能</li>
-<li>武器有两种攻击模式，普通攻击和特殊攻击，分别消耗对应子弹</li>
-<li>特殊攻击冷却时间较长</li>
-<li>武器可使用材料升级</li>
-<li>boss可掉落武器</li>
-<li>可能开出武器</li>
-<li>武器可分解回收一定数量的材料（不可分解）</li>
-</ul>
-<h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p>武器形态，先以广义的枪为原型，每把枪具有：</p>
-<ul>
-<li>弹夹容量Bullets，没有子弹限制，释放完弹夹容量的子弹后，再次射击会出发点充能补充</li>
-<li>特殊弹夹容量SpecialBullets，同上，初始为1</li>
-<li>最小攻击间隔时间AttackInterval</li>
-<li>充能时间RechargeTime</li>
-<li>同时发射的子弹数量ConcurrentBullets</li>
-<li>攻击距离AttackRadius，子弹按鼠标/虚拟键盘指示方向发射 不存在这种东西</li>
-<li>子弹散射角度SpreadAngle，当ConcurrentBullets &gt; 1时</li>
-<li>子弹偏转角度RandomErrorAngle</li>
-</ul>
-<p>以上属性均可强化（不能强化）</p>
-<h3 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h3><p><a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">https://www.desmos.com/calculator</a></p>
-<p>弹夹容量</p>
-<script type="math/tex; mode=display">
-Bullets_{base} = [max(0, ln(O))]</script><script type="math/tex; mode=display">
-Bullets = max(random(Bullets_{base} - 2, Bullets_{base} + 2), 1)</script><p>攻击间隔</p>
-<script type="math/tex; mode=display">
-AttackInterval_{base} = 0.5</script><script type="math/tex; mode=display">
-AttackInterval = AttackInterval_{base} * random(0.5, 1.5) * \frac{1}{\sqrt[3]{O}}</script><p>充能时间</p>
-<script type="math/tex; mode=display">
-RechargeTime_{base} = 2</script><script type="math/tex; mode=display">
-RechargeTime = RechargeTime_{base} * random(0.5, 1.5) * \frac{1}{ln(O)}</script><p>同时子弹数量</p>
-<script type="math/tex; mode=display">
-ConcurrentBullets_{base} = [max(0, log_{10}(O))]</script><script type="math/tex; mode=display">
-ConcurrentBullets = max(random(ConcurrentBullets_{base} - 1, ConcurrentBullets_{base} + 1), 1)</script><p>攻击半径，不存在的</p>
-<script type="math/tex; mode=display">
-AttackRadius_{base} = [max(100, \sqrt{2}{O})]</script><script type="math/tex; mode=display">
-AttackRadius = random(0.5, 1.5) * AttackRadius_{base}</script><p>散射角</p>
-<script type="math/tex; mode=display">
-SpreadAngle = random(-\pi, \pi)</script><script type="math/tex; mode=display">
-RandomErrorAngle_{base} = min(\frac{\pi}{6}, \frac{1}{ln(O + 1)})</script><p>随机发射误差</p>
-<script type="math/tex; mode=display">
-RandomErrorAngle = random.normal(\mu=0, \sigma=1) * RandomErrorAngle_{base}</script><h3 id="强化（去掉）"><a href="#强化（去掉）" class="headerlink" title="强化（去掉）"></a>强化（去掉）</h3><p>付定额花费摇彩票</p>
-<h2 id="子弹"><a href="#子弹" class="headerlink" title="子弹"></a>子弹</h2><p>一次使用一种子弹类型，最多携带2枚子弹（一周目）</p>
-<h2 id="子弹类型（deprecated）"><a href="#子弹类型（deprecated）" class="headerlink" title="子弹类型（deprecated）"></a>子弹类型（deprecated）</h2><ul>
-<li>普通，不叠加任何伤害</li>
-<li>电磁，持续伤害(2/s)，对属性免疫无效，有几率(1%)中断行动</li>
-<li>灼烧，持续伤害，升高敌人感知温度1，可以消除温度契合伤害</li>
-<li>冰冻，持续伤害，降低敌人感知温度1，可以消除温度契合伤害</li>
-<li>爆炸，一次性额外伤害</li>
-<li>引力，有几率(5%)减速敌人N秒</li>
-</ul>
-<p>可选择当前装备子弹类型，同一时间仅能使用一种普通子弹和一种特殊子弹</p>
-<h2 id="子弹属性"><a href="#子弹属性" class="headerlink" title="子弹属性"></a>子弹属性</h2><p>子弹随机N个属性槽，服从泊松分布</p>
-<p>触发事件击中敌人后触发</p>
-<ul>
-<li>触发事件持续时间 Persistence</li>
-<li>触发事件最大可叠加 MaxStack</li>
-<li>触发间隔 Interval</li>
-<li>触发几率 Probability</li>
-<li>触发行为 Event<ul>
-<li>伤害<ul>
-<li>元素属性 DamageType</li>
-<li>伤害量 Damage</li>
-</ul>
-</li>
-<li>减速<ul>
-<li>减速比例</li>
-<li>中断行动是减速的特例，减速比例为100%</li>
-</ul>
-</li>
-<li>感知温度<ul>
-<li>温度变化 +1/-1</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>触发行为持续时间 Time</li>
-<li>飞行速度 Speed</li>
-<li>存活时间 LiveTime</li>
-<li>子弹半径 Radius</li>
-<li>一次性伤害 Damage</li>
-</ul>
-<p>比如：</p>
-<p>一次性伤害<br>Persistance = 0<br>Interval = 0<br>Probability = 1<br>Event = 伤害，Damage</p>
-<h2 id="合成-1"><a href="#合成-1" class="headerlink" title="合成"></a>合成</h2><p>固定开销摇彩票</p>
-<script type="math/tex; mode=display">
-M_{cost} = M_{base} * 2^{BossKillCount}</script><p>子弹最大属性槽</p>
-<script type="math/tex; mode=display">
-BulletSlot = BossKillCount + 1</script><p>子弹速度正态分布</p>
-<script type="math/tex; mode=display">
-BulletSpeed = random.normal(\mu=800, \sigma=200)</script><p>子弹存活时间正态分布</p>
-<script type="math/tex; mode=display">
-BulletLiveTime = random.normal(\mu=1, \sigma=0.2)</script><p>子弹半径正态分布</p>
-<script type="math/tex; mode=display">
-BulletRadius = random.normal(\mu=100, \sigma=10)</script><p>基础伤害正态分布</p>
-<script type="math/tex; mode=display">
-BulletDamage = max(random.normal(\mu=BossKillCount + 1, \sigma=0.3), 0) * BulletDamage_{base}</script><p>触发几率</p>
-<script type="math/tex; mode=display">
-Probability = max(random.normal(\mu=0.15, \sigma=0.05), 0.01)</script><p>触发事件持续时间</p>
-<script type="math/tex; mode=display">
-Persitence = max(random.normal(\mu=3, \sigma=1), 0)</script><p>触发间隔，用于持续性事件，如持续伤害</p>
-<script type="math/tex; mode=display">
-Interval = max(random.normal(\mu=1, \sigma=0.2), 0.1)</script><p>触发属性列表，每一个占用属性槽：</p>
-<ul>
-<li>加速比例 SpeedUp</li>
-</ul>
-<script type="math/tex; mode=display">
-SpeedUp = random.normal(\mu=1, \sigma=0.1)</script><ul>
-<li>感知温度</li>
-</ul>
-<script type="math/tex; mode=display">
-T = [random.normal(\mu=0, \sigma=0.5)]</script><ul>
-<li>持续伤害，也可能是持续增益</li>
-</ul>
-<script type="math/tex; mode=display">
-Damage = random.normal(\mu=0, \sigma=(BossKilledCount+1) * 10)</script><ul>
-<li>防御</li>
-</ul>
-<script type="math/tex; mode=display">
-DefenceUp = random.normal(\mu=1, \sigma=0.1)</script><ul>
-<li>武器容量增减</li>
-</ul>
-<script type="math/tex; mode=display">
-BulletsChange = [random.normal(\mu=0, \sigma=1)]</script><ul>
-<li>射速变化比例</li>
-</ul>
-<script type="math/tex; mode=display">
-AttackIntervalUp = random.normal(\mu=1, \sigma=0.2)</script><ul>
-<li>充能时间</li>
-</ul>
-<script type="math/tex; mode=display">
-RechargeTimeUp = random.normal(\mu=1, \sigma=0.2)</script><ul>
-<li>同时子弹数量</li>
-</ul>
-<script type="math/tex; mode=display">
-ConcurrentBullets = random(-1, 0, 1)</script><h2 id="特殊子弹"><a href="#特殊子弹" class="headerlink" title="特殊子弹"></a>特殊子弹</h2><ul>
-<li>引力场，爆炸点范围内敌人减速</li>
-<li>闪电网，多个闪电点间形成闪电连，给予穿过的敌人持续伤害，离开则伤害中止</li>
-<li>火焰阱，持续伤害，升高范围内温度</li>
-<li>冰冻阱，持续伤害，降低范围内温度</li>
-<li>爆炸物，爆炸点附近产生范围伤害</li>
-<li>机枪塔，爆炸点生成自动机枪塔，自动攻击附近敌人</li>
-</ul>
-<p>特殊子弹可强化</p>
-<ul>
-<li>充能时间</li>
-<li>影响范围，半径</li>
-<li>持续时间</li>
-<li>最大并发数量</li>
-</ul>
-<h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
-<li>血量 HP</li>
-<li>防御 Defence</li>
-<li>移动速度 Speed</li>
-<li>属性免疫 Immune</li>
-<li>视野半径 ViewRadius</li>
-<li>适合温度 Temp</li>
-</ul>
-<h3 id="普通敌人"><a href="#普通敌人" class="headerlink" title="普通敌人"></a>普通敌人</h3><p>在每次进入时按进入房间次数<script type="math/tex">N</script>生成。</p>
-<p>怪物总数量约束：</p>
-<script type="math/tex; mode=display">
-A_{normal} = random(max(N-3, 1), N+3)</script><p>怪物可组合类型</p>
-<ul>
-<li>血量</li>
-</ul>
-<script type="math/tex; mode=display">
-HP = random(0.5, 1.5) * ln(N) * HP_{base}</script><ul>
-<li>防御</li>
-</ul>
-<script type="math/tex; mode=display">
-Defence = random(0.5, 1.5) * ln(N) * Defence_{base}</script><ul>
-<li>移动速度</li>
-</ul>
-<script type="math/tex; mode=display">
-Speed = random(0.5, 1.5) * ln(N) * Speed_{base}</script><ul>
-<li>视野半径</li>
-</ul>
-<script type="math/tex; mode=display">
-ViewRadius = random(0.5, 1.5) * ln(N) * ViewRadius_{base}</script><ul>
-<li><p>适合温度</p>
-<ul>
-<li>50%T，25%T-1，25%T+1</li>
-<li>在适合温度时，基础属性随机一个x1.5</li>
-</ul>
-</li>
-<li><p>属性免疫 随机1个</p>
-</li>
-</ul>
-<p>属性池 [无x10,其他属性]</p>
-<h4 id="武器-1"><a href="#武器-1" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
-<script type="math/tex; mode=display">
-Bullets = random(3, max(3, [ln(N)]))</script><p>射速</p>
-<script type="math/tex; mode=display">
-AttackInterval = random(0.5, 1.5) * ln(N) * AttackInterval_{base}</script><p>充能</p>
-<script type="math/tex; mode=display">
-RechargeTime = random(0.8, 1.2) * ln(N) * RechargeTime_{base}</script><p>同时子弹数量</p>
-<script type="math/tex; mode=display">
-ConcurrentBullets = 1</script><p>攻击半径</p>
-<script type="math/tex; mode=display">
-AttackRadius = random(0.8, 1.2) * ln(N) * AttackRadius</script><h4 id="子弹-1"><a href="#子弹-1" class="headerlink" title="子弹"></a>子弹</h4><p>携带一枚子弹</p>
-<p>子弹属性SlotCount = 1，随机一个属性</p>
-<h3 id="精英怪"><a href="#精英怪" class="headerlink" title="精英怪"></a>精英怪</h3><p>怪物总数量约束：</p>
-<script type="math/tex; mode=display">
-A_{special} = random(0, [\frac{D - 8}{5}])</script><ul>
-<li>血量</li>
-</ul>
-<script type="math/tex; mode=display">
-HP = random(1.5, 3.5) * ln(N) * HP_{base}</script><ul>
-<li>防御</li>
-</ul>
-<script type="math/tex; mode=display">
-Defence = random(1.5, 3.5) * ln(N) * Defence_{base}</script><ul>
-<li>移动速度</li>
-</ul>
-<script type="math/tex; mode=display">
-Speed = random(1.5, 3.5) * ln(N) * Speed_{base}</script><ul>
-<li>视野半径</li>
-</ul>
-<script type="math/tex; mode=display">
-ViewRadius = random(1.5, 3.5) * ln(N) * ViewRadius_{base}</script><ul>
-<li><p>适合温度</p>
-<ul>
-<li>50%T，25%T-1，25%T+1</li>
-<li>在适合温度时，基础属性随机一个x3</li>
-</ul>
-</li>
-<li><p>属性免疫 随机1个</p>
-</li>
-</ul>
-<p>属性池 [无x3,其他属性]</p>
-<h4 id="武器-2"><a href="#武器-2" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
-<script type="math/tex; mode=display">
-Bullets = random(3, max(3, N))</script><p>射速</p>
-<script type="math/tex; mode=display">
-AttackInterval = random(1.5, 3.5) * ln(N) * Speed_{base}</script><p>充能</p>
-<script type="math/tex; mode=display">
-RechargeTime = random(0.2, 0.6) * ln(N) * RechargeTime_{base}</script><p>同时子弹数量</p>
-<script type="math/tex; mode=display">
-ConcurrentBullets = randomInt(1, 3)</script><h4 id="子弹-2"><a href="#子弹-2" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带一枚子弹</p>
-<h3 id="Boss"><a href="#Boss" class="headerlink" title="Boss"></a>Boss</h3><ul>
-<li>血量</li>
-</ul>
-<script type="math/tex; mode=display">
-HP = random(3, 5) * ln(N) * BossCount * HP_{base}</script><ul>
-<li>防御</li>
-</ul>
-<script type="math/tex; mode=display">
-Defence = random(3, 5) * ln(N) * BossCount * Defence_{base}</script><ul>
-<li>移动速度</li>
-</ul>
-<script type="math/tex; mode=display">
-Speed = random(3, 5) * ln(N) * BossCount * Speed_{base}</script><ul>
-<li>视野半径</li>
-</ul>
-<script type="math/tex; mode=display">
-ViewRadius = random(3, 5) * ln(N) * BossCount * ViewRadius_{base}</script><ul>
-<li><p>适合温度</p>
-<ul>
-<li>100% T</li>
-<li>在适合温度时，基础属性随机一个x3</li>
-</ul>
-</li>
-<li><p>属性免疫 随机3个</p>
-</li>
-</ul>
-<p>属性池 [无x3,其他属性]</p>
-<h4 id="武器-3"><a href="#武器-3" class="headerlink" title="武器"></a>武器</h4><p>容量</p>
-<script type="math/tex; mode=display">
-Bullets = random(3, max(3, N)) * BossCount</script><p>射速</p>
-<script type="math/tex; mode=display">
-AttackInterval = random(1.5, 3.5) * ln(N) * BossCount * Speed_{base}</script><p>充能</p>
-<script type="math/tex; mode=display">
-RechargeTime = random(0.2, 0.6) * ln(N) * BossCount * RechargeTime_{base}</script><p>同时子弹数量</p>
-<script type="math/tex; mode=display">
-ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a href="#子弹-3" class="headerlink" title="子弹"></a>子弹</h4><p>子弹属性SlotCount = 1，随机一个属性<br>携带BossCount * 3枚子弹，随机切换</p>
-<h2 id="武器-4"><a href="#武器-4" class="headerlink" title="武器"></a>武器</h2><h2 id="功能性物品"><a href="#功能性物品" class="headerlink" title="功能性物品"></a>功能性物品</h2><p>能力强化</p>
-<ul>
-<li>最大血量 <script type="math/tex">[0.75,0.8,0.85,0.9,0.95,1.05,1.1,1.15,1.2,1.25]</script></li>
-<li>连续冲刺次数 <script type="math/tex">[-1,1]</script></li>
-<li>视野 <script type="math/tex">[-2,2]</script></li>
-<li>移速 <script type="math/tex">[0.8,0.9,1.1,1.2]</script></li>
-</ul>
-<p>一个物品随机1-3个属性，每个属性随机区间</p>
-<h2 id="消耗品"><a href="#消耗品" class="headerlink" title="消耗品"></a>消耗品</h2><ul>
-<li>小号医疗包 10%</li>
-<li>中号医疗包 25%</li>
-<li>大号医疗包 50%</li>
-<li>再生组织 复活1次</li>
-</ul>
-<h2 id="成长"><a href="#成长" class="headerlink" title="成长"></a>成长</h2><ul>
-<li>普通死亡</li>
-</ul>
-<p>嘲讽，可以选择重置星球属性或沿用当前星球属性</p>
-<ul>
-<li>打败boss后</li>
-</ul>
-<p>非常嘲讽，获得消耗品，物品，或武器</p>
-<ul>
-<li>通关后</li>
-</ul>
-<p>极度嘲讽，获得特殊道具</p>
-<h2 id="特殊道具（永久）"><a href="#特殊道具（永久）" class="headerlink" title="特殊道具（永久）"></a>特殊道具（永久）</h2><ul>
-<li>水肺（一周目通关后获得）</li>
-</ul>
-<p>可下水，有时间限制（氧气）</p>
-<ul>
-<li>照明取暖弹（二周目通关后获得）</li>
-</ul>
-<p>可进入寒冰黑夜，定时发射照明弹扩大视野，有时间限制（过冷）</p>
-<ul>
-<li>隔热墨镜（三周目通关后获得）</li>
-</ul>
-<p>可进入岩浆白昼，有时间限制（过热）</p>
-<h2 id="后期"><a href="#后期" class="headerlink" title="后期"></a>后期</h2><p>可选择探索不同难度的星系，每次探索必坠毁（TAT）</p>
-]]></content>
-      <categories>
-        <category>游戏</category>
-      </categories>
-      <tags>
-        <tag>游戏</tag>
-        <tag>Keep Moving</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Kubernetes系统实战 1 - 存储系统</title>
     <url>/k8s/in-action/1-storage-on-k8s/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>云厂商的k8s集群通常提供默认StorageClass，可直接创建磁盘资源。私有k8s集群需要部署存储系统支持PVC的创建。</p>
@@ -1354,6 +1354,111 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
       <tags>
         <tag>kubernetes</tag>
         <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>普惠自动化 - 零代码/低代码/RPA/学Python</title>
+    <url>/product/research/general-automation/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>如何应对普遍存在的自动化需求？</p>
+<a id="more"></a>
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>数字化进程不断加深，自动化的需求日益增长。计算设备从诞生起，不断从底层革新实现方式，交互形式上也不断简化。初代程序员需要熟悉二进制打孔纸带，化身人肉解码器。随后是128个字符，直接访问内存，操作寄存器。之后是更高层的抽象，使用函数、对象等模型屏蔽对底层硬件的关注，辅以编译优化技术自动生成指令。最近很火的编程语言是Python，提供了一套极简的动态模型，掌握条件、循环、函数、对象即可上手。</p>
+<p>但如此还是不够，编程仍然是一小部分人掌握的能力，但自动化的需求是普遍存在的。越来越多的人需要通过各式各样的接口操作数据，即便是那些现在还没有数字化的产业，也在积极拥抱数字化。数字化是自动化的前提，数字化的核心围绕三点：IO，数据，计算。</p>
+<p>IO是数字世界的大门，输入I包括人机交互设备，数据采集设备，输出O包括人机显示设备，机械装置。<br>数据是数字世界的核心建筑，数据库是广为采用的存储形式，绝大部分系统只是对数据库的包装。<br>计算是数字世界的建设演化的动力，从数据中提取模式，分析相关因果，预测未知，生成无在。</p>
+<p>编程是少数人的能力，程序员，研究员，分析员，与数字世界的交互并不干净，脏活累活不少，系统中的缺陷更多。其他大部分人都在通过有限的交互方式使用系统，绝大部分是重复性劳动，自动化的需求是普遍存在的，但绝大部分需求是个性化、定制化的，不足以专门为此开发一套系统。</p>
+<h1 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h1><p>那么有什么方案来满足普遍存在的轻量的定制化的自动化需求呢？目前可以看到几种方向：零代码、低代码、RPA、学Python。</p>
+<h2 id="零代码"><a href="#零代码" class="headerlink" title="零代码"></a>零代码</h2><p>零代码就是不写代码，使用完全图形化的交互形式。在工业系统如LabView等工具上已经可以看到应用。但是零代码并不是完全不需要理解程序化流程，而是提供了一套形象化的操作方式。本身仍然是编程，要看提供的可用模块丰富度，各类模块的连线繁琐程度并不比直接写代码更方便，在版本管理上，使用序列化配置文件描述连接关系，颇有硬件设计语言的形式。</p>
+<h2 id="低代码"><a href="#低代码" class="headerlink" title="低代码"></a>低代码</h2><p>在零代码的基础上，增加了模块内代码描述。还是得学的JavaScript或者Python，操作JSON文件。</p>
+<h2 id="RPA"><a href="#RPA" class="headerlink" title="RPA"></a>RPA</h2><p>主要解决的是自动化人机交互问题，使用模拟输入固化操作，集按键精灵和爬虫为一体，兼容传统文件：Word，Excel。更智能等解决方案包括：语音识别、NLP语义分析、知识问答、语音合成、OCR识别、图像检测等。</p>
+<h2 id="学Python"><a href="#学Python" class="headerlink" title="学Python"></a>学Python</h2><p>花了十天看完Python入门，写个应用，基本会被淹没在文件系统、网络、数据格式、前后端等等各类操作细节中。</p>
+<h1 id="趋势"><a href="#趋势" class="headerlink" title="趋势"></a>趋势</h1><p>单机-&gt;联机-&gt;多人协作</p>
+<p>关注数据不关注操作细节</p>
+<p>自动化流程的构建、调试、维护、版本管理</p>
+<h1 id="拆解"><a href="#拆解" class="headerlink" title="拆解"></a>拆解</h1><p>零代码平台主要功能：</p>
+<ul>
+<li>表单，收集信息</li>
+<li>流程，审批，API调用</li>
+<li>报表，数据分析</li>
+<li>文档，内部归纳</li>
+</ul>
+<h1 id="WHY"><a href="#WHY" class="headerlink" title="WHY"></a>WHY</h1><p>更低门槛的普惠自动化可以带来什么？</p>
+<h2 id="个人"><a href="#个人" class="headerlink" title="个人"></a>个人</h2><p>传统上，使用TODO、笔记本、文档、Excel完成任务进度规划、事项提醒、资料收集、头脑风暴、论文编写、知识记忆。</p>
+<p>论道与术。多种工具结合，有清晰的目的。对多数人来说，TODO List足以，以纸质书为基础、以视频课程为辅，以课后习题和考前刷题为核心。</p>
+<p>这里有低代码、RPA的空间吗？这里更像是时间规划、项目管理、资源整合的需求。</p>
+<p>重复性程度低，创造性程度高。以外界目标为基准的学习行为往往非常耗能。</p>
+<p>将TODO、笔记、数据、文档、项目整合，增强跨功能体验。</p>
+<h2 id="团队"><a href="#团队" class="headerlink" title="团队"></a>团队</h2><p>项目、订单、产品、项目、客户，一切皆表、一切皆对象。ORM可以解决大部分。</p>
+<h2 id="微型公司"><a href="#微型公司" class="headerlink" title="微型公司"></a>微型公司</h2><p>流程审批</p>
+<p>权限</p>
+<p>数据安全</p>
+<h1 id="产品"><a href="#产品" class="headerlink" title="产品"></a>产品</h1><p>UniPath<br>影刀<br>简道云</p>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><p>多个产品揉在了一起，需要分解</p>
+<h2 id="ORM"><a href="#ORM" class="headerlink" title="ORM"></a>ORM</h2><p>mark</p>
+<p>一切皆对象，用于建立项目、任务、TODO、书单，anything关联表。</p>
+<p>感觉很好，比直接操作数据库好。其他产品应该有类似功能或跟进。</p>
+<h2 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h2><p>不做，属于0代码范畴，过于复杂。流程审批也不做，交给企业OA。</p>
+<p>操作出入数据，0代码，需要宏模块。</p>
+<h2 id="多媒体Chat"><a href="#多媒体Chat" class="headerlink" title="多媒体Chat"></a>多媒体Chat</h2><p>mark，基本聊天功能。</p>
+<ol>
+<li>支持和doc互动。</li>
+<li>支持orm引用。</li>
+<li>-todo 支持自定义交互组件</li>
+</ol>
+<p>基本功能，支持更多样的显示，貌似没啥用。</p>
+<h2 id="多媒体Doc"><a href="#多媒体Doc" class="headerlink" title="多媒体Doc"></a>多媒体Doc</h2><p>基本功能，支持更多样的显示，貌似没啥用。</p>
+<p>互动式文档，比如旅游规划，可显示定位，跳转。</p>
+<p>动态规划行程插件，支持修改文档显示内容，不影响文档实际内容。实际内容需要编辑权限。</p>
+<p>和notion有什么区别。</p>
+<p>不打算支持完整的文档功能。</p>
+<ol>
+<li>和channel的互动。拖拽到doc，或直接转换为doc引用。</li>
+<li>-todo 支持自定义交互组件，属于表单的功能，可delay。</li>
+<li>支持ORM引用（一个引用，复用channel的引用，layout可能差点）和图表（点状图）。</li>
+</ol>
+<h2 id="表单发布"><a href="#表单发布" class="headerlink" title="表单发布"></a>表单发布</h2><p>暂时不做，功能较简单，考虑是否与doc合并</p>
+<p>单独拆解，不与文档耦合。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>可直接操作的数据库，可连外接数据源。</p>
+<p>可暴露直接操作，也可限制权限，通过ORM操作。</p>
+<ol>
+<li>基本操作。</li>
+</ol>
+<h2 id="信息整合Inbox"><a href="#信息整合Inbox" class="headerlink" title="信息整合Inbox"></a>信息整合Inbox</h2><p>手机share、webhook发送等。</p>
+<p>使用Channel。</p>
+<ol>
+<li>支持一个极简trigger，从消息提取文本，生成ORM。</li>
+</ol>
+<h2 id="订阅中心"><a href="#订阅中心" class="headerlink" title="订阅中心"></a>订阅中心</h2><p>订阅RSS、爬虫，各类自媒体消息。</p>
+<p>不做，属于RPA功能，使用Webhook推送。</p>
+<h2 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h2><p>不做，消息过载，过滤。从各类消息中过滤，FearOfMissing。</p>
+<p>属于应用开发，可以在trigger增加关键字。</p>
+<h2 id="个人助手"><a href="#个人助手" class="headerlink" title="个人助手"></a>个人助手</h2><p>不做，命题过大。</p>
+<p>今日代办、行程指引、自动规划、知识抽取、场景推荐。通常意味着在OS层获取其他应用信息。</p>
+<p>助手的便携体现在什么地方？</p>
+<p>不同的人有不同要求。</p>
+<p>对于公司职员，更好更快地处理琐碎的劳动细节，避免重复性劳动更有价值。出于数据安全性的问题，可能单机版RPA工具可能更适合。<br>对于自由职业，管理项目排期，客户关系，外包税帐更有价值，积累核心库。<br>对于学生，更高效低达成目标更关键，通常自我约束能力差的人，也不太会因为用了工具而更好。</p>
+<h2 id="简易应用builder"><a href="#简易应用builder" class="headerlink" title="简易应用builder"></a>简易应用builder</h2><p>不做，用ORM吧。</p>
+<p>7个习惯中有很多表，可以快速build上线使用。</p>
+<h2 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h2><p>使用H2O做的挑瓜神器。</p>
+<p>西瓜ORM</p>
+<ul>
+<li>西瓜保持在中心：图片</li>
+<li>敲打声：音频</li>
+<li>创建</li>
+</ul>
+<p>trigger</p>
+<ul>
+<li>call api</li>
+<li>insert into orm 好瓜</li>
+<li>insert after 好瓜</li>
+</ul>
+]]></content>
+      <categories>
+        <category>科技</category>
+      </categories>
+      <tags>
+        <tag>科技</tag>
+        <tag>零代码</tag>
+        <tag>低代码</tag>
+        <tag>RPA</tag>
       </tags>
   </entry>
   <entry>
@@ -2240,7 +2345,7 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> m &#123;</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">        fmt.Print(i)</span><br><span class="line">    &#125;(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用局部变量拷贝</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> m &#123;</span><br><span class="line">    i := i</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        fmt.Print(i)</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="高级特性"><a href="#高级特性" class="headerlink" title="高级特性"></a>高级特性</h2><ul>
+<h1 id="高级特性"><a href="#高级特性" class="headerlink" title="高级特性"></a>高级特性</h1><ul>
 <li>var _ io.Writer = (*myWriter)(nil)</li>
 </ul>
 <p>编译器会由此检查 *myWriter 类型是否实现了 io.Writer 接口。</p>
@@ -2256,12 +2361,12 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <li>内存对齐</li>
 </ul>
 <p><a href="https://ms2008.github.io/2019/08/01/golang-memory-alignment/" target="_blank" rel="noopener">https://ms2008.github.io/2019/08/01/golang-memory-alignment/</a></p>
-<h2 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h2><p><a href="https://blog.csdn.net/weixin_42117918/article/details/107561920" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42117918/article/details/107561920</a></p>
+<h1 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h1><p><a href="https://blog.csdn.net/weixin_42117918/article/details/107561920" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42117918/article/details/107561920</a></p>
 <p>队列 + 工作池</p>
-<h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h2><p>NewTimer NewTicker AfterFunc Sleep</p>
+<h1 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h1><p>NewTimer NewTicker AfterFunc Sleep</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    timer := time.NewTimer(time.Minute * <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-timer.C:</span><br><span class="line">            o.lock.Lock()</span><br><span class="line">            <span class="keyword">for</span> k, v := <span class="keyword">range</span> o.visitIPs &#123;</span><br><span class="line">                <span class="keyword">if</span> time.Now().Sub(v) &gt;= time.Minute*<span class="number">1</span> &#123;</span><br><span class="line">                    <span class="built_in">delete</span>(o.visitIPs, k)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            o.lock.Unlock()</span><br><span class="line">            timer.Reset(time.Minute * <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		LoadConfigFromABParam()</span><br><span class="line">		time.Sleep(time.Minute)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="避免拷贝"><a href="#避免拷贝" class="headerlink" title="避免拷贝"></a>避免拷贝</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"unsafe"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">String</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(s <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    pbytes := (*reflect.SliceHeader)(unsafe.Pointer(&amp;b))</span><br><span class="line">    pstring := (*reflect.StringHeader)(unsafe.Pointer(&amp;s))</span><br><span class="line">    pstring.Data = pbytes.Data</span><br><span class="line">    pstring.Len = pbytes.Len</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Slice</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="params">(b []<span class="keyword">byte</span>)</span></span> &#123;</span><br><span class="line">    pbytes := (*reflect.SliceHeader)(unsafe.Pointer(&amp;b))</span><br><span class="line">    pstring := (*reflect.StringHeader)(unsafe.Pointer(&amp;s))</span><br><span class="line">    pbytes.Data = pstring.Data</span><br><span class="line">    pbytes.Len = pstring.Len</span><br><span class="line">    pbytes.Cap = pstring.Len</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<h1 id="避免拷贝"><a href="#避免拷贝" class="headerlink" title="避免拷贝"></a>避免拷贝</h1><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"unsafe"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">String</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(s <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    pbytes := (*reflect.SliceHeader)(unsafe.Pointer(&amp;b))</span><br><span class="line">    pstring := (*reflect.StringHeader)(unsafe.Pointer(&amp;s))</span><br><span class="line">    pstring.Data = pbytes.Data</span><br><span class="line">    pstring.Len = pbytes.Len</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Slice</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="params">(b []<span class="keyword">byte</span>)</span></span> &#123;</span><br><span class="line">    pbytes := (*reflect.SliceHeader)(unsafe.Pointer(&amp;b))</span><br><span class="line">    pstring := (*reflect.StringHeader)(unsafe.Pointer(&amp;s))</span><br><span class="line">    pbytes.Data = pstring.Data</span><br><span class="line">    pbytes.Len = pstring.Len</span><br><span class="line">    pbytes.Cap = pstring.Len</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>面筋</category>
       </categories>
@@ -2634,6 +2739,13 @@ ConcurrentBullets = randomInt(1, 3) * BossCount</script><h4 id="子弹-3"><a hre
 <p>当然，任何的技术方案都是取舍，异步梯度更新的方式虽然大幅加快了训练速度，但带来的是模型一致性的丧失，也就是说并行训练的结果与原来的单点串行训练的结果是不一致的，这样的不一致会对模型收敛的速度造成一定影响。所以最终选取同步更新还是异步更新取决于不同模型对于一致性的敏感程度。这类似于一个模型超参数选取的问题，需要针对具体问题进行具体的验证。</p>
 <p>除此之外，在同步和异步之间，还可以通过一些“最大延迟”等参数来限制异步的程度。比如可以限定在三轮迭代之内，模型参数必须更新一次，那么如果某worker节点计算了三轮梯度，该节点还未完成一次从server节点pull最新模型参数的过程，那么该worker节点就必须停下等待pull操作的完成。这是同步和异步之间的折衷方法。</p>
 <p><a href="https://zhuanlan.zhihu.com/p/82116922" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/82116922</a></p>
+<p>Q: 无锁队列？</p>
+<p>Q：大数归并排序？</p>
+<p>外排序的一个例子是外归并排序（External merge sort），它读入一些能放在内存内的数据量，在内存中排序后输出为一个顺串（即是内部数据有序的临时文件），处理完所有的数据后再进行归并。[1][2]比如，要对900MB的数据进行排序，但机器上只有100 MB的可用内存时，外归并排序按如下方法操作：</p>
+<p>读入100 MB的数据至内存中，用某种常规方式（如快速排序、堆排序、归并排序等方法）在内存中完成排序。<br>将排序完成的数据写入磁盘。<br>重复步骤1和2直到所有的数据都存入了不同的100 MB的块（临时文件）中。在这个例子中，有900 MB数据，单个临时文件大小为100 MB，所以会产生9个临时文件。<br>读入每个临时文件（顺串）的前10 MB（ = 100 MB / (9块 + 1)）的数据放入内存中的输入缓冲区，最后的10 MB作为输出缓冲区。（实践中，将输入缓冲适当调小，而适当增大输出缓冲区能获得更好的效果。）<br>执行九路归并算法，将结果输出到输出缓冲区。一旦输出缓冲区满，将缓冲区中的数据写出至目标文件，清空缓冲区。一旦9个输入缓冲区中的一个变空，就从这个缓冲区关联的文件，读入下一个10M数据，除非这个文件已读完。这是“外归并排序”能在主存外完成排序的关键步骤 — 因为“归并算法”(merge algorithm)对每一个大块只是顺序地做一轮访问(进行归并)，每个大块不用完全载入主存。</p>
+<p>Q：推荐分布式训练？</p>
+<p><a href="https://zhuanlan.zhihu.com/p/75946827" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/75946827</a></p>
+<p>Q: 哈希膨胀</p>
 ]]></content>
       <categories>
         <category>面筋</category>
