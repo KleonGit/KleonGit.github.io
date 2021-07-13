@@ -2,37 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.kleon.space/product/research/general-automation/</loc>
-    
-    <lastmod>2021-06-30T10:27:06.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-06-30T07:54:37.391Z</lastmod>
+    <lastmod>2021-07-13T12:08:28.329Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-06-30T07:54:37.379Z</lastmod>
+    <lastmod>2021-07-13T12:08:28.313Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-06-30T07:54:37.379Z</lastmod>
+    <lastmod>2021-07-13T12:08:28.313Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-06-30T07:54:37.379Z</lastmod>
+    <lastmod>2021-07-13T12:08:28.313Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/product/dev/general-automation/</loc>
+    
+    <lastmod>2021-06-30T10:27:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.kleon.space/product/research/general-automation/</loc>
+    
+    <lastmod>2021-06-30T10:27:06.000Z</lastmod>
     
   </url>
   
