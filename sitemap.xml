@@ -2,35 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.kleon.space/product/track/h2o/</loc>
+    
+    <lastmod>2021-07-22T10:27:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.kleon.space/tags/index.html</loc>
     
-    <lastmod>2021-07-13T12:08:28.329Z</lastmod>
+    <lastmod>2021-07-22T04:12:57.419Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/googlebe23cb0bc55fc412.html</loc>
     
-    <lastmod>2021-07-13T12:08:28.313Z</lastmod>
+    <lastmod>2021-07-22T04:12:57.399Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/about/index.html</loc>
     
-    <lastmod>2021-07-13T12:08:28.313Z</lastmod>
+    <lastmod>2021-07-22T04:12:57.399Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.kleon.space/categories/index.html</loc>
     
-    <lastmod>2021-07-13T12:08:28.313Z</lastmod>
+    <lastmod>2021-07-22T04:12:57.399Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.kleon.space/product/dev/general-automation/</loc>
+    <loc>https://blog.kleon.space/product/dev/h2o/</loc>
     
     <lastmod>2021-06-30T10:27:06.000Z</lastmod>
     
